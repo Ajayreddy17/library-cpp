@@ -10,16 +10,12 @@ struct SegTree {
     using T = typename MX::value_type;
 
     SegTree() : SegTree(0) {}
-    explicit SegTree(int n) { build(n); }
+    SegTree(int n) { build(n); }
     template<class F> SegTree(int n, const F &f) { build(n, f); }
     SegTree(const std::vector<T> &a) {
         build(a.size(), [&](int i){ return a[i]; });
     }
-
-    void build(int n){ build(n, [](int){ return MX::unit(); }); }
-    void build(const std::vector<T> &a){
-        build(a.size(), [&](int i){ return a[i]; });
-    }
+    
     template<class F>
     void build(int _n, const F &f) {
         n = _n, m = ceil_pow2(_n);

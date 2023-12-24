@@ -10,15 +10,21 @@ struct SegTree {
     using T = typename MX::value_type;
 
     SegTree() : SegTree(0) {}
-    explicit SegTree(int n) : SegTree(std::vector<T>(n, MX::unit())) {}
-    template<class F> SegTree(int n, const F &f) : SegTree(generate_vector<T>(n, f)) {}
-    SegTree(const std::vector<T> &a) : n(a.size()), m(ceil_pow2(n)), data(2 * m, MX::unit()) {
-        build(a);
+    explicit SegTree(int n) { build(n); }
+    template<class F> SegTree(int n, const F &f) { build(n, f); }
+    SegTree(const std::vector<T> &a) {
+        build(a.size(), [&](int i){ return a[i]; });
     }
 
-    void build(const std::vector<T> &a) {
-        assert(int(a.size()) <= m);
-        std::copy(a.begin(), a.end(), data.begin() + m);
+    void build(int n){ build(n, [](int){ return MX::unit(); }); }
+    void build(const std::vector<T> &a){
+        build(a.size(), [&](int i){ return a[i]; });
+    }
+    template<class F>
+    void build(int _n, const F &f) {
+        n = _n, m = ceil_pow2(_n);
+        data.assign(m << 1, MX::unit());
+        for (int i = 0; i < n; ++i) data[i + m] = f(i);
         for (int k = m - 1; k > 0; --k) update(k);
     }
     const T& get(int i) const {

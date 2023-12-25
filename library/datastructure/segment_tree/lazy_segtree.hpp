@@ -16,7 +16,7 @@ struct Lazy_SegTree {
     using operator_type = F;
 
     Lazy_SegTree() : Lazy_SegTree(0) {}
-    Lazy_SegTree(int n) { build(n, [](int){ return MX::unit(); })}
+    Lazy_SegTree(int n) { build(n, [](int){ return MX::unit(); }); }
     Lazy_SegTree(const std::vector<value_type>& init) {
         build(init.size(), [&](int i){ return init[i]; });
     }
@@ -114,6 +114,16 @@ struct Lazy_SegTree {
         } while ((r & -r) != r);
         return 0;
     }
+
+    template<class output_stream>
+    friend output_stream &operator<<(output_stream &out, Lazy_SegTree<ActedMonoid> &lseg){
+        out << "[";
+        for(auto i = 0; i < lseg.n; ++ i){
+            out << lseg[i];
+            if(i != lseg.n - 1) out << ", ";
+        }
+        return out << ']';
+    }
      
 private:
     int n, m, lg;
@@ -135,7 +145,7 @@ private:
     inline int topbit(int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }
     void push(int k) {
         all_apply(2 * k, lazy[k]), all_apply(2 * k + 1, lazy[k]);
-        lazy[k] = id();
+        lazy[k] = MA::unit();
     }
     void push_to(int p) {
         p += m;
@@ -148,7 +158,7 @@ private:
         for (int i = lg; i >= ri + 1; --i) push(r >> i);
     }
     void update(int k) {
-        data[k] = op(data[2 * k], data[2 * k + 1]);
+        data[k] = MX::op(data[2 * k], data[2 * k + 1]);
     }
     void update_from(int p) {
         p += m;

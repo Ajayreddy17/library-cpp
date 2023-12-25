@@ -97,7 +97,7 @@ struct SegTree {
     friend output_stream &operator<<(output_stream &out, SegTree<Monoid> &seg){
         out << "[";
         for(auto i = 0; i < seg.n; ++ i){
-            out << seg.prod(i, i + 1);
+            out << seg[i];
             if(i != seg.n - 1) out << ", ";
         }
         return out << ']';

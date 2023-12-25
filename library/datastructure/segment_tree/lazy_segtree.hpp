@@ -41,7 +41,7 @@ struct Lazy_SegTree {
         update_from(l, r);
     }
     void apply(int p, const operator_type& f) {
-        (*this)[p] = AM::act(f, get(p));
+        (*this)[p] = AM::act(get(p), f, 1 << (lg - topbit(p)));
     }
 
     value_type operator()(int l, int r) {
@@ -71,22 +71,22 @@ struct Lazy_SegTree {
     template <typename Pred>
     int max_right(int l, const Pred &g) {
         assert(0 <= l && l <= n);
-        assert(g(e()));
+        assert(g(MX::unit()));
         if (l == n) return n;
         l += m;
         for (int i = lg; i >= 1; --i) push(l >> i);
-        value_type sum = e();
+        value_type sum = MX::unit();
         do {
             while ((l & 1) == 0) l >>= 1;
-            if (not g(op(sum, data[l]))) {
+            if (not g(MX::op(sum, data[l]))) {
                 while (l < m) {
                     push(l);
                     l = 2 * l;
-                    if (g(op(sum, data[l]))) sum = op(sum, data[l++]);
+                    if (g(MX::op(sum, data[l]))) sum = MX::op(sum, data[l++]);
                 }
                 return l - m;
             }
-            sum = op(sum, data[l++]);
+            sum = MX::op(sum, data[l++]);
         } while ((l & -l) != l);
         return n;
     }
@@ -94,23 +94,23 @@ struct Lazy_SegTree {
     template <typename Pred>
     int min_left(int r, const Pred &g) {
         assert(0 <= r && r <= n);
-        assert(g(e()));
+        assert(g(MX::unit()));
         if (r == 0) return 0;
         r += m;
         for (int i = lg; i >= 1; --i) push(r >> i);
-        value_type sum = e();
+        value_type sum = MX::unit();
         do {
             r--;
             while (r > 1 and (r & 1)) r >>= 1;
-            if (not g(op(data[r], sum))) {
+            if (not g(MX::op(data[r], sum))) {
                 while (r < m) {
                     push(r);
                     r = 2 * r + 1;
-                    if (g(op(data[r], sum))) sum = op(data[r--], sum);
+                    if (g(MX::op(data[r], sum))) sum = MX::op(data[r--], sum);
                 }
                 return r + 1 - m;
             }
-            sum = op(data[r], sum);
+            sum = MX::op(data[r], sum);
         } while ((r & -r) != r);
         return 0;
     }
@@ -127,11 +127,12 @@ private:
     }
 
     void all_apply(int k, const operator_type& f) {
-        data[k] = mapping(f, data[k]);
+        data[k] = AM::act(data[k], f, 1 << (lg - topbit(k)));
         if (k < m) {
-            lazy[k] = composition(f, lazy[k]);
+            lazy[k] = MA::op(f, lazy[k]);
         }
     }
+    inline int topbit(int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }
     void push(int k) {
         all_apply(2 * k, lazy[k]), all_apply(2 * k + 1, lazy[k]);
         lazy[k] = id();

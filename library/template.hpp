@@ -46,7 +46,7 @@ namespace mitsuha {
     template <typename T> auto generate_range(T l, T r) { return generate_vector<T>(r - l, [l](int i) { return l + i; }); }
     template <typename T> auto generate_range(T n) { return generate_range(0, n); }
 
-    template <class Iterable, std::enable_if_t<is_iterable_v<Iterable>, std::nullptr_t> = nullptr>
+    template <class Iterable>
     void settify(Iterable& a) { std::sort(a.begin(), a.end()), a.erase(std::unique(a.begin(), a.end()), a.end()); }
 
     template <size_t D> struct Dim : std::array<int, D> {

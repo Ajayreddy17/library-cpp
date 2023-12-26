@@ -9,7 +9,9 @@
                 "LOCAL"
             ],
             "compilerPath": "C:\\Program Files (x86)\\mingw64\\bin\\gcc.exe",
-            "intelliSenseMode": "windows-gcc-x64"
+            "intelliSenseMode": "windows-gcc-x64",
+            "cppStandard": "c++20",
+            "cStandard": "c23"
         }
     ],
     "version": 4

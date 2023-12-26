@@ -83,7 +83,6 @@ struct modint {
 };
 
 template<int mod> istream &operator>>(istream &in, modint<mod> &number){
-    long long x;
     in >> number.val;
     number.val %= mod;
     return in;

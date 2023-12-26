@@ -25,8 +25,7 @@ namespace mitsuha::macro {
 #undef IMPL_REPITER
 }
 
-#include <library/io/input_stream.hpp>
-#include <library/io/output_stream.hpp>
+#include <library/io/io.hpp>
 
 namespace mitsuha {
     template <class T, class ToKey, class CompKey = std::less<>, std::enable_if_t<std::conjunction_v<std::is_invocable<ToKey, T>, std::is_invocable_r<bool, CompKey, std::invoke_result_t<ToKey, T>, std::invoke_result_t<ToKey, T>>>, std::nullptr_t> = nullptr>

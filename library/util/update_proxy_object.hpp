@@ -1,7 +1,7 @@
 #ifndef AJAY_UPDATE_PROXY_OBJECT
 #define AJAY_UPDATE_PROXY_OBJECT
 
-#include "library/type_traits/type_traits.hpp"
+#include "library/type_traits/constraints.hpp"
 
 namespace mitsuha{
 template <typename T, typename UpdateFunc, constraints_t<std::is_invocable<UpdateFunc>> = nullptr>

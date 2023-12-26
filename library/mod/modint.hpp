@@ -80,18 +80,20 @@ struct modint {
         return {-1, -1};
     }
     static constexpr bool can_ntt() { return ntt_info().first != -1; }
-};
 
-template<int mod> istream &operator>>(istream &in, modint<mod> &number){
-    in >> number.val;
-    number.val %= mod;
-    return in;
-}
-template<int mod> ostream &operator<<(ostream &out, const modint<mod> &number){
-    return out << number.val;
-}
+    template<int _mod> 
+    friend void read(modint<_mod> &number){
+        io::read(number.val);
+        number.val %= _mod;
+    }
+    template<int _mod>
+    friend void write(const modint<_mod> &number){
+        io::write(number.val);
+    }
+};
 
 using modint107 = modint<1000000007>;
 using modint998 = modint<998244353>;
 } // namespace mitsuha
 #endif // AJAY_MODINT
+

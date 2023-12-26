@@ -40,6 +40,10 @@ namespace mitsuha::io {
         do c = getchar(); while (not isgraph(c));
         do x += std::exchange(c, getchar()); while (isgraph(c));
     }
+    template <typename T, typename U>
+    void read(std::pair<T, U>& a) { read(a.first), read(a.second); }
+    template <size_t N = 0, typename ...Args>
+    void read(std::tuple<Args...>& a) { if constexpr (N < sizeof...(Args)) read(std::get<N>(a)), read<N + 1>(a); }
         
     void write(char c) { putchar(c); }
     template <typename T, std::enable_if_t<is_integral_v<T>, std::nullptr_t> = nullptr>
@@ -59,15 +63,20 @@ namespace mitsuha::io {
         }
     }
     void write(const std::string& x) { for (char c : x) putchar(c); }
+    template <typename T, typename U>
+    void write(const std::pair<T, U>& a) { write(a.first), write(' '), write(a.second); }
+    template <size_t N = 0, typename ...Args>
+    void write(const std::tuple<Args...>& a) {
+        if constexpr (N < std::tuple_size_v<std::tuple<Args...>>) {
+            if constexpr (N) write(' ');
+            write(std::get<N>(a)), write<N + 1>(a);
+        }
+    }
     
     template <typename ...Args>
     void read(Args &...args) { (read(args), ...); }
     template <typename Head, typename ...Tails>
     void print(Head&& head, Tails &&...tails) { write(head), ((write(' '), write(tails)), ...), write('\n'); }
 }
-namespace mitsuha{
-    using io::print;
-    using io::read;
-    using io::write;
-}
+namespace mitsuha{ using io::print; using io::read; using io::write; }
 #endif // AJAY_IO

@@ -139,7 +139,7 @@ private:
     void all_apply(int k, const operator_type& f) {
         data[k] = AM::act(data[k], f, 1 << (lg - topbit(k)));
         if (k < m) {
-            lazy[k] = MA::op(f, lazy[k]);
+            lazy[k] = MA::op(lazy[k], f);
         }
     }
     inline int topbit(int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }

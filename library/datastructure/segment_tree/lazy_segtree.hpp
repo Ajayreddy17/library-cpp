@@ -14,6 +14,7 @@ struct Lazy_SegTree {
 
     using value_type = T;
     using operator_type = F;
+    int n, m, lg;
 
     Lazy_SegTree() : Lazy_SegTree(0) {}
     Lazy_SegTree(int n) { build(n, [](int){ return MX::unit(); }); }
@@ -114,19 +115,8 @@ struct Lazy_SegTree {
         } while ((r & -r) != r);
         return 0;
     }
-
-    template<class output_stream>
-    friend output_stream &operator<<(output_stream &out, Lazy_SegTree<ActedMonoid> &lseg){
-        out << "[";
-        for(auto i = 0; i < lseg.n; ++ i){
-            out << lseg[i];
-            if(i != lseg.n - 1) out << ", ";
-        }
-        return out << ']';
-    }
      
 private:
-    int n, m, lg;
     std::vector<value_type> data;
     std::vector<operator_type> lazy;
 
@@ -171,5 +161,15 @@ private:
         for (int i = ri + 1; i <= lg; ++i) update(r >> i);
     }
 };
+template<class ActedMonoid>
+std::ostream &operator<<(std::ostream &out, const Lazy_SegTree<ActedMonoid> &_lseg){
+    auto lseg = _lseg;
+    out << "[";
+    for(auto i = 0; i < lseg.n; ++ i){
+        out << lseg[i];
+        if(i != lseg.n - 1) out << ", ";
+    }
+    return out << ']';
+}
 } // namespace mitsuha
 #endif // AJAY_LAZY_SEGMENT_TREE

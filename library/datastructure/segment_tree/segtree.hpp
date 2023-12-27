@@ -8,9 +8,10 @@ template <class Monoid>
 struct SegTree {
     using MX = Monoid;
     using T = typename MX::value_type;
-
+    int n, m;
+    
     SegTree() : SegTree(0) {}
-    SegTree(int n) { build(n); }
+    SegTree(int n) { build(n, [](int){ return MX::unit(); }); }
     template<class F> SegTree(int n, const F &f) { build(n, f); }
     SegTree(const std::vector<T> &a) {
         build(a.size(), [&](int i){ return a[i]; });
@@ -93,18 +94,7 @@ struct SegTree {
         return 0;
     }
 
-    template<class output_stream>
-    friend output_stream &operator<<(output_stream &out, SegTree<Monoid> &seg){
-        out << "[";
-        for(auto i = 0; i < seg.n; ++ i){
-            out << seg[i];
-            if(i != seg.n - 1) out << ", ";
-        }
-        return out << ']';
-    }
-
 private:
-    int n, m;
     std::vector<T> data;
 
     static constexpr int ceil_pow2(int n) {
@@ -119,5 +109,16 @@ private:
         data[k] = MX::op(data[k * 2], data[k * 2 + 1]);
     }
 };
+
+template<class Monoid>
+std::ostream &operator<<(std::ostream &out, const SegTree<Monoid> &_seg){
+    auto seg = _seg;
+    out << "[";
+    for(auto i = 0; i < seg.n; ++ i){
+        out << seg[i];
+        if(i != seg.n - 1) out << ", ";
+    }
+    return out << ']';
+}
 } // namespace mitsuha
 #endif // AJAY_SEGMENT_TREE

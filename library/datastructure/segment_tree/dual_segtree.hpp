@@ -53,16 +53,6 @@ struct Dual_SegTree {
         }
     }
 
-    template<class output_stream>
-    friend output_stream &operator<<(output_stream &out, Dual_SegTree<Monoid> &seg){
-        out << "[";
-        for(auto i = 0; i < seg.n; ++ i){
-            out << seg[i];
-            if(i != seg.n - 1) out << ", ";
-        }
-        return out << ']';
-    }
-
 private:
     void push(int k) {
         if (laz[k] == MA::unit()) return;
@@ -71,5 +61,16 @@ private:
     }
     void all_apply(int k, A a) { laz[k] = MA::op(laz[k], a); }
 };
+
+template<class Monoid>
+std::ostream &operator<<(std::ostream &out, const Dual_SegTree<Monoid> &_seg){
+    auto seg = _seg;
+    out << "[";
+    for(auto i = 0; i < seg.n; ++ i){
+        out << seg[i];
+        if(i != seg.n - 1) out << ", ";
+    }
+    return out << ']';
+}
 } // namespace mitsuha
 #endif // AJAY_DUAL_SEGTREE

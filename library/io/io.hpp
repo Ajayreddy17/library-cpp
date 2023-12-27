@@ -2,7 +2,6 @@
 #define AJAY_IO
 
 namespace mitsuha::io {
-
     template <typename T>
     struct is_container {
         template <typename T2>

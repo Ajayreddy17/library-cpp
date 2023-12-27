@@ -122,6 +122,16 @@ struct FenwickTree {
     int kth(E k) {
         return max_right([&k](E x) -> bool { return x <= k; });
     }
+
+    template<class output_stream>
+    friend output_stream &operator<<(output_stream &out, FenwickTree<Monoid> &ft){
+        out << "[";
+        for(auto i = 0; i < ft.n; ++ i){
+            out << ft[i];
+            if(i != ft.n - 1) out << ", ";
+        }
+        return out << ']';
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_FENWICK_TREE

@@ -31,19 +31,19 @@ namespace mitsuha::io {
         x = 0;
         do x = x * 10 + (std::exchange(c, getchar()) - '0'); while (isdigit(c));
     }
-    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
-    void read(T& x) { for (auto &e : x) read(e); }
     void read(std::string& x) {
         x.clear();
         char c;
         do c = getchar(); while (not isgraph(c));
         do x += std::exchange(c, getchar()); while (isgraph(c));
     }
+    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
+    void read(T& x) { for (auto &e : x) read(e); }
     template <typename T, typename U>
     void read(std::pair<T, U>& a) { read(a.first), read(a.second); }
     template <size_t N = 0, typename ...Args>
     void read(std::tuple<Args...>& a) { if constexpr (N < sizeof...(Args)) read(std::get<N>(a)), read<N + 1>(a); }
-        
+
     void write(char c) { putchar(c); }
     template <typename T, std::enable_if_t<is_integral_v<T>, std::nullptr_t> = nullptr>
     void write(T x) {
@@ -53,6 +53,7 @@ namespace mitsuha::io {
         do buf[i++] = '0' + (x % 10), x /= 10; while (x);
         while (i--) putchar(buf[i]);
     }
+    void write(const std::string& x) { for (char c : x) putchar(c); }
     template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
     void write(const T& x) {
         bool insert_delim = false;
@@ -61,7 +62,6 @@ namespace mitsuha::io {
             write(*it);
         }
     }
-    void write(const std::string& x) { for (char c : x) putchar(c); }
     template <typename T, typename U>
     void write(const std::pair<T, U>& a) { write(a.first), write(' '), write(a.second); }
     template <size_t N = 0, typename ...Args>
@@ -71,7 +71,7 @@ namespace mitsuha::io {
             write(std::get<N>(a)), write<N + 1>(a);
         }
     }
-    
+
     template <typename ...Args>
     void read(Args &...args) { (read(args), ...); }
     template <typename Head, typename ...Tails>

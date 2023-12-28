@@ -95,11 +95,18 @@ using namespace mitsuha;
 using namespace std;
 
 struct io_setup {
-    io_setup(int precision = 20) {
-        std::ios::sync_with_stdio(false), std::cin.tie(nullptr);
+    io_setup(int precision = 15) {
+#ifdef LOCAL
+        freopen("input.txt",  "r", stdin);
+        freopen("output.txt", "w", stdout);
+        freopen("error.txt", "w", stderr);
+#else
+        std::cin.tie(0)->sync_with_stdio(0);
+        std::cin.exceptions(std::ios::badbit | std::ios::failbit);
+#endif
         std::cout << std::fixed << std::setprecision(precision);
     }
-} io_setup_ {};
+} io_setup_{};
 
 #ifdef LOCAL
 #include "library/debug/pprint.hpp"

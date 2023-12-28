@@ -61,7 +61,7 @@ struct Graph {
         assert(0 <= frm && 0 <= to && to < N);
         if (i == -1) i = M;
         auto e = edge_type({frm, to, cost, i});
-        edges.eb(e);
+        edges.emplace_back(e);
         ++M;
     }
 
@@ -69,13 +69,13 @@ struct Graph {
     void read_graph(int M, bool wt = false, int off = 1) {
         for (int m = 0; m < M; ++m) {
             int a, b;
-            std::cin >> a >> b;
+            read(a, b);
             a -= off, b -= off;
             if (!wt) {
                 add(a, b);
             } else {
                 T c;
-                cin >> c;
+                read(c);
                 add(a, b, c);
             }
         }
@@ -130,7 +130,7 @@ struct Graph {
         return vc_outdeg[v];
     }
 
-    void debug() {
+    void debug_t() {
 #ifdef LOCAL
         debug("Graph");
         if (!prepared) {

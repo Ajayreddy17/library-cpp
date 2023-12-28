@@ -1,3 +1,8 @@
+#ifndef LOCAL
+#  pragma GCC optimize("Ofast")
+#  pragma GCC optimize("unroll-loops")
+#endif
+
 #include <bits/stdc++.h>
 namespace mitsuha {
     template <class T> bool chmin(T& x, const T& y) { return y >= x ? false : (x = y, true); }

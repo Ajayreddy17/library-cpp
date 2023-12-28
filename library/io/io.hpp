@@ -37,12 +37,12 @@ namespace mitsuha::io {
         do c = getchar(); while (not isgraph(c));
         do x += std::exchange(c, getchar()); while (isgraph(c));
     }
-    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
-    void read(T& x) { for (auto &e : x) read(e); }
     template <typename T, typename U>
     void read(std::pair<T, U>& a) { read(a.first), read(a.second); }
     template <size_t N = 0, typename ...Args>
     void read(std::tuple<Args...>& a) { if constexpr (N < sizeof...(Args)) read(std::get<N>(a)), read<N + 1>(a); }
+    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
+    void read(T& x) { for (auto &e : x) read(e); }
 
     void write(char c) { putchar(c); }
     template <typename T, std::enable_if_t<is_integral_v<T>, std::nullptr_t> = nullptr>
@@ -54,14 +54,6 @@ namespace mitsuha::io {
         while (i--) putchar(buf[i]);
     }
     void write(const std::string& x) { for (char c : x) putchar(c); }
-    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
-    void write(const T& x) {
-        bool insert_delim = false;
-        for (auto it = x.begin(); it != x.end(); ++it) {
-            if (std::exchange(insert_delim, true)) write(' ');
-            write(*it);
-        }
-    }
     template <typename T, typename U>
     void write(const std::pair<T, U>& a) { write(a.first), write(' '), write(a.second); }
     template <size_t N = 0, typename ...Args>
@@ -69,6 +61,14 @@ namespace mitsuha::io {
         if constexpr (N < std::tuple_size_v<std::tuple<Args...>>) {
             if constexpr (N) write(' ');
             write(std::get<N>(a)), write<N + 1>(a);
+        }
+    }
+    template <typename T, std::enable_if_t<is_container_v<T>, std::nullptr_t> = nullptr>
+    void write(const T& x) {
+        bool insert_delim = false;
+        for (auto it = x.begin(); it != x.end(); ++it) {
+            if (std::exchange(insert_delim, true)) write(' ');
+            write(*it);
         }
     }
 

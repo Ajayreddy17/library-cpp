@@ -5,12 +5,12 @@ namespace mitsuha{
 // For example, walls = "#" or walls = {-1}.
 template <typename STRING>
 vector<vector<int>> grid_bfs(vector<STRING>& G, int sx, int sy, STRING walls, int dmax) {
-    assert(dmax == 4 || dmax == 8);
+    assert(dmax == 4 or dmax == 8);
     int H = (int) G.size();
     int W = (int) G[0].size();
     auto isin = [&](int x, int y) -> bool {
-        if (x < 0 || H <= x) return false;
-        if (y < 0 || W <= y) return false;
+        if (x < 0 or H <= x) return false;
+        if (y < 0 or W <= y) return false;
         return count(walls.begin(), walls.end(), G[x][y]) == 0;
     };
     int dx[] = {1, 0, -1, 0, 1, -1, -1, 1};
@@ -23,7 +23,7 @@ vector<vector<int>> grid_bfs(vector<STRING>& G, int sx, int sy, STRING walls, in
     };
     add(sx, sy, 0);
 
-    while (!que.empty()) {
+    while (not que.empty()) {
         auto [x, y] = que.front();
         que.pop_front();
         for(int d = 0; d < dmax; d ++) {

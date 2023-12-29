@@ -130,21 +130,6 @@ struct Graph {
         return vc_outdeg[v];
     }
 
-    void debug_t() {
-#ifdef LOCAL
-        debug("Graph");
-        if (!prepared) {
-            debug("frm to cost id");
-            for (auto &&e: edges) debug(e.frm, e.to, e.cost, e.id);
-        } else {
-            debug("indptr", indptr);
-            debug("frm to cost id");
-            for(int v = 0; v < N; ++v) 
-                for (auto &&e: (*this)[v]) debug(e.frm, e.to, e.cost, e.id);
-        }
-#endif
-    }
-
     vector<int> new_idx;
     vector<bool> used_e;
 
@@ -189,5 +174,19 @@ private:
         for (auto &&e: edges) { vc_indeg[e.to]++, vc_outdeg[e.frm]++; }
     }
 };
+
+template<typename T>
+std::ostream &operator<<(std::ostream &out, const Graph<T> &G){
+    if (not G.prepared) {
+        out << "frm to cost id\n";
+        for (auto &&e: G.edges) out << e.frm << " " << e.to << " " << e.cost << " " << e.id << "\n";
+    } else {
+        out << "indptr " << G.indptr << "\n";
+        out << "frm to cost id\n";
+        for(int v = 0; v < G.N; ++v) 
+            for (auto &&e: G[v]) out << e.frm << " " << e.to << " " << e.cost << " " << e.id << "\n";
+    }
+    return out;
+}
 } // namespace mitsuha
 #endif // AJAY_GRAPH

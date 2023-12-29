@@ -115,12 +115,10 @@ struct io_setup {
 
 #ifdef LOCAL
 #include "library/debug/pprint.hpp"
-pprint::PrettyPrinter printer;
 
 #  define debug(...) debug_impl(#__VA_ARGS__, __VA_ARGS__)
 template <class H, class... Ts> void debug_impl(const char* s, const H& h, const Ts&... t) {
-    printer.indent(0);
-    printer.print_inline("[\033[32mDEBUG\033[m]", s, ":", h), (printer.print_inline(",", t), ..., (printer.print("")));
+    cout << "[DEBUG] " << s << ": " << h, ((cout << ", " << t), ..., (cout << "\n"));
 }
 #else
 #  define debug(...) void(0)

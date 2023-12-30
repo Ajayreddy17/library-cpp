@@ -2,18 +2,23 @@
 #define AJAY_MONOID_SORTED
 
 namespace mitsuha{
-template <class T>
+template <class X>
 struct Monoid_Sorted {
-    using value_type = tuple<bool, bool, T, T>;
-    using X = value_type;
-    static constexpr X op(const X &x, const X &y) noexcept {
-        if (get<1>(x)) return y;
-        if (get<1>(y)) return x;
-        if (get<3>(x) <= get<2>(y)) return make_tuple(bool(get<0>(x) & get<0>(y)), false, get<2>(x), get<3>(y));
-        return make_tuple(false, false, T(), T());
+    struct Data{
+        bool Sorted = true;
+        bool Id = true;
+        X L = 0;
+        X R = 0;
+    };
+    using value_type = Data;
+    static constexpr value_type op(const value_type &x, const value_type &y) noexcept {
+        if (x.Id) return y;
+        if (y.Id) return x;
+        if (x.R <= y.L) return Data{bool(x.Sorted & y.Sorted), false, x.L, y.R};
+        return Data{false, false, X(0), X(0)};
     }
-    static constexpr X from_element(const T &x) { return make_tuple(true, false, x, x); }
-    static constexpr X unit() { return make_tuple(true, true, 0, 0); }
+    static constexpr value_type from_element(const X x) { return Data{true, false, x, x}; }
+    static constexpr value_type unit() { return value_type{}; }
     static constexpr bool commute = false;
 };
 } // namespace mitsuha

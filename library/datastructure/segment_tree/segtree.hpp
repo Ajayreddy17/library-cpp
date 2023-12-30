@@ -29,6 +29,7 @@ struct SegTree {
         return data[i + m];
     }
     T operator()(int l, int r) const {
+        assert(0 <= l && l <= r && r <= n);
         T res_l = MX::unit(), res_r = MX::unit();
         for (l += m, r += m; l < r; l >>= 1, r >>= 1) {
             if (l & 1) res_l = MX::op(res_l, data[l++]);
@@ -41,6 +42,12 @@ struct SegTree {
     T prod_right(int l) const { return (*this)(l, m); }
     T prod_all() const { return data[1]; }
 
+    void multiply(int i, const T &x) {
+        assert(i < n);
+        i += m;
+        data[i] = MX::op(data[i], x);
+        while (i >>= 1) update(i);
+    }
     void set(int i, const T &val) {
         (*this)[i] = val;
     }

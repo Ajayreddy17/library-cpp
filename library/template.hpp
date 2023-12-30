@@ -118,7 +118,7 @@ struct io_setup {
 
 #  define debug(...) debug_impl(#__VA_ARGS__, __VA_ARGS__)
 template <class H, class... Ts> void debug_impl(const char* s, const H& h, const Ts&... t) {
-    cout << "[DEBUG] " << s << ": " << h, ((cout << ", " << t), ..., (cout << "\n"));
+    cerr << "[DEBUG] " << s << ": " << h, ((cerr << ", " << t), ..., (cerr << "\n"));
 }
 #else
 #  define debug(...) void(0)

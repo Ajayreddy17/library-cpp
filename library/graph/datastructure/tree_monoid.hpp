@@ -64,7 +64,7 @@ struct Tree_Monoid {
     // Last x on uv path where prod_path(u, x) satisfies check
     // If not (i.e. path(u,u) is ng) -1
     template <class F>
-    int max_path(int u, int v, F check) {
+    int max_path(int u, int v, F &check) {
         if constexpr (edge) return max_path_edge(check, u, v);
         if (!check(prod_path(u, u))) return -1;
         auto pd = tree.get_path_decomposition(u, v, edge);
@@ -107,7 +107,7 @@ struct Tree_Monoid {
 
 private:
     template <class F>
-    int max_path_edge(F check, int u, int v) {
+    int max_path_edge(int u, int v, F &check) {
         static_assert(edge);
         if (!check(MX::unit())) return -1;
         int lca = tree.lca(u, v);

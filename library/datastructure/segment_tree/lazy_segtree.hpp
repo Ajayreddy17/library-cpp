@@ -67,6 +67,13 @@ struct Lazy_SegTree {
         return UpdateProxyObject{ data[p + m], [this, p] { update_from(p); } };
     }
     value_type get(int p) { return (*this)[p]; }
+    vector<value_type> get_all() {
+        vector<value_type> ret(n);
+        for (int i = 0; i < n; ++i){
+            ret[i] = get(i);
+        }
+        return ret;
+    }
     void set(int p, value_type v) { (*this)[p] = v; }
 
     template <typename Pred>

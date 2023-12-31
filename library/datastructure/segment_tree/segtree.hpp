@@ -56,6 +56,13 @@ struct SegTree {
         int k = i + m;
         return UpdateProxyObject { data[k], [this, k]{ update_from(k); } };
     }
+    vector<T> get_all() {
+        vector<T> ret(n);
+        for (int i = 0; i < n; ++i){
+            ret[i] = (*this)[i];
+        }
+        return ret;
+    }
 
     template <typename F>
     int max_right(int l, const F &f) const {

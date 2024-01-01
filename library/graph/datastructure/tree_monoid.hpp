@@ -53,7 +53,7 @@ struct Tree_Monoid {
         seg.multiply(i, x);
         if constexpr (!MX::commute) seg_r.multiply(i, x);
     }
-
+    
     X prod_path(int u, int v) {
         auto pd = tree.get_path_decomposition(u, v, edge);
         X val = MX::unit();

@@ -178,13 +178,15 @@ private:
 template<typename T>
 std::ostream &operator<<(std::ostream &out, const Graph<T> &G){
     if (not G.prepared) {
-        out << "frm to cost id\n";
-        for (auto &&e: G.edges) out << e.frm << " " << e.to << " " << e.cost << " " << e.id << "\n";
+        out << "frm to cost id";
+        for (auto &&e: G.edges) 
+            out << "\n" << e.frm << " " << e.to << " " << e.cost << " " << e.id;
     } else {
         out << "indptr " << G.indptr << "\n";
-        out << "frm to cost id\n";
+        out << "frm to cost id";
         for(int v = 0; v < G.N; ++v) 
-            for (auto &&e: G[v]) out << e.frm << " " << e.to << " " << e.cost << " " << e.id << "\n";
+            for (auto &&e: G[v]) 
+            out << "\n" << e.frm << " " << e.to << " " << e.cost << " " << e.id;
     }
     return out;
 }

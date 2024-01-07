@@ -1,6 +1,6 @@
 #ifndef LOCAL
-#  pragma GCC optimize("Ofast")
-#  pragma GCC optimize("unroll-loops")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
 #endif
 
 #include <bits/stdc++.h>
@@ -101,11 +101,12 @@ using namespace std;
 
 struct io_setup {
     io_setup(int precision = 15) {
-#ifdef LOCAL
+#if defined(LOCAL) and not defined(STRESS)
         freopen("input.txt",  "r", stdin);
         freopen("output.txt", "w", stdout);
         freopen("error.txt", "w", stderr);
-#else
+#endif
+#if not defined(LOCAL) and not defined(STRESS)
         std::cin.tie(0)->sync_with_stdio(0);
         std::cin.exceptions(std::ios::badbit | std::ios::failbit);
 #endif

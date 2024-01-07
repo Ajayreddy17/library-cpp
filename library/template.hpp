@@ -115,11 +115,6 @@ struct io_setup {
 
 #ifdef LOCAL
 #include "library/debug/pprint.hpp"
-
-#  define debug(...) debug_impl(#__VA_ARGS__, __VA_ARGS__)
-template <class H, class... Ts> void debug_impl(const char* s, const H& h, const Ts&... t) {
-    cerr << "[DEBUG] " << s << ": " << h, ((cerr << ", " << t), ..., (cerr << "\n"));
-}
 #else
 #  define debug(...) void(0)
 #endif

@@ -42,7 +42,7 @@ struct UnionFind {
     }
 };
 
-ostream &operator<<(ostream &out, const UnionFind  &ds){
+ostream &operator<<(ostream &out, const UnionFind &ds){
     auto dsu = ds;
     auto gs = dsu.group_up();
     out << "{";

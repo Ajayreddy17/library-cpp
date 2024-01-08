@@ -104,7 +104,7 @@ struct io_setup {
 #if defined(LOCAL) and not defined(STRESS)
         freopen("input.txt",  "r", stdin);
         freopen("output.txt", "w", stdout);
-        freopen("error.txt", "w", stderr);
+        freopen("error.txt", "w", stderr );
 #endif
 #if not defined(LOCAL) and not defined(STRESS)
         std::cin.tie(0)->sync_with_stdio(0);

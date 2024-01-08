@@ -80,17 +80,17 @@ struct modint {
         return {-1, -1};
     }
     static constexpr bool can_ntt() { return ntt_info().first != -1; }
-
-    template<int _mod> 
-    friend void read(modint<_mod> &number){
-        io::read(number.val);
-        number.val %= _mod;
-    }
-    template<int _mod>
-    friend void write(const modint<_mod> &number){
-        io::write(number.val);
-    }
 };
+
+template<int _mod>  
+void read(modint<_mod> &number){
+    io::read(number.val);
+    number.val %= _mod;
+}
+template<int _mod>
+void write(const modint<_mod> &number){
+    io::write(number.val);
+}
 
 using modint107 = modint<1000000007>;
 using modint998 = modint<998244353>;

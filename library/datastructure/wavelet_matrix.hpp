@@ -226,7 +226,9 @@ struct Wavelet_Matrix {
 
     // Sum of SUM_data at the [k1, k2)th point in the xor result
     X sum(int L, int R, int k1, int k2, T xor_val = 0) {
-        return prefix_sum(L, R, k2, xor_val) - prefix_sum(L, R, k1, xor_val);
+        X add = prefix_sum(L, R, k2, xor_val);
+        X sub = prefix_sum(L, R, k1, xor_val);
+        return MX::op(add, MX::inverse(sub));
     }
 
     X sum_all(int L, int R) { return get(lg, L, R); }

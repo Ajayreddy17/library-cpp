@@ -52,7 +52,12 @@ struct modint61 {
     }
 };
 
-istream &operator>>(istream &in, modint61 &number){ return in >> number.val; }
+void read(modint61 &number){
+    io::read(number.val);
+}
+void write(const modint61 &number){
+    io::write(number.val);
+}
 ostream &operator<<(ostream &out, const modint61 &number){ return out << number.val; }
 } // namespace mitsuha
 #endif // AJAY_MODINT61

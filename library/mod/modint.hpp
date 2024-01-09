@@ -91,6 +91,8 @@ template<int _mod>
 void write(const modint<_mod> &number){
     io::write(number.val);
 }
+template<int _mod>
+ostream &operator<<(ostream &out, const modint<_mod> &number){ return out << number.val; }
 
 using modint107 = modint<1000000007>;
 using modint998 = modint<998244353>;

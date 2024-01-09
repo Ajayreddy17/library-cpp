@@ -93,7 +93,6 @@ void debug_impl(const char* names, TH curr_val, TA... vals) {
     debug_impl(names+1, vals...);
 }
 
-#define debug(...) cerr << "[" << __LINE__ << "] "; \
-debug_impl(#__VA_ARGS__, __VA_ARGS__)
+#define debug(...) cerr << "[" << __LINE__ << "] ", debug_impl(#__VA_ARGS__, __VA_ARGS__)
 
 #endif  // H_PRETTY_PRINT

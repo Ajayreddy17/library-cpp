@@ -14,7 +14,7 @@ vector<mint> fps_exp_sparse(vector<mint>& f) {
     int N = (int) f.size();
     // have df
     vector<pair<int, mint>> dat;
-    for(int i = 1; i < N; i++) if (f[i] != mint(0)) dat.eb(i - 1, mint(i) * f[i]);
+    for(int i = 1; i < N; i++) if (f[i] != mint(0)) dat.emplace_back(i - 1, mint(i) * f[i]);
     vector<mint> F(N);
     F[0] = 1;
     for(int n = 1; n < N; n++) {

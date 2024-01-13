@@ -6,6 +6,9 @@ using namespace std;
 template <typename Iterator>
 string print_iterable(Iterator begin, Iterator end, string bef, string aft,
         function<string(typename iterator_traits<Iterator>::value_type)>* f = nullptr);
+
+ostream &operator<<(ostream &out, __int128_t x);
+ostream &operator<<(ostream &out, __uint128_t x);
  
 template <typename S, typename T>
 ostream& operator <<(ostream& out, const pair<S, T>& p);
@@ -64,6 +67,22 @@ string print_iterable(Iterator begin, Iterator end, string bef, string aft,
     }
     res << aft;
     return res.str();
+}
+
+ostream &operator<<(ostream &out, __int128_t x) {
+    if (x == 0) return out << 0;
+    if (x < 0) out << '-', x = -x;
+    string S;
+    while (x) S.push_back('0' + x % 10), x /= 10;
+    reverse(begin(S), end(S));
+    return out << S;
+}
+ostream &operator<<(ostream &out, __uint128_t x) {
+    if (x == 0) return out << 0;
+    string S;
+    while (x) S.push_back('0' + x % 10), x /= 10;
+    reverse(begin(S), end(S));
+    return out << S;
 }
  
 template <typename S, typename T>

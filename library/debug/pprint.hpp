@@ -13,7 +13,7 @@ ostream &operator<<(ostream &out, __uint128_t x);
 template <typename S, typename T>
 ostream& operator <<(ostream& out, const pair<S, T>& p);
 
-template <size_t N, typename ...Args>
+template <typename ...Args>
 ostream& operator <<(ostream& out, const tuple<Args...>& a);
  
 #define _define_print_container(Container, bef, aft)        \

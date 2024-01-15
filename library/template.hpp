@@ -116,7 +116,7 @@ struct io_setup {
 #ifdef LOCAL
 #include "library/debug/pprint.hpp"
 #else
-#  define debug(...) void(0)
+#define debug(...) void(0)
 #endif
  
 constexpr int iinf = std::numeric_limits<int>::max() / 2;

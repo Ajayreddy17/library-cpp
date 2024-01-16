@@ -36,4 +36,4 @@ auto use_cache(Lambda&& f) {
     return Cache<Signature, Lambda>(std::tuple{}, std::forward<Lambda>(f));
 }
 } // namespace mitsuha
-#endif 
+#endif // AJAY_USE_CACHE

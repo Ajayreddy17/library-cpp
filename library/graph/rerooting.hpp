@@ -75,16 +75,4 @@ struct Rerooting_dp {
     }
 };
 } // namespace mitsuha
-
-// Monoid of accumulution of result in a vertex
-// auto fee = [&](Data& x, Data& y) { return Data{}; };
-
-// fve <- fev
-// v <- e <- v
-
-// Activate fev -> if modification in vertex
-//auto fev = [&](Data x, int v) { return x; };
-
-// Activate fve -> if modification in edge
-// auto fve = [&](Data x, auto& e) { return x; };
 #endif // AJAY_REROOTING

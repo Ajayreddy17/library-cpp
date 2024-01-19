@@ -48,8 +48,8 @@ struct FenwickTree_2D_Dense {
 
     E sum(int lx, int rx, int ly, int ry) { return prod(lx, rx, ly, ry); }
     E prod(int lx, int rx, int ly, int ry) {
-        assert(lx >= 0 and lx <= rx and rx <= H);
-        assert(ly >= 0 and ly <= ry and ry <= W);
+        chmax(lx, 0), chmin(rx, H), chmax(ly, 0), chmin(ry, W);
+        if (lx >= rx || ly >= ry) return G::unit();
         E pos = G::unit(), neg = G::unit();
         while (lx < rx) { pos = G::op(pos, sum_x(rx, ly, ry)), rx -= rx & -rx; }
         while (rx < lx) { neg = G::op(neg, sum_x(lx, ly, ry)), lx -= lx & -lx; }

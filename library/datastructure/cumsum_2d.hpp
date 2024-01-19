@@ -1,8 +1,10 @@
 #ifndef AJAY_CUMSUM_2D
 #define AJAY_CUMSUM_2D
 
+#include "library/monoid/monoid_add.hpp"
+
 namespace mitsuha{
-template <typename Monoid>
+template <typename Monoid, bool default_allow_out_of_range = false>
 struct Cumsum_2D {
     using MX = Monoid;
     static_assert(MX::commute);
@@ -25,8 +27,8 @@ struct Cumsum_2D {
     }
 
     // [x1,x2) x [y1,y2)
-    template <bool allow_out_of_range = false>
-    X sum(int x1, int x2, int y1, int y2) {
+    template <bool allow_out_of_range = default_allow_out_of_range>
+    X sum(int x1, int x2, int y1, int y2) const{
         if constexpr (allow_out_of_range) {
             chmax(x1, 0), chmin(x2, H), chmax(y1, 0), chmin(y2, W);
             if (x1 >= x2 || y1 >= y2) return MX::unit();

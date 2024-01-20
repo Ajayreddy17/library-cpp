@@ -114,7 +114,7 @@ struct io_setup {
 } io_setup_{};
 
 #ifdef LOCAL
-#include "library/debug/pprint.hpp"
+/**/#include "library/debug/pprint.hpp"
 #else
 #define debug(...) void(0)
 #endif

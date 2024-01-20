@@ -46,33 +46,33 @@ struct TriangularDecomposedSum{
     }
     X prod(int x1, int x2, int y1, int y2) const{ return sum(x1, x2, y1, y2); }
 
-    X lower_right(int x, int y, int k) const{
+    X lower_right(int x, int y, int k){
         if (transposed) swap(x, y);
-        return MX::op(XA.sum(x, x + k, y, numeric_limits<int>::max() / 2), 
-        MX::inverse(XB.sum(x, x + k, x + y + k, numeric_limits<int>::max() / 2)));
+        return MX::op(XA.sum(x, x + k, y, numeric_limits<int>::max() / 2),
+                MX::inverse(XB.sum(x, x + k, x + y + k, numeric_limits<int>::max() / 2)));
     }
-    X upper_left(int x, int y, int k) const{
+    X upper_left(int x, int y, int k){
         if (transposed) swap(x, y);
         return MX::op(XA.sum(x - k, x, numeric_limits<int>::min() / 2, y),
-               MX::inverse(XB.sum(x - k, x, numeric_limits<int>::min() / 2, x + y - k - 1)));
+                MX::inverse(XB.sum(x - k, x, numeric_limits<int>::min() / 2, x + y - k - 1)));
     }
-    X upper_right(int x, int y, int k) const{
+    X upper_right(int x, int y, int k){
         if (transposed) {
             swap(x, y);
-            return MX::op(XA.sum(H - x, H - x + k, numeric_limits<int>::min() / 2, y),
-                   MX::inverse(XC.sum(x - k, x, numeric_limits<int>::min() / 2, x + y - k - 1)));
+            return MX::op(XA.sum(x, x + k, numeric_limits<int>::min() / 2, y),
+                    MX::inverse(XC.sum(H - x - k, H - x, numeric_limits<int>::min() / 2, H - x + y - k - 1)));
         }
-        return MX::op(XA.sum(H - x - k, H - x, y, numeric_limits<int>::max() / 2),
-               MX::inverse(XC.sum(x, x + k, x + y + k, numeric_limits<int>::max() / 2)));
+        return MX::op(XA.sum(x - k, x, y, numeric_limits<int>::max() / 2),
+                    MX::inverse(XC.sum(H - x, H - x + k, H - x + y + k, numeric_limits<int>::max() / 2)));
     }
-    X lower_left(int x, int y, int k) const{
+    X lower_left(int x, int y, int k){
         if (transposed) {
             swap(x, y);
-            return MX::op(XA.sum(H - x - k, H - x, y, numeric_limits<int>::max() / 2),
-                   MX::inverse(XC.sum(x, x + k, x + y + k, numeric_limits<int>::max() / 2)));
+            return MX::op(XA.sum(x - k, x, y, numeric_limits<int>::max() / 2),
+                    MX::inverse(XC.sum(H - x, H - x + k, H - x + y + k, numeric_limits<int>::max() / 2)));
         }
-        return MX::op(XA.sum(H - x, H - x + k, numeric_limits<int>::min() / 2, y),
-                MX::inverse(XC.sum(x - k, x, numeric_limits<int>::min() / 2, x + y - k - 1)));
+        return MX::op(XA.sum(x, x + k, numeric_limits<int>::min() / 2, y),
+                    MX::inverse(XC.sum(H - x - k, H - x, numeric_limits<int>::min() / 2, H - x + y - k - 1)));
     }
     X lower_triangle(int x, int y, int k) const{ return lower_left(x, y, k) + lower_right(x, y, k); }
     X upper_triangle(int x, int y, int k) const{ return upper_left(x, y, k) + upper_right(x, y, k); }

@@ -2,13 +2,13 @@
 #define AJAY_TOPOSORT
 
 #include "library/graph/base.hpp"
-#include "library/datastructure/fast_set.hpp"
+#include "library/datastructure/fastset.hpp"
 
 namespace mitsuha{
 //  Return the lexicographically smallest toposort
 template <typename GT>
 vector<int> toposort(GT& G) {
-    assert(G.is_prepared() && G.is_directed());
+    assert(G.is_prepared() && GT::is_directed);
     const int N = G.N;
     auto [indeg, outdeg] = G.deg_array_inout();
     FastSet que(N);

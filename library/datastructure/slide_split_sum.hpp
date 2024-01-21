@@ -4,6 +4,11 @@
 #include "library/datastructure/removable_queue.hpp"
 
 namespace mitsuha{
+/*
+・Handling multiple sets
+・You can get the sum of [0,k)th and [k,N)th]
+・O(sum of changes in k x log N)
+*/
 template <typename T>
 struct Slide_Split_Sum {
     Removable_Queue<priority_queue<T>> ql;

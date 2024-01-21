@@ -38,7 +38,7 @@ struct Beats_SumMinMax_ChminChmax {
             return z;
         }
         static constexpr X unit() {
-            return {0, inf<T>, -inf<T>, 0, 0, inf<T>, -inf<T>, 0};
+            return {0, numeric_limits<T>::max() / 2, numeric_limits<T>::min() / 2, 0, 0, numeric_limits<T>::max() / 2, numeric_limits<T>::min() / 2, 0};
         }
         bool commute = true;
     };
@@ -52,7 +52,7 @@ struct Beats_SumMinMax_ChminChmax {
             b = min(b, e), c = min(c, e), c = max(c, f);
             return {a, b, c};
         }
-        static constexpr X unit() { return {0, inf<T>, -inf<T>}; }
+        static constexpr X unit() { return {0, numeric_limits<T>::max() / 2, numeric_limits<T>::min() / 2}; }
         bool commute = false;
     };
     struct Beats {
@@ -67,7 +67,7 @@ struct Beats_SumMinMax_ChminChmax {
             x.sum += cnt * add;
             x.min += add, x.max += add, x.min2 += add, x.max2 += add;
 
-            if (mi == inf<T> && ma == -inf<T>) return x;
+            if (mi == numeric_limits<T>::max() / 2 && ma == numeric_limits<T>::min() / 2) return x;
 
             T before_min = x.min, before_max = x.max;
             x.min = min(x.min, mi), x.min = max(x.min, ma);
@@ -112,9 +112,9 @@ struct Beats_SumMinMax_ChminChmax {
     }
     static X from_element(T x) { return {x, x, x, 1, 1, x, x, 0}; }
 
-    void chmin(int l, int r, T x) { seg.apply(l, r, {0, x, -inf<T>}); }
-    void chmax(int l, int r, T x) { seg.apply(l, r, {0, inf<T>, x}); }
-    void add(int l, int r, T x) { seg.apply(l, r, {x, inf<T>, -inf<T>}); }
+    void chmin(int l, int r, T x) { seg.apply(l, r, {0, x, numeric_limits<T>::min() / 2}); }
+    void chmax(int l, int r, T x) { seg.apply(l, r, {0, numeric_limits<T>::max() / 2, x}); }
+    void add(int l, int r, T x) { seg.apply(l, r, {x, numeric_limits<T>::max() / 2, numeric_limits<T>::min() / 2}); }
 };
 } // namespace mitsuha
 #endif // AJAY_BEATS_SUMMINMAX_CHMINCHMAX

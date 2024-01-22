@@ -38,13 +38,13 @@ struct Point {
 
 template <typename T>
 void read(Point<T>& p) {
-    io::read(p.x), io::read(p.y);
+    io::rd(p.x), io::rd(p.y);
 }
 template <typename T>
 void write(Point<T>& p) {
-    io::write(p.x);
-    io::write(' ');
-    io::write(p.y);
+    io::wt(p.x);
+    io::wt(' ');
+    io::wt(p.y);
 }
 template <typename T>
 ostream &operator<<(ostream &out, const Point<T> &p){ return out << p.x << " " << p.y; }

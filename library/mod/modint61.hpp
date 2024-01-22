@@ -53,10 +53,10 @@ struct modint61 {
 };
 
 void read(modint61 &number){
-    io::read(number.val);
+    io::rd(number.val);
 }
 void write(const modint61 &number){
-    io::write(number.val);
+    io::wt(number.val);
 }
 ostream &operator<<(ostream &out, const modint61 &number){ return out << number.val; }
 } // namespace mitsuha

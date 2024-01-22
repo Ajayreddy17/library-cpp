@@ -29,7 +29,7 @@ namespace mitsuha::macro {
 #undef IMPL_REPITER
 }
 
-#include <library/io/io.hpp>
+#include <library/io/io2.hpp>
 
 namespace mitsuha {
     template <class T, class ToKey, class CompKey = std::less<>, std::enable_if_t<std::conjunction_v<std::is_invocable<ToKey, T>, std::is_invocable_r<bool, CompKey, std::invoke_result_t<ToKey, T>, std::invoke_result_t<ToKey, T>>>, std::nullptr_t> = nullptr>
@@ -68,8 +68,8 @@ namespace mitsuha {
 
 namespace mitsuha {
     using str = std::string;
-    using int128 = __int128_t;
-    using uint128 = __uint128_t;
+    using int128 = __int128;
+    using uint128 = unsigned __int128;
     template <class T> using min_priority_queue = std::priority_queue<T, std::vector<T>, std::greater<T>>;
     template <class T> using max_priority_queue = std::priority_queue<T, std::vector<T>, std::less<T>>;
 }

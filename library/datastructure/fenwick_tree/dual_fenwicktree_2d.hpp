@@ -19,7 +19,7 @@ struct Dual_FenwickTree_2D {
     Dual_FenwickTree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
 
     inline int xtoi(XY x) {
-        return (SMALL_X ? clamp<int>(x - min_X, 0, N) : LB(keyX, x));
+        return (SMALL_X ? clamp<int>(x - min_X, 0, N) : lower_bound(keyX.begin(), keyX.end(), x) - keyX.begin());
     }
     inline int nxt(int i) { return i + ((i + 1) & -(i + 1)); }
     inline int prev(int i) { return i - ((i + 1) & -(i + 1)); }
@@ -37,7 +37,7 @@ struct Dual_FenwickTree_2D {
             For(i, N) keyX[i] = min_X + i;
         }
         vector<vector<XY>> keyY_raw(N);
-        for (auto&& i: argsort(Y)) {
+        for (auto&& i: sorted_indices(len(Y), [&](int x){ return Y[x]; })) {
             int ix = xtoi(X[i]);
             XY y = Y[i];
             while (ix < N) {

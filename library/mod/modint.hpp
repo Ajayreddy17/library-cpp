@@ -84,12 +84,12 @@ struct modint {
 
 template<int _mod>  
 void read(modint<_mod> &number){
-    io::read(number.val);
+    io::rd(number.val);
     number.val %= _mod;
 }
 template<int _mod>
 void write(const modint<_mod> &number){
-    io::write(number.val);
+    io::wt(number.val);
 }
 template<int _mod>
 ostream &operator<<(ostream &out, const modint<_mod> &number){ return out << number.val; }

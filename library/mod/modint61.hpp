@@ -52,10 +52,10 @@ struct modint61 {
     }
 };
 
-void read(modint61 &number){
+void rd(modint61 &number){
     io::rd(number.val);
 }
-void write(const modint61 &number){
+void wt(const modint61 &number){
     io::wt(number.val);
 }
 ostream &operator<<(ostream &out, const modint61 &number){ return out << number.val; }

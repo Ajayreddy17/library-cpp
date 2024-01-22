@@ -37,11 +37,11 @@ struct Point {
 };
 
 template <typename T>
-void read(Point<T>& p) {
+void rd(Point<T>& p) {
     io::rd(p.x), io::rd(p.y);
 }
 template <typename T>
-void write(Point<T>& p) {
+void wt(Point<T>& p) {
     io::wt(p.x);
     io::wt(' ');
     io::wt(p.y);

@@ -51,6 +51,7 @@ namespace mitsuha::io {
     void rd(double &x) { rd_real(x); }
     void rd(long double &x) { rd_real(x); }
     void rd(__float128 &x) { rd_real(x); }
+    
     template <class T, class U> void rd(std::pair<T, U> &p) { return rd(p.first), rd(p.second); }
     template <size_t N = 0, typename T>
     void rd(T &t) { if constexpr (N < std::tuple_size<T>::value) { auto &x = std::get<N>(t); rd(x); rd<N + 1>(t); } }

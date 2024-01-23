@@ -63,7 +63,7 @@ namespace mitsuha {
         } else {
             return std::vector<T>(ns[I], value);
         }
-    }
+    } 
 } // namescape mitsuha
 
 namespace mitsuha {
@@ -98,23 +98,8 @@ namespace mitsuha { const std::string Yes = "Yes", No = "No", YES = "YES", NO = 
 using namespace mitsuha;
 using namespace std;
 
-struct io_setup {
-    io_setup(int precision = 15) {
-#if defined(LOCAL) and not defined(STRESS)
-        freopen("input.txt",  "r", stdin);
-        freopen("output.txt", "w", stdout);
-        freopen("error.txt", "w", stderr);
-#endif
-#if not defined(LOCAL) and not defined(STRESS)
-        std::cin.tie(0)->sync_with_stdio(0);
-        std::cin.exceptions(std::ios::badbit | std::ios::failbit);
-#endif
-        std::cout << std::fixed << std::setprecision(precision);
-    }
-} io_setup_{};
-
 #ifdef LOCAL
-/**/#include "library/debug/pprint.hpp"
+/*-*/#include "library/debug/pprint.hpp"
 #else
 #define debug(...) void(0)
 #endif

@@ -1,6 +1,16 @@
 #ifndef H_PRETTY_PRINT
 #define H_PRETTY_PRINT
 
+struct io_setup {
+    io_setup(int precision = 15) {
+#if defined(LOCAL) and not defined(STRESS)
+        freopen("input.txt",  "r", stdin);
+        freopen("output.txt", "w", stdout);
+        freopen("error.txt", "w", stderr);
+#endif
+    }
+} io_setup_{};
+
 using namespace std;
 
 template <typename Iterator>

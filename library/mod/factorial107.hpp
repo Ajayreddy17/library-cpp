@@ -8,7 +8,7 @@ int factorial107table[1024] = {1,55098162,799018112,644524227,804570289,69942165
 int factorial107(long long n) {
     constexpr int mod = 1000000007;
     if (n >= mod) return 0;
-    auto [q, r] = divmod<int>(n, 1 << 20);
+    auto [q, r] = div((int) n, 1 << 20);
     long long x = factorial107table[q];
     int s = q << 20;
     For(i, r) x = x * (s + i + 1) % mod;

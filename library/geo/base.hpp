@@ -171,7 +171,7 @@ private:
         }
         if (a < 0) {
             a = -a;
-            reverse(all(points));
+            reverse(points.begin(), points.end());
         }
     }
 };

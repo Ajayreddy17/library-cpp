@@ -3,7 +3,7 @@
 
 #include "library/datastructure/hashmap.hpp"
 
-namespace mitsuah{
+namespace mitsuha{
 // [30,10,20,30] -> [0,1,2,0] etc.
 template <int LOG = 20, bool USE_RESET = false>
 struct To_Small_Key {

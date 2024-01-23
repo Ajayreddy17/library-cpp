@@ -26,13 +26,13 @@ struct Dynamic_SegTree_Sparse {
         pool = new Node[NODES];
     }
 
-    // 木 dp のマージのときなどに使用すると MLE 回避できることがある
+    // MLE may be avoided if used when merging tree dp etc.
     // https://codeforces.com/problemset/problem/671/D
     void free_subtree(np c) {
         auto dfs = [&](auto &dfs, np c) -> void {
             if (c->l) dfs(dfs, c->l);
             if (c->r) dfs(dfs, c->r);
-            FREE.eb(c);
+            FREE.emplace_back(c);
         };
         dfs(dfs, c);
     }
@@ -41,7 +41,8 @@ struct Dynamic_SegTree_Sparse {
 
     np new_node(long long idx, const X x) {
         if (!FREE.empty()) {
-            np c = POP(FREE);
+            np c = FREE.back();
+            FREE.pop_back();
             c->idx = idx, c->l = c->r = nullptr;
             c->prod = c->x = x;
             return c;
@@ -93,7 +94,7 @@ struct Dynamic_SegTree_Sparse {
         auto dfs = [&](auto &dfs, np c) -> void {
             if (!c) return;
             dfs(dfs, c->l);
-            res.eb(c->idx, c->x);
+            res.emplace_back(c->idx, c->x);
             dfs(dfs, c->r);
         };
         dfs(dfs, root);

@@ -2,6 +2,7 @@
 #define AJAY_TRIANGULARDECOMPOSEDSUM
 
 #include "library/datastructure/cumsum_2d.hpp"
+#include "library/linear_algebra/transpose.hpp"
 
 namespace mitsuha{
 // O(min(H ^ 2 + HW), min(W ^ 2 + HW)) memory

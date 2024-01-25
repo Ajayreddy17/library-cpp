@@ -266,10 +266,10 @@ struct BigInteger {
     }
 };
 
-void write(BigInteger x) { io::write(x.to_string()); }
-void read(BigInteger &x) {
+void wt(BigInteger x) { io::wt(x.to_string()); }
+void rd(BigInteger &x) {
   string s;
-  io::read(s);
+  io::rd(s);
   x = BigInteger(s);
 }
 ostream &operator<<(ostream &out, const BigInteger &x){

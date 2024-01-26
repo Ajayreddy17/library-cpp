@@ -1,0 +1,3 @@
+vandermonde convolution
+sum (p C k * q C n - k) over k = [0, n] = p + q C n
+

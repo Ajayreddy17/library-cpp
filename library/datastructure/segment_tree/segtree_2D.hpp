@@ -118,6 +118,7 @@ struct SegTree_2D {
     }
 
     S prod(XY lx, XY rx, XY ly, XY ry) {
+        assert(lx <= rx && ly <= ry);
         int L = xtoi(lx), R = xtoi(rx);
         S res = MX::unit();
         auto dfs = [&](auto& dfs, int i, int l, int r, int a, int b) -> void {
@@ -140,6 +141,7 @@ struct SegTree_2D {
 
     // Count all points within a rectangle, logN
     int count(XY lx, XY rx, XY ly, XY ry) {
+        assert(lx <= rx && ly <= ry);
         int L = xtoi(lx), R = xtoi(rx);
         int res = 0;
         auto dfs = [&](auto& dfs, int i, int l, int r, int a, int b) -> void {

@@ -111,7 +111,7 @@ struct My_Bitset {
         if (i <= -1) return -1;
         int k = i >> 6;
         if ((i & 63) < 63) {
-            (x == 0 ? -1 : __builtin_ctzll(x)) x = dat[k];
+            unsigned long long x = dat[k];
             x &= (1ULL << ((i & 63) + 1)) - 1;
             if (x) return (k << 6) | (x == 0 ? -1 : 63 - __builtin_clzll(x));
             --k;

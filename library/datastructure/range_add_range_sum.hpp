@@ -1,7 +1,7 @@
 #ifndef AJAY_RANGE_ADD_RANGE_SUM
 #define AJAY_RANGE_ADD_RANGE_SUM
 
-#include "library/datastructure/fenwick_tree/fenwick_tree.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
 template <typename Monoid>

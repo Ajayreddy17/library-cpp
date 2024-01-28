@@ -199,7 +199,7 @@ vector<int> subset_sum(vector<T>& vals, T target) {
     // solution 4: O(2^(N/2))
     double x1 = double(len(vals)) * mx;
     double x2 = double(len(vals)) * target / 500.0;
-    double x3 = pow(SUM<double>(vals), 1.5) / 500.0;
+    double x3 = pow(accumulate(vals.begin(), vals.end(), 0.), 1.5) / 500.0;
     double x4 = pow(2.0, 0.5 * len(vals));
     double mi = min({x1, x2, x3, x4});
     if (x1 == mi) return subset_sum_solution_1(vals, target);

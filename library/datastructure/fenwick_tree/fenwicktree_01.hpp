@@ -60,6 +60,28 @@ struct FenwickTree_01 {
         dat[k / 64] &= ~(1ULL << (k % 64));
         bit.add(k / 64, -1);
     }
+    int kth(int k) {
+        assert(k < sum_all());
+        int r = 0;
+        int idx = bit.max_right([&](int s) -> int {
+            if (s <= k) r = k - s;
+            return s <= k;
+        });
+        unsigned long long x = dat[idx];
+        int p = __builtin_popcountll(x);
+        k = binary_search([&](int n) -> bool { return (p - __builtin_popcountll(x >> n)) <= r; }, 0, 64, 0);
+        return 64 * idx + k;
+    }
+private:
+    template <typename F>
+    long long binary_search(F check, long long ok, long long ng, bool check_ok = true) {
+        if (check_ok) assert(check(ok));
+        while (abs(ok - ng) > 1) {
+            auto x = (ng + ok) / 2;
+            (check(x) ? ok : ng) = x;
+        }
+        return ok;
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_FENWICKTREE_01

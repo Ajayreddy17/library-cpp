@@ -4,7 +4,6 @@
 #include "library/datastructure/to_small_key.hpp"
 
 namespace mitsuha{
-template <int LOG, bool USE_RESET = false>
 struct Static_Range_Frequency {
     vector<int> pos, indptr;
     To_Small_Key S;

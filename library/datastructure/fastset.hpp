@@ -104,7 +104,7 @@ private:
 };
 
 std::ostream &operator<<(std::ostream &out, const FastSet &fs){
-    for (int i = 0; i < fs.n - 1; ++i){
+    for (int i = 0; i < fs.n; ++i){
         out << fs[i] << " ";
     }
     return out;

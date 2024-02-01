@@ -66,7 +66,7 @@ VAL knapsack01(vector<WT> weight, vector<VAL> val, WT LIM) {
             Frr(i, mx + 1) chmax(dp[i + weight[k]], dp[i] + val[k]);
             total += weight[k];
         };
-        return MAX(dp);
+        return *max_element(dp.begin(), dp.end());
     };
 
     // dp per val
@@ -87,7 +87,7 @@ VAL knapsack01(vector<WT> weight, vector<VAL> val, WT LIM) {
 
     double t1 = log(2) * n * 0.5;
     double t2 = log((n + 1) * (LIM + 1));
-    double t3 = log((n + 1) * (SUM<WT>(val) + 1));
+    double t3 = log((n + 1) * (accumulate(val.begin(), val.end(), WT(0)) + 1));
     double t = min({t1, t2, t3});
     if (t == t1) return sol_1();
     if (t == t2) return sol_2();

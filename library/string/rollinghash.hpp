@@ -1,6 +1,7 @@
 #ifndef AJAY_ROLLINGHASH
 #define AJAY_ROLLINGHASH
 
+#include "library/random/base.hpp"
 #include "library/mod/modint61.hpp"
 
 namespace mitsuha{

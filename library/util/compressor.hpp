@@ -11,7 +11,7 @@ public:
     Compressor() : _xs(vector<T>{}) {}
     // Construct from strictly sorted vector
     Compressor(const vector<T> &xs) : _xs(xs) {
-        assert(is_strictly_sorted(xs));
+        if(not is_strictly_sorted(xs)) settify(xs);
     }
 
     // Return the number of distinct keys.

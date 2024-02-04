@@ -4,6 +4,8 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// When one vertex is erased
+// Are u,v connected? / Number of connected components / Connected component size of v
 struct Remove_One_Vertex_Connectivity {
     int N, M, n_comp_base;
     vector<int> root;

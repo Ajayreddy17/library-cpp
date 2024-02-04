@@ -29,6 +29,7 @@ bool check_degree_sequence(vector<int> deg) {
     return true;
 }
 
+// undirected Graph
 vector<pair<int, int>> construct_from_degree_sequence(vector<int> deg) {
     if (!check_degree_sequence(deg)) return {};
     int N = len(deg);

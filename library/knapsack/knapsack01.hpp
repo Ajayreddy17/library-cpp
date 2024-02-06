@@ -34,7 +34,7 @@ vector<pair<WT, VAL>> knapsack01_gen_all(vector<WT> weight, vector<VAL> val, boo
 template <typename WT, typename VAL>
 VAL knapsack01(vector<WT> weight, vector<VAL> val, WT LIM) {
     chmin(LIM, accumulate(weight.begin(), weight.end(), WT(0)));
-    int n = len(weight);
+    long long n = len(weight);
     assert(len(val) == n);
 
     // Half-full enumeration + shaku-tori method

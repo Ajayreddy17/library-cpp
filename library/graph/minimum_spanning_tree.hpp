@@ -43,7 +43,7 @@ tuple<T, vector<bool>, GT> minimum_spanning_tree(GT& G) {
 template <typename T, typename GT>
 tuple<T, vector<bool>, GT, vector<T>> minimum_spanning_tree_cycle_data(GT& G) {
     int M = len(G.edges);
-    auto [mst_cost, in_mst, MST] = minimum_spanning_tree(G);
+    auto [mst_cost, in_mst, MST] = minimum_spanning_tree<T>(G);
     Tree<GT> tree(MST);
     vector<T> dat;
     For(i, M) if (in_mst[i]) dat.emplace_back(G.edges[i].cost);

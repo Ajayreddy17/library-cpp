@@ -27,7 +27,7 @@ struct FenwickTree_01 {
         N = m;
         n = ceil(N + 1, 64);
         dat.assign(n, 0ULL);
-        For(i, N) { dat[i / 64] |= 1ULL << (i % 64); }
+        For(i, N) { dat[i / 64] |= (unsigned long long)(f(i)) << (i % 64); }
         bit.build(n, [&](int i) -> int { return __builtin_popcountll(dat[i]); });
     }
 

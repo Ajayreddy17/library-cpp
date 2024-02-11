@@ -88,42 +88,86 @@ struct FenwickTree {
     E operator()(int l, int r) const { return prod(l, r); }
 
     template <class F>
-    int max_right(const F check) {
+    int max_right(const F check, int L = 0) {
         assert(check(G::unit()));
-        int i = 0;
         E s = G::unit();
-        int k = 1;
-        while (2 * k <= n) k *= 2;
-        while (k) {
-            if (i + k - 1 < len(dat)) {
-                E t = G::op(s, dat[i + k - 1]);
-                if (check(t)) { i += k, s = t; }
+        int i = L;
+        int k = [&]() {
+            while (1) {
+                if (i % 2 == 1) { s = G::op(s, G::inverse(dat[i - 1])), i -= 1; }
+                if (i == 0) { return (n == 0 ? -1 : 31 - __builtin_clz(n)) + 1; }
+                int k = (i == 0 ? -1 : __builtin_ctz(i)) - 1;
+                if (i + (1 << k) > n) return k;
+                E t = G::op(s, dat[i + (1 << k) - 1]);
+                if (!check(t)) { return k; }
+                s = G::op(s, G::inverse(dat[i - 1])), i -= i & -i;
             }
-            k >>= 1;
+        }();
+        while (k) {
+            --k;
+            if (i + (1 << k) - 1 < len(dat)) {
+                E t = G::op(s, dat[i + (1 << k) - 1]);
+                if (check(t)) { i += (1 << k), s = t; }
+            }
         }
         return i;
     }
 
     // check(i, x)
     template <class F>
-    int max_right_with_index(const F check) {
-        assert(check(0, G::unit()));
-        int i = 0;
+    int max_right_with_index(const F check, int L = 0) {
+        assert(check(L, G::unit()));
         E s = G::unit();
-        int k = 1;
-        while (2 * k <= n) k *= 2;
-        while (k) {
-            if (i + k - 1 < len(dat)) {
-                E t = G::op(s, dat[i + k - 1]);
-                if (check(i + k, t)) { i += k, s = t; }
+        int i = L;
+        int k = [&]() {
+            while (1) {
+                if (i % 2 == 1) { s = G::op(s, G::inverse(dat[i - 1])), i -= 1; }
+                if (i == 0) { return (n == 0 ? -1 : 31 - __builtin_clz(n)) + 1; }
+                int k = (i == 0 ? -1 : __builtin_ctz(i)) - 1;
+                if (i + (1 << k) > n) return k;
+                E t = G::op(s, dat[i + (1 << k) - 1]);
+                if (!check(i + (1 << k), t)) { return k; }
+                s = G::op(s, G::inverse(dat[i - 1])), i -= i & -i;
             }
-            k >>= 1;
+        }();
+        while (k) {
+            --k;
+            if (i + (1 << k) - 1 < len(dat)) {
+                E t = G::op(s, dat[i + (1 << k) - 1]);
+                if (check(i + (1 << k), t)) { i += (1 << k), s = t; }
+            }
         }
         return i;
     }
 
-    int kth(E k) {
-        return max_right([&k](E x) -> bool { return x <= k; });
+    template <class F>
+    int min_left(const F check, int R) {
+        assert(check(G::unit()));
+        E s = G::unit();
+        int i = R;
+        // false return to the point where
+        int k = 0;
+        while (i > 0 && check(s)) {
+            s = G::op(s, dat[i - 1]);
+            k = (i == 0 ? -1 : __builtin_ctz(i));
+            i -= i & -i;
+        }
+        if (check(s)) {
+            assert(i == 0);
+            return 0;
+        }
+        // After 2^k it becomes ok
+        // Keep false and proceed
+        while (k) {
+            --k;
+            E t = G::op(s, G::inverse(dat[i + (1 << k) - 1]));
+            if (!check(t)) { i += (1 << k), s = t; }
+        }
+        return i + 1;
+    }
+
+    int kth(E k, int L = 0) {
+        return max_right([&k](E x) -> bool { return x <= k; }, L);
     }
 };
 template<class Monoid>

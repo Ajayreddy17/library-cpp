@@ -17,7 +17,7 @@ struct FenwickTree_01 {
 
     void build(int m) {
         N = m;
-        n = ceil(N + 1, 64);
+        n = ceil<int>(N + 1, 64);
         dat.assign(n, 0ULL);
         bit.build(n);
     }
@@ -25,7 +25,7 @@ struct FenwickTree_01 {
     template <typename F>
     void build(int m, F f) {
         N = m;
-        n = ceil(N + 1, 64);
+        n = ceil<int>(N + 1, 64);
         dat.assign(n, 0ULL);
         For(i, N) { dat[i / 64] |= (unsigned long long)(f(i)) << (i % 64); }
         bit.build(n, [&](int i) -> int { return __builtin_popcountll(dat[i]); });
@@ -60,17 +60,46 @@ struct FenwickTree_01 {
         dat[k / 64] &= ~(1ULL << (k % 64));
         bit.add(k / 64, -1);
     }
-    int kth(int k) {
-        assert(k < sum_all());
-        int r = 0;
-        int idx = bit.max_right([&](int s) -> int {
-            if (s <= k) r = k - s;
-            return s <= k;
-        });
+
+    int kth(int k, int L = 0) {
+        if (k >= sum_all()) return N;
+        k += __builtin_popcountll(dat[L / 64] & ((1ULL << (L % 64)) - 1));
+        L /= 64;
+        int mid = 0;
+        auto check = [&](auto e) -> bool {
+            if (e <= k) chmax(mid, e);
+            return e <= k;
+        };
+        int idx = bit.max_right(check, L);
+        if (idx == n) return N;
+        k -= mid;
         unsigned long long x = dat[idx];
         int p = __builtin_popcountll(x);
-        k = binary_search([&](int n) -> bool { return (p - __builtin_popcountll(x >> n)) <= r; }, 0, 64, 0);
+        if (p <= k) return N;
+        k = binary_search([&](int n) -> bool { return (p - __builtin_popcountll(x >> n)) <= k; }, 0, 64, 0);
         return 64 * idx + k;
+    }
+
+    int next(int k) {
+        int idx = k / 64;
+        k %= 64;
+        unsigned long long x = dat[idx] & ~((1ULL << k) - 1);
+        if (x) return 64 * idx + (x == 0 ? -1 : __builtin_ctzll(x));
+        idx = bit.kth(0, idx + 1);
+        if (idx == n || !dat[idx]) return N;
+        return 64 * idx + (dat[idx] == 0 ? -1 : __builtin_ctzll(dat[idx]));
+    }
+
+    int prev(int k) {
+        if (k == N) --k;
+        int idx = k / 64;
+        k %= 64;
+        unsigned long long x = dat[idx];
+        if (k < 63) x &= (1ULL << (k + 1)) - 1;
+        if (x) return 64 * idx + (x == 0 ? -1 : 63 - __builtin_clzll(x));
+        idx = bit.min_left([&](auto e) -> bool { return e <= 0; }, idx) - 1;
+        if (idx == -1) return -1;
+        return 64 * idx + (dat[idx] == 0 ? -1 : 63 - __builtin_clzll(dat[idx]));
     }
 private:
     template <typename F>

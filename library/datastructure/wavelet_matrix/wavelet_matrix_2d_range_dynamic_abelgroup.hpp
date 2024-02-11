@@ -7,7 +7,7 @@
 namespace mitsuha{
 template <typename Monoid, typename XY, bool SMALL_X, bool SMALL_Y>
 struct Wavelet_Matrix_2D_Range_Dynamic_AbelGroup {
-    // Arrange the points in Y ascending order.
+    // Arrange the point cloud in Y ascending order.
     // Convert X to an integer and distribute it like a binary trie
     using MX = Monoid;
     using X = typename MX::value_type;
@@ -21,8 +21,8 @@ struct Wavelet_Matrix_2D_Range_Dynamic_AbelGroup {
 
         void build(vector<XY>& X) {
             if constexpr (SMALL) {
-                mi = (X.empty() ? 0 : *min_element(X.begin(), X.end()));
-                ma = (X.empty() ? 0 : *max_element(X.begin(), X.end()));
+                mi = (X.empty() ? 0 : MIN(X));
+                ma = (X.empty() ? 0 : MAX(X));
                 dat.assign(ma - mi + 2, 0);
                 for (auto& x: X) { dat[x - mi + 1]++; }
                 For(i, len(dat) - 1) dat[i + 1] += dat[i];
@@ -72,8 +72,7 @@ struct Wavelet_Matrix_2D_Range_Dynamic_AbelGroup {
         new_idx.resize(N);
         For(i, N) new_idx[I[i]] = i;
 
-        // The rest is normal
-        lg = __lg(XtoI(MAX(tmp) + 1)) + 1;
+        lg = __lg(XtoI(*max_element(tmp.begin(), tmp.end()) + 1)) + 1;
         mid.resize(lg), bv.assign(lg, Bit_Vector(N));
         dat.resize(lg);
         A.resize(N);

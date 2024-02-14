@@ -1,3 +1,5 @@
 vandermonde convolution
 sum (p C k * q C n - k) over k = [0, n] = p + q C n
 
+x1 + x2 + .... + xk = n, where xi >= 0
+ways = (n + k - 1) C (k - 1)

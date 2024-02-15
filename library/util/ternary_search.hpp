@@ -43,7 +43,7 @@ std::invoke_result_t<Fun, Arg> ternary_search_value(const Arg &l, const Arg &r, 
 
 // min_{l<=x<=r} f(x) if f is convex, max_{l<=x<=r} f(x) if f is concave
 template <ternary_search_tag tag, typename Arg, typename Fun, std::enable_if_t<std::conjunction_v<std::is_invocable<Fun, Arg>, std::is_integral<Arg>>, std::nullptr_t> = nullptr>
-Arg ternary_search_value(Arg l, Arg r, const Fun &f) {
+std::invoke_result_t<Fun, Arg> ternary_search_value(Arg l, Arg r, const Fun &f) {
     return f(ternary_search_key<tag>(l, r, f));
 }
 } // namespace mitsuha

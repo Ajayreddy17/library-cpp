@@ -14,6 +14,7 @@ mint blackbox_det(int N, F apply) {
         For(i, N) v[i] *= c[i];
         return apply(v);
     };
+
     auto f = blackbox_min_poly<mint>(N, g);
     mint det = (len(f) == N + 1 ? f[0] : mint(0));
     if (N & 1) det *= -1;

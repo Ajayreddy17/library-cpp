@@ -47,7 +47,7 @@ namespace mitsuha {
     template <typename T, typename Gen>
     auto generate_vector(int n, Gen generator) { std::vector<T> v(n); for (int i = 0; i < n; ++i) v[i] = generator(i); return v; }
     template <typename T> auto generate_range(T l, T r) { return generate_vector<T>(r - l, [l](int i) { return l + i; }); }
-    template <typename T> auto generate_range(T n) { return generate_range(0, n); }
+    template <typename T> auto generate_range(T n) { return generate_range<T>(0, n); }
 
     template <class Iterable>
     void settify(Iterable& a) { std::sort(a.begin(), a.end()), a.erase(std::unique(a.begin(), a.end()), a.end()); }

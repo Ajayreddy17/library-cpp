@@ -92,7 +92,7 @@ struct RBST {
         auto dfs = [&](auto &dfs, np root, bool rev) -> void {
             if (!root) return;
             dfs(dfs, (rev ? root->r : root->l), rev ^ root->rev);
-            res.eb(root->s);
+            res.emplace_back(root->s);
             dfs(dfs, (rev ? root->l : root->r), rev ^ root->rev);
         };
         dfs(dfs, root, 0);

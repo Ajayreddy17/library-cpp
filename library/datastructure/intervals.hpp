@@ -166,6 +166,7 @@ struct Intervals {
     }
 
     void set(X L, X R, T t) {
+        if (L == R) return;
         enumerate_range(L, R, [](int l, int r, T x) -> void {}, true);
         dat[L] = t;
         if (t != none_val) total_num++, total_len += R - L;

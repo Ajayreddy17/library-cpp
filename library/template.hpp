@@ -9,6 +9,7 @@ namespace mitsuha {
     template <class T> bool chmax(T& x, const T& y) { return y <= x ? false : (x = y, true); }
     template <class T> constexpr T floor(const T x, const T y) { T q = x / y, r = x % y; return q - ((x ^ y) < 0 and (r != 0)); }
     template <class T> constexpr T ceil(const T x, const T y) { T q = x / y, r = x % y; return q + ((x ^ y) > 0 and (r != 0)); }
+    template <class T> T bmod(T x, T y) { return x - y * floor(x, y); }
 }
 
 namespace mitsuha::macro {

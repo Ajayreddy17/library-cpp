@@ -25,7 +25,7 @@ struct Cumsum{
         T new_sum = data.back() + v;
         ++n, data.push_back(std::move(new_sum));
     }
-
+    /*
     // Assuming all a[i] >= 0, Max r such that sum(a[l:r]) <= / < sum;
     int max_pref(int idx, T sum, bool less_equal = true) {
         assert(0 <= idx and idx < n and (less_equal ? T(0) <= sum: T(0) < sum));
@@ -33,6 +33,7 @@ struct Cumsum{
             return less_equal ? query(idx, r) <= sum: query(idx, r) < sum;
         }) - 1;
     }
+    */
 };
 } // namespace mitsuha
 #endif // AJAY_CUMSUM

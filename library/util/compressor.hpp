@@ -10,7 +10,7 @@ public:
     // default constructor
     Compressor() : _xs(vector<T>{}) {}
     // Construct from strictly sorted vector
-    Compressor(const vector<T> &xs) : _xs(xs) {
+    Compressor(vector<T> &xs) : _xs(xs) {
         if(not is_strictly_sorted(xs)) settify(xs);
     }
 

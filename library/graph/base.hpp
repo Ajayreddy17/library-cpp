@@ -175,14 +175,19 @@ private:
     }
 };
 
-template<typename T>
-std::ostream &operator<<(std::ostream &out, const Graph<T> &G){
+template<typename T, bool directed = false>
+std::ostream &operator<<(std::ostream &out, const Graph<T, directed> &_G){
+    auto G = _G;
     if (not G.prepared) {
         out << "frm to cost id";
         for (auto &&e: G.edges) 
             out << "\n" << e.frm << " " << e.to << " " << e.cost << " " << e.id;
     } else {
-        out << "indptr " << G.indptr << "\n";
+        out << "indptr ";
+        for(const auto &value : G.indptr) {
+            out << value << " ";
+        }
+        out << "\n";
         out << "frm to cost id";
         for(int v = 0; v < G.N; ++v) 
             for (auto &&e: G[v]) 

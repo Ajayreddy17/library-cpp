@@ -1,7 +1,7 @@
 #ifndef AJAY_TREE_WAVELET_MATRIX
 #define AJAY_TREE_WAVELET_MATRIX
 
-#include "library/datastructure/wavelet_matrix.hpp"
+#include "library/datastructure/wavelet_matrix/wavelet_matrix.hpp"
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{

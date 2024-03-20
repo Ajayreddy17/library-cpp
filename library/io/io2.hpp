@@ -43,6 +43,7 @@ namespace mitsuha::io {
     }
 
     void rd(int &x) { rd_integer(x); }
+    void rd(long int x) { rd_integer(x); }
     void rd(long long &x) { rd_integer(x); }
     void rd(__int128 &x) { rd_integer(x); }
     void rd(unsigned int &x) { rd_integer(x); }
@@ -82,6 +83,7 @@ namespace mitsuha::io {
         std::string s = oss.str(); wt(s);
     }
     void wt(int x) { wt_integer(x); }
+    void wt(long int x) { wt_integer(x); }
     void wt(long long x) { wt_integer(x); }
     void wt(__int128 x) { wt_integer(x); }
     void wt(unsigned int x) { wt_integer(x); }

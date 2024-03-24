@@ -20,20 +20,23 @@ struct Cumsum{
         return (*this)(l, r);
     }
 
+    template<typename T_large = long long>
+    T_large query_circular(long long l, long long r){
+        assert(0 <= l and l <= r);
+        if (l == r) return T(0);
+        T_large blockL = l / n;
+        T_large blockR = (r - 1) / n;
+        if (blockL == blockR){
+            return (*this)(l % n, (l % n) + r - l);
+        }
+        return (blockR - blockL - 1) * data.back() + (*this)(l % n, n) + (*this)(0, r - blockR * n);
+    }
+
     void push_back(const T& v) {
         if (data.empty()) data.push_back(T(0));
         T new_sum = data.back() + v;
         ++n, data.push_back(std::move(new_sum));
     }
-    /*
-    // Assuming all a[i] >= 0, Max r such that sum(a[l:r]) <= / < sum;
-    int max_pref(int idx, T sum, bool less_equal = true) {
-        assert(0 <= idx and idx < n and (less_equal ? T(0) <= sum: T(0) < sum));
-        return *ranges::partition_point(ranges::iota_view(idx, n + 1), [&](int r){
-            return less_equal ? query(idx, r) <= sum: query(idx, r) < sum;
-        }) - 1;
-    }
-    */
 };
 } // namespace mitsuha
 #endif // AJAY_CUMSUM

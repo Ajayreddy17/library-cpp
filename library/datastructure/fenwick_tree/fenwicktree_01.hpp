@@ -8,9 +8,10 @@ struct FenwickTree_01 {
     int N, n;
     vector<unsigned long long> dat;
     FenwickTree<Monoid_Add<int>> bit;
+
     FenwickTree_01() {}
     FenwickTree_01(int n) { build(n); }
-    template <typename F>
+    template<typename F>
     FenwickTree_01(int n, F f) {
         build(n, f);
     }
@@ -21,18 +22,18 @@ struct FenwickTree_01 {
         dat.assign(n, 0ULL);
         bit.build(n);
     }
-
-    template <typename F>
+    template<typename F>
     void build(int m, F f) {
         N = m;
         n = ceil<int>(N + 1, 64);
         dat.assign(n, 0ULL);
-        For(i, N) { dat[i / 64] |= (unsigned long long)(f(i)) << (i % 64); }
+        For(i, N){ dat[i / 64] |= (unsigned long long)(f(i)) << (i % 64); }
         bit.build(n, [&](int i) -> int { return __builtin_popcountll(dat[i]); });
     }
 
-    int sum_all() { return bit.prod_all(); }
+    int sum_all() { return bit.sum_all(); }
     int sum(int k) { return prefix_sum(k); }
+
     int prefix_sum(int k) {
         int ans = bit.sum(k / 64);
         ans += __builtin_popcountll(dat[k / 64] & ((1ULL << (k % 64)) - 1));
@@ -51,7 +52,6 @@ struct FenwickTree_01 {
         if (x == 1) add(k);
         if (x == -1) remove(k);
     }
-
     void add(int k) {
         dat[k / 64] |= 1ULL << (k % 64);
         bit.add(k / 64, 1);
@@ -76,7 +76,7 @@ struct FenwickTree_01 {
         unsigned long long x = dat[idx];
         int p = __builtin_popcountll(x);
         if (p <= k) return N;
-        k = binary_search([&](int n) -> bool { return (p - __builtin_popcountll(x >> n)) <= k; }, 0, 64, 0);
+        k = binary_search([&](int n) -> bool { return (p - (x >> n)) <= k; }, 0, 64, 0);
         return 64 * idx + k;
     }
 

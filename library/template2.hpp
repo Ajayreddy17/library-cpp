@@ -71,18 +71,20 @@ void rd_integer(T &x) {
     if constexpr (std::is_signed<T>::value || std::is_same_v<T, __int128>) { if (minus) x = -x; }
 }
 
-void rd(int &x) { rd_integer(x); }
-void rd(long int x) { rd_integer(x); }
-void rd(long long &x) { rd_integer(x); }
-void rd(__int128 &x) { rd_integer(x); }
-void rd(unsigned int &x) { rd_integer(x); }
-void rd(unsigned long long &x) { rd_integer(x); }
-void rd(unsigned __int128 &x) { rd_integer(x); }
-void rd(double &x) { rd_real(x); }
-void rd(long double &x) { rd_real(x); }
-void rd(__float128 &x) { rd_real(x); }
+template<typename T> std::enable_if_t<std::is_integral_v<T> || 
+            std::is_floating_point_v<T>, void>
+rd(T &x) {
+    if constexpr (std::is_integral_v<T>) {
+        rd_integer(x);
+    } else {
+        rd_real(x);
+    }
+}
     
-template <class T, class U> void rd(std::pair<T, U> &p) { return rd(p.first), rd(p.second); }
+template <class T, class U> 
+void rd(std::pair<T, U> &p) { 
+    return rd(p.first), rd(p.second); 
+}
 template <size_t N = 0, typename T>
 void rd(T &t) { if constexpr (N < std::tuple_size<T>::value) { auto &x = std::get<N>(t); rd(x); rd<N + 1>(t); } }
 template <class... T> void rd(std::tuple<T...> &tpl) { rd(tpl); }

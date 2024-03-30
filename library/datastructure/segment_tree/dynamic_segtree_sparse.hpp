@@ -5,7 +5,7 @@ namespace mitsuha{
 // Dynamic seg tree where most elements are always guaranteed to be unit
 // Therefore, default_prod cannot be used, and acted monoid cannot be handled in general.
 // The advantage is that the number of nodes can be kept to O(N) when not persisted
-template <typename Monoid, bool PERSISTENT, int NODES>
+template <typename Monoid, bool PERSISTENT = false, int NODES = 1 << 20>
 struct Dynamic_SegTree_Sparse {
     using MX = Monoid;
     using X = typename MX::value_type;
@@ -22,7 +22,7 @@ struct Dynamic_SegTree_Sparse {
     using np = Node *;
     vector<np> FREE;
 
-    Dynamic_SegTree_Sparse(long long L0, long long R0) : L0(L0), R0(R0), pid(0) {
+    Dynamic_SegTree_Sparse(long long L0 = -linf, long long R0 = linf) : L0(L0), R0(R0), pid(0) {
         pool = new Node[NODES];
     }
 
@@ -53,12 +53,15 @@ struct Dynamic_SegTree_Sparse {
         return &(pool[pid++]);
     }
 
-    X prod(np root, long long l, long long r) {
+    X operator()(np root, long long l, long long r) {
         assert(L0 <= l && l <= r && r <= R0);
         if (l == r) return MX::unit();
         X x = MX::unit();
         prod_rec(root, L0, R0, l, r, x);
         return x;
+    }
+    X prod(np root, long long l, long long r) {
+        return (*this)(root, l, r);
     }
 
     X prod_all(np root) { return prod(root, L0, R0); }
@@ -87,7 +90,7 @@ struct Dynamic_SegTree_Sparse {
         return min_left_rec(root, check, L0, R0, R, x);
     }
 
-    void reset() { pid = 0; }
+    void reset() { pid = 0; FREE.clear(); }
 
     vector<pair<long long, X>> get_all(np root) {
         vector<pair<long long, X>> res;
@@ -110,7 +113,6 @@ struct Dynamic_SegTree_Sparse {
         };
         return dfs(dfs, root);
     }
-
 private:
     void update(np c) {
         c->prod = c->x;

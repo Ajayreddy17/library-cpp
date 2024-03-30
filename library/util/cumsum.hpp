@@ -21,7 +21,7 @@ struct Cumsum{
     }
 
     template<typename T_large = long long>
-    T_large query_circular(long long l, long long r){
+    T_large query_circular(long long l, long long r) const{
         assert(0 <= l and l <= r);
         if (l == r) return T(0);
         T_large blockL = l / n;

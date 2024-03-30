@@ -25,6 +25,9 @@ ostream& operator <<(ostream& out, const pair<S, T>& p);
 
 template <typename ...Args>
 ostream& operator <<(ostream& out, const tuple<Args...>& a);
+
+template<class T>
+ostream &operator<<(typename enable_if<!is_same<T, string>::value, ostream>::type &out, const T &arr);
  
 #define _define_print_container(Container, bef, aft)        \
 template <typename T>                                       \
@@ -110,6 +113,17 @@ std::ostream& operator<<(std::ostream& out, const std::tuple<Args...>& a) {
     }, a);
     return out << "}";
 }
+
+template<class T> 
+ostream &operator<<(typename enable_if<!is_same<T, string>::value, ostream>::type &out, const T &arr){
+	if(arr.empty()) return out << "{}";
+	out << "{";
+	for(auto it = arr.begin(); it != arr.end(); ++ it){
+		out << *it;
+		next(it) != arr.end() ? out << ", " : out << "}";
+	}
+	return out;
+}
  
 template<class TH>
 void debug_impl(const char* name, TH val){
@@ -123,5 +137,8 @@ void debug_impl(const char* names, TH curr_val, TA... vals) {
 }
 
 #define debug(...) cerr << "[" << __LINE__ << "] ", debug_impl(#__VA_ARGS__, __VA_ARGS__)
+
+#define _PRINT_TIME_ auto __time = chrono::system_clock::to_time_t(chrono::system_clock::now()); \
+                                    print(); print(localtime(&__time)->tm_min, localtime(&__time)->tm_sec)
 
 #endif  // H_PRETTY_PRINT

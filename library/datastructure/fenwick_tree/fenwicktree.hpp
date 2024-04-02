@@ -43,6 +43,7 @@ struct FenwickTree {
     }
 
     E prod_all() const { return total; }
+    E sum_all() const { return total; }
     E sum(int k) { return prod(k); }
     E prod(int k) const { return prefix_prod(k); }
     E prefix_prod(int k) const {

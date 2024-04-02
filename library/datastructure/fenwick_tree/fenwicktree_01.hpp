@@ -18,7 +18,7 @@ struct FenwickTree_01 {
 
     void build(int m) {
         N = m;
-        n = ceil<int>(N + 1, 64);
+        n = (N + 64) / 64;
         dat.assign(n, 0ULL);
         bit.build(n);
     }
@@ -32,6 +32,7 @@ struct FenwickTree_01 {
     }
 
     int sum_all() { return bit.sum_all(); }
+    // prefix_sum
     int sum(int k) { return prefix_sum(k); }
 
     int prefix_sum(int k) {
@@ -60,6 +61,11 @@ struct FenwickTree_01 {
         dat[k / 64] &= ~(1ULL << (k % 64));
         bit.add(k / 64, -1);
     }
+    void insert(int k){ add(k); }
+    void erase(int k){ remove(k); }
+
+    bool operator[](int i) const { return dat[i / 64] & (1ULL << (i % 64)); }
+    bool contains(int i) const{ return (*this)[i]; }
 
     int kth(int k, int L = 0) {
         if (k >= sum_all()) return N;

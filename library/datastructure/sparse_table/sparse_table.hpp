@@ -40,11 +40,14 @@ struct Sparse_Table {
         }
     }
 
-    X prod(int L, int R) {
+    X operator()(int L, int R){
         if (L == R) return MX::unit();
         if (R == L + 1) return dat[0][L];
         int k = (R - L - 1 == 0 ? -1 : 31 - __builtin_clz(R - L - 1));
         return MX::op(dat[k][L], dat[k][R - (1 << k)]);
+    }
+    X prod(int L, int R) {
+        return (*this)(L, R);
     }
 
     template <class F>

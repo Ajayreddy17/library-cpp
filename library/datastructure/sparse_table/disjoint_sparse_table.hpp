@@ -42,12 +42,15 @@ struct Disjoint_Sparse_Table {
         }
     }
 
-    X prod(int L, int R) {
+    X operator()(int L, int R) {
         if (L == R) return MX::unit();
         --R;
         if (L == R) return dat[0][L];
         int k = ((L ^ R) == 0 ? -1 : 31 - __builtin_clz(L ^ R));
         return MX::op(dat[k][L], dat[k][R]);
+    }
+    X prod(int L, int R) {
+        return (*this)(L, R);
     }
 
     template <class F>

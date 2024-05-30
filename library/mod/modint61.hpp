@@ -52,12 +52,14 @@ struct modint61 {
     }
 };
 
+#ifdef FASTIO
 void rd(modint61 &number){
     io::rd(number.val);
 }
 void wt(const modint61 &number){
     io::wt(number.val);
 }
+#endif
 ostream &operator<<(ostream &out, const modint61 &number){ return out << number.val; }
 } // namespace mitsuha
 #endif // AJAY_MODINT61

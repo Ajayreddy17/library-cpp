@@ -82,6 +82,7 @@ struct modint {
     static constexpr bool can_ntt() { return ntt_info().first != -1; }
 };
 
+#ifdef FASTIO
 template<int _mod>  
 void rd(modint<_mod> &number){
     io::rd(number.val);
@@ -91,6 +92,8 @@ template<int _mod>
 void wt(const modint<_mod> &number){
     io::wt(number.val);
 }
+#endif
+
 template<int _mod>
 ostream &operator<<(ostream &out, const modint<_mod> &number){ return out << number.val; }
 

@@ -44,6 +44,7 @@ namespace BinaryGCDImpl {
 
 }  // namespace BinaryGCDImpl
 
+// bgcd128 also available
 long long bgcd(long long a, long long b) {
     return BinaryGCDImpl::binary_gcd(abs(a), abs(b));
 }

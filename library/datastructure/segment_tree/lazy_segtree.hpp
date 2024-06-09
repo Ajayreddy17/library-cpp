@@ -4,179 +4,176 @@
 #include "library/util/update_proxy_object.hpp"
 
 namespace mitsuha{
-template<class ActedMonoid>
+template <typename ActedMonoid>
 struct Lazy_SegTree {
     using AM = ActedMonoid;
     using MX = typename AM::Monoid_X;
     using MA = typename AM::Monoid_A;
-    using T = typename MX::value_type;
-    using F = typename MA::value_type;
+    using X = typename MX::value_type;
+    using A = typename MA::value_type;
+    int n, log, size;
+    vector<X> dat;
+    vector<A> laz;
 
-    using value_type = T;
-    using operator_type = F;
-    int n, m, lg;
-
-    Lazy_SegTree() : Lazy_SegTree(0) {}
-    Lazy_SegTree(int n) { build(n, [](int){ return MX::unit(); }); }
-    Lazy_SegTree(const std::vector<value_type>& init) {
-        build(init.size(), [&](int i){ return init[i]; });
+    Lazy_SegTree() {}
+    Lazy_SegTree(int n) { build(n); }
+    template <typename F>
+    Lazy_SegTree(int n, F f) {
+        build(n, f);
     }
+    Lazy_SegTree(const vector<X>& v) { build(v); }
 
-    template<class F>
-    void build(int _n, const F &f) {
-        n = _n, m = ceil_pow2(_n);
-        lg = __builtin_ctz(m);
-        data.assign(m << 1, MX::unit());
-        lazy.assign(m, MA::unit());
-        for (int i = 0; i < n; ++i) data[i + m] = f(i);
-        for (int k = m - 1; k > 0; --k) update(k);
+    void build(int m) {
+        build(m, [](int i) -> X { return MX::unit(); });
     }
-
-    void apply(int l, int r, const operator_type& f) {
-        assert(0 <= l and l <= r and r <= n);
-        push_to(l, r);
-        for (int l2 = l + m, r2 = r + m; l2 < r2; l2 >>= 1, r2 >>= 1) {
-            if (l2 & 1) all_apply(l2++, f);
-            if (r2 & 1) all_apply(--r2, f);
-        }
-        update_from(l, r);
+    void build(const vector<X>& v) {
+        build(len(v), [&](int i) -> X { return v[i]; });
     }
-    void apply(int p, const operator_type& f) {
-        (*this)[p] = AM::act(get(p), f, 1 << (lg - topbit(p)));
+    template <typename F>
+    void build(int m, F f) {
+        n = m, log = 1;
+        while ((1 << log) < n) ++log;
+        size = 1 << log;
+        dat.assign(size << 1, MX::unit());
+        laz.assign(size, MA::unit());
+        for(int i = 0; i < n; ++i) dat[size + i] = f(i);
+        for(int i = size - 1; i >= 1; --i) update(i);
     }
-
-    value_type operator()(int l, int r) {
-        assert(0 <= l and l <= r and r <= n);
-        push_to(l, r);
-        value_type res_l = MX::unit(), res_r = MX::unit();
-        for (l += m, r += m; l < r; l >>= 1, r >>= 1) {
-            if (l & 1) res_l = MX::op(res_l, data[l++]);
-            if (r & 1) res_r = MX::op(data[--r], res_r);
-        }
-        return MX::op(res_l, res_r);
-    }
-
-    value_type prod(int l, int r) { return (*this)(l, r); }
-    value_type prefix_prod(int r) { return (*this)(0, r); }
-    value_type suffix_prod(int l) { return (*this)(l, m); }
-    value_type all_prod() const { return data[1]; }
 
     auto operator[](int p) {
         assert(0 <= p and p < n);
-        push_to(p);
-        return UpdateProxyObject{ data[p + m], [this, p] { update_from(p); } };
+        p += size;
+        for (int i = log; i >= 1; i--) push(p >> i);
+        return UpdateProxyObject{ dat[p], [this, p] { update_from(p); } };
     }
-    value_type get(int p) { return (*this)[p]; }
-    vector<value_type> get_all() {
-        vector<value_type> ret(n);
+
+    X get(int p) { return (*this)[p]; }
+    vector<X> get_all() {
+        vector<X> ret(n);
         for (int i = 0; i < n; ++i){
             ret[i] = get(i);
         }
         return ret;
     }
-    void set(int p, value_type v) { (*this)[p] = v; }
 
-    template <typename Pred>
-    int max_right(int l, const Pred &g) {
+    void set(int p, X v) { (*this)[p] = v; }
+
+    X operator()(int l, int r) {
+        assert(0 <= l && l <= r && r <= n);
+        if (l == r) return MX::unit();
+        l += size, r += size;
+        for (int i = log; i >= 1; i--) {
+            if (((l >> i) << i) != l) push(l >> i);
+            if (((r >> i) << i) != r) push((r - 1) >> i);
+        }
+        X xl = MX::unit(), xr = MX::unit();
+        while (l < r) {
+            if (l & 1) xl = MX::op(xl, dat[l++]);
+            if (r & 1) xr = MX::op(dat[--r], xr);
+            l >>= 1, r >>= 1;
+        }
+        return MX::op(xl, xr);
+    }
+
+    X prod(int l, int r) { return (*this)(l, r); }
+    X prefix_prod(int r) { return (*this)(0, r); }
+    X suffix_prod(int l) { return (*this)(l, n); }
+    X all_prod() const { return dat[1]; }
+
+    void apply(int l, int r, A a) {
+        assert(0 <= l && l <= r && r <= n);
+        if (l == r) return;
+        l += size, r += size;
+        for (int i = log; i >= 1; i--) {
+            if (((l >> i) << i) != l) push(l >> i);
+            if (((r >> i) << i) != r) push((r - 1) >> i);
+        }
+        int l2 = l, r2 = r;
+        while (l < r) {
+            if (l & 1) apply_at(l++, a);
+            if (r & 1) apply_at(--r, a);
+            l >>= 1, r >>= 1;
+        }
+        l = l2, r = r2;
+        for (int i = 1; i <= log; i++) {
+            if (((l >> i) << i) != l) update(l >> i);
+            if (((r >> i) << i) != r) update((r - 1) >> i);
+        }
+    }
+
+    template <typename F>
+    int max_right(int l, const F &check) {
         assert(0 <= l && l <= n);
-        assert(g(MX::unit()));
+        assert(check(MX::unit()));
         if (l == n) return n;
-        l += m;
-        for (int i = lg; i >= 1; --i) push(l >> i);
-        value_type sum = MX::unit();
+        l += size;
+        for (int i = log; i >= 1; i--) push(l >> i);
+        X sm = MX::unit();
         do {
-            while ((l & 1) == 0) l >>= 1;
-            if (not g(MX::op(sum, data[l]))) {
-                while (l < m) {
+            while (l % 2 == 0) l >>= 1;
+            if (!check(MX::op(sm, dat[l]))) {
+                while (l < size) {
                     push(l);
-                    l = 2 * l;
-                    if (g(MX::op(sum, data[l]))) sum = MX::op(sum, data[l++]);
+                    l = (2 * l);
+                    if (check(MX::op(sm, dat[l]))) { sm = MX::op(sm, dat[l++]); }
                 }
-                return l - m;
+                return l - size;
             }
-            sum = MX::op(sum, data[l++]);
+            sm = MX::op(sm, dat[l++]);
         } while ((l & -l) != l);
         return n;
     }
 
-    template <typename Pred>
-    int min_left(int r, const Pred &g) {
+    template <typename F>
+    int min_left(int r, const F &check) {
         assert(0 <= r && r <= n);
-        assert(g(MX::unit()));
+        assert(check(MX::unit()));
         if (r == 0) return 0;
-        r += m;
-        for (int i = lg; i >= 1; --i) push(r >> i);
-        value_type sum = MX::unit();
+        r += size;
+        for (int i = log; i >= 1; i--) push((r - 1) >> i);
+        X sm = MX::unit();
         do {
             r--;
-            while (r > 1 and (r & 1)) r >>= 1;
-            if (not g(MX::op(data[r], sum))) {
-                while (r < m) {
+            while (r > 1 && (r % 2)) r >>= 1;
+            if (!check(MX::op(dat[r], sm))) {
+                while (r < size) {
                     push(r);
-                    r = 2 * r + 1;
-                    if (g(MX::op(data[r], sum))) sum = MX::op(data[r--], sum);
+                    r = (2 * r + 1);
+                    if (check(MX::op(dat[r], sm))) { sm = MX::op(dat[r--], sm); }
                 }
-                return r + 1 - m;
+                return r + 1 - size;
             }
-            sum = MX::op(data[r], sum);
+            sm = MX::op(dat[r], sm);
         } while ((r & -r) != r);
         return 0;
     }
-     
+
 private:
-    std::vector<value_type> data;
-    std::vector<operator_type> lazy;
-
-    static constexpr int ceil_pow2(int n) {
-        int m = 1;
-        while (m < n) m <<= 1;
-        return m;
-    }
-
-    void all_apply(int k, const operator_type& f) {
-        data[k] = AM::act(data[k], f, 1 << (lg - topbit(k)));
-        if (k < m) {
-            lazy[k] = MA::op(lazy[k], f);
-        }
-    }
-    inline int topbit(int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }
-    void push(int k) {
-        all_apply(2 * k, lazy[k]), all_apply(2 * k + 1, lazy[k]);
-        lazy[k] = MA::unit();
-    }
-    void push_to(int p) {
-        p += m;
-        for (int i = lg; i >= 1; --i) push(p >> i);
-    }
-    void push_to(int l, int r) {
-        l += m, r += m;
-        int li = __builtin_ctz(l), ri = __builtin_ctz(r);
-        for (int i = lg; i >= li + 1; --i) push(l >> i);
-        for (int i = lg; i >= ri + 1; --i) push(r >> i);
+    inline int topbit(int x) { 
+        return (x == 0 ? -1 : 31 - __builtin_clz(x)); 
     }
     void update(int k) {
-        data[k] = MX::op(data[2 * k], data[2 * k + 1]);
+        dat[k] = MX::op(dat[2 * k], dat[2 * k + 1]);
     }
     void update_from(int p) {
-        p += m;
-        for (int i = 1; i <= lg; ++i) update(p >> i);
+        for (int i = 1; i <= log; i++) update(p >> i);
     }
-    void update_from(int l, int r) {
-        l += m, r += m;
-        int li = __builtin_ctz(l), ri = __builtin_ctz(r);
-        for (int i = li + 1; i <= lg; ++i) update(l >> i);
-        for (int i = ri + 1; i <= lg; ++i) update(r >> i);
+    void apply_at(int k, A a) {
+        long long sz = 1 << (log - topbit(k));
+        dat[k] = AM::act(dat[k], a, sz);
+        if (k < size) laz[k] = MA::op(laz[k], a);
+    }
+    void push(int k) {
+        if (laz[k] == MA::unit()) return;
+        apply_at(2 * k, laz[k]), apply_at(2 * k + 1, laz[k]);
+        laz[k] = MA::unit();
     }
 };
+
 template<class ActedMonoid>
 std::ostream &operator<<(std::ostream &out, const Lazy_SegTree<ActedMonoid> &_lseg){
     auto lseg = _lseg;
-    out << "[";
-    for(auto i = 0; i < lseg.n; ++ i){
-        out << lseg[i];
-        if(i != lseg.n - 1) out << ", ";
-    }
-    return out << ']';
+    return out << lseg.get_all();
 }
 } // namespace mitsuha
 #endif // AJAY_LAZY_SEGMENT_TREE

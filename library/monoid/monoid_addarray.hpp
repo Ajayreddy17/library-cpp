@@ -15,7 +15,7 @@ struct Monoid_Add_Array {
         for (auto& v: x) v = -v;
         return x;
     }
-    static constexpr X power(X x, ll n) {
+    static constexpr X power(X x, long long n) {
         for (auto& v: x) v *= E(n);
         return x;
     }

@@ -2,7 +2,7 @@
 #define AJAY_KTH_ROOT
 
 namespace mitsuha{
-unsigned long long integer_kth_root(unsigned long long k, unsigned long long a) {
+unsigned long long kth_root(unsigned long long a, unsigned long long k) {
     assert(k >= 1);
     if (a == 0 || a == 1 || k == 1) return a;
     if (k >= 64) return 1;

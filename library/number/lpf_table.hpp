@@ -4,6 +4,7 @@
 #include "library/number/primetable.hpp"
 
 namespace mitsuha{
+// least prime factor upto n <= LIM
 vector<int> lpf_table(long long LIM) {
     auto primes = primetable(LIM);
     vector<int> res(LIM + 1, -1);

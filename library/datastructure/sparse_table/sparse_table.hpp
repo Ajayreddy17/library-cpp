@@ -51,7 +51,7 @@ struct Sparse_Table {
     }
 
     template <class F>
-    int max_right(const F check, int L) {
+    int max_right(int L, const F &check) {
         assert(0 <= L && L <= n && check(MX::unit()));
         if (L == n) return n;
         int ok = L, ng = n + 1;
@@ -65,7 +65,7 @@ struct Sparse_Table {
     }
 
     template <class F>
-    int min_left(const F check, int R) {
+    int min_left(int R, const F &check) {
         assert(0 <= R && R <= n && check(MX::unit()));
         if (R == 0) return 0;
         int ok = R, ng = -1;

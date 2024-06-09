@@ -22,8 +22,7 @@ struct FastSet {
         } while (m > 1);
         log = (int) seg.size();
     }
-    template <typename F>
-    void build(int n, F f) {
+    void build(int n, function<bool(int)> f) {
         build(n);
         for(int i = 0; i < n; ++i) { seg[0][i / B] |= (unsigned long long)(f(i)) << (i % B); }
         for(int h = 0; h < log - 1; ++h) {
@@ -92,6 +91,8 @@ struct FastSet {
         }
         return -1;
     }
+
+    bool any(int l, int r) { return next(l) < r; }
 
     // [l, r)
     template <typename F>

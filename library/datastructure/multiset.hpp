@@ -12,11 +12,6 @@ Dynamic_SegTree_Sparse<Monoid_Add<long long>, false, (int) 1e3> Meg(-linf, linf)
 #endif
 
 struct Multiset{
-#ifdef LOCAL
-    #define ASSERT(c) assert(c)
-#else
-    #define ASSERT(c) 42
-#endif
     using np = decltype(Meg)::np;
     np root;
     long long _size;
@@ -27,7 +22,7 @@ struct Multiset{
         root = Meg.multiply(root, x, cnt);
     }
     void remove(long long x, int cnt = 1){
-        ASSERT(Meg.get(root, x) >= cnt);
+        Assert(Meg.get(root, x) >= cnt);
         _size -= cnt;
         root = Meg.multiply(root, x, -cnt);
     }
@@ -56,24 +51,21 @@ struct Multiset{
     long long count_range(long long l, long long r){ return Meg.prod(root, l, r); }
 
     long long starting_index(long long x){
-        ASSERT(count(x));
+        Assert(count(x));
         return count_lt(x);
     }
     long long ending_index(long long x){
-        ASSERT(count(x));
+        Assert(count(x));
         return count_leq(x) - 1;
     }
-    // index range
-    pair<long long, long long> equal_range(long long x){ return make_pair(count_lt(x), count_leq(x)); }
 
     long long operator[](int idx) {
-        ASSERT(idx < Meg.prod_all(root));
+        Assert(idx < Meg.prod_all(root));
         return Meg.max_right(root, [&](long long x){ return x <= idx; }, -linf);
     }
-    long long index(int idx) { return (*this)[idx]; }
-    long long front(){ return index(0); }
-    long long back(){ return index(_size - 1); }
-#undef ASSERT
+    long long at(int idx) { return (*this)[idx]; }
+    long long front(){ return at(0); }
+    long long back(){ return at(_size - 1); }
 };
 
 std::ostream &operator<<(std::ostream &out, const Multiset &S){

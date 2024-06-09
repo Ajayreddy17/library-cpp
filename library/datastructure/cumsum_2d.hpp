@@ -43,7 +43,12 @@ struct Cumsum_2D {
         X d = (x2 >= 0 && y2 >= 0 ? dat[W * x2 + y2] : MX::unit());
         return MX::op(MX::op(a, d), MX::inverse(MX::op(b, c)));
     }
- 
+
+    template <bool allow_out_of_range = default_allow_out_of_range>
+    X prod(int x1, int x2, int y1, int y2) const{
+        return sum<allow_out_of_range>(x1, x2, y1, y2);
+    }
+
     X prefix_sum(int x, int y) {
         return (x == 0 || y == 0) ? MX::unit() : dat[W * x + y - (W + 1)];
     }

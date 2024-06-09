@@ -13,6 +13,7 @@ struct io_setup {
 
 using namespace std;
 
+namespace mitsuha{
 template <typename Iterator>
 string print_iterable(Iterator begin, Iterator end, string bef, string aft,
         function<string(typename iterator_traits<Iterator>::value_type)>* f = nullptr);
@@ -135,6 +136,7 @@ void debug_impl(const char* names, TH curr_val, TA... vals) {
     cerr << ": " << curr_val << ", ";
     debug_impl(names+1, vals...);
 }
+} // namespace mitsuha
 
 #define debug(...) cerr << "[" << __LINE__ << "] ", debug_impl(#__VA_ARGS__, __VA_ARGS__)
 

@@ -5,50 +5,59 @@ namespace mitsuha{
 // unsigned long long -> Val
 template <typename Val>
 struct HashMap {
-    HashMap(unsigned int n = 0) { build(n); }
-    void build(unsigned int n) {
+    HashMap(unsigned int n = 0, Val _default_value = Val{}) { build(n, _default_value); }
+    void build(unsigned int n, Val _default_value = Val{}) {
+        default_value = _default_value;
         unsigned int k = 8;
         while (k * 0.8 < n) k *= 2;
         cap = k * 0.8, mask = k - 1;
         key.resize(k), val.resize(k), used.assign(k, 0);
     }
-    void clear() { build(0); }
+    void clear() { used.assign(len(used), 0); }
     int size() { return len(used) - cap; }
-
-    int index(const unsigned long long& k) {
-        int i = 0;
-        for (i = hash(k); used[i] && key[i] != k; i = (i + 1) & mask) {}
-        return i;
-    }
 
     Val& operator[](const unsigned long long& k) {
         if (cap == 0) extend();
         int i = index(k);
-        if (!used[i]) { used[i] = 1, key[i] = k, val[i] = Val{}, --cap; }
+        if (!used[i]) { used[i] = 1, key[i] = k, val[i] = default_value, --cap; }
         return val[i];
     }
 
-    Val get(const unsigned long long& k, Val default_value) {
+    Val get(const unsigned long long& k) {
         int i = index(k);
         return (used[i] ? val[i] : default_value);
     }
 
-    bool count(const unsigned long long& k) {
+    bool contains(const unsigned long long& k) {
         int i = index(k);
         return used[i] && key[i] == k;
     }
 
     // f(key, val)
     template <typename F>
-    void enumerate_all(F f) {
+    void enumerate(F f) {
         For(i, len(used)) if (used[i]) f(key[i], val[i]);
+    }
+
+    vector<pair<unsigned long long, Val>> enumerate(bool sorted = true) {
+        vector<pair<unsigned long long, Val>> elem;
+        For(i, len(used)) if (used[i]) elem.emplace_back(key[i], val[i]);
+        if (sorted) sort(elem.begin(), elem.end());
+        return elem;
     }
 
 private:
     unsigned int cap, mask;
+    Val default_value;
     vector<unsigned long long> key;
     vector<Val> val;
     vector<bool> used;
+
+    int index(const unsigned long long& k) {
+        int i = 0;
+        for (i = hash(k); used[i] && key[i] != k; i = (i + 1) & mask) {}
+        return i;
+    }
 
     unsigned long long hash(unsigned long long x) {
         static const unsigned long long FIXED_RANDOM
@@ -65,9 +74,19 @@ private:
         For(i, len(used)) {
             if (used[i]) dat.emplace_back(key[i], val[i]);
         }
-        build(2 * len(dat));
+        build(2 * len(dat), default_value);
         for (auto& [a, b]: dat) (*this)[a] = b;
     }
 };
+
+template <typename Val>
+std::ostream &operator<<(std::ostream &out, const HashMap<Val> &_hm){
+    auto hm = _hm;
+    for (auto &&[key, val]: hm.enumerate()){
+        out << "\n";
+        out << key << " " << val;
+    }
+    return out;
+}
 } // namespace mitsuha
 #endif // AJAY_HASHMAP

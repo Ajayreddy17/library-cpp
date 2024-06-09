@@ -9,9 +9,9 @@ struct Weighted_UnionFind {
     int n_comp;
     vector<E> vals;
     vector<int> par;
-    vector<int> size;
+    vector<int> _size;
 
-    Weighted_UnionFind(int N): N(N), n_comp(N), vals(N, Group::unit()), size(N, 1) {
+    Weighted_UnionFind(int N): N(N), n_comp(N), vals(N, Group::unit()), _size(N, 1) {
         par.resize(N);
         iota(par.begin(), par.end(), 0);
     }
@@ -30,12 +30,15 @@ struct Weighted_UnionFind {
 
     pair<int, E> operator[](int v) { return get(v); }
 
+    int size(int u) { return _size[u]; }
+    int group_count() { return n_comp; }
+
     // updates 'to' with respect to 'frm'
     bool merge(int frm, int to, E x) {
         auto [v1, x1] = get(frm);
         auto [v2, x2] = get(to);
         if (v1 == v2) return false;
-        if (size[v1] < size[v2]) {
+        if (_size[v1] < _size[v2]) {
             swap(v1, v2);
             swap(x1, x2);
             x = Group::inverse(x);
@@ -44,7 +47,7 @@ struct Weighted_UnionFind {
         x = Group::op(x, Group::inverse(x2));
         vals[v2] = x;
         par[v2] = v1;
-        size[v1] += size[v2];
+        _size[v1] += _size[v2];
         --n_comp;
         return true;
     }

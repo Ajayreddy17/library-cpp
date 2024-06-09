@@ -92,8 +92,10 @@ using namespace std;
 #ifdef LOCAL
 #define  debug_path "library/debug/pprint.hpp"
 #include debug_path
+#define Assert(x) assert(x)
 #else
 #define debug(...) void(0)
+#define Assert(x) void(0)
 #endif
  
 constexpr int iinf = std::numeric_limits<int>::max() / 2;

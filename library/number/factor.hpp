@@ -15,10 +15,10 @@ long long rho(long long n, long long c) {
     const long long m = 1LL << (__lg(n) / 5);
     for (long long r = 1; g == 1; r <<= 1) {
         x = y;
-        Loop(r) y = f(y);
+        For(r) y = f(y);
         for (long long k = 0; k < r && g == 1; k += m) {
             z = y;
-            Loop(min(m, r - k)) y = f(y), q *= x - y;
+            For(min(m, r - k)) y = f(y), q *= x - y;
             g = gcd(q.val(), n);
         }
     }
@@ -32,7 +32,7 @@ long long rho(long long n, long long c) {
 long long find_prime_factor(long long n) {
     assert(n > 1);
     if (primetest(n)) return n;
-    Loop(100) {
+    For(100) {
         long long m = 0;
         if (n < (1 << 30)) {
             using mint = Mongomery_modint_32<20231025>;
@@ -72,6 +72,7 @@ vector<pair<long long, int>> factor(long long n) {
     return pf;
 }
 
+// doesn't sort
 vector<pair<long long, int>> factor_by_lpf(long long n, vector<int>& lpf) {
     vector<pair<long long, int>> res;
     while (n > 1) {

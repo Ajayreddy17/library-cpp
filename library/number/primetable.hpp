@@ -2,6 +2,7 @@
 #define AJAY_PRIMETABLE
 
 namespace mitsuha{
+// returns vector of primes <= LIM
 template <typename T = int>
 vector<T> primetable(int LIM) {
     ++LIM;

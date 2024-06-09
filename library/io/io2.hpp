@@ -33,19 +33,16 @@ inline void load() {
     pil = 0;
     if (pir < SZ) input_buffer[pir++] = '\n';
 }
-
 inline void flush() {
     fwrite(output_buffer, 1, por, stdout);
     por = 0;
 }
-
 void rd(char &c) { 
     do { 
         if (pil >= pir) load(); 
         c = input_buffer[pil++]; 
     } while (isspace(c));
- }
-
+}
 void rd(std::string &x) {
     x.clear();
     char c;
@@ -59,14 +56,12 @@ void rd(std::string &x) {
         c = input_buffer[pil++];
     } while (!isspace(c));
 }
-
 template<typename T>
 void rd_real(T &x) {
     std::string s;
     rd(s);
     x = stod(s);
 }
-
 template<typename T>
 void rd_integer(T &x) {
     if (pil + 100 > pir) load();
@@ -101,7 +96,6 @@ template<class T, class U> void rd(std::pair <T, U> &p) {
     rd(p.first);
     rd(p.second);
 }
-
 template<size_t N = 0, typename T> void rd_tuple(T &t) {
     if constexpr (N < std::tuple_size<T>::value) {
         auto &x = std::get<N>(t);
@@ -109,15 +103,12 @@ template<size_t N = 0, typename T> void rd_tuple(T &t) {
         rd_tuple<N + 1>(t);
     }
 }
-
 template<class... T> void rd(std::tuple<T...> &tpl) {
     rd_tuple(tpl);
 }
-
 template<size_t N = 0, typename T> void rd(std::array <T, N> &x) {
     for (auto &d: x) rd(d);
 }
-
 template<class T> void rd(std::vector <T> &x) {
     for (auto &d: x) rd(d);
 }
@@ -133,16 +124,13 @@ void wt(const char c) {
     if (por == SZ) flush();
     output_buffer[por++] = c;
 }
-
 void wt(const std::string &s) {
     for (char c: s) wt(c);
 }
-
 void wt(const char *s) {
     size_t len = strlen(s);
     for (size_t i = 0; i < len; i++) wt(s[i]);
 }
-
 template<typename T>
 void wt_integer(T x) {
     if (por > SZ - 100) flush();
@@ -169,7 +157,6 @@ void wt_integer(T x) {
     memcpy(output_buffer + por, out + outi + 4, 96 - outi);
     por += 96 - outi;
 }
-
 template<typename T>
 void wt_real(T x) {
     std::ostringstream oss;
@@ -195,7 +182,6 @@ void wt(const std::pair <T, U> val) {
     wt(' ');
     wt(val.second);
 }
-
 template<size_t N = 0, typename T>
 void wt_tuple(const T t) {
     if constexpr (N < std::tuple_size<T>::value) {
@@ -205,18 +191,15 @@ void wt_tuple(const T t) {
         wt_tuple<N + 1>(t);
     }
 }
-
 template<class... T> void wt(std::tuple<T...> tpl) {
     wt_tuple(tpl);
 }
-
 template<class T, size_t S> void wt(const std::array <T, S> val) {
     for (size_t i = 0, n = val.size(); i < n; i++) {
         if (i) wt(' ');
         wt(val[i]);
     }
 }
-
 template<class T> void wt(const std::vector<T> val) {
     for (size_t i = 0, n = val.size(); i < n; i++) {
         if (i) wt(' ');

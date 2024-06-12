@@ -5,6 +5,10 @@
 #include "library/datastructure/unionfind/unionfind.hpp"
 
 namespace mitsuha{
+// https://x.com/maspy_stars/status/1559115993909043206
+// graph must be undirected
+// use TO[root] to find cut edge, out_cost is the cost of cut edge
+// out_eid also available
 template <typename GT>
 struct UnicyclicGraph {
     static_assert(!GT::is_directed);
@@ -48,10 +52,8 @@ struct UnicyclicGraph {
         for (auto &&v: cycle) in_cycle[v] = 1;
     }
 
-    // {G, tree}
-    pair<Graph<T, 1>, Tree<Graph<T, 1>>>
-
-    build(bool keep_eid = false) {
+    // {directed G, tree}
+    pair<Graph<T, 1>, Tree<Graph<T, 1>>> build(bool keep_eid = false) {
         Graph<T, 1> G(N);
         For(eid, N) {
             if (eid == out_eid) continue;

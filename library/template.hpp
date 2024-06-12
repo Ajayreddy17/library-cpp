@@ -56,18 +56,20 @@ namespace mitsuha {
 #ifndef __COUNTER__
 #define __COUNTER__ __LINE__
 #endif
- 
+
+#define TL (long long)
+
 #define OVERLOAD5(a, b, c, d, e, ...) e
 #define REP1_0(b, c) REP1_1(b, c)
-#define REP1_1(b, c) for (long long REP_COUNTER_##c = 0; REP_COUNTER_##c < (long long)(b); ++REP_COUNTER_##c)
+#define REP1_1(b, c) for (long long REP_COUNTER_##c = 0; REP_COUNTER_##c < TL(b); ++REP_COUNTER_##c)
 #define REP1(b) REP1_0(b, __COUNTER__)
-#define REP2(i, b) for (long long i = 0; i < (long long)(b); ++i)
-#define REP3(i, a, b) for (long long i = (long long)(a); i < (long long)(b); ++i)
-#define REP4(i, a, b, c) for (long long i = (long long)(a); i < (long long)(b); i += (long long)(c))
+#define REP2(i, b) for (long long i = 0; i < TL(b); ++i)
+#define REP3(i, a, b) for (long long i = TL(a); i < TL(b); ++i)
+#define REP4(i, a, b, c) for (long long i = TL(a); i < TL(b); i += TL(c))
 #define For(...) OVERLOAD5(__VA_ARGS__, REP4, REP3, REP2, REP1)(__VA_ARGS__)
-#define RREP2(i, a) for (long long i = (long long)(a)-1; i >= 0; --i)
-#define RREP3(i, a, b) for (long long i = (long long)(a)-1; i >= (long long)(b); --i)
-#define RREP4(i, a, b, c) for (long long i = (long long)(a)-1; i >= (long long)(b); i -= (long long)(c))
+#define RREP2(i, a) for (long long i = TL(a)-1; i >= 0; --i)
+#define RREP3(i, a, b) for (long long i = TL(a)-1; i >= TL(b); --i)
+#define RREP4(i, a, b, c) for (long long i = TL(a)-1; i >= TL(b); i -= TL(c))
 #define Frr(...) OVERLOAD5(__VA_ARGS__, RREP4, RREP3, RREP2)(__VA_ARGS__)
 
 #define Int(...) int __VA_ARGS__; read(__VA_ARGS__)
@@ -81,7 +83,7 @@ namespace mitsuha {
 #define die_ext(...) do { print(__VA_ARGS__); return 0; } while (false)
 
 #define All(iterable) std::begin(iterable), std::end(iterable)
-#define len(iterable) (long long) iterable.size()
+#define len(iterable) TL iterable.size()
 #define elif else if
 
 #define KBIT(a, k) (a & (1ULL << k))
@@ -95,6 +97,7 @@ using namespace std;
 #define Assert(x) assert(x)
 #else
 #define debug(...) void(0)
+#define debugbin(...) void(0)
 #define Assert(x) void(0)
 #endif
  

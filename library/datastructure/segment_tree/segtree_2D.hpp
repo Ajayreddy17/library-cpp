@@ -2,8 +2,10 @@
 #define AJAY_SEGTREE_2D
 
 namespace mitsuha{
-// Even if there are duplicate points, they are set as separate points, etc.
-template <typename Monoid, typename XY, bool SMALL_X = false>
+// Basis should be provided first,
+// raw_idx should be maintained to use
+// set and multiply functions
+template <typename Monoid, typename XY = long long, bool SMALL_X = false>
 struct SegTree_2D {
     using MX = Monoid;
     using S = typename MX::value_type;
@@ -18,9 +20,13 @@ struct SegTree_2D {
     vector<S> dat;
     vector<int> to_left; // fractional cascading
 
-    SegTree_2D(vector<XY>& X, vector<XY>& Y) : SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> { return {X[i], Y[i], MX::unit()}; }) {}
+    SegTree_2D(vector<XY>& X, vector<XY>& Y) : 
+        SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> 
+            { return {X[i], Y[i], MX::unit()}; }) {}
 
-    SegTree_2D(vector<XY>& X, vector<XY>& Y, vector<S>& vals) : SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> { return {X[i], Y[i], vals[i]}; }) {}
+    SegTree_2D(vector<XY>& X, vector<XY>& Y, vector<S>& vals) : 
+        SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> 
+            { return {X[i], Y[i], vals[i]}; }) {}
 
     // f(i) = (x,y,val)
     template <typename F>
@@ -56,7 +62,11 @@ struct SegTree_2D {
         to_left.assign(indptr[size], 0);
 
         vector<int> ptr = indptr;
-        vector<int> I = sorted_indices(len(Y), [&](int x){ return Y[x]; });
+        vector<int> I(len(Y));
+        iota(I.begin(), I.end(), 0);
+        sort(I.begin(), I.end(), [&](int i, int j){
+            return Y[i] < Y[j];
+        });
         pos.resize(N);
         for(long long i = 0; i < N; i++) pos[I[i]] = i;
         for (auto raw_idx: I) {
@@ -81,7 +91,8 @@ struct SegTree_2D {
         all_Y = Y;
         sort(all_Y.begin(), all_Y.end());
     }
-    //of the initially given point pool index
+
+    // raw_idx = initially given point basis
     void multiply(int raw_idx, S val) {
         int i = 1, p = pos[raw_idx];
         while (1) {
@@ -99,7 +110,7 @@ struct SegTree_2D {
         }
     }
 
-    //of the initially given point pool index
+    // raw_idx = initially given point basis
     void set(int raw_idx, S val) {
         int i = 1, p = pos[raw_idx];
         while (1) {
@@ -117,6 +128,7 @@ struct SegTree_2D {
         }
     }
 
+    // [x1, x2) x [y1, y2), arguments in same order
     S prod(XY lx, XY rx, XY ly, XY ry) {
         assert(lx <= rx && ly <= ry);
         int L = xtoi(lx), R = xtoi(rx);
@@ -135,11 +147,12 @@ struct SegTree_2D {
             dfs(dfs, 2 * i + 0, l, m, la, lb);
             dfs(dfs, 2 * i + 1, m, r, ra, rb);
         };
-        dfs(dfs, 1, 0, size, lower_bound(all_Y.begin(), all_Y.end(), ly) - all_Y.begin(), lower_bound(all_Y.begin(), all_Y.end(), ry) - all_Y.begin());
+        dfs(dfs, 1, 0, size, lower_bound(all_Y.begin(), all_Y.end(), ly) - all_Y.begin(), 
+                             lower_bound(all_Y.begin(), all_Y.end(), ry) - all_Y.begin());
         return res;
     }
 
-    // Count all points within a rectangle, logN
+    // [x1, x2) x [y1, y2), arguments in same order
     int count(XY lx, XY rx, XY ly, XY ry) {
         assert(lx <= rx && ly <= ry);
         int L = xtoi(lx), R = xtoi(rx);
@@ -158,7 +171,8 @@ struct SegTree_2D {
             dfs(dfs, 2 * i + 0, l, m, la, lb);
             dfs(dfs, 2 * i + 1, m, r, ra, rb);
         };
-        dfs(dfs, 1, 0, size, LB(all_Y, ly), LB(all_Y, ry));
+        dfs(dfs, 1, 0, size, lower_bound(all_Y.begin(), all_Y.end(), ly) - all_Y.begin(), 
+                             lower_bound(all_Y.begin(), all_Y.end(), ry) - all_Y.begin());
         return res;
     }
 

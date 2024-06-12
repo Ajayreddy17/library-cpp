@@ -4,6 +4,8 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// https://x.com/noshi91/status/1193177214453338113
+// returns directed graph, use build()
 template <typename T>
 struct Range_to_Range_Graph {
     int n;
@@ -13,16 +15,6 @@ struct Range_to_Range_Graph {
     Range_to_Range_Graph(int n) : n(n), n_node(n * 3) {
         For(i, 2, n + n) edges.emplace_back(to_upper_idx(i / 2), to_upper_idx(i), 0); 
         For(i, 2, n + n) edges.emplace_back(to_lower_idx(i), to_lower_idx(i / 2), 0); 
-    }
-
-    inline int to_upper_idx(const int &i) {
-        if (i >= n) return i - n;
-        return n + i;
-    }
-
-    inline int to_lower_idx(const int &i) {
-        if (i >= n) return i - n;
-        return n + n + i;
     }
 
     void add(int frm, int to, T wt) { edges.emplace_back(frm, to, wt); }
@@ -56,6 +48,17 @@ struct Range_to_Range_Graph {
         for (auto &&[a, b, c]: edges) G.add(a, b, c);
         G.build();
         return G;
+    }
+
+private:
+    inline int to_upper_idx(const int &i) {
+        if (i >= n) return i - n;
+        return n + i;
+    }
+
+    inline int to_lower_idx(const int &i) {
+        if (i >= n) return i - n;
+        return n + n + i;
     }
 };
 } // namespace mitsuha

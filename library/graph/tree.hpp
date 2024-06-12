@@ -78,12 +78,24 @@ struct Tree {
         return P;
     }
 
+    int heavy_child(int v) {
+        int k = LID[v] + 1;
+        if (k == N) return -1;
+        int w = V[k];
+        return (parent[w] == v ? w : -1);
+    }
+
     int e_to_v(int eid) {
         auto e = G.edges[eid];
         return (parent[e.frm] == e.to ? e.frm : e.to);
     }
 
     int v_to_e(int v) { return VtoE[v]; }
+    int get_eid(int u, int v) {
+        if (parent[u] != v) swap(u, v);
+        assert(parent[u] == v);
+        return VtoE[u];
+    }
     int ELID(int v) { return 2 * LID[v] - depth[v]; }
     int ERID(int v) { return 2 * RID[v] - depth[v] - 1; }
 
@@ -104,6 +116,8 @@ struct Tree {
             if (head[u] == head[v]) return u;
         }
     }
+
+    int meet(int a, int b, int c) { return lca(a, b) ^ lca(a, c) ^ lca(b, c); }
 
     int lca_root(int u, int v, int root) {
         return lca(u, v) ^ lca(u, root) ^ lca(v, root);
@@ -186,6 +200,19 @@ struct Tree {
             else for (int i = a; i >= b; i--) P.emplace_back(V[i]);
         }
         return P;
+    }
+
+    // path intersection of [a, b] x [c, d]
+    // {-1, -1} if there wasn't any intersection
+    // https://codeforces.com/problemset/problem/500/G
+    pair<int, int> path_intersection(int a, int b, int c, int d) {
+        int ab = lca(a, b), ac = lca(a, c), ad = lca(a, d);
+        int bc = lca(b, c), bd = lca(b, d), cd = lca(c, d);
+        int x = ab ^ ac ^ bc, y = ab ^ ad ^ bd; // meet(a,b,c), meet(a,b,d)
+        if (x != y) return {x, y};
+        int z = ac ^ ad ^ cd;
+        if (x != z) x = -1;
+        return {x, x};
     }
 };
 } // namespace mitsuha

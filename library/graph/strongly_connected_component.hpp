@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// n_comp, component_id    
 template <typename GT>
 pair<int, vector<int>> strongly_connected_component(GT& G) {
     static_assert(GT::is_directed);

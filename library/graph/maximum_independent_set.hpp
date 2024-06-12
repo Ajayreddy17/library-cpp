@@ -5,6 +5,7 @@
 
 namespace mitsuha{
 // The worst is N*1.381^N, but it may also be usable with N=100.
+// MAX_V is max possible G.N
 template <int MAX_V, typename GT>
 vector<int> maximum_independent_set(GT& G) {
     using BS = bitset<MAX_V>;

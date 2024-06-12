@@ -125,7 +125,20 @@ ostream &operator<<(typename enable_if<!is_same<T, string>::value, ostream>::typ
 	}
 	return out;
 }
- 
+
+template<class Width, class Head>
+void debugbin_out(Width w, Head H){
+	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
+	cerr << endl;
+}
+template<class Width, class Head, class... Tail>
+void debugbin_out(Width w, Head H, Tail... T){
+	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
+	cerr << ", "; debugbin_out(w, T...);
+}
+
+#define debugbin(...) cerr << "[" << __LINE__ << "] " << "[" << #__VA_ARGS__ << "] ", debugbin_out(__VA_ARGS__)
+
 template<class TH>
 void debug_impl(const char* name, TH val){
     cerr << name << ": " << val << endl;
@@ -140,7 +153,26 @@ void debug_impl(const char* names, TH curr_val, TA... vals) {
 
 #define debug(...) cerr << "[" << __LINE__ << "] ", debug_impl(#__VA_ARGS__, __VA_ARGS__)
 
-#define _PRINT_TIME_ auto __time = chrono::system_clock::to_time_t(chrono::system_clock::now()); \
-                                    print(); print(localtime(&__time)->tm_min, localtime(&__time)->tm_sec)
+chrono::high_resolution_clock::time_point bgn;
+void __attribute__((constructor)) _st_time() {
+    bgn = chrono::high_resolution_clock::now();
+}
+
+void __attribute__((destructor)) _ed_time() {
+    chrono::high_resolution_clock::time_point end = chrono::high_resolution_clock::now();
+    string unit;
+    #ifdef MILLI
+    long long elapsed = chrono::duration_cast<chrono::milliseconds>(end - bgn).count();
+    unit = "milli sec";
+    #else
+    long long elapsed = chrono::duration_cast<chrono::microseconds>(end - bgn).count();
+    unit = "micro sec";
+    #endif
+    #ifdef FASTIO
+    print();
+    print("Time Elapsed:", elapsed, unit);
+    flush();
+    #endif 
+}
 
 #endif  // H_PRETTY_PRINT

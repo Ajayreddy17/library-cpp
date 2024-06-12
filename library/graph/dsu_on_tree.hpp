@@ -8,12 +8,13 @@ namespace mitsuha{
 // query(v) : answer the query at vertex v
 // reset(): Return to empty state.
 // Depending on the data structure, use history to reset quickly.
-// If query at v required without itself, update position of query(v).
+// If query at v required without itself, update position of add(v).
 template <typename TREE, typename F1, typename F2, typename F3>
 void DSU_on_Tree(TREE& tree, F1& add, F2& query, F3& reset) {
     int N = tree.N;
     Frr(vid, N){
         int v = tree.V[vid];
+
         add(v);
         // collect data in light subtree
         for (auto &&e: tree.G[v]) {

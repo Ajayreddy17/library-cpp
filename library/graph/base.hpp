@@ -15,28 +15,28 @@ struct Graph {
     int N, M;
     using cost_type = T;
     using edge_type = Edge<T>;
-    vector <edge_type> edges;
+    vector<edge_type> edges;
     vector<int> indptr;
-    vector <edge_type> csr_edges;
+    vector<edge_type> csr_edges;
     vector<int> vc_deg, vc_indeg, vc_outdeg;
     bool prepared;
 
     class OutgoingEdges {
     public:
-        OutgoingEdges(const Graph *G, int l, int r) : G(G), l(l), r(r) {}
+        OutgoingEdges(const Graph* G, int l, int r) : G(G), l(l), r(r) {}
 
-        const edge_type *begin() const {
+        const edge_type* begin() const {
             if (l == r) { return 0; }
             return &G->csr_edges[l];
         }
 
-        const edge_type *end() const {
+        const edge_type* end() const {
             if (l == r) { return 0; }
             return &G->csr_edges[r];
         }
 
     private:
-        const Graph *G;
+        const Graph* G;
         int l, r;
     };
 
@@ -65,7 +65,10 @@ struct Graph {
         ++M;
     }
 
+#ifdef FASTIO
+    // wt, off
     void read_tree(bool wt = false, int off = 1) { read_graph(N - 1, wt, off); }
+
     void read_graph(int M, bool wt = false, int off = 1) {
         for (int m = 0; m < M; ++m) {
             int a, b;
@@ -81,19 +84,20 @@ struct Graph {
         }
         build();
     }
-    
+#endif
+
     void build() {
         assert(!prepared);
         prepared = true;
         indptr.assign(N + 1, 0);
-        for (auto &&e: edges) {
+        for (auto&& e: edges) {
             indptr[e.frm + 1]++;
             if (!directed) indptr[e.to + 1]++;
         }
         for (int v = 0; v < N; ++v) { indptr[v + 1] += indptr[v]; }
         auto counter = indptr;
         csr_edges.resize(indptr.back() + 1);
-        for (auto &&e: edges) {
+        for (auto&& e: edges) {
             csr_edges[counter[e.frm]++] = e;
             if (!directed)
                 csr_edges[counter[e.to]++] = edge_type({e.to, e.frm, e.cost, e.id});
@@ -110,7 +114,7 @@ struct Graph {
         return vc_deg;
     }
 
-    pair <vector<int>, vector<int>> deg_array_inout() {
+    pair<vector<int>, vector<int>> deg_array_inout() {
         if (vc_indeg.empty()) calc_deg_inout();
         return {vc_indeg, vc_outdeg};
     }
@@ -133,17 +137,19 @@ struct Graph {
     vector<int> new_idx;
     vector<bool> used_e;
 
-    // Make vertex V[i] in G become i in the new graph
-    // returns {G, es}
+    // vertex V[i] in G become i in the new graph
+    // {G, es}
+    // The amount of calculation is sum(deg(v)),
+    // Be careful as it may be larger than n+m in the new graph
     Graph<T, directed> rearrange(vector<int> V, bool keep_eid = 0) {
-        if ((int) new_idx.size() != N) new_idx.assign(N, -1);
-        if ((int) used_e.size() != M) used_e.assign(M, 0);
-        int n = (int) V.size();
-        for(int i = 0; i < n; ++i) new_idx[V[i]] = i;
+        if (len(new_idx) != N) new_idx.assign(N, -1);
+        int n = len(V);
+        For(i, n) new_idx[V[i]] = i;
         Graph<T, directed> G(n);
         vector<int> history;
-        for(int i = 0; i < n; ++i) {
-            for (auto &&e: (*this)[V[i]]) {
+        For(i, n) {
+            for (auto&& e: (*this)[V[i]]) {
+                if (len(used_e) <= e.id) used_e.resize(e.id + 1);
                 if (used_e[e.id]) continue;
                 int a = e.frm, b = e.to;
                 if (new_idx[a] != -1 && new_idx[b] != -1) {
@@ -154,24 +160,49 @@ struct Graph {
                 }
             }
         }
-        for(int i = 0; i < n; ++i) new_idx[V[i]] = -1;
-        for (auto &&eid: history) used_e[eid] = 0;
+        For(i, n) new_idx[V[i]] = -1;
+        for (auto&& eid: history) used_e[eid] = 0;
         G.build();
         return G;
+    }
+
+    Graph<T, true> to_directed_tree(int root = -1, bool directed_away_from_root = true) {
+        if (root == -1) root = 0;
+        assert(!is_directed && prepared && M == N - 1);
+        Graph<T, true> G1(N);
+        vector<int> par(N, -1);
+        auto dfs = [&](auto& dfs, int v) -> void {
+            for (auto& e: (*this)[v]) {
+                if (e.to == par[v]) continue;
+                par[e.to] = v, dfs(dfs, e.to);
+            }
+        };
+        dfs(dfs, root);
+        for (auto& e: edges) {
+            int a = e.frm, b = e.to;
+            if (par[a] == b) swap(a, b);
+            assert(par[b] == a);
+            if (directed_away_from_root)
+                G1.add(a, b, e.cost);
+            else
+                G1.add(b, a, e.cost);
+        }
+        G1.build();
+        return G1;
     }
 
 private:
     void calc_deg() {
         assert(vc_deg.empty());
         vc_deg.resize(N);
-        for (auto &&e: edges) vc_deg[e.frm]++, vc_deg[e.to]++;
+        for (auto&& e: edges) vc_deg[e.frm]++, vc_deg[e.to]++;
     }
 
     void calc_deg_inout() {
         assert(vc_indeg.empty());
         vc_indeg.resize(N);
         vc_outdeg.resize(N);
-        for (auto &&e: edges) { vc_indeg[e.to]++, vc_outdeg[e.frm]++; }
+        for (auto&& e: edges) { vc_indeg[e.to]++, vc_outdeg[e.frm]++; }
     }
 };
 

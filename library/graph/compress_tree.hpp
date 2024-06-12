@@ -4,12 +4,10 @@
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
-// (compressed tree vertex labels, graph)
-// New graph: with edge weights
+// (graph_label to tree_label, graph)
+// graph has edge weights [depth_weighted of tree]
 template <typename TREE>
 pair<vector<int>, typename TREE::Graph_type> compress_tree(TREE &tree, vector<int> V){
-    // List important points
-    // Make sure the original roots are included
     sort(V.begin(), V.end(), [&](auto &x, auto &y){ return tree.LID[x] < tree.LID[y]; });
     int n = len(V);
     For(i, n){
@@ -19,7 +17,7 @@ pair<vector<int>, typename TREE::Graph_type> compress_tree(TREE &tree, vector<in
     V.emplace_back(tree.V[0]);
     sort(V.begin(), V.end(), [&](auto &x, auto &y){ return tree.LID[x] < tree.LID[y]; });
     V.erase(unique(V.begin(), V.end()), V.end());
-    // Create a graph by stretching the edges
+
     n = len(V);
     using GT = typename TREE::Graph_type;
     using WT = typename GT::cost_type;

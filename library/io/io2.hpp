@@ -215,7 +215,9 @@ void print(Head &&head, Args &&... args) {
     print(std::forward<Args>(args)...);
 }
 
-void __attribute__((destructor)) _d() { flush(); }
+void __attribute__((destructor)) _d() {
+    flush(); 
+}
 } // namespace mitsuha::io
 
 namespace mitsuha {

@@ -5,7 +5,7 @@
 #include "library/datastructure/fastset.hpp"
 
 namespace mitsuha{
-//  Return the lexicographically smallest toposort
+// Return the lexicographically smallest toposort
 template <typename GT>
 vector<int> toposort(GT& G) {
     assert(G.is_prepared() && GT::is_directed);

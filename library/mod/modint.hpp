@@ -85,8 +85,12 @@ struct modint {
 #ifdef FASTIO
 template<int _mod>  
 void rd(modint<_mod> &number){
-    io::rd(number.val);
-    number.val %= _mod;
+    long long v, io::rd(v);
+    v %= _mod;
+    if (v < 0) {
+        v += _mod;
+    }
+    number.val = v;
 }
 template<int _mod>
 void wt(const modint<_mod> &number){

@@ -51,6 +51,14 @@ struct Weighted_UnionFind {
         --n_comp;
         return true;
     }
+
+    // val at v when w = G::unit()
+    E diff(int v, int w){
+        auto [rv, wv] = get(v);
+        auto [rw, ww] = get(w);
+        assert(rv == rw);
+        return Group::op(wv, Group::inverse(ww));
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_WEIGHTED_UNIONFIND

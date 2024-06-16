@@ -4,7 +4,7 @@
 #include "library/datastructure/rollback_array.hpp"
 
 namespace mitsuha{
-// verify? https://qoj.ac/submission/114657
+// https://qoj.ac/submission/114657
 template <typename ActedMonoid>
 struct Rollback_Lazy_SegTree {
     using AM = ActedMonoid;

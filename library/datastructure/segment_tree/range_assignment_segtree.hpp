@@ -37,6 +37,9 @@ struct Range_Assignment_SegTree {
     }
 
     X prod(int l, int r) {
+        assert(l >= 0 and l <= n);
+        assert(r >= 0 and r <= n);
+        assert(l <= r);
         int a = cut.prev(l), b = cut.next(l), c = cut.prev(r);
         if (a == c) { return monoid_pow<MX>(dat[a], r - l); };
         assert(b <= c);

@@ -2,7 +2,7 @@
 #define AJAY_DYNAMIC_LAZY_SEGTREE
 
 namespace mitsuha{
-template <typename ActedMonoid, bool PERSISTENT, int NODES>
+template <typename ActedMonoid, bool PERSISTENT = false, int NODES = 1 << 22>
 struct Dynamic_Lazy_SegTree {
     using AM = ActedMonoid;
     using MX = typename AM::Monoid_X;

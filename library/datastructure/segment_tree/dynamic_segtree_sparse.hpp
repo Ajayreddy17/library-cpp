@@ -53,15 +53,12 @@ struct Dynamic_SegTree_Sparse {
         return &(pool[pid++]);
     }
 
-    X operator()(np root, long long l, long long r) {
+    X prod(np root, long long l, long long r) {
         assert(L0 <= l && l <= r && r <= R0);
         if (l == r) return MX::unit();
         X x = MX::unit();
         prod_rec(root, L0, R0, l, r, x);
         return x;
-    }
-    X prod(np root, long long l, long long r) {
-        return (*this)(root, l, r);
     }
 
     X prod_all(np root) { return prod(root, L0, R0); }

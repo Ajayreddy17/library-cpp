@@ -3,7 +3,7 @@
 
 namespace mitsuha{
 // Depending on the situation, there is also sparse 
-template <typename Monoid, bool PERSISTENT, int NODES>
+template <typename Monoid, bool PERSISTENT = false, int NODES = 1 << 20>
 struct Dynamic_SegTree {
     using MX = Monoid;
     using X = typename MX::value_type;
@@ -58,6 +58,10 @@ struct Dynamic_SegTree {
         X x = MX::unit();
         prod_rec(root, L0, R0, l, r, x);
         return x;
+    }
+
+    X prod_all(np root){
+        return prod(root, L0, R0);
     }
 
     np set(np root, long long i, const X &x) {

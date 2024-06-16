@@ -5,6 +5,7 @@ import argparse
 from pathlib import Path
 
 def generate(relative_path: Path):
+    
     dir_path = gen_root / relative_path
 
     if dir_path.exists():

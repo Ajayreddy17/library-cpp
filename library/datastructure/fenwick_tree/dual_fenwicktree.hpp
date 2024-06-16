@@ -8,25 +8,21 @@ template <typename Monoid>
 struct Dual_FenwickTree {
     using G = Monoid;
     using E = typename G::value_type;
-    int n;
-    vector<E> dat;
 
     Dual_FenwickTree() {}
     Dual_FenwickTree(int n) { build(n); }
 
-    void build(int m) {
-        n = m;
-        dat.assign(m, G::unit());
-    }
-
-    E get(int k) {
+    E operator[](int k) {
         E x = G::unit();
         for (++k; k <= n; k += k & -k) x = G::op(x, dat[k - 1]);
         return x;
     }
+    E get(int k) {
+        return (*this)[k];
+    }
     vector<E> get_all() {
         vector<E> A = dat;
-        Frr(i, 1, len(A) + 1) {
+        for (int i = len(A); i >= 1; --i){
             int j = i + (i & -i);
             if (j <= len(A)) A[i - 1] += A[j - 1];
         }
@@ -38,6 +34,16 @@ struct Dual_FenwickTree {
         E neg_x = G::inverse(x);
         while (L < R) { dat[R - 1] = G::op(x, dat[R - 1]), R -= R & -R; };
         while (R < L) { dat[L - 1] = G::op(neg_x, dat[L - 1]), L -= L & -L; };
+    }
+    
+private:
+    int n;
+    vector<E> dat;
+
+public:
+    void build(int m) {
+        n = m;
+        dat.assign(m, G::unit());
     }
 };
 } // namespace mitsuha

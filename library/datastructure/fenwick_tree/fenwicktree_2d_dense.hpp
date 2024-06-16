@@ -9,8 +9,6 @@ struct FenwickTree_2D_Dense {
     using G = Monoid;
     using E = typename G::value_type;
     static_assert(G::commute);
-    int H, W;
-    vector<E> dat;
 
     FenwickTree_2D_Dense() {}
     FenwickTree_2D_Dense(int H, int W) : H(H), W(W), dat(H * W, G::unit()) {}
@@ -47,6 +45,8 @@ struct FenwickTree_2D_Dense {
     }
 
     E sum(int lx, int rx, int ly, int ry) { return prod(lx, rx, ly, ry); }
+
+    // query can be out of bounds
     E prod(int lx, int rx, int ly, int ry) {
         chmax(lx, 0), chmin(rx, H), chmax(ly, 0), chmin(ry, W);
         if (lx >= rx || ly >= ry) return G::unit();
@@ -54,6 +54,12 @@ struct FenwickTree_2D_Dense {
         while (lx < rx) { pos = G::op(pos, sum_x(rx, ly, ry)), rx -= rx & -rx; }
         while (rx < lx) { neg = G::op(neg, sum_x(lx, ly, ry)), lx -= lx & -lx; }
         return G::op(pos, G::inverse(neg));
+    }
+
+    E get(int x, int y){
+        assert(x >= 0 and x < H);
+        assert(y >= 0 and y < W);
+        return prod(x, x + 1, y, y + 1);
     }
 
     E prefix_prod(int rx, int ry) { return prod(0, rx, 0, ry); }
@@ -64,6 +70,9 @@ struct FenwickTree_2D_Dense {
     }
 
 private:
+    int H, W;
+    vector<E> dat;
+    
     inline int idx(int x, int y) { return W * (x - 1) + (y - 1); }
 
     void add_x(int x, int y, E val) {

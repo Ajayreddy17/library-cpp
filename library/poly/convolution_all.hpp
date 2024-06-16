@@ -10,7 +10,7 @@ vector<T> convolution_all(vector<vector<T>>& polys) {
     while (1) {
         int n = len(polys);
         if (n == 1) break;
-        int m = ceil(n, 2);
+        int m = cld(n, 2);
         For(i, m) {
             if (2 * i + 1 == n) {
                 polys[i] = polys[2 * i];

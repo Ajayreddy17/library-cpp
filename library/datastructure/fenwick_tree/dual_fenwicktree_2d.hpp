@@ -4,57 +4,14 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
-template <typename Monoid, typename XY, bool SMALL_X = false>
+template <typename Monoid, typename XY = long long, bool SMALL_X = false>
 struct Dual_FenwickTree_2D {
     using G = Monoid;
     using E = typename G::value_type;
     static_assert(G::commute);
-    int N;
-    vector<XY> keyX;
-    XY min_X;
-    vector<int> indptr;
-    vector<XY> keyY;
-    vector<E> dat;
 
+    Dual_FenwickTree_2D() {}
     Dual_FenwickTree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
-
-    inline int xtoi(XY x) {
-        return (SMALL_X ? clamp<int>(x - min_X, 0, N) : lower_bound(keyX.begin(), keyX.end(), x) - keyX.begin());
-    }
-    inline int nxt(int i) { return i + ((i + 1) & -(i + 1)); }
-    inline int prev(int i) { return i - ((i + 1) & -(i + 1)); }
-
-    void build(vector<XY>& X, vector<XY>& Y) {
-        assert(len(X) == len(Y));
-        if (!SMALL_X) {
-            keyX = X;
-            settify(keyX);
-            N = len(keyX);
-        } else {
-            min_X = (len(X) == 0 ? 0 : MIN(X));
-            N = (len(X) == 0 ? 0 : MAX(X)) - min_X + 1;
-            keyX.resize(N);
-            For(i, N) keyX[i] = min_X + i;
-        }
-        vector<vector<XY>> keyY_raw(N);
-        for (auto&& i: sorted_indices(len(Y), [&](int x){ return Y[x]; })) {
-            int ix = xtoi(X[i]);
-            XY y = Y[i];
-            while (ix < N) {
-                auto& KY = keyY_raw[ix];
-                if (len(KY) == 0 || KY.back() < y) { KY.eb(y); }
-                ix = nxt(ix);
-            }
-        }
-
-        indptr.assign(N + 1, 0);
-        For(i, N) indptr[i + 1] = indptr[i] + len(keyY_raw[i]);
-        keyY.resize(indptr.back());
-        dat.assign(indptr.back(), G::unit());
-        For(i, N) For(j, indptr[i + 1] - indptr[i]) {
-            keyY[indptr[i] + j] = keyY_raw[i][j];
-        }
-    }
 
     E get(XY x, XY y) {
         E val = G::unit();
@@ -72,6 +29,57 @@ struct Dual_FenwickTree_2D {
     }
 
 private:
+    int N;
+    vector<XY> keyX;
+    XY min_X;
+    vector<int> indptr;
+    vector<XY> keyY;
+    vector<E> dat;
+
+    void build(vector<XY>& X, vector<XY>& Y) {
+        assert(len(X) == len(Y));
+        if (!SMALL_X) {
+            keyX = X;
+            settify(keyX);
+            N = len(keyX);
+        } else {
+            min_X = (len(X) == 0 ? 0 : *min_element(X.begin(), X.end()));
+            N = (len(X) == 0 ? 0 : *max_element(X.begin(), X.end())) - min_X + 1;
+            keyX.resize(N);
+            For(i, N) keyX[i] = min_X + i;
+        }
+        vector<vector<XY>> keyY_raw(N);
+        vector<int> I(len(Y));
+        iota(I.begin(), I.end(), 0);
+        sort(I.begin(), I.end(), [&](int i, int j){
+            return Y[i] < Y[j];
+        });
+        for (auto&& i: I) {
+            int ix = xtoi(X[i]);
+            XY y = Y[i];
+            while (ix < N) {
+                auto& KY = keyY_raw[ix];
+                if (len(KY) == 0 || KY.back() < y) { KY.emplace_back(y); }
+                ix = nxt(ix);
+            }
+        }
+
+        indptr.assign(N + 1, 0);
+        For(i, N) indptr[i + 1] = indptr[i] + len(keyY_raw[i]);
+        keyY.resize(indptr.back());
+        dat.assign(indptr.back(), G::unit());
+        For(i, N) For(j, indptr[i + 1] - indptr[i]) {
+            keyY[indptr[i] + j] = keyY_raw[i][j];
+        }
+    }
+
+    inline int xtoi(XY x) {
+        return (SMALL_X ? clamp<int>(x - min_X, 0, N) : lower_bound(keyX.begin(), keyX.end(), x) - keyX.begin());
+    }
+
+    inline int nxt(int i) { return i + ((i + 1) & -(i + 1)); }
+    inline int prev(int i) { return i - ((i + 1) & -(i + 1)); }
+
     E get_i(int i, XY y) {
         E val = G::unit();
         int LID = indptr[i], n = indptr[i + 1] - indptr[i];

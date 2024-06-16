@@ -67,10 +67,7 @@ namespace mitsuha {
 #define REP3(i, a, b) for (long long i = TL(a); i < TL(b); ++i)
 #define REP4(i, a, b, c) for (long long i = TL(a); i < TL(b); i += TL(c))
 #define For(...) OVERLOAD5(__VA_ARGS__, REP4, REP3, REP2, REP1)(__VA_ARGS__)
-#define RREP2(i, a) for (long long i = TL(a)-1; i >= 0; --i)
-#define RREP3(i, a, b) for (long long i = TL(a)-1; i >= TL(b); --i)
-#define RREP4(i, a, b, c) for (long long i = TL(a)-1; i >= TL(b); i -= TL(c))
-#define Frr(...) OVERLOAD5(__VA_ARGS__, RREP4, RREP3, RREP2)(__VA_ARGS__)
+#define Frr(i, a) for (long long i = TL(a)-1; i >= 0; --i)
 
 #define Int(...) int __VA_ARGS__; read(__VA_ARGS__)
 #define Ll(...) long long __VA_ARGS__; read(__VA_ARGS__)

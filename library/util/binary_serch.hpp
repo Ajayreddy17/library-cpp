@@ -8,9 +8,9 @@ enum auto_search_tag { True, False };
 template <binary_search_tag tag, typename Arg, typename Fun>
 Arg binary_search_fisrt(Arg l, Arg r, const Fun &f) {
     const bool invert = tag == binary_search_tag::FirstFalse;
-    assert(invert ^ f(r));
+    Assert(invert ^ f(r));
     while (l < r) {
-        Arg m = midpoint(l, r);
+        Arg m = fld<Arg>(l + r, 2);
         (invert ^ f(m)) ?  r = m: l = m + 1;
     }
     return l;
@@ -19,9 +19,9 @@ Arg binary_search_fisrt(Arg l, Arg r, const Fun &f) {
 template <binary_search_tag tag, typename Arg, typename Fun>
 Arg binary_search_last(Arg l, Arg r, const Fun &f) {
     const bool invert = tag == binary_search_tag::LastFalse;
-    assert(invert ^ f(l));
+    Assert(invert ^ f(l));
     while (l < r) {
-        Arg m = midpoint(l + 1, r);
+        Arg m = cld<Arg>(l + r, 2);
         (invert ^ f(m)) ?  l = m: r = m - 1;
     }
     return l;
@@ -39,7 +39,7 @@ Arg binary_search(Arg l, Arg r, const Fun &f) {
 template <auto_search_tag tag, typename Arg, typename Fun, 
         std::enable_if_t<std::conjunction_v<std::is_invocable<Fun, Arg>, std::is_integral<Arg>>, std::nullptr_t> = nullptr>
 Arg auto_binary_search(Arg l, Arg r, const Fun &f) {
-    assert(f(l) ^ f(r));
+    Assert(f(l) ^ f(r));
     if constexpr (tag == auto_search_tag::True)
         return f(l) ? binary_search<binary_search_tag::LastTrue>(l, r, f): 
                 binary_search<binary_search_tag::FirstTrue>(l, r, f);

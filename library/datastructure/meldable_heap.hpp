@@ -49,15 +49,16 @@ struct Meldable_Heap {
     np push(np a, VAL x) { return meld(a, new_node(x)); }
     np pop(np a) { return meld(a->l, a->r); }
     VAL top(np a) { return a->x; }
+    
     vector<VAL> get_all(np a) {
         vector<VAL> A;
         auto dfs = [&](auto &dfs, np a) -> void {
             if (!a) return;
-            A.eb(a->x), dfs(dfs, a->l), dfs(dfs, a->r);
+            A.emplace_back(a->x), dfs(dfs, a->l), dfs(dfs, a->r);
         };
         dfs(dfs, a);
-        sort(all(A));
-        if (!TOP_IS_MIN) reverse(all(A));
+        sort(A.begin(), A.end());
+        if (!TOP_IS_MIN) reverse(A.begin(), A.end());
         return A;
     }
 };

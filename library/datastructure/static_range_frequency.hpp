@@ -1,12 +1,25 @@
 #ifndef AJAY_STATIC_RANGE_FREQUENCY
 #define AJAY_STATIC_RANGE_FREQUENCY
 
-#include "library/datastructure/to_small_key.hpp"
+#include "library/datastructure/hashmap.hpp"
 
 namespace mitsuha{
 struct Static_Range_Frequency {
     vector<int> pos, indptr;
-    To_Small_Key S;
+
+    struct To_Small_Key {
+        int kind = 0;
+        HashMap<int> MP;
+
+        To_Small_Key(unsigned int n = 0) : MP(n) {}
+        void reserve(unsigned int n) { MP.build(n); }
+        int set_key(unsigned long long x) {
+            if (!MP.contains(x)) MP[x] = kind++;
+            return MP[x];
+        }
+
+        int query(unsigned long long x) { return MP.get(x, -1); }
+    } S;
 
     template <typename T>
     Static_Range_Frequency(vector<T>& A) {

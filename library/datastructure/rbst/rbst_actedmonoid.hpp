@@ -121,7 +121,7 @@ struct RBST_ActedMonoid {
             X me = ActedMonoid::act(root->x, lazy, 1);
             lazy = Monoid_A::op(root->lazy, lazy);
             dfs(dfs, (rev ? root->r : root->l), rev ^ root->rev, lazy);
-            res.eb(me);
+            res.emplace_back(me);
             dfs(dfs, (rev ? root->l : root->r), rev ^ root->rev, lazy);
         };
         dfs(dfs, root, 0, Monoid_A::unit());

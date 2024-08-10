@@ -8,7 +8,7 @@ struct Monoid_SumMax {
     using X = value_type;
     static X op(X x, X y) { return {x.first + y.first, max(x.second, y.second)}; }
     static X from_element(E e) { return {e, e}; }
-    static constexpr X unit() { return {E(0), numeric_limits<E>::min() / 2}; }
+    static constexpr X unit() { return {E(0), -numeric_limits<E>::max() / 2}; }
     static constexpr bool commute = 1;
 };
 } // namespace mitsuha

@@ -2,21 +2,22 @@
 #define AJAY_SUFFIX_ARRAY
 
 #include "library/monoid/monoid_min.hpp"
-#include "library/datastructure/sparse_table/sparse_table.hpp"
+#include "library/datastructure/sparse_table/static_rmq.hpp"
 
 namespace mitsuha{
-// When the lexicographically i-th suffix starts with the j-th character,
+// lex i-th suffix starts at j-th pos
 // SA[i] = j, ISA[j] = i
-// Assuming |S|>0 (if not, use by adding dummy character)
-template <bool USE_LCP_QUERY = 0>
+// LCP[i] = lcp(SA[i], SA[i + 1])
+// Assumes |S| > 0 (if not, use by adding dummy character)
 struct Suffix_Array {
     vector<int> SA;
     vector<int> ISA;
     vector<int> LCP;
-    Sparse_Table<Monoid_Min<int>> seg;
-    // DisjointSparse<Monoid_Min<int>> seg;
+    Static_RMQ<Monoid_Min<int>> seg;
+    bool build_seg;
 
     Suffix_Array(string& s) {
+        build_seg = 0;
         assert(len(s) > 0);
         char first = 127, last = 0;
         for (auto&& c: s) {
@@ -25,19 +26,21 @@ struct Suffix_Array {
         }
         SA = calc_suffix_array(s, first, last);
         calc_LCP(s);
-        if (USE_LCP_QUERY) seg.build(LCP);
     }
 
     Suffix_Array(vector<int>& s) {
+        build_seg = 0;
         assert(len(s) > 0);
         SA = calc_suffix_array(s);
         calc_LCP(s);
-        if (USE_LCP_QUERY) seg.build(LCP);
     }
 
     // lcp(S[i:], S[j:])
     int lcp(int i, int j) {
-        static_assert(USE_LCP_QUERY);
+        if (!build_seg) {
+            build_seg = true;
+            seg.build(LCP);
+        }
         int n = len(SA);
         if (i == n || j == n) return 0;
         if (i == j) return n - i;
@@ -46,12 +49,15 @@ struct Suffix_Array {
         return seg.prod(i, j);
     }
 
-    // A half-open interval such that lcp with S[i:] is greater than or equal to n
+    // interval in SA order such that has prefix S[i: i + n]
     pair<int, int> lcp_range(int i, int n) {
-        static_assert(USE_LCP_QUERY);
+        if (!build_seg) {
+            build_seg = true;
+            seg.build(LCP);
+        }
         i = ISA[i];
-        int a = seg.min_left([&](auto e) -> bool { return e >= n; }, i);
-        int b = seg.max_right([&](auto e) -> bool { return e >= n; }, i);
+        int a = seg.min_left(i, [&](auto e) -> bool { return e >= n; });
+        int b = seg.max_right(i, [&](auto e) -> bool { return e >= n; });
         return {a, b + 1};
     }
 
@@ -59,7 +65,6 @@ struct Suffix_Array {
     //  0: S[L1:R1) = S[L2, R2)
     // +1: S[L1:R1) > S[L2, R2)
     int compare(int L1, int R1, int L2, int R2) {
-        int N = len(SA);
         int n1 = R1 - L1, n2 = R2 - L2;
         int n = lcp(L1, L2);
         if (n == n1 && n == n2) return 0;
@@ -138,8 +143,7 @@ private:
         return SA;
     }
 
-    vector<int> calc_suffix_array(const string& s, const char first = 'a',
-                              const char last = 'z') {
+    vector<int> calc_suffix_array(const string& s, const char first = 'a', const char last = 'z') {
         vector<int> vect(s.size() + 1);
         copy(begin(s), end(s), begin(vect));
         for (auto& x: vect) x -= (int)first - 1;

@@ -2,21 +2,22 @@
 #define AJAY_MAXFLOW
 
 namespace mitsuha{
-// incremental You can add edges to
+// Incremental MaxFlow
+// Edge Cap can be changed, When the capacity to change is F, update in O((N+M)|F|) time
 template <typename Cap>
 struct MaxFlow {
     struct Edge {
         int to, rev;
-        Cap cap;
+        Cap cap; // Indicates remaining capacity. Therefore, cap+flow is a constant.
         Cap flow = 0;
     };
 
     const int N, source, sink;
     vector<vector<Edge>> edges;
+    vector<pair<int, int>> pos;
     vector<int> prog, level;
     vector<int> que;
     bool calculated;
-    Cap flow_ans;
 
     MaxFlow(int N, int source, int sink)
             : N(N),
@@ -30,28 +31,89 @@ struct MaxFlow {
         calculated = 0;
         assert(0 <= frm && frm < N);
         assert(0 <= to && to < N);
-        assert(frm != to);
         assert(Cap(0) <= cap);
-        if (frm == to) return;
         int a = len(edges[frm]);
-        int b = len(edges[to]);
+        int b = (frm == to ? a + 1 : len(edges[to]));
+        pos.emplace_back(frm, a);
         edges[frm].emplace_back(Edge{to, b, cap, 0});
         edges[to].emplace_back(Edge{frm, a, rev_cap, 0});
+    }
+
+    void change_capacity(int i, Cap after) {
+        auto [frm, idx] = pos[i];
+        auto& e = edges[frm][idx];
+        Cap before = e.cap + e.flow;
+        if (before < after) {
+            calculated = (e.cap > 0);
+            e.cap += after - before;
+            return;
+        }
+        e.cap = after - e.flow;
+        if (e.cap < 0) flow_push_back(e);
+    }
+
+    void flow_push_back(Edge& e0) {
+        auto& re0 = edges[e0.to][e0.rev];
+        int a = re0.to;
+        int b = e0.to;
+
+        auto find_path = [&](int s, int t, Cap lim) -> Cap {
+            vector<bool> vis(N);
+            prog.assign(N, 0);
+            auto dfs = [&](auto& dfs, int v, Cap f) -> Cap {
+                if (v == t) return f;
+                for (int& i = prog[v]; i < len(edges[v]); ++i) {
+                    auto& e = edges[v][i];
+                    if (vis[e.to] || e.cap <= Cap(0)) continue;
+                    vis[e.to] = 1;
+                    Cap a = dfs(dfs, e.to, min(f, e.cap));
+                    assert(a >= 0);
+                    if (a == Cap(0)) continue;
+                    e.cap -= a, e.flow += a;
+                    edges[e.to][e.rev].cap += a, edges[e.to][e.rev].flow -= a;
+                    return a;
+                }
+                return 0;
+            };
+            return dfs(dfs, s, lim);
+        };
+
+        while (e0.cap < 0) {
+            Cap x = find_path(a, b, -e0.cap);
+            if (x == Cap(0)) break;
+            e0.cap += x, e0.flow -= x;
+            re0.cap -= x, re0.flow += x;
+        }
+        Cap c = -e0.cap;
+        while (c > 0 && a != source) {
+            Cap x = find_path(a, source, c);
+            assert(x > 0);
+            c -= x;
+        }
+        c = -e0.cap;
+        while (c > 0 && b != sink) {
+            Cap x = find_path(sink, b, c);
+            assert(x > 0);
+            c -= x;
+        }
+        c = -e0.cap;
+        e0.cap += c, e0.flow -= c;
+        re0.cap -= c, re0.flow += c;
+        flow_ans -= c;
     }
 
     // frm, to, flow
     vector<tuple<int, int, Cap>> get_flow_edges() {
         vector<tuple<int, int, Cap>> res;
-        for(int frm = 0; frm < N; ++frm) {
+        For(frm, N) {
             for (auto&& e: edges[frm]) {
                 if (e.flow <= 0) continue;
-                res.eb(frm, e.to, e.flow);
+                res.emplace_back(frm, e.to, e.flow);
             }
         }
         return res;
     }
 
-    // Not the difference but the total amount so far
     Cap flow() {
         if (calculated) return flow_ans;
         calculated = true;
@@ -68,33 +130,32 @@ struct MaxFlow {
         return flow_ans;
     }
 
-    // Returns the minimum cut value and the 01 column representing the cut
+    // Returns the minimum cut value and the 01 side of cut
     pair<Cap, vector<int>> cut() {
         flow();
         vector<int> res(N);
-        for(int v = 0; v < N; v++) res[v] = (level[v] >= 0 ? 0 : 1);
+        For(v, N) res[v] = (level[v] >= 0 ? 0 : 1);
         return {flow_ans, res};
     }
 
-    // O(F(N+M)) Route restoration using about
-    // simple path become
+
+    // Restore the route using about O(F(N+M))
+    // becomes a simple path
     vector<vector<int>> path_decomposition() {
         flow();
         auto edges = get_flow_edges();
         vector<vector<int>> TO(N);
-        for (auto&& [frm, to, flow]: edges) { for(int _ = 0; _ < flow; --_) TO[frm].eb(to); }
+        for (auto&& [frm, to, flow]: edges) { For(flow) TO[frm].emplace_back(to); }
         vector<vector<int>> res;
         vector<int> vis(N);
 
-        for(int _ = 0; _ < flow_ans; _++) {
+        For(flow_ans) {
             vector<int> path = {source};
             vis[source] = 1;
             while (path.back() != sink) {
-                int to = TO[path.back()].back();
-                TO[path.back()].pop_back();
+                int to = TO[path.back()].back(); TO[path.back()].pop_back();
                 while (vis[to]) {
-                    vis[path.back()] = 0;
-                    path.pop_back();
+                    vis[path.back()] = 0; path.pop_back();
                 }
                 path.emplace_back(to), vis[to] = 1;
             }
@@ -105,6 +166,8 @@ struct MaxFlow {
     }
 
 private:
+    Cap flow_ans;
+
     bool set_level() {
         que.resize(N);
         level.assign(N, -1);

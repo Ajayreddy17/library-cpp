@@ -22,7 +22,7 @@ vector<mint> fps_pow(const vector<mint>& f, long long k) {
     int d = n;
     for(int i = n - 1; i >= 0; --i) if (f[i] != 0) d = i;
     // d * k >= n
-    if (d >= ceil<long long>(n, k)) {
+    if (d >= cld<long long>(n, k)) {
         vector<mint> g(n);
         return g;
     }

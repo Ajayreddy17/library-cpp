@@ -1,7 +1,7 @@
 #ifndef AJAY_POINT_ADD_RECT_SUM
 #define AJAY_POINT_ADD_RECT_SUM
 
-#include "library/datastructure/fenwick_tree/fenwick_tree.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
 template <typename AbelGroup, typename XY, bool SMALL_X = false>
@@ -29,13 +29,13 @@ struct Point_Add_Rectangle_Sum {
                 a = len(keyX) - 1;
             }
             for (auto &&[xl, xr, yl, yr]: rect) {
-                xl = lower_bound(All(keyX), xl) - keyX.begin();
-                xr = lower_bound(All(keyX), xr) - keyX.begin();
+                xl = lower_bound(keyX.begin(), keyX.end(), xl) - keyX.begin();
+                xr = lower_bound(keyX.begin(), keyX.end(), xr) - keyX.begin();
             }
             NX = len(keyX);
         }
         if (SMALL_X) {
-            XY mx = inf<XY>;
+            XY mx = numeric_limits<XY>::max() / 2;
             for (auto &&[x, y, g]: point) chmin(mx, x);
             for (auto &&[x, y, g]: point) x -= mx, chmax(NX, x + 1);
             for (auto &&[xl, xr, yl, yr]: rect) {
@@ -51,8 +51,8 @@ struct Point_Add_Rectangle_Sum {
             event[2 * q] = {yl, xl, xr, 2 * q};
             event[2 * q + 1] = {yr, xl, xr, 2 * q + 1};
         }
-        sort(All(point), [&](auto &x, auto &y) -> bool { return get<1>(x) < get<1>(y); });
-        sort(All(event), [&](auto &x, auto &y) -> bool { return get<0>(x) < get<0>(y); });
+        sort(point.begin(), point.end(), [&](auto &x, auto &y) -> bool { return get<1>(x) < get<1>(y); });
+        sort(event.begin(), event.end(), [&](auto &x, auto &y) -> bool { return get<0>(x) < get<0>(y); });
         FenwickTree<AbelGroup> bit(NX);
         vector<G> res(Q, AbelGroup::unit());
         int j = 0;

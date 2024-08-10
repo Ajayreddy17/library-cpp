@@ -13,7 +13,7 @@ int main(){
 
     Vt(mint, a, n);
     Lazy_SegTree<ActedMonoid_Sum_Affine<mint>> Lseg(a);
-    Loop(q){
+    For(q){
         Int(t);
         if (t == 0){
             Int(l, r);

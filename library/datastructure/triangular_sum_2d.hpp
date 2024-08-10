@@ -1,7 +1,7 @@
 #ifndef AJAY_Triangular_Sum_2D
 #define AJAY_Triangular_Sum_2D
 
-#include "library/datastructure/cumsum_2d.hpp"
+#include "library/util/cumsum_2d.hpp"
 #include "library/linear_algebra/transpose.hpp"
 
 namespace mitsuha{

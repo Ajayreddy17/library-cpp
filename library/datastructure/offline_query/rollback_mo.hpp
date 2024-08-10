@@ -41,7 +41,7 @@ struct Rollback_Mo {
         For(iL, len(QID)) {
             auto &I = QID[iL];
             if (I.empty()) continue;
-            sort(I.begin(), I.end(), [&](auto &a, auto &b) -> bool { return LR[a].se < LR[b].se; });
+            sort(I.begin(), I.end(), [&](auto &a, auto &b) -> bool { return LR[a].second < LR[b].second; });
             int LMAX = 0;
             for (auto &&qid: I) {
                 auto [L, R] = LR[qid];

@@ -4,6 +4,9 @@
 #include "library/datastructure/sparse_table/sparse_table.hpp"
 
 namespace mitsuha{
+// Sparse_Table - 67 ms  41 Mb
+// Static_RMQ   - 52 ms  15 Mb
+// SegTree      - 84 ms  10 Mb
 // Construction O(N), query O(1)
 template <typename Monoid>
 struct Static_RMQ {
@@ -57,7 +60,7 @@ struct Static_RMQ {
         }
     }
 
-    X prod(int L, int R) {
+    X operator()(int L, int R){
         assert(0 <= L && L <= R && R <= N);
         if (L == R) return MX::unit();
         if (R - L <= 16) {
@@ -70,6 +73,38 @@ struct Static_RMQ {
         x = MX::op(suf[L], x);
         x = MX::op(x, pre[R]);
         return x;
+    }
+
+    X prod(int L, int R) {
+        return (*this)(L, R);
+    }
+
+    template <class F>
+    int max_right(int L, const F &check) {
+        assert(0 <= L && L <= N && check(MX::unit()));
+        if (L == N) return N;
+        int ok = L, ng = N + 1;
+        while (ok + 1 < ng) {
+            int k = (ok + ng) / 2;
+            bool bl = check(prod(L, k));
+            if (bl) ok = k;
+            if (!bl) ng = k;
+        }
+        return ok;
+    }
+
+    template <class F>
+    int min_left(int R, const F &check) {
+        assert(0 <= R && R <= N && check(MX::unit()));
+        if (R == 0) return 0;
+        int ok = R, ng = -1;
+        while (ng + 1 < ok) {
+            int k = (ok + ng) / 2;
+            bool bl = check(prod(k, R));
+            if (bl) ok = k;
+            if (!bl) ng = k;
+        }
+        return ok;
     }
 };
 } // namespace mitsuha

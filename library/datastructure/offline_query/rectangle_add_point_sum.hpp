@@ -1,7 +1,7 @@
 #ifndef RECT_ADD_POINT_SUM
 #define RECT_ADD_POINT_SUM
 
-#include "library/datastructure/fenwick_tree/fenwick_tree.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
 template<typename AbelGroup, typename XY, bool SMALL_X = false>

@@ -76,9 +76,9 @@ struct Lazy_SegTree {
     }
 
     X prod(int l, int r) { return (*this)(l, r); }
-    X prefix_prod(int r) { return (*this)(0, r); }
-    X suffix_prod(int l) { return (*this)(l, n); }
-    X all_prod() const { return dat[1]; }
+    X prod_left(int r) { return (*this)(0, r); }
+    X prod_right(int l) { return (*this)(l, n); }
+    X prod_all() const { return dat[1]; }
 
     void apply(int l, int r, A a) {
         assert(0 <= l && l <= r && r <= n);

@@ -7,6 +7,7 @@ namespace mitsuha{
 template <typename Monoid>
 struct FenwickTree {
     using G = Monoid;
+    using MX = Monoid;
     using E = typename G::value_type;
     int n;
 

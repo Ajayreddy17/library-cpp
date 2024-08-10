@@ -11,7 +11,7 @@ bool check_degree_sequence(vector<int> deg) {
     vector<int> CNT(N);
     for (auto&& x: deg) CNT[x]++;
     int p = 0;
-    For(x, N) Loop(CNT[x]) deg[p++] = x;
+    For(x, N) For(CNT[x]) deg[p++] = x;
 
     vector<long long> A(N + 1), B(N + 1);
     For(i, N) {
@@ -37,7 +37,7 @@ vector<pair<int, int>> construct_from_degree_sequence(vector<int> deg) {
     For(v, N) dat[deg[v]].emplace_back(v);
     vector<pair<int, int>> edges;
     int mx = N - 1;
-    Loop(N) {
+    For(N) {
         while (mx >= 0 && len(dat[mx]) == 0) --mx;
         int v = dat[mx].back(); dat[mx].pop_back();
         vector<int> nbd;

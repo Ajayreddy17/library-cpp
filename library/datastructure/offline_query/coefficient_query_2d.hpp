@@ -1,7 +1,7 @@
 #ifndef AJAY_COEF_QUERY_2D
 #define AJAY_COEF_QUERY_2D
 
-#include "library/datastructure/fenwick_tree/fenwick_tree.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
 // A, B: constant

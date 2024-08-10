@@ -16,7 +16,13 @@ struct SegTree {
     SegTree(const std::vector<T> &a) {
         build(a.size(), [&](int i){ return a[i]; });
     }
-    
+
+    void build(int n) {
+        build(n, [](int) -> T { return MX::unit(); });
+    }
+    void build(const vector<T>& v) {
+        build(v.size(), [&](int i) -> T { return v[i]; });
+    }
     template<class F>
     void build(int _n, const F &f) {
         n = _n, m = ceil_pow2(_n);
@@ -62,6 +68,19 @@ struct SegTree {
             ret[i] = (*this)[i];
         }
         return ret;
+    }
+
+    // prod{l <= i < r} A[i xor x]
+    T xor_prod(int l, int r, int xor_val) {
+        static_assert(MX::commute);
+        T x = MX::unit();
+        for (int k = 0; k < m + 1; ++k) {
+            if (l >= r) break;
+            if (l & 1) { x = MX::op(x, data[((1 << m) >> k) + ((l++) ^ xor_val)]); }
+            if (r & 1) { x = MX::op(x, data[((1 << m) >> k) + ((--r) ^ xor_val)]); }
+            l /= 2, r /= 2, xor_val /= 2;
+        }
+        return x;
     }
 
     template <typename F>
@@ -126,11 +145,12 @@ private:
 
 template<class Monoid>
 std::ostream &operator<<(std::ostream &out, const SegTree<Monoid> &_seg){
-    auto seg = _seg;
+    auto __seg = _seg;
+    auto seg = __seg.get_all();
     out << "[";
-    for(auto i = 0; i < seg.n; ++ i){
+    for(auto i = 0; i < __seg.n; ++ i){
         out << seg[i];
-        if(i != seg.n - 1) out << ", ";
+        if(i != __seg.n - 1) out << ", ";
     }
     return out << ']';
 }

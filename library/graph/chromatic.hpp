@@ -39,7 +39,7 @@ int chromatic_number(Graph& G) {
     int ANS = 0;
     chmax(ANS, solve_p(0));
 
-    Loop(TRIAL) {
+    For(TRIAL) {
         int p;
         while (1) {
             p = RNG(1LL << 30, 1LL << 31);

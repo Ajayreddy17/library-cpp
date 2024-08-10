@@ -2,7 +2,7 @@
 #define AJAY_USE_CACHE
 
 #include "library/util/custom_hash.hpp"
-#include "library/datastructure/pbds.hpp"
+#include "library/util/pbds.hpp"
 
 namespace mitsuha{
 template <typename Signature, typename Lambda>

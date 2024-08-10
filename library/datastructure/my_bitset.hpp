@@ -127,7 +127,7 @@ struct My_Bitset {
         assert(L <= R);
         My_Bitset p(R - L);
         int rm = (R - L) & 63;
-        Loop(rm) {
+        For(rm) {
             p[R - L - 1] = bool((*this)[R - 1]);
             --R;
         }

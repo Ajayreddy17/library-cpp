@@ -11,6 +11,15 @@ struct Point {
     template <typename A, typename B>
     Point(pair<A, B> p) : x(p.fi), y(p.se) {}
 
+    Point operator+=(const Point p) {
+        x += p.x, y += p.y;
+        return *this;
+    }
+    Point operator-=(const Point p) {
+        x -= p.x, y -= p.y;
+        return *this;
+    }
+
     Point operator+(Point p) const { return {x + p.x, y + p.y}; }
     Point operator-(Point p) const { return {x - p.x, y - p.y}; }
     bool operator==(Point p) const { return x == p.x && y == p.y; }

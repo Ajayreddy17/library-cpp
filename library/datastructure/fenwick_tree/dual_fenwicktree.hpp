@@ -6,6 +6,7 @@
 namespace mitsuha{
 template <typename Monoid>
 struct Dual_FenwickTree {
+    int n;
     using G = Monoid;
     using E = typename G::value_type;
 
@@ -37,7 +38,6 @@ struct Dual_FenwickTree {
     }
     
 private:
-    int n;
     vector<E> dat;
 
 public:
@@ -46,5 +46,16 @@ public:
         dat.assign(m, G::unit());
     }
 };
+
+template<class Monoid>
+std::ostream &operator<<(std::ostream &out, const Dual_FenwickTree<Monoid> &_ft){
+    auto ft = _ft;
+    out << "[";
+    for(auto i = 0; i < ft.n; ++ i){
+        out << ft[i];
+        if(i != ft.n - 1) out << ", ";
+    }
+    return out << ']';
+}
 } // namespace mitsuha
 #endif // AJAY_DUAL_FENWICKTREE

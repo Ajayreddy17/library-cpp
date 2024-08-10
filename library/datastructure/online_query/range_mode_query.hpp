@@ -1,16 +1,16 @@
-#ifndef AJAY_RANGE_MODE_QUERY_ONLINE
-#define AJAY_RANGE_MODE_QUERY_ONLINE
+#ifndef AJAY_RANGE_MODE_QUERY
+#define AJAY_RANGE_MODE_QUERY
 
 namespace mitsuha{
 template<int B, class T>
-struct Range_Mode_Query_Online{
+struct Range_Mode_Query{
     int n;
     vector<T> cmpr;
     vector<int> a, pos;
     vector<vector<int>> indices, block_mode, block_mode_freq;
     // O(n * B) time
     // O(n + (n/B)^2) space
-    Range_Mode_Query_Online(const vector<T> &_a): n((int)_a.size()), cmpr(_a), a(n), pos(n){
+    Range_Mode_Query(const vector<T> &_a): n((int)_a.size()), cmpr(_a), a(n), pos(n){
         sort(cmpr.begin(), cmpr.end());
         cmpr.erase(unique(cmpr.begin(), cmpr.end()), cmpr.end());
         indices.resize((int)cmpr.size());
@@ -70,4 +70,4 @@ struct Range_Mode_Query_Online{
     }
 };
 } // namespace mitsuha
-#endif // AJAY_RANGE_MODE_QUERY_ONLINE
+#endif // AJAY_RANGE_MODE_QUERY

@@ -12,7 +12,7 @@ struct Monoid_Max_Idx {
         if (x.second > y.second) swap(x, y);
         return (tie_is_left ? x : y);
     }
-    static constexpr X unit() { return {numeric_limits<T>::min() / 2, -1}; }
+    static constexpr X unit() { return {-numeric_limits<T>::max() / 2, -1}; }
     static constexpr bool commute = true;
 };
 } // namespace mitsuha

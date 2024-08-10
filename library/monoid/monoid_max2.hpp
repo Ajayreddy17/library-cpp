@@ -33,7 +33,7 @@ struct Monoid_Max2 {
         return x;
     }
     static constexpr X unit() { 
-        return X{numeric_limits<T>::min() / 2, numeric_limits<T>::min() / 2, -1, -1}; 
+        return X{-numeric_limits<T>::max() / 2, -numeric_limits<T>::max() / 2, -1, -1}; 
     }
     static constexpr bool commute = true;
 };

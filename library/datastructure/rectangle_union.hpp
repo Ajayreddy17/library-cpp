@@ -20,8 +20,16 @@ struct Rectangle_Union {
     template <typename ANS_TYPE = long long>
     ANS_TYPE calc() {
         int N = len(X);
-        vector<int> ord_x = sorted_indices(len(X), [&](int i){ return X[i]; });
-        vector<int> ord_y = sorted_indices(len(Y), [&](int i){ return Y[i]; });
+        vector<int> ord_x(len(X)), ord_y(len(Y));
+        iota(ord_x.begin(), ord_x.end(), 0);
+        iota(ord_y.begin(), ord_y.end(), 0);
+        sort(ord_x.begin(), ord_x.end(), [&](int i, int j){
+            return X[i] < X[j];
+        });
+        sort(ord_y.begin(), ord_y.end(), [&](int i, int j){
+            return Y[i] < Y[j];
+        });
+
         vector<int> rk_y(N);
         For(i, N) rk_y[ord_y[i]] = i;
         X = rearrange(X, ord_x);

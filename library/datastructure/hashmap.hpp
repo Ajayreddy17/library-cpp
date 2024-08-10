@@ -3,11 +3,10 @@
 
 namespace mitsuha{
 // unsigned long long -> Val
-template <typename Val>
+template <typename Val, Val default_value = Val{}>
 struct HashMap {
-    HashMap(unsigned int n = 0, Val _default_value = Val{}) { build(n, _default_value); }
-    void build(unsigned int n, Val _default_value = Val{}) {
-        default_value = _default_value;
+    HashMap(unsigned int n = 0) { build(n); }
+    void build(unsigned int n) {
         unsigned int k = 8;
         while (k * 0.8 < n) k *= 2;
         cap = k * 0.8, mask = k - 1;
@@ -23,9 +22,9 @@ struct HashMap {
         return val[i];
     }
 
-    Val get(const unsigned long long& k) {
+    Val get(const unsigned long long& k, Val _default = default_value) {
         int i = index(k);
-        return (used[i] ? val[i] : default_value);
+        return (used[i] ? val[i] : _default);
     }
 
     bool contains(const unsigned long long& k) {
@@ -48,7 +47,6 @@ struct HashMap {
 
 private:
     unsigned int cap, mask;
-    Val default_value;
     vector<unsigned long long> key;
     vector<Val> val;
     vector<bool> used;
@@ -74,7 +72,7 @@ private:
         For(i, len(used)) {
             if (used[i]) dat.emplace_back(key[i], val[i]);
         }
-        build(2 * len(dat), default_value);
+        build(2 * len(dat));
         for (auto& [a, b]: dat) (*this)[a] = b;
     }
 };

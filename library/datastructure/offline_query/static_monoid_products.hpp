@@ -32,11 +32,9 @@ vector<T> static_monoid_products(vector<T>& A, vector<pair<int, int>>& query) {
             auto [a, b] = query[q];
             min_a = min(min_a, a), max_b = max(max_b, b);
         }
-        // Calculation of cumulative product
         dp[M] = Mono::unit();
         for (int i = M; i > min_a; --i) dp[i - 1] = Mono::op(A[i - 1], dp[i]);
         for (int i = M; i < max_b; ++i) dp[i + 1] = Mono::op(dp[i], A[i]);
-        // calculating the answer
         for (int q: I) {
             auto [a, b] = query[q];
             ANS[q] = Mono::op(dp[a], dp[b]);

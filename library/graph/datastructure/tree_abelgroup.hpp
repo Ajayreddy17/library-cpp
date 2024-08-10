@@ -1,7 +1,7 @@
 #ifndef AJAY_TREE_ABELGROUP
 #define AJAY_TREE_ABELGROUP
 
-#include "library/datastructure/fenwick_tree/fenwick_tree.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{

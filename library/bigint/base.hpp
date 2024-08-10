@@ -37,7 +37,7 @@ struct BigInteger {
         if (s[0] == '0') s.clear();
         reverse(s.begin(), s.end());
         int n = len(s);
-        int m = ceil(n, LOG);
+        int m = cld(n, LOG);
         dat.assign(m, 0);
         For(i, n) { dat[i / LOG] += TEN[i % LOG] * (s[i] - '0'); }
     }
@@ -157,7 +157,7 @@ struct BigInteger {
         if (dat.empty()) return "0";
         string s;
         for (int x: dat) {
-            Loop(LOG) {
+            For(LOG) {
                 s += '0' + (x % 10);
                 x = x / 10;
             }

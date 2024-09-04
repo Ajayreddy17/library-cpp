@@ -29,6 +29,7 @@ struct FenwickTree {
         for (; k > 0; k -= k & -k) ret = G::op(ret, dat[k - 1]);
         return ret;
     }
+    E prefix_sum(int k) const { return prefix_prod(k); }
     E sum(int L, int R) { return prod(L, R); }
     E prod(int L, int R) const {
         chmax(L, 0), chmin(R, n);
@@ -44,7 +45,6 @@ struct FenwickTree {
     void add(int k, E x) { multiply(k, x); }
     void multiply(int k, E x) {
         static_assert(G::commute);
-        assert(k >= 0 and k < n);
         total = G::op(total, x);
         for (++k; k <= n; k += k & -k) dat[k - 1] = G::op(dat[k - 1], x);
     }

@@ -1,12 +1,12 @@
-#ifndef AJAY_WAVELET_MATRIX_2D_RANGE
-#define AJAY_WAVELET_MATRIX_2D_RANGE
+#ifndef AJAY_WAVELET_MATRIX_2D
+#define AJAY_WAVELET_MATRIX_2D
 
 #include "library/datastructure/wavelet_matrix/wavelet_matrix.hpp"
 
 namespace mitsuha{
 template <typename SEGTREE, typename XY, bool SMALL_X, bool SMALL_Y>
-struct Wavelet_Matrix_2D_Range {
-    // Arrange the points in ascending order of X.
+struct Wavelet_Matrix_2D {
+    
     Wavelet_Matrix<XY, SMALL_Y, SEGTREE> WM;
     using Mono = typename SEGTREE::MX;
     using T = typename Mono::value_type;
@@ -18,7 +18,7 @@ struct Wavelet_Matrix_2D_Range {
     vector<int> new_idx;
 
     template <typename F>
-    Wavelet_Matrix_2D_Range(int n, F f) {
+    Wavelet_Matrix_2D(int n, F f) {
         build(n, f);
     }
 
@@ -85,4 +85,4 @@ private:
     }
 };
 } // namespace mitsuha
-#endif // AJAY_WAVELET_MATRIX_2D_RANGE
+#endif // AJAY_WAVELET_MATRIX_2D

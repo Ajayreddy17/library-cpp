@@ -25,7 +25,7 @@ mint coef_of_rational_fps_small(vector<mint> P, vector<mint> Q, long long N) {
         }
         poly f = dfs(dfs, N / 2);
         poly g(len(f) * 2 - 1 + (N & 1));
-        For(i, len(f)) FOR(j, len(f)) { g[i + j + (N & 1)] += f[i] * f[j]; }
+        For(i, len(f)) For(j, len(f)) { g[i + j + (N & 1)] += f[i] * f[j]; }
         For(i, len(g)) g[i] = mint(g[i]).val;
         Frr(i, len(g)) {
             g[i] = mint(g[i]).val;
@@ -110,7 +110,7 @@ template <typename mint>
 mint coef_of_rational_fps(vector<mint> P, vector<mint> Q, long long N) {
     if (P.empty()) return 0;
     assert(len(Q) > 0 && Q[0] != mint(0));
-    while (Q.back() == mint(0)) POP(Q);
+    while (Q.back() == mint(0)) Q.back(), Q.pop_back();
     mint c = mint(1) / Q[0];
     for (auto& x: P) x *= c;
     for (auto& x: Q) x *= c;

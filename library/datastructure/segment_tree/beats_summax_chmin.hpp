@@ -13,15 +13,15 @@ struct Beats_SumMax_Chmin {
         };
         using value_type = X;
         static X op(const X& x, const X& y) {
-            if (x.max == numeric_limits<T>::min() / 2) return y;
-            if (y.max == numeric_limits<T>::min() / 2) return x;
+            if (x.max == -(numeric_limits<T>::max() / 2)) return y;
+            if (y.max == -(numeric_limits<T>::max() / 2)) return x;
             X z;
             z.sum = x.sum + y.sum;
 
             z.max = max(x.max, y.max);
             z.maxc = (x.max == z.max ? x.maxc : 0) + (y.max == z.max ? y.maxc : 0);
 
-            z.max2 = numeric_limits<T>::min() / 2;
+            z.max2 = -(numeric_limits<T>::max() / 2);
             if (z.max > x.max && x.max > z.max2) z.max2 = x.max;
             if (z.max > x.max2 && x.max2 > z.max2) z.max2 = x.max2;
             if (z.max > y.max && y.max > z.max2) z.max2 = y.max;
@@ -30,7 +30,7 @@ struct Beats_SumMax_Chmin {
             z.fail = 0;
             return z;
         }
-        static constexpr X unit() { return {0, numeric_limits<T>::min() / 2, 0, numeric_limits<T>::min() / 2, 0}; }
+        static constexpr X unit() { return {0, -(numeric_limits<T>::max() / 2), 0, -(numeric_limits<T>::max() / 2), 0}; }
         bool commute = true;
     };
     struct AddChmin {
@@ -52,7 +52,7 @@ struct Beats_SumMax_Chmin {
         using A = typename Monoid_A::value_type;
         static X act(X& x, const A& a, int cnt) {
             assert(!x.fail);
-            if (x.max == numeric_limits<T>::min() / 2) return x;
+            if (x.max == -(numeric_limits<T>::max() / 2)) return x;
             auto [add, mi] = a;
             x.sum += cnt * add, x.max += add, x.max2 += add;
 

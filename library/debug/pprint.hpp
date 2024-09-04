@@ -139,6 +139,14 @@ void debugbin_out(Width w, Head H, Tail... T){
 
 #define debugbin(...) cerr << "[" << __LINE__ << "] " << "[" << #__VA_ARGS__ << "] ", debugbin_out(__VA_ARGS__)
 
+void debug2_out() {}
+template<class Head, class... Tail> 
+void debug2_out(Head H, Tail... T) { 
+    cerr << "\n"; for (auto x : H) cerr << x << ",\n"; debug2_out(T...); 
+}
+
+#define debug2(...) cerr << "[" << __LINE__ << "] " << "[" << #__VA_ARGS__ << "] ", debug2_out(__VA_ARGS__)
+
 template<class TH>
 void debug_impl(const char* name, TH val){
     cerr << name << ": " << val << endl;
@@ -149,9 +157,10 @@ void debug_impl(const char* names, TH curr_val, TA... vals) {
     cerr << ": " << curr_val << ", ";
     debug_impl(names+1, vals...);
 }
-} // namespace mitsuha
 
 #define debug(...) cerr << "[" << __LINE__ << "] ", debug_impl(#__VA_ARGS__, __VA_ARGS__)
+} // namespace mitsuha
+
 
 chrono::high_resolution_clock::time_point bgn;
 void __attribute__((constructor)) _st_time() {

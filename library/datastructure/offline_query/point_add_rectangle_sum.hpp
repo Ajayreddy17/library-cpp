@@ -21,7 +21,7 @@ struct Point_Add_Rectangle_Sum {
         if (N == 0 || Q == 0) return vector<G>(Q, AbelGroup::unit());
         int NX = 0;
         if (!SMALL_X) {
-            sort(All(point), [&](auto &x, auto &y) -> bool { return get<0>(x) < get<0>(y); });
+            sort(point.begin(), point.end(), [&](auto &x, auto &y) -> bool { return get<0>(x) < get<0>(y); });
             vector<XY> keyX;
             keyX.reserve(N);
             for (auto &&[a, b, c]: point) {

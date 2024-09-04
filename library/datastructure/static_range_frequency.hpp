@@ -7,11 +7,11 @@ namespace mitsuha{
 struct Static_Range_Frequency {
     vector<int> pos, indptr;
 
-    struct To_Small_Key {
+    struct internal {
         int kind = 0;
         HashMap<int> MP;
 
-        To_Small_Key(unsigned int n = 0) : MP(n) {}
+        internal(unsigned int n = 0) : MP(n) {}
         void reserve(unsigned int n) { MP.build(n); }
         int set_key(unsigned long long x) {
             if (!MP.contains(x)) MP[x] = kind++;

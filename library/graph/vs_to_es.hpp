@@ -5,10 +5,10 @@
 
 namespace mitsuha {
 template <typename GT>
-vector<int> vs_to_es(GT& G, vector<int>& vs, bool allow_use_twice = false) {
+vector<int> vs_to_es(GT& G, vector<int>& vs, bool ALLOW_USE_TWICE = false) {
     assert(!vs.empty());
 
-    HashMap<int> MP(G.M, -1);
+    HashMap<int, -1> MP(G.M);
     vector<int> nxt(G.M, -1);
 
     auto get = [&](long long a, long long b) -> unsigned long long{

@@ -1,7 +1,7 @@
 #ifndef AJAY_TREE_WAVELET_MATRIX
 #define AJAY_TREE_WAVELET_MATRIX
 
-#include "library/datastructure/wavelet_matrix/wavelet_matrix.hpp"
+#include "library/datastructure/wavelet_matrix/wavelet_matrix_old.hpp"
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
@@ -11,7 +11,7 @@ template <typename TREE, bool edge, typename T, bool COMPRESS, typename Monoid =
 struct Tree_Wavelet_Matrix {
     TREE& tree;
     int N;
-    using WM = Wavelet_Matrix<T, COMPRESS, Monoid_Add<T>>;
+    using WM = Wavelet_Matrix_Old<T, COMPRESS, Monoid_Add<T>>;
     using X = typename Monoid::value_type;
     WM wm;
 

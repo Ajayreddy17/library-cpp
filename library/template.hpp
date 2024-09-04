@@ -24,6 +24,17 @@ template <class T> constexpr T rem(const T x, const T y) {
 template <class Iterable> void settify(Iterable& a) { 
     std::sort(a.begin(), a.end()), a.erase(std::unique(a.begin(), a.end()), a.end()); 
 }
+template <typename T, typename... Vectors>
+void concat(std::vector<T> &first, const Vectors &... others) {
+    std::vector<T> &res = first;
+    (res.insert(res.end(), others.begin(), others.end()), ...);
+}
+template<typename T>
+std::map<T, int> Counter(std::vector<T> &a){
+    std::map<T, int> cnt;
+    for (auto &x: a) ++cnt[x];
+    return cnt;
+}
 template <size_t D> struct Dim : std::array<int, D> {
     template <typename ...Ints> Dim(const Ints& ...ns) : 
         std::array<int, D>::array{ static_cast<int>(ns)... } {}
@@ -86,7 +97,7 @@ namespace mitsuha {
 #define len(iterable) TL iterable.size()
 #define elif else if
 
-#define KBIT(a, k) (a & (1ULL << k))
+#define KBIT(a, k) (a & (1ULL << (k)))
 
 using namespace mitsuha;
 using namespace std;
@@ -97,6 +108,7 @@ using namespace std;
 #define Assert(x) assert(x)
 #else
 #define debug(...) void(0)
+#define debug2(...) void(0)
 #define debugbin(...) void(0)
 #define Assert(x) void(0)
 #endif

@@ -38,7 +38,7 @@ struct Beats_SumMin_Chmax {
             a += d, c += d, c = max(c, f);
             return {a, c};
         }
-        static constexpr X unit() { return {0, numeric_limits<T>::min() / 2}; }
+        static constexpr X unit() { return {0, -(numeric_limits<T>::max() / 2)}; }
         bool commute = false;
     };
     struct Beats {
@@ -51,7 +51,7 @@ struct Beats_SumMin_Chmax {
             if (x.min == numeric_limits<T>::max() / 2) return x;
             auto [add, ma] = a;
             x.sum += cnt * add, x.min += add, x.min2 += add;
-            if (ma == numeric_limits<T>::min() / 2) return x;
+            if (ma == -(numeric_limits<T>::max() / 2)) return x;
 
             T before_min = x.min;
             x.min = max(x.min, ma);
@@ -82,5 +82,5 @@ struct Beats_SumMin_Chmax {
     static X from_element(T x) { return {x, x, 1, x}; }
 
     void chmax(int l, int r, T x) { seg.apply(l, r, {0, x}); }
-    void add(int l, int r, T x) { seg.apply(l, r, {x, numeric_limits<T>::min() / 2}); }
+    void add(int l, int r, T x) { seg.apply(l, r, {x, -(numeric_limits<T>::max() / 2)}); }
 };

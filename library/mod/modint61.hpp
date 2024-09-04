@@ -31,6 +31,7 @@ struct modint61 {
     modint61 operator-(const modint61 &p) const { return modint61(*this) -= p; }
     modint61 operator*(const modint61 &p) const { return modint61(*this) *= p; }
     modint61 operator/(const modint61 &p) const { return modint61(*this) /= p; }
+    bool operator<(const modint61 &other) const { return val < other.val; }
     bool operator==(const modint61 &p) const { return val == p.val; }
     bool operator!=(const modint61 &p) const { return val != p.val; }
     modint61 inverse() const {

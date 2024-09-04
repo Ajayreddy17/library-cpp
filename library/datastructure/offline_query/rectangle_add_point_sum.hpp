@@ -39,7 +39,7 @@ struct Rectangle_Add_Point_Sum {
         if (SMALL_X) {
             XY mx = numeric_limits<XY>::max();
             for (auto &&[i, x, y]: point) mx = min(mx, x);
-            for (auto &&[i, x, y]: point) x -= mx, NX = max((long long) NX, x + 1);
+            for (auto &&[i, x, y]: point) x -= mx, NX = max<long long>((long long) NX, x + 1);
             for (auto &&[y, x1, x2, g]: rect) {
                 x1 -= mx, x2 -= mx;
                 x1 = max(0, min<int>(x1, NX)), x2 = max(0, min<int>(x2, NX));

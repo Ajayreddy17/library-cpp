@@ -16,17 +16,12 @@ struct SegTree_Beats {
     SegTree_Beats() {}
     SegTree_Beats(int n) { build(n); }
     template <typename F>
-    SegTree_Beats(int n, F f) {
-        build(n, f);
-    }
+    SegTree_Beats(int n, F f) { build(n, f); }
     SegTree_Beats(const vector<X>& v) { build(v); }
 
-    void build(int m) {
-        build(m, [](int i) -> X { return MX::unit(); });
-    }
-    void build(const vector<X>& v) {
-        build(len(v), [&](int i) -> X { return v[i]; });
-    }
+    void build(int m) { build(m, [](int i) -> X { return MX::unit(); }); }
+    
+    void build(const vector<X>& v) { build(len(v), [&](int i) -> X { return v[i]; }); }
     template <typename F>
     void build(int m, F f) {
         n = m, log = 1;

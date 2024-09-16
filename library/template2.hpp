@@ -113,7 +113,7 @@ template <class T> using max_priority_queue
 
 #define KBIT(a, k) (a & (1ULL << (k)))
 
-#define Assert(x) void(0);
+#define Assert(x) assert(x);
 
 using namespace mitsuha;
 using namespace std;

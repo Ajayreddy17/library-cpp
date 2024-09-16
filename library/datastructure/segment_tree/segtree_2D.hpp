@@ -20,13 +20,13 @@ struct SegTree_2D {
     vector<S> dat;
     vector<int> to_left; // fractional cascading
 
-    SegTree_2D(vector<XY>& X, vector<XY>& Y) : 
-        SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> 
-            { return {X[i], Y[i], MX::unit()}; }) {}
+    SegTree_2D(vector<XY>& X, vector<XY>& Y) : SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> { 
+        return {X[i], Y[i], MX::unit()}; 
+    }) {}
 
-    SegTree_2D(vector<XY>& X, vector<XY>& Y, vector<S>& vals) : 
-        SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> 
-            { return {X[i], Y[i], vals[i]}; }) {}
+    SegTree_2D(vector<XY>& X, vector<XY>& Y, vector<S>& vals) : SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> { 
+        return {X[i], Y[i], vals[i]}; 
+    }) {}
 
     // f(i) = (x,y,val)
     template <typename F>
@@ -64,9 +64,7 @@ struct SegTree_2D {
         vector<int> ptr = indptr;
         vector<int> I(len(Y));
         iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return Y[i] < Y[j];
-        });
+        sort(I.begin(), I.end(), [&](int i, int j){ return Y[i] < Y[j]; });
         pos.resize(N);
         for(long long i = 0; i < N; i++) pos[I[i]] = i;
         for (auto raw_idx: I) {

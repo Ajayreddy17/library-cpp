@@ -39,6 +39,7 @@ struct RollingHash {
     }
 
     mint query(const vector<mint>& s, int l, int r) {
+        Assert(r < s.size() and l >= 0 and l <= r);
         expand(r - l);
         return (s[r] - s[l] * power[r - l]);
     }

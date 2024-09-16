@@ -4,10 +4,12 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// {vs, es} or empty. minimal.
 template <typename GT>
 pair<vector<int>, vector<int>> find_cycle_directed(GT& G) {
-    static_assert(GT::is_directed());
+    static_assert(GT::is_directed);
     assert(G.is_prepared());
+
     int N = G.N;
     vector<int> used(N);
     vector<pair<int, int>> par(N);
@@ -34,14 +36,40 @@ pair<vector<int>, vector<int>> find_cycle_directed(GT& G) {
         }
         used[v] = 2;
     };
-    for(int v = 0; v < N; v++) if (!used[v]) dfs(dfs, v);
+    For(v, N) if (!used[v]) dfs(dfs, v);
     if (es.empty()) return {vs, es};
 
-    vs.resize(len(es));
-    for(int i = 0; i < len(es); i++) { vs[i] = G.edges[es[i]].frm; }
+    // minimal cycle
+    vector<int> nxt(N, -1);
+    for (auto&& eid: es) nxt[G.edges[eid].frm] = eid;
+
+    for (auto&& e: G.edges) {
+        int a = e.frm, b = e.to;
+        if (nxt[a] == -1 || nxt[b] == -1) continue;
+        if (G.edges[nxt[a]].to == e.to) continue;
+        while (a != b) {
+            int t = G.edges[nxt[a]].to;
+            nxt[a] = -1;
+            a = t;
+        }
+        nxt[e.frm] = e.id;
+    }
+    es.clear();
+    For(v, N) {
+        if (nxt[v] == -1) continue;
+        int x = v;
+        while (1) {
+            vs.emplace_back(x);
+            es.emplace_back(nxt[x]);
+            x = G.edges[nxt[x]].to;
+            if (x == v) break;
+        }
+        break;
+    }
     return {vs, es};
 }
 
+// {vs, es} or empty. minimal.
 template <typename GT>
 pair<vector<int>, vector<int>> find_cycle_undirected(GT& G) {
     assert(!GT::is_directed);
@@ -50,48 +78,42 @@ pair<vector<int>, vector<int>> find_cycle_undirected(GT& G) {
     const int M = G.M;
     vector<int> dep(N, -1);
     vector<bool> used_e(M);
-    vector<int> par(N, -1);
+    vector<int> par(N, -1); // edge idx
 
-    auto dfs = [&](auto& dfs, int v, int d) -> int {
+    auto dfs = [&](auto& dfs, int v, int d) -> void {
         dep[v] = d;
         for (auto&& e: G[v]) {
-            if (used_e[e.id]) continue;
-            if (dep[e.to] != -1) return e.id;
+            if (dep[e.to] != -1) continue;
             used_e[e.id] = 1;
             par[e.to] = e.id;
-            int res = dfs(dfs, e.to, d + 1);
-            if (res != -1) return res;
+            dfs(dfs, e.to, d + 1);
         }
-        return -1;
     };
 
     vector<int> vs, es;
-    for(int v = 0; v < N; v++) {
-        if (dep[v] != -1) continue;
-        int e0 = dfs(dfs, v, 0);
-        if (e0 == -1) continue;
-        int a = G.edges[e0].frm, b = G.edges[e0].to;
-        if (dep[a] > dep[b]) swap(a, b);
-        es.emplace_back(e0);
-        vs.emplace_back(a);
-        while (1) {
-            int x = vs.back();
-            auto& e = G.edges[es.back()];
-            int y = e.frm + e.to - x;
-            if (y == a) break;
-            vs.emplace_back(y);
-            es.emplace_back(par[y]);
-        }
-        return {vs, es};
+    For(v, N) {
+        if (dep[v] == -1) dfs(dfs, v, 0);
+    }
+    int mi_len = std::numeric_limits<int>::max() / 2;
+    int back_e = -1;
+    for (auto& e: G.edges) {
+        if (used_e[e.id]) continue;
+        int d = abs(dep[e.frm] - dep[e.to]);
+        if (chmin(mi_len, d)) back_e = e.id;
+    }
+    if (back_e == -1) return {vs, es};
+    int a = G.edges[back_e].frm, b = G.edges[back_e].to;
+    if (dep[a] > dep[b]) swap(a, b);
+    es.emplace_back(back_e), vs.emplace_back(a);
+    while (1) {
+        int x = vs.back();
+        auto& e = G.edges[es.back()];
+        int y = e.frm + e.to - x;
+        if (y == a) break;
+        vs.emplace_back(y);
+        es.emplace_back(par[y]);
     }
     return {vs, es};
-}
-
-// {vs, es} ：Returns a sequence of edges and a sequence of vertices. es[i] is vs[i] to vs[i+1].
-template <typename GT>
-pair<vector<int>, vector<int>> find_cycle(GT& G) {
-    if (G.is_directed()) return find_cycle_directed(G);
-    return find_cycle_undirected(G);
 }
 } // namespace mitsuha
 #endif // AJAY_FIND_CYCLE

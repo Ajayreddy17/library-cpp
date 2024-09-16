@@ -11,8 +11,13 @@ struct SegTree {
     int n, m;
     
     SegTree() : SegTree(0) {}
-    SegTree(int n) { build(n, [](int){ return MX::unit(); }); }
-    template<class F> SegTree(int n, const F &f) { build(n, f); }
+    SegTree(int n) { 
+        build(n, [](int){ return MX::unit(); }); 
+    }
+    template<class F> 
+    SegTree(int n, const F &f) { 
+        build(n, f); 
+    }
     SegTree(const std::vector<T> &a) {
         build(a.size(), [&](int i){ return a[i]; });
     }
@@ -64,9 +69,7 @@ struct SegTree {
     }
     vector<T> get_all() {
         vector<T> ret(n);
-        for (int i = 0; i < n; ++i){
-            ret[i] = (*this)[i];
-        }
+        for (int i = 0; i < n; ++i) ret[i] = (*this)[i];
         return ret;
     }
 

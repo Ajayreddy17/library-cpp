@@ -103,6 +103,10 @@ struct Line {
         if (b == 0 && a < 0) { a = -a, b = -b, c = -c; }
     }
 
+    // bool operator<(Line l) const {
+    //     return tie(a, b, c) < tie(l.a, l.b, l.c);
+    // }
+
     bool is_parallel(Line other) { return a * other.b - b * other.a == 0; }
     bool is_orthogonal(Line other) { return a * other.a + b * other.b == 0; }
 };
@@ -135,53 +139,6 @@ struct Circle {
     bool contain(Point<T> p) {
         REAL dx = p.x - O.x, dy = p.y - O.y;
         return dx * dx + dy * dy <= r * r;
-    }
-};
-
-template <typename T>
-struct Polygon {
-    vector<Point<T>> points;
-    T a;
-
-    template <typename A, typename B>
-    Polygon(vector<pair<A, B>> pairs) {
-        for (auto&& [a, b]: pairs) points.emplace_back(Point<T>(a, b));
-        build();
-    }
-    Polygon(vector<Point<T>> points) : points(points) { build(); }
-
-    int size() { return len(points); }
-
-    template <typename REAL>
-    REAL area() {
-        return a * 0.5;
-    }
-
-    template <enable_if_t<is_integral<T>::value, int> = 0>
-    T area_2() {
-        return a;
-    }
-
-    bool is_convex() {
-        For(j, len(points)) {
-            int i = (j == 0 ? len(points) - 1 : j - 1);
-            int k = (j == len(points) - 1 ? 0 : j + 1);
-            if ((points[j] - points[i]).det(points[k] - points[j]) < 0) return false;
-        }
-        return true;
-    }
-
-private:
-    void build() {
-        a = 0;
-        For(i, len(points)) {
-            int j = (i + 1 == len(points) ? 0 : i + 1);
-            a += points[i].det(points[j]);
-        }
-        if (a < 0) {
-            a = -a;
-            reverse(points.begin(), points.end());
-        }
     }
 };
 } // namespace mitsuha

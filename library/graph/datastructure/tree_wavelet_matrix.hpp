@@ -48,6 +48,17 @@ struct Tree_Wavelet_Matrix {
         return wm.count(l + edge, r, a, b, xor_val);
     }
 
+    int count_subtree_root(int u, T a, T b, int root = -1, T xor_val = 0) {
+        if (root == -1 || tree.in_subtree(u, root)) {
+          int l = tree.LID[u], r = tree.RID[u];
+          return wm.count(l + edge, r, a, b, xor_val);
+        }
+        assert(!edge); // Lazy
+        u = tree.jump(u, root, 1);
+        int L = tree.LID[u], R = tree.RID[u];
+        return wm.count(0, L, a, b, xor_val) + wm.count(R, N, a, b, xor_val);
+    }
+
     // xor result, k>=0th and prefix sum in [L, R)
     pair<T, X> kth_value_and_sum_path(int s, int t, int k, T xor_val = 0) {
         return wm.kth_value_and_sum(get_segments(s, t), k, xor_val);

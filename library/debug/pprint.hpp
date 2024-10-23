@@ -177,11 +177,13 @@ void __attribute__((destructor)) _ed_time() {
     long long elapsed = chrono::duration_cast<chrono::microseconds>(end - bgn).count();
     unit = "micro sec";
     #endif
+    #ifndef STRESS
     #ifdef FASTIO
     print();
     print("Time Elapsed:", elapsed, unit);
     flush();
     #endif 
+    #endif
 }
 
 #endif  // H_PRETTY_PRINT

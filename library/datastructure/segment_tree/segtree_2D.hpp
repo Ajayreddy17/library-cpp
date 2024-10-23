@@ -20,6 +20,7 @@ struct SegTree_2D {
     vector<S> dat;
     vector<int> to_left; // fractional cascading
 
+    SegTree_2D() {}
     SegTree_2D(vector<XY>& X, vector<XY>& Y) : SegTree_2D(len(X), [&](int i) -> tuple<XY, XY, S> { 
         return {X[i], Y[i], MX::unit()}; 
     }) {}

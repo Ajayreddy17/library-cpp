@@ -1,15 +1,15 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**"
             ],
             "defines": [
                 "LOCAL"
             ],
-            "compilerPath": "C:\\Program Files (x86)\\mingw64\\bin\\gcc.exe",
-            "intelliSenseMode": "windows-gcc-x64",
+            "compilerPath": "/opt/homebrew/Cellar/gcc@13/13.3.0/bin/g++-13",
+            "intelliSenseMode": "macos-gcc-x64",
             "cppStandard": "c++20",
             "cStandard": "c23"
         }

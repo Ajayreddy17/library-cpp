@@ -17,7 +17,8 @@ vector<mint> convolution_ntt(vector<mint> a, vector<mint> b) {
     int sz = 1;
     while (sz < n + m - 1) sz *= 2;
 
-    // Speedup when sz = 2^k. Because it's a divide-and-conquer type of thing, you're going to lose a lot of money.
+    // Speeding up when sz = 2^k. 
+    // The divide-and-conquer approach is causing a lot of inefficiencies.
     if ((n + m - 3) <= sz / 2) {
         auto a_last = a.back(), b_last = b.back();
         a.pop_back(), b.pop_back();
@@ -62,9 +63,7 @@ vector<mint> convolution_garner(const vector<mint>& a, const vector<mint>& b) {
     auto c1 = convolution_ntt<mint1>(a1, b1);
     auto c2 = convolution_ntt<mint2>(a2, b2);
     vector<mint> c(len(c0));
-    For(i, n + m - 1) {
-        c[i] = CRT3<mint, p0, p1, p2>(c0[i].val, c1[i].val, c2[i].val);
-    }
+    For(i, n + m - 1) { c[i] = CRT3<mint, p0, p1, p2>(c0[i].val, c1[i].val, c2[i].val); }
     return c;
 }
 
@@ -114,21 +113,13 @@ vector<long long> convolution(const vector<long long>& a, const vector<long long
     if (__int128(abs_sum_a) * abs_sum_b < 1e15) {
         vector<double> c = convolution_fft<long long>(a, b);
         vector<long long> res(len(c));
-        For(i, len(c)) res[i] = (long long)(std::floor(c[i] + .5));
+        For(i, len(c)) res[i] = (long long)(floor(c[i] + .5));
         return res;
     }
 
-    static constexpr unsigned long long MOD1 = 754974721; // 2^24
-    static constexpr unsigned long long MOD2 = 167772161; // 2^25
-    static constexpr unsigned long long MOD3 = 469762049; // 2^26
-    static constexpr unsigned long long M2M3 = MOD2 * MOD3;
-    static constexpr unsigned long long M1M3 = MOD1 * MOD3;
-    static constexpr unsigned long long M1M2 = MOD1 * MOD2;
-    static constexpr unsigned long long M1M2M3 = MOD1 * MOD2 * MOD3;
-
-    static const unsigned long long i1 = mod_inv(MOD2 * MOD3, MOD1);
-    static const unsigned long long i2 = mod_inv(MOD1 * MOD3, MOD2);
-    static const unsigned long long i3 = mod_inv(MOD1 * MOD2, MOD3);
+    static constexpr unsigned int MOD1 = 167772161; // 2^25
+    static constexpr unsigned int MOD2 = 469762049; // 2^26
+    static constexpr unsigned int MOD3 = 754974721; // 2^24
 
     using mint1 = modint<MOD1>;
     using mint2 = modint<MOD2>;
@@ -144,20 +135,13 @@ vector<long long> convolution(const vector<long long>& a, const vector<long long
     auto c2 = convolution_ntt<mint2>(a2, b2);
     auto c3 = convolution_ntt<mint3>(a3, b3);
 
-    vector<long long> c(n + m - 1);
+    unsigned __int128 prod = (unsigned __int128)(MOD1) * MOD2 * MOD3;
+    vector<long long> res(n + m - 1);
     For(i, n + m - 1) {
-        unsigned long long x = 0;
-        x += (c1[i].val * i1) % MOD1 * M2M3;
-        x += (c2[i].val * i2) % MOD2 * M1M3;
-        x += (c3[i].val * i3) % MOD3 * M1M2;
-        long long diff = c1[i].val - ((long long)(x) % (long long)(MOD1));
-        if (diff < 0) diff += MOD1;
-        static constexpr unsigned long long offset[5]
-                = {0, 0, M1M2M3, 2 * M1M2M3, 3 * M1M2M3};
-        x -= offset[diff % 5];
-        c[i] = x;
+        unsigned __int128 x = CRT3<unsigned __int128, MOD1, MOD2, MOD3>(c1[i].val, c2[i].val, c3[i].val);
+        res[i] = (x < prod / 2 ? (long long)(x) : -(long long)(prod - x));
     }
-    return c;
+    return res;
 }
 
 template <typename mint>
@@ -165,11 +149,9 @@ vector<mint> convolution(const vector<mint>& a, const vector<mint>& b) {
     int n = len(a), m = len(b);
     if (!n || !m) return {};
     if (mint::can_ntt()) {
-        if (min(n, m) <= 50) return convolution_karatsuba<mint>(a, b);
-        return convolution_ntt(a, b);
+        return min(n, m) <= 50 ? convolution_karatsuba<mint>(a, b): convolution_ntt(a, b);
     }
-    if (min(n, m) <= 200) return convolution_karatsuba<mint>(a, b);
-    return convolution_garner(a, b);
+    return min(n, m) <= 200 ? convolution_karatsuba<mint>(a, b): convolution_garner(a, b);
 }
 } // namespace mitsuha
 #endif // AJAY_CONVOLUTION

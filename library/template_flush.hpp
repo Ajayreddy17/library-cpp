@@ -87,7 +87,7 @@ namespace mitsuha {
 #define len(iterable) TL iterable.size()
 #define elif else if
 
-#define KBIT(a, k) (a & (1ULL << (k)))
+#define KBIT(a, k) ((a >> k) & 1)
 
 using namespace mitsuha;
 using namespace std;

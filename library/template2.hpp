@@ -111,7 +111,7 @@ template <class T> using max_priority_queue
 #define len(iterable) TL iterable.size()
 #define elif else if
 
-#define KBIT(a, k) (a & (1ULL << (k)))
+#define KBIT(a, k) ((a >> k) & 1)
 
 #define Assert(x) assert(x);
 

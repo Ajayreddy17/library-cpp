@@ -11,6 +11,12 @@ struct UnionFind{
         Assert(n >= 0);
         for(auto i = 0; i < n; ++ i) group[i] = {i};
     }
+    int make_set(){
+		p.push_back(-1);
+		group.push_back(list<int>{n});
+		++ _group_count;
+		return n ++;
+	}
     int root(int u){
         Assert(0 <= u && u < n);
         return p[u] < 0 ? u : p[u] = root(p[u]);

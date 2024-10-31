@@ -5,7 +5,7 @@ namespace mitsuha{
 constexpr unsigned int mod_pow_constexpr(unsigned long long a, unsigned long long n, unsigned int mod) {
     a %= mod;
     unsigned long long res = 1;
-    For(32) {
+    For(32){
         if (n & 1) res = res * a % mod;
         a = a * a % mod, n /= 2;
     }

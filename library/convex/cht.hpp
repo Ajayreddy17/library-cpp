@@ -51,6 +51,7 @@ struct LineContainer : multiset<Line<T>, less<>> {
             x->p = lc_div(y->m - x->m, x->k - y->k);
         return x->p >= y->p;
     }
+    // k x + m
     void add(T k, T m) {
         if (MINIMIZE) { k = -k, m = -m; }
         auto z = insert({k, m, 0}), y = z++, x = y;

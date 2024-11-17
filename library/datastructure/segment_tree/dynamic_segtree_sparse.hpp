@@ -2,10 +2,11 @@
 #define AJAY_DYNAMIC_SEGTREE_SPARSE
 
 namespace mitsuha{
-// Dynamic seg tree where most elements are always guaranteed to be unit
-// Therefore, default_prod cannot be used, and acted monoid cannot be handled in general.
-// The advantage is that the number of nodes can be kept to O(N) when not persisted
-template <typename Monoid, bool PERSISTENT = false, int NODES = 1 << 20>
+// A dynamic segtree where most elements are always guaranteed to be unit elements.
+// Therefore, functions like `default_prod` cannot be supported, 
+// and general acted monoids cannot be handled.
+// Max Nodes: O(N)
+template <typename Monoid, bool PERSISTENT>
 struct Dynamic_SegTree_Sparse {
     using MX = Monoid;
     using X = typename MX::value_type;
@@ -15,18 +16,19 @@ struct Dynamic_SegTree_Sparse {
         Node *l, *r;
         X prod, x;
     };
-
+    const int NODES;
     const long long L0, R0;
     Node *pool;
     int pid;
     using np = Node *;
     vector<np> FREE;
 
-    Dynamic_SegTree_Sparse(long long L0 = -linf, long long R0 = linf) : L0(L0), R0(R0), pid(0) {
+    Dynamic_SegTree_Sparse(int NODES, long long L0, long long R0): NODES(NODES), L0(L0), R0(R0), pid(0) {
         pool = new Node[NODES];
     }
+    ~Dynamic_SegTree_Sparse() { delete[] pool; }
 
-    // MLE may be avoided if used when merging tree dp etc.
+    // For tree DP merging can sometimes help avoid MLE
     // https://codeforces.com/problemset/problem/671/D
     void free_subtree(np c) {
         auto dfs = [&](auto &dfs, np c) -> void {
@@ -41,12 +43,12 @@ struct Dynamic_SegTree_Sparse {
 
     np new_node(long long idx, const X x) {
         if (!FREE.empty()) {
-            np c = FREE.back();
-            FREE.pop_back();
+            np c = FREE.back(); FREE.pop_back();
             c->idx = idx, c->l = c->r = nullptr;
             c->prod = c->x = x;
             return c;
         }
+        assert(pid < NODES);
         pool[pid].idx = idx;
         pool[pid].l = pool[pid].r = nullptr;
         pool[pid].x = pool[pid].prod = x;
@@ -74,20 +76,23 @@ struct Dynamic_SegTree_Sparse {
     }
 
     template <typename F>
-    long long max_right(np root, F check, long long L) {
+    long long max_right(np root, long long L, F check) {
         assert(L0 <= L && L <= R0 && check(MX::unit()));
         X x = MX::unit();
         return max_right_rec(root, check, L0, R0, L, x);
     }
 
     template <typename F>
-    long long min_left(np root, F check, long long R) {
+    long long min_left(np root, long long R, F check) {
         assert(L0 <= R && R <= R0 && check(MX::unit()));
         X x = MX::unit();
         return min_left_rec(root, check, L0, R0, R, x);
     }
 
-    void reset() { pid = 0; FREE.clear(); }
+    void reset() {
+        pid = 0;
+        FREE.clear();
+    }
 
     vector<pair<long long, X>> get_all(np root) {
         vector<pair<long long, X>> res;
@@ -110,6 +115,7 @@ struct Dynamic_SegTree_Sparse {
         };
         return dfs(dfs, root);
     }
+
 private:
     void update(np c) {
         c->prod = c->x;
@@ -119,6 +125,7 @@ private:
 
     np copy_node(np c) {
         if (!c || !PERSISTENT) return c;
+        assert(pid < NODES);
         pool[pid].idx = c->idx;
         pool[pid].l = c->l;
         pool[pid].r = c->r;

@@ -40,7 +40,7 @@ struct SegTree {
         return data[i + m];
     }
     T operator()(int l, int r) const {
-        assert(0 <= l && l <= r && r <= n);
+        assert(0 <= l && l <= r && r <= m);
         T res_l = MX::unit(), res_r = MX::unit();
         for (l += m, r += m; l < r; l >>= 1, r >>= 1) {
             if (l & 1) res_l = MX::op(res_l, data[l++]);

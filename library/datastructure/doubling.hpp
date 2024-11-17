@@ -47,7 +47,7 @@ struct Doubling {
     // (to, val)
     pair<int, X> calc(int i, long long step) {
         Assert(is_prepared);
-        Assert(0 <= step && step < (1LL << LOG));
+        assert(0 <= step && step < (1LL << LOG));
         X x = Monoid::unit();
         while (step && i != -1) {
             int k = (step == 0 ? -1 : 63 - __builtin_clzll(step));
@@ -61,10 +61,10 @@ struct Doubling {
     // check(to, monoid_sum)
     template <typename F>
     long long max_step(int i, F check) {
-        assert(is_prepared);
+        Assert(is_prepared);
         X x = Monoid::unit();
         long long step = 0;
-        Assert(check(i, x));
+        assert(check(i, x));
         Frr(k, LOG) {
             int j = TO[k][i];
             if (j == -1) continue;
@@ -73,7 +73,7 @@ struct Doubling {
                 step |= 1LL << k;
                 i = j;
                 x = y;
-                Assert(i != -1);
+                assert(i != -1);
             }
         }
         return step;

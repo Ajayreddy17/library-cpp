@@ -26,12 +26,12 @@ Graph<T, 0> manhattan_mst(vector<pair<T, T>>& XY) {
             for (const int i: idx) {
                 auto& [x, y] = XY[i];
                 for (auto it = MP.lower_bound(-y); it != MP.end(); it = MP.erase(it)) {
-                    const int j = it->se;
+                    const int j = it->second;
                     auto& [xj, yj] = XY[j];
                     const int dx = x - xj;
                     const int dy = y - yj;
                     if (dy > dx) break;
-                    dat.eb(dx + dy, i, j);
+                    dat.emplace_back(dx + dy, i, j);
                 }
                 MP[-y] = i;
             }

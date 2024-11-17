@@ -44,7 +44,7 @@ struct FunctionalGraph {
         return {G, tree};
     }
 
-    // a to b steps, iinf if not possible
+    // a to b steps, T_inf if not possible
     template <typename TREE>
     int dist(TREE& tree, int a, int b) {
         if (tree.in_subtree(a, b)) return tree.depth[a] - tree.depth[b];
@@ -57,7 +57,7 @@ struct FunctionalGraph {
             x += tree.depth[btm] - tree.depth[b];
             return x;
         }
-        return iinf;
+        return numeric_limits<T>::max() / 2;
     }
 
     template <typename TREE>
@@ -117,6 +117,25 @@ struct FunctionalGraph {
         vector<int> cyc = {TO[r]};
         while (cyc.back() != r) cyc.emplace_back(TO[cyc.back()]);
         return cyc;
+    }
+
+    // smallest k such that F^k(i) = F^k(j), 
+    // or return -1 if no such k exist
+    template <typename TREE>
+    int meet_time(TREE& tree, int i, int j) {
+        if (i == j) return 0;
+        if (root[i] != root[j]) return -1;
+        int r = root[i];
+        int b = TO[r];
+        int n = tree.depth[b] - tree.depth[r] + 1; // cyc len
+        if ((tree.depth[i] - tree.depth[j]) % n != 0) return -1;
+        if (tree.depth[i] == tree.depth[j]) {
+            int lca = tree.lca(i, j);
+            return tree.depth[i] - tree.depth[lca];
+        }
+        int ti = tree.depth[i] - tree.depth[tree.lca(b, i)];
+        int tj = tree.depth[j] - tree.depth[tree.lca(b, j)];
+        return max(ti, tj);
     }
 };
 } // namespace mitsuha

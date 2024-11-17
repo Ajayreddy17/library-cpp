@@ -2,39 +2,45 @@
 #define AJAY_BIGINT_BASE
 
 #include "library/poly/convolution.hpp"
+#include "library/number/digit_sum.hpp"
 
-namespace mitsuha{
-// Separate by 10^9
+namespace mitsuha {
+// “Split into segments of 10^9”.
 struct BigInteger {
-    static constexpr int TEN[]
-            = {1,      10,      100,      1000,      10000,
-               100000, 1000000, 10000000, 100000000, 1000000000};
+    static constexpr int TEN[] = {1,      10,      100,      1000,      10000,
+                                  100000, 1000000, 10000000, 100000000, 1000000000};
     static constexpr int LOG = 9;
     static constexpr int MOD = TEN[LOG];
     using bint = BigInteger;
-    int sgn; // +1 or -1. -0 is allowed in the internal state.
+    int sgn;
     vector<int> dat;
 
-    BigInteger() : sgn(1) {}
-    BigInteger(__int128_t val) {
+    BigInteger() : sgn(0) {}
+    BigInteger(int128 val) {
+        if (val == 0) {
+            sgn = 0;
+            return;
+        }
         sgn = 1;
         if (val != 0) {
             if (val < 0) sgn = -1, val = -val;
             while (val > 0) {
-                dat.emplace_back(val % MOD);
-                val /= MOD;
+                dat.emplace_back(val % MOD), val /= MOD;
             }
         }
     }
     BigInteger(string s) {
-        assert(!s.empty());
+        assert(not s.empty());
         sgn = 1;
         if (s[0] == '-') {
             sgn = -1;
             s.erase(s.begin());
             assert(!s.empty());
         }
-        if (s[0] == '0') s.clear();
+        if (s[0] == '0') {
+            sgn = 0;
+            return;
+        }
         reverse(s.begin(), s.end());
         int n = len(s);
         int m = cld(n, LOG);
@@ -42,23 +48,22 @@ struct BigInteger {
         For(i, n) { dat[i / LOG] += TEN[i % LOG] * (s[i] - '0'); }
     }
     bint &operator=(const bint &p) {
-        sgn = p.sgn;
-        dat = p.dat;
+        sgn = p.sgn, dat = p.dat;
         return *this;
     }
     bool operator<(const bint &p) const {
         if (sgn != p.sgn) {
-            if (dat.empty() && p.dat.empty()) return false;
             return sgn < p.sgn;
         }
+        if (sgn == 0) return false;
         if (len(dat) != len(p.dat)) {
             if (sgn == 1) return len(dat) < len(p.dat);
-            if (sgn == -1) return len(dat) > len(p.dat);
+            if (sgn == -1)return len(dat) > len(p.dat);
         }
         Frr(i, len(dat)) {
             if (dat[i] == p.dat[i]) continue;
             if (sgn == 1) return dat[i] < p.dat[i];
-            if (sgn == -1) return dat[i] > p.dat[i];
+            if (sgn == -1)return dat[i] > p.dat[i];
         }
         return false;
     }
@@ -66,6 +71,10 @@ struct BigInteger {
     bool operator<=(const bint &p) const { return !(*this > p); }
     bool operator>=(const bint &p) const { return !(*this < p); }
     bint &operator+=(const bint p) {
+        if (sgn == 0) {
+            return *this = p;
+        }
+        if (p.sgn == 0) return *this;
         if (sgn != p.sgn) {
             *this -= (-p);
             return *this;
@@ -77,9 +86,12 @@ struct BigInteger {
             if (dat[i] >= MOD) dat[i] -= MOD, dat[i + 1] += 1;
         }
         while (len(dat) && dat.back() == 0) dat.pop_back();
+        if (dat.empty()) sgn = 0;
         return *this;
     }
     bint &operator-=(const bint p) {
+        if (p.sgn == 0) return *this;
+        if (sgn == 0) return *this = (-p);
         if (sgn != p.sgn) {
             *this += (-p);
             return *this;
@@ -93,12 +105,19 @@ struct BigInteger {
         For(i, len(dat) - 1) {
             if (dat[i] < 0) dat[i] += MOD, dat[i + 1] -= 1;
         }
-        while (len(dat) && dat.back() == 0) { dat.pop_back(); }
+        while (len(dat) && dat.back() == 0) {
+            dat.pop_back();
+        }
+        if (dat.empty()) sgn = 0;
         return *this;
     }
     bint &operator*=(const bint &p) {
         sgn *= p.sgn;
-        dat = convolve(dat, p.dat);
+        if (sgn == 0) {
+            dat.clear();
+        } else {
+            dat = convolve(dat, p.dat);
+        }
         return *this;
     }
     // bint &operator/=(const bint &p) { return *this; }
@@ -111,10 +130,7 @@ struct BigInteger {
     bint operator-(const bint &p) const { return bint(*this) -= p; }
     bint operator*(const bint &p) const { return bint(*this) *= p; }
     // bint operator/(const modint &p) const { return modint(*this) /= p; }
-    bool operator==(const bint &p) const {
-        if (dat.empty() && p.dat.empty()) return true;
-        return (sgn == p.sgn && dat == p.dat);
-    }
+    bool operator==(const bint &p) const { return (sgn == p.sgn and dat == p.dat); }
     bool operator!=(const bint &p) const { return !((*this) == p); }
 
     vector<int> convolve(const vector<int> &a, const vector<int> &b) {
@@ -128,7 +144,9 @@ struct BigInteger {
                 For(i, s, t + 1) { x += (unsigned long long)(a[i]) * b[k - i]; }
                 c[k] = x % MOD, x = x / MOD;
             }
-            while (x > 0) { c.emplace_back(x % MOD), x = x / MOD; }
+            while (x > 0) {
+                c.emplace_back(x % MOD), x = x / MOD;
+            }
             return c;
         }
         static constexpr int p0 = 167772161;
@@ -149,7 +167,9 @@ struct BigInteger {
             x += CRT3<__uint128_t, p0, p1, p2>(c0[i].val, c1[i].val, c2[i].val);
             c[i] = x % MOD, x = x / MOD;
         }
-        while (x) { c.emplace_back(x % MOD), x = x / MOD; }
+        while (x) {
+            c.emplace_back(x % MOD), x = x / MOD;
+        }
         return c;
     }
 
@@ -170,10 +190,11 @@ struct BigInteger {
 
     // https://codeforces.com/contest/504/problem/D
     string to_binary_string() {
+        assert(sgn >= 0);
         vector<unsigned int> A(dat.begin(), dat.end());
         string ANS;
         while (1) {
-            while (len(A) && A.back() == (unsigned int)0) A.pop_back();
+            while (len(A) && A.back() == 0U) A.pop_back();
             if (A.empty()) break;
             unsigned long long rem = 0;
             Frr(i, len(A)) {
@@ -216,7 +237,7 @@ struct BigInteger {
         vector<unsigned int> A(dat.begin(), dat.end());
         vector<int> res;
         while (1) {
-            while (len(A) && A.back() == (unsigned int)(0)) A.pop_back();
+            while (len(A) && A.back() == 0U) A.pop_back();
             if (A.empty()) break;
             unsigned long long rm = 0;
             Frr(i, len(A)) {
@@ -230,7 +251,7 @@ struct BigInteger {
         return res;
     }
 
-    // Calculate by ignoring overflow
+    // overflow “Ignore and calculate.”
     long long to_ll() {
         long long x = 0;
         Frr(i, len(dat)) x = MOD * x + dat[i];
@@ -239,6 +260,7 @@ struct BigInteger {
 
     // https://codeforces.com/contest/986/problem/D
     bint pow(long long n) {
+        assert(n >= 0);
         auto dfs = [&](auto &dfs, long long n) -> bint {
             if (n == 1) return (*this);
             bint x = dfs(dfs, n / 2);
@@ -264,18 +286,25 @@ struct BigInteger {
         x += double(LOG) * (len(dat) - 4);
         return x;
     }
+
+    int digit_sum() {
+        int ans = 0;
+        for (auto &x : dat)
+            ans += mitsuha::digit_sum(x); // digit_sum defined globally
+        return ans;
+    }
 };
 
 #ifdef FASTIO
 void wt(BigInteger x) { io::wt(x.to_string()); }
 void rd(BigInteger &x) {
-  string s;
-  io::rd(s);
-  x = BigInteger(s);
+    string s;
+    io::rd(s);
+    x = BigInteger(s);
 }
 #endif
 
-ostream &operator<<(ostream &out, const BigInteger &x){
+ostream &operator<<(ostream &out, const BigInteger &x) {
     auto X = x;
     return out << X.to_string();
 }

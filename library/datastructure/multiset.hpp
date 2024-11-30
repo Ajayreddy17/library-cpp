@@ -5,50 +5,53 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+namespace internal{
 #ifndef LOCAL
-Dynamic_SegTree_Sparse<Monoid_Add<long long>, false, (int) 1e6> Meg(-linf, linf);
+Dynamic_SegTree_Sparse<Monoid_Add<long long>, false> Seg(1'000'000, -linf, linf);
 #else
-Dynamic_SegTree_Sparse<Monoid_Add<long long>, false, (int) 1e3> Meg(-linf, linf);
+Dynamic_SegTree_Sparse<Monoid_Add<long long>, false> Seg(1'000, -linf, linf);
 #endif
+}
 
 struct Multiset{
-    using np = decltype(Meg)::np;
+    using np = decltype(internal::Seg)::np;
     np root;
     long long _size;
-    Multiset(): root(Meg.new_root()), _size(0LL){ }
+    Multiset(): root(internal::Seg.new_root()), _size(0LL){ }
 
     void insert(long long x, int cnt = 1){
         _size += cnt;
-        root = Meg.multiply(root, x, cnt);
+        root = internal::Seg.multiply(root, x, cnt);
     }
+    void add(long long x, int cnt = 1){ insert(x, cnt); }
     void remove(long long x, int cnt = 1){
-        Assert(Meg.get(root, x) >= cnt);
+        Assert(internal::Seg.get(root, x) >= cnt);
         _size -= cnt;
-        root = Meg.multiply(root, x, -cnt);
+        root = internal::Seg.multiply(root, x, -cnt);
     }
     void erase(long long x, int cnt = 1) { remove(x, cnt); }
 
     long long size(){ return _size; }
 
     optional<long long> min_gt(long long x){
-        long long ret = Meg.max_right(root, [](long long x){ return not x; }, x + 1);
+        long long ret = internal::Seg.max_right(root, x + 1, [](long long x){ return not x; });
         return (ret == linf) ? nullopt: make_optional(ret);
     }
     optional<long long> min_geq(long long x){ return min_gt(x - 1); }
     optional<long long> max_lt(long long x){
-        long long ret =  Meg.min_left(root, [](long long x){ return not x; }, x);
+        long long ret =  internal::Seg.min_left(root, x, [](long long x){ return not x; });
         return (ret == -linf) ? nullopt: make_optional(ret - 1);
     }
     optional<long long> max_leq(long long x){ return max_lt(x + 1); }
 
-    long long count_gt(long long x){ return Meg.prod(root, x + 1, linf); }
-    long long count_geq(long long x){ return Meg.prod(root, x, linf); }
-    long long count_lt(long long x){ return Meg.prod(root, -linf, x); }
-    long long count_leq(long long x){ return Meg.prod(root, -linf, x + 1); }
+    long long count_gt(long long x) { return internal::Seg.prod(root, x + 1, linf); }
+    long long count_geq(long long x){ return internal::Seg.prod(root, x, linf); }
+    long long count_lt(long long x) { return internal::Seg.prod(root, -linf, x); }
+    long long count_leq(long long x){ return internal::Seg.prod(root, -linf, x + 1); }
 
-    long long count(long long x){ return Meg.get(root, x); }
+    long long count(long long x){ return internal::Seg.get(root, x); }
     // number of x s.t l <= x < r.
-    long long count_range(long long l, long long r){ return Meg.prod(root, l, r); }
+    long long count_range(long long l, long long r){ return internal::Seg.prod(root, l, r); }
 
     long long starting_index(long long x){
         Assert(count(x));
@@ -60,8 +63,8 @@ struct Multiset{
     }
 
     long long operator[](int idx) {
-        Assert(idx < Meg.prod_all(root));
-        return Meg.max_right(root, [&](long long x){ return x <= idx; }, -linf);
+        Assert(idx < internal::Seg.prod_all(root));
+        return internal::Seg.max_right(root, -linf, [&](long long x){ return x <= idx; });
     }
     long long at(int idx) { return (*this)[idx]; }
     long long front(){ return at(0); }

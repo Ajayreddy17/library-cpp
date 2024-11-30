@@ -11,7 +11,8 @@ struct FastSet {
 
     FastSet() {}
     FastSet(int n) { build(n); }
-    template <typename F> FastSet(int n, F f) { build(n, f); }
+    template <typename F> 
+    FastSet(int n, F f) { build(n, f); }
 
     void build(int m) {
         seg.clear();

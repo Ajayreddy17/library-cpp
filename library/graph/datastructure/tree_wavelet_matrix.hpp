@@ -94,7 +94,9 @@ struct Tree_Wavelet_Matrix {
 
     // The sum of SUM_data at the [k1, k2)th point in the xor result
     X sum_path(int s, int t, int k1, int k2, T xor_val = 0) {
-        return wm.sum(get_segments(s, t), k1, k2, xor_val);
+        X add = wm.kth_value_and_sum(get_segments(s, t), k2, xor_val).second;
+        X sub = wm.kth_value_and_sum(get_segments(s, t), k1, xor_val).second;
+        return Monoid::op(add, Monoid::inverse(sub));
     }
 
     // The sum of SUM_data at the [k1, k2)th point in the xor result

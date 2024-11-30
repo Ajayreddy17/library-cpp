@@ -63,6 +63,21 @@ std::map<T, int> Counter(std::vector<T> &a){
     for (auto &x: a) ++cnt[x];
     return cnt;
 }
+template <typename T>
+std::vector<int> argsort(const std::vector<T> &A) {
+    std::vector<int> ids(A.size());
+    std::iota(ids.begin(), ids.end(), 0);
+    std::sort(ids.begin(), ids.end(), [&](int i, int j) { 
+        return (A[i] == A[j] ? i < j : A[i] < A[j]); 
+    });
+    return ids;
+}
+template <typename T>
+std::vector<T> rearrange(const std::vector<T> &A, const std::vector<int> &I) {
+    std::vector<T> B(I.size());
+    for(int i = 0; i < I.size(); ++i) B[i] = A[I[i]];
+    return B;
+}
 template <size_t D> struct Dim : std::array<int, D> {
     template <typename ...Ints> Dim(const Ints& ...ns) : 
         std::array<int, D>::array{ static_cast<int>(ns)... } {}

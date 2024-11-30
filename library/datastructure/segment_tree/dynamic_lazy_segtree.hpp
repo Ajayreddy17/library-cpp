@@ -1,8 +1,8 @@
 #ifndef AJAY_DYNAMIC_LAZY_SEGTREE
 #define AJAY_DYNAMIC_LAZY_SEGTREE
-
-namespace mitsuha{
-template <typename ActedMonoid, bool PERSISTENT = false, int NODES = 1 << 24>
+// Max Nodes: 2Q * log(N)
+namespace mitsuha {
+template <typename ActedMonoid, bool PERSISTENT>
 struct Dynamic_Lazy_SegTree {
     using AM = ActedMonoid;
     using MX = typename AM::Monoid_X;
@@ -18,20 +18,23 @@ struct Dynamic_Lazy_SegTree {
         A lazy;
     };
 
+    const int NODES;
     const long long L0, R0;
     Node *pool;
     int pid;
     using np = Node *;
 
     Dynamic_Lazy_SegTree(
-            long long L0, long long R0, F default_prod = [](long long l, long long r) -> X { return MX::unit(); })
-            : default_prod(default_prod), L0(L0), R0(R0), pid(0) {
+        int NODES, long long L0, long long R0, F default_prod = [](long long, long long) -> X { return MX::unit(); })
+        : default_prod(default_prod), NODES(NODES), L0(L0), R0(R0), pid(0) {
         pool = new Node[NODES];
     }
+    ~Dynamic_Lazy_SegTree() { delete[] pool; }
 
     np new_root() { return new_node(L0, R0); }
 
     np new_node(const X x) {
+        assert(pid < NODES);
         pool[pid].l = pool[pid].r = nullptr;
         pool[pid].x = x;
         pool[pid].lazy = MA::unit();
@@ -41,7 +44,7 @@ struct Dynamic_Lazy_SegTree {
     np new_node(long long l, long long r) { return new_node(default_prod(l, r)); }
     np new_node() { return new_node(L0, R0); }
 
-    np new_node(const vector<X> &dat) {
+    np new_node(const vc<X> &dat) {
         assert(L0 == 0 && R0 == len(dat));
         auto dfs = [&](auto &dfs, long long l, long long r) -> Node * {
             if (l == r) return nullptr;
@@ -83,14 +86,14 @@ struct Dynamic_Lazy_SegTree {
     }
 
     template <typename F>
-    long long max_right(np root, F check, long long L) {
+    long long max_right(np root, long long L, F check) {
         assert(pid && L0 <= L && L <= R0 && check(MX::unit()));
         X x = MX::unit();
         return max_right_rec(root, check, L0, R0, L, x);
     }
 
     template <typename F>
-    long long min_left(np root, F check, long long R) {
+    long long min_left(np root, long long R, F check) {
         assert(pid && L0 <= R && R <= R0 && check(MX::unit()));
         X x = MX::unit();
         return min_left_rec(root, check, L0, R0, R, x);
@@ -182,8 +185,8 @@ private:
     }
 
     void prod_rec(np c, long long l, long long r, long long ql, long long qr, X &x, A lazy) {
-        ql = max(ql, l);
-        qr = min(qr, r);
+        chmax(ql, l);
+        chmin(qr, r);
         if (ql >= qr) return;
         if (!c) {
             x = MX::op(x, AM::act(default_prod(ql, qr), lazy, qr - ql));
@@ -201,8 +204,8 @@ private:
 
     np apply_rec(np c, long long l, long long r, long long ql, long long qr, const A &a) {
         if (!c) c = new_node(l, r);
-        ql = max(ql, l);
-        qr = min(qr, r);
+        chmax(ql, l);
+        chmin(qr, r);
         if (ql >= qr) return c;
         if (l == ql && r == qr) {
             c = copy_node(c);
@@ -223,7 +226,7 @@ private:
     long long max_right_rec(np c, const F &check, long long l, long long r, long long ql, X &x) {
         if (r <= ql) return r;
         if (!c) c = new_node(l, r);
-        ql = max(ql, l);
+        chmax(ql, l);
         if (l == ql && check(MX::op(x, c->x))) {
             x = MX::op(x, c->x);
             return r;
@@ -240,7 +243,7 @@ private:
     long long min_left_rec(np c, const F &check, long long l, long long r, long long qr, X &x) {
         if (qr <= l) return l;
         if (!c) c = new_node(l, r);
-        qr = min(qr, r);
+        chmin(qr, r);
         if (r == qr && check(MX::op(c->x, x))) {
             x = MX::op(c->x, x);
             return l;

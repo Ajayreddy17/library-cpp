@@ -15,12 +15,12 @@ struct Arithmetic_Progression{
     // gives sum of {st, st + diff, .... st + (k - 1) * diff} i.e k terms
     T k_forward_sum(T st, T k){
         Assert(k >= T(0));
-        return k * (2 * st + (k - 1) * diff) / T(2);
+        return k * (T(2) * st + (k - 1) * diff) / T(2);
     }
     // gives sum of {st, st - diff, .... st - (k - 1) * diff} i.e k terms
     T k_backward_sum(T st, T k){
         Assert(k >= T(0));
-        return k * (2 * st + (1 - k) * diff) / T(2);
+        return k * (T(2) * st + (1 - k) * diff) / T(2);
     }
     
     // sum of {st, st + diff ... st + (k - 1) * diff < ed}

@@ -5,7 +5,7 @@ namespace mitsuha{
 // A dynamic segtree where most elements are always guaranteed to be unit elements.
 // Therefore, functions like `default_prod` cannot be supported, 
 // and general acted monoids cannot be handled.
-// Max Nodes: O(N)
+// Max Nodes: N
 template <typename Monoid, bool PERSISTENT>
 struct Dynamic_SegTree_Sparse {
     using MX = Monoid;

@@ -10,6 +10,8 @@ struct FenwickTree {
     using MX = Monoid;
     using E = typename G::value_type;
     int n;
+    vector<E> dat;
+    E total;
 
     FenwickTree() {}
     FenwickTree(int n) { build(n); }
@@ -18,6 +20,28 @@ struct FenwickTree {
         build(n, f);
     }
     FenwickTree(const vector<E>& v) { build(v); }
+
+    void build(int m) {
+        n = m;
+        dat.assign(m, G::unit());
+        total = G::unit();
+    }
+    void build(const vector<E>& v) {
+        build(len(v), [&](int i) -> E { return v[i]; });
+    }
+    template <typename F>
+    void build(int m, F f) {
+        n = m;
+        dat.clear();
+        dat.reserve(n);
+        total = G::unit();
+        for(int i = 0; i < n; ++i) { dat.emplace_back(f(i)); }
+        for (int i = 1; i <= n; ++i) {
+            int j = i + (i & -i);
+            if (j <= n) dat[j - 1] = G::op(dat[i - 1], dat[j - 1]);
+        }
+        total = prefix_prod(m);
+    }
 
     E prod_all() const { return total; }
     E sum_all() const { return total; }
@@ -102,7 +126,7 @@ struct FenwickTree {
         return i;
     }
 
-    // check(i, x)
+    // check(x, idx)
     // use only when check is monotonic,
     // i.e using monoid_add all vals >= 0
     template <class F>
@@ -117,7 +141,7 @@ struct FenwickTree {
                 int k = (i == 0 ? -1 : __builtin_ctz(i)) - 1;
                 if (i + (1 << k) > n) return k;
                 E t = G::op(s, dat[i + (1 << k) - 1]);
-                if (!check(i + (1 << k), t)) { return k; }
+                if (!check(t, i + (1 << k))) { return k; }
                 s = G::op(s, G::inverse(dat[i - 1])), i -= i & -i;
             }
         }();
@@ -125,7 +149,7 @@ struct FenwickTree {
             --k;
             if (i + (1 << k) - 1 < len(dat)) {
                 E t = G::op(s, dat[i + (1 << k) - 1]);
-                if (check(i + (1 << k), t)) { i += (1 << k), s = t; }
+                if (check(t, i + (1 << k))) { i += (1 << k), s = t; }
             }
         }
         return i;
@@ -159,33 +183,6 @@ struct FenwickTree {
     // access by index k in fenwick set
     int kth(E k, int L = 0) {
         return max_right(L, [&k](E x) -> bool { return x <= k; });
-    }
-
-private:
-    vector<E> dat;
-    E total;
-    
-public:
-    void build(int m) {
-        n = m;
-        dat.assign(m, G::unit());
-        total = G::unit();
-    }
-    void build(const vector<E>& v) {
-        build(len(v), [&](int i) -> E { return v[i]; });
-    }
-    template <typename F>
-    void build(int m, F f) {
-        n = m;
-        dat.clear();
-        dat.reserve(n);
-        total = G::unit();
-        for(int i = 0; i < n; ++i) { dat.emplace_back(f(i)); }
-        for (int i = 1; i <= n; ++i) {
-            int j = i + (i & -i);
-            if (j <= n) dat[j - 1] = G::op(dat[i - 1], dat[j - 1]);
-        }
-        total = prefix_prod(m);
     }
 };
 

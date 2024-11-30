@@ -9,32 +9,15 @@ struct Dual_FenwickTree_2D {
     using G = Monoid;
     using E = typename G::value_type;
     static_assert(G::commute);
-
-    Dual_FenwickTree_2D() {}
-    Dual_FenwickTree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
-
-    E get(XY x, XY y) {
-        E val = G::unit();
-        int i = xtoi(x);
-        assert(keyX[i] == x);
-        while (i < N) { val = G::op(val, get_i(i, y)), i = nxt(i); }
-        return val;
-    }
-
-    void apply(XY lx, XY rx, XY ly, XY ry, E val) {
-        int L = xtoi(lx) - 1, R = xtoi(rx) - 1;
-        E neg = G::inverse(val);
-        while (L < R) { apply_i(R, ly, ry, val), R = prev(R); }
-        while (R < L) { apply_i(L, ly, ry, neg), L = prev(L); }
-    }
-
-private:
     int N;
     vector<XY> keyX;
     XY min_X;
     vector<int> indptr;
     vector<XY> keyY;
     vector<E> dat;
+
+    Dual_FenwickTree_2D() {}
+    Dual_FenwickTree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
 
     void build(vector<XY>& X, vector<XY>& Y) {
         assert(len(X) == len(Y));
@@ -51,9 +34,7 @@ private:
         vector<vector<XY>> keyY_raw(N);
         vector<int> I(len(Y));
         iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return Y[i] < Y[j];
-        });
+        sort(I.begin(), I.end(), [&](int i, int j){ return Y[i] < Y[j]; });
         for (auto&& i: I) {
             int ix = xtoi(X[i]);
             XY y = Y[i];
@@ -73,12 +54,28 @@ private:
         }
     }
 
+    E get(XY x, XY y) {
+        E val = G::unit();
+        int i = xtoi(x);
+        assert(keyX[i] == x);
+        while (i < N) { val = G::op(val, get_i(i, y)), i = nxt(i); }
+        return val;
+    }
+
+    void apply(XY lx, XY rx, XY ly, XY ry, E val) {
+        int L = xtoi(lx) - 1, R = xtoi(rx) - 1;
+        E neg = G::inverse(val);
+        while (L < R) { apply_i(R, ly, ry, val), R = prv(R); }
+        while (R < L) { apply_i(L, ly, ry, neg), L = prv(L); }
+    }
+
     inline int xtoi(XY x) {
         return (SMALL_X ? clamp<int>(x - min_X, 0, N) : lower_bound(keyX.begin(), keyX.end(), x) - keyX.begin());
     }
 
+private:
     inline int nxt(int i) { return i + ((i + 1) & -(i + 1)); }
-    inline int prev(int i) { return i - ((i + 1) & -(i + 1)); }
+    inline int prv(int i) { return i - ((i + 1) & -(i + 1)); }
 
     E get_i(int i, XY y) {
         E val = G::unit();
@@ -96,8 +93,8 @@ private:
         auto it = keyY.begin() + LID;
         int L = lower_bound(it, it + n, ly) - it - 1;
         int R = lower_bound(it, it + n, ry) - it - 1;
-        while (L < R) { dat[LID + R] = G::op(val, dat[LID + R]), R = prev(R); }
-        while (R < L) { dat[LID + L] = G::op(neg, dat[LID + L]), L = prev(L); }
+        while (L < R) { dat[LID + R] = G::op(val, dat[LID + R]), R = prv(R); }
+        while (R < L) { dat[LID + L] = G::op(neg, dat[LID + L]), L = prv(L); }
     }
 };
 } // namespace mitsuha

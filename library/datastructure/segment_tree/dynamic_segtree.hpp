@@ -3,7 +3,7 @@
 
 namespace mitsuha{
 // Depending on the situation, there is also sparse 
-template <typename Monoid, bool PERSISTENT = false, int NODES = 1 << 20>
+template <typename Monoid, bool PERSISTENT>
 struct Dynamic_SegTree {
     using MX = Monoid;
     using X = typename MX::value_type;
@@ -15,16 +15,18 @@ struct Dynamic_SegTree {
         X x;
     };
 
+    const int NODES;
     const long long L0, R0;
     Node *pool;
     int pid;
     using np = Node *;
 
     Dynamic_SegTree(
-            long long L0, long long R0, F default_prod = [](long long l, long long r) -> X { return MX::unit(); })
-            : default_prod(default_prod), L0(L0), R0(R0), pid(0) {
+        int NODES, long long L0, long long R0, F default_prod = [](long long l, long long r) -> X { return MX::unit(); })
+        : default_prod(default_prod), NODES(NODES), L0(L0), R0(R0), pid(0) {
         pool = new Node[NODES];
     }
+    ~Dynamic_SegTree() { delete[] pool; }
 
     np new_root() { return new_node(L0, R0); }
 
@@ -75,14 +77,14 @@ struct Dynamic_SegTree {
     }
 
     template <typename F>
-    long long max_right(np root, F check, long long L) {
+    long long max_right(np root, long long L, F check) {
         assert(pid && root && L0 <= L && L <= R0 && check(MX::unit()));
         X x = MX::unit();
         return max_right_rec(root, check, L0, R0, L, x);
     }
 
     template <typename F>
-    long long min_left(np root, F check, long long R) {
+    long long min_left(np root, long long R, F check) {
         assert(pid && L0 <= R && R <= R0 && check(MX::unit()));
         X x = MX::unit();
         return min_left_rec(root, check, L0, R0, R, x);

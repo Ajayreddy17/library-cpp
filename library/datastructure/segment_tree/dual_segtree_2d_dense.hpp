@@ -3,7 +3,7 @@
 
 namespace mitsuha{
 template <class Monoid>
-struct DualSegTree_2D_Dense {
+struct Dual_SegTree_2D_Dense {
     using MX = Monoid;
     using X = typename MX::value_type;
     using value_type = X;
@@ -11,8 +11,8 @@ struct DualSegTree_2D_Dense {
     int H, W;
     vector<X> dat;
 
-    DualSegTree_2D_Dense() : DualSegTree_2D_Dense(0, 0) {}
-    DualSegTree_2D_Dense(int H, int W) : H(H), W(W), dat(4 * H * W, MX::unit()) {}
+    Dual_SegTree_2D_Dense() : Dual_SegTree_2D_Dense(0, 0) {}
+    Dual_SegTree_2D_Dense(int H, int W) : H(H), W(W), dat(4 * H * W, MX::unit()) {}
 
     X get(int x, int y) {
         X t = MX::unit();

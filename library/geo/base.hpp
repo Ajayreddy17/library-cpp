@@ -9,7 +9,7 @@ struct Point {
     template <typename A, typename B>
     Point(A x, B y) : x(x), y(y) {}
     template <typename A, typename B>
-    Point(pair<A, B> p) : x(p.fi), y(p.se) {}
+    Point(pair<A, B> p) : x(p.first), y(p.second) {}
 
     Point operator+=(const Point p) {
         x += p.x, y += p.y;
@@ -32,8 +32,8 @@ struct Point {
         if (x != p.x) return x < p.x;
         return y < p.y;
     }
-    T dot(Point other) { return x * other.x + y * other.y; }
-    T det(Point other) { return x * other.y - y * other.x; }
+    T dot(const Point& other) const { return x * other.x + y * other.y; }
+    T det(const Point& other) const { return x * other.y - y * other.x; }
 
     double norm() { return sqrtl(x * x + y * y); }
     double angle() { return atan2(y, x); }
@@ -43,6 +43,7 @@ struct Point {
         double c = cos(theta), s = sin(theta);
         return Point{c * x - s * y, s * x + c * y};
     }
+    Point rot90(bool ccw) { return (ccw ? Point{-y, x} : Point{y, -x}); }
 };
 
 template <typename T>
@@ -51,9 +52,7 @@ void rd(Point<T>& p) {
 }
 template <typename T>
 void wt(Point<T>& p) {
-    io::wt(p.x);
-    io::wt(' ');
-    io::wt(p.y);
+    io::wt(p.x), io::wt(' '), io::wt(p.y);
 }
 template <typename T>
 ostream &operator<<(ostream &out, const Point<T> &p){ return out << p.x << " " << p.y; }
@@ -67,11 +66,11 @@ int ccw(Point<T> A, Point<T> B, Point<T> C) {
     return 0;
 }
 
-template <typename REAL, typename T>
-REAL dist(Point<T> A, Point<T> B) {
-    A = A - B;
-    T p = A.dot(A);
-    return sqrt(REAL(p));
+template <typename REAL, typename T, typename U>
+REAL dist(Point<T> A, Point<U> B) {
+    REAL dx = REAL(A.x) - REAL(B.x);
+    REAL dy = REAL(A.y) - REAL(B.y);
+    return sqrtl(dx * dx + dy * dy);
 }
 
 // ax+by+c

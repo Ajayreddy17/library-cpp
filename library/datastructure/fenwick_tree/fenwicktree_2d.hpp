@@ -3,7 +3,7 @@
 
 #include "library/monoid/monoid_add.hpp"
 
-namespace mitsuha{
+namespace mitsuha {
 template <typename Monoid, typename XY, bool SMALL_X = false>
 struct FenwickTree_2D {
     using G = Monoid;
@@ -16,8 +16,56 @@ struct FenwickTree_2D {
     vector<XY> keyY;
     vector<E> dat;
 
-    FenwickTree_2D(vector<XY>& X, vector<XY>& Y, vector<E> wt) { build(X, Y, wt); }
+    FenwickTree_2D() {}
     FenwickTree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
+    FenwickTree_2D(vector<XY>& X, vector<XY>& Y, vector<E> wt) { build(X, Y, wt); }
+
+    void build(vector<XY> X, vector<XY> Y) {
+        assert(len(X) == len(Y));
+        if constexpr (!SMALL_X) {
+            keyX = X;
+            sort(keyX.begin(), keyX.end());
+            keyX.erase(unique(keyX.begin(), keyX.end()), keyX.end());
+            keyX.shrink_to_fit();
+            N = len(keyX);
+        } else {
+            min_X = (len(X) == 0 ? 0 : *min_element(X.begin(), X.end()));
+            N = (len(X) == 0 ? 0 : *max_element(X.begin(), X.end())) - min_X + 1;
+            keyX.resize(N);
+            For(i, N) keyX[i] = min_X + i;
+        }
+
+        vector<int> I(len(Y));
+        iota(I.begin(), I.end(), 0);
+        sort(I.begin(), I.end(), [&](int i, int j) { return Y[i] < Y[j]; });
+        X = rearrange(X, I), Y = rearrange(Y, I);
+
+        For(i, len(X)) X[i] = xtoi(X[i]);
+
+        vector<XY> last_y(N, (numeric_limits<XY>::min() / 2) - 1);
+        indptr.assign(N + 1, 0);
+        For(i, len(X)) {
+            int ix = X[i];
+            XY y = Y[i];
+            while (ix < N) {
+                if (last_y[ix] == y) break;
+                last_y[ix] = y, indptr[ix + 1]++, ix = nxt(ix);
+            }
+        }
+        For(i, N) indptr[i + 1] += indptr[i];
+        keyY.resize(indptr.back());
+        dat.assign(indptr.back(), G::unit());
+        fill(last_y.begin(), last_y.end(), (numeric_limits<XY>::min() / 2) - 1);
+        vector<int> prog = indptr;
+        For(i, len(X)) {
+            int ix = X[i];
+            XY y = Y[i];
+            while (ix < N) {
+                if (last_y[ix] == y) break;
+                last_y[ix] = y, keyY[prog[ix]++] = y, ix = nxt(ix);
+            }
+        }
+    }
 
     void build(vector<XY> X, vector<XY> Y, vector<E> wt) {
         assert(len(X) == len(Y));
@@ -36,9 +84,7 @@ struct FenwickTree_2D {
 
         vector<int> I(len(Y));
         iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return Y[i] < Y[j];
-        });
+        sort(I.begin(), I.end(), [&](int i, int j) { return Y[i] < Y[j]; });
 
         X = rearrange(X, I), Y = rearrange(Y, I), wt = rearrange(wt, I);
 
@@ -83,55 +129,6 @@ struct FenwickTree_2D {
         }
     }
 
-    void build(vector<XY> X, vector<XY> Y) {
-        assert(len(X) == len(Y));
-        if constexpr (!SMALL_X) {
-            keyX = X;
-            sort(keyX.begin(), keyX.end());
-            keyX.erase(unique(keyX.begin(), keyX.end()), keyX.end());
-            keyX.shrink_to_fit();
-            N = len(keyX);
-        } else {
-            min_X = (len(X) == 0 ? 0 : *min_element(X.begin(), X.end()));
-            N = (len(X) == 0 ? 0 : *max_element(X.begin(), X.end())) - min_X + 1;
-            keyX.resize(N);
-            For(i, N) keyX[i] = min_X + i;
-        }
-
-        vector<int> I(len(Y));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return Y[i] < Y[j];
-        });
-        X = rearrange(X, I), Y = rearrange(Y, I);
-
-        For(i, len(X)) X[i] = xtoi(X[i]);
-
-        vector<XY> last_y(N, (numeric_limits<XY>::min() / 2) - 1);
-        indptr.assign(N + 1, 0);
-        For(i, len(X)) {
-            int ix = X[i];
-            XY y = Y[i];
-            while (ix < N) {
-                if (last_y[ix] == y) break;
-                last_y[ix] = y, indptr[ix + 1]++, ix = nxt(ix);
-            }
-        }
-        For(i, N) indptr[i + 1] += indptr[i];
-        keyY.resize(indptr.back());
-        dat.assign(indptr.back(), G::unit());
-        fill(last_y.begin(), last_y.end(), (numeric_limits<XY>::min() / 2) - 1);
-        vector<int> prog = indptr;
-        For(i, len(X)) {
-            int ix = X[i];
-            XY y = Y[i];
-            while (ix < N) {
-                if (last_y[ix] == y) break;
-                last_y[ix] = y, keyY[prog[ix]++] = y, ix = nxt(ix);
-            }
-        }
-    }
-
     void add(XY x, XY y, E val) { multiply(x, y, val); }
     void multiply(XY x, XY y, E val) {
         int i = xtoi(x);
@@ -143,8 +140,8 @@ struct FenwickTree_2D {
     E prod(XY lx, XY rx, XY ly, XY ry) {
         E pos = G::unit(), neg = G::unit();
         int L = xtoi(lx) - 1, R = xtoi(rx) - 1;
-        while (L < R) { pos = G::op(pos, prod_i(R, ly, ry)), R = prev(R); }
-        while (R < L) { neg = G::op(neg, prod_i(L, ly, ry)), L = prev(L); }
+        while (L < R) { pos = G::op(pos, prod_i(R, ly, ry)), R = prv(R); }
+        while (R < L) { neg = G::op(neg, prod_i(L, ly, ry)), L = prv(L); }
         return G::op(pos, G::inverse(neg));
     }
 
@@ -152,18 +149,18 @@ struct FenwickTree_2D {
     E prefix_prod(XY rx, XY ry) {
         E pos = G::unit();
         int R = xtoi(rx) - 1;
-        while (R >= 0) { pos = G::op(pos, prefix_prod_i(R, ry)), R = prev(R); }
+        while (R >= 0) { pos = G::op(pos, prefix_prod_i(R, ry)), R = prv(R); }
         return pos;
     }
 
 private:
-    template <typename T>
-    vector<T> rearrange(const vector<T> &A, const vector<int> &I) {
+    template<typename T>
+    vector<T> rearrange(const vector<T>& A, const vector<int>& I) {
         vector<T> B(len(I));
         For(i, len(I)) B[i] = A[I[i]];
         return B;
     }
-    
+
     inline int xtoi(XY x) {
         if constexpr (SMALL_X) {
             return clamp<int>(x - min_X, 0, N);
@@ -172,7 +169,7 @@ private:
         }
     }
     inline int nxt(int i) { return i + ((i + 1) & -(i + 1)); }
-    inline int prev(int i) { return i - ((i + 1) & -(i + 1)); }
+    inline int prv(int i) { return i - ((i + 1) & -(i + 1)); }
 
     void multiply_i(int i, XY y, E val) {
         int LID = indptr[i], n = indptr[i + 1] - indptr[i];
@@ -187,8 +184,8 @@ private:
         auto it = keyY.begin() + LID;
         int L = lower_bound(it, it + n, ly) - it - 1;
         int R = lower_bound(it, it + n, ry) - it - 1;
-        while (L < R) { pos = G::op(pos, dat[LID + R]), R = prev(R); }
-        while (R < L) { neg = G::op(neg, dat[LID + L]), L = prev(L); }
+        while (L < R) { pos = G::op(pos, dat[LID + R]), R = prv(R); }
+        while (R < L) { neg = G::op(neg, dat[LID + L]), L = prv(L); }
         return G::op(pos, G::inverse(neg));
     }
 
@@ -197,7 +194,7 @@ private:
         int LID = indptr[i], n = indptr[i + 1] - indptr[i];
         auto it = keyY.begin() + LID;
         int R = lower_bound(it, it + n, ry) - it - 1;
-        while (R >= 0) { pos = G::op(pos, dat[LID + R]), R = prev(R); }
+        while (R >= 0) { pos = G::op(pos, dat[LID + R]), R = prv(R); }
         return pos;
     }
 };

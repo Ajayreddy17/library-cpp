@@ -6,6 +6,8 @@
 namespace mitsuha{
 struct FenwickTree_01 {
     int N, n;
+    vector<unsigned long long> dat;
+    FenwickTree<Monoid_Add<int>> bit;
     
     FenwickTree_01() {}
     FenwickTree_01(int n) { build(n); }
@@ -30,14 +32,15 @@ struct FenwickTree_01 {
     }
 
     int sum_all() { return bit.sum_all(); }
-    // prefix_sum
-    int sum(int k) { return prefix_sum(k); }
+    int prod_all() { return bit.sum_all(); }
 
+    int sum(int k) { return prefix_sum(k); }
     int prefix_sum(int k) {
         int ans = bit.sum(k / 64);
         ans += __builtin_popcountll(dat[k / 64] & ((1ULL << (k % 64)) - 1));
         return ans;
     }
+
     int sum(int L, int R) {
         if (L == 0) return prefix_sum(R);
         int ans = 0;
@@ -46,6 +49,7 @@ struct FenwickTree_01 {
         ans += bit.sum(L / 64, R / 64);
         return ans;
     }
+    int prod(int L, int R){ return sum(L, R); }
 
     void add(int k, int x) {
         if (x == 1) add(k);
@@ -108,9 +112,6 @@ struct FenwickTree_01 {
         return 64 * idx + (dat[idx] == 0 ? -1 : 63 - __builtin_clzll(dat[idx]));
     }
 private:
-    vector<unsigned long long> dat;
-    FenwickTree<Monoid_Add<int>> bit;
-
     template <typename F>
     long long binary_search(F check, long long ok, long long ng, bool check_ok = true) {
         if (check_ok) assert(check(ok));

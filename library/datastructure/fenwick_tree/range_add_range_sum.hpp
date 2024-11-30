@@ -12,9 +12,13 @@ struct Range_Add_Range_Sum {
     struct Mono {
         using value_type = pair<E, E>;
         using X = value_type;
-        static X op(X x, X y) { return {MX::op(x.first, y.first), MX::op(x.second, y.second)}; }
-        static constexpr X unit() { return {MX::unit(), MX::unit()}; }
-        static constexpr bool commute = 1;
+        static X op(X x, X y) { 
+            return make_pair(MX::op(x.first, y.first), MX::op(x.second, y.second)); 
+        }
+        static constexpr X unit() { 
+            return make_pair(MX::unit(), MX::unit()); 
+        }
+        static constexpr bool commute = true;
     };
     FenwickTree<Mono> bit;
 
@@ -42,6 +46,7 @@ struct Range_Add_Range_Sum {
         bit.add(L, {MX::power(b, L), a});
         bit.add(R, {MX::power(a, R), b});
     }
+    void apply(int L, int R, E a) { add(L, R, a); }
 
     E prod(int L, int R) {
         auto [x0, x1] = bit.sum(L);
@@ -51,15 +56,12 @@ struct Range_Add_Range_Sum {
         return MX::op(MX::inverse(x), y);
     }
 
-    E sum(int L, int R){
-        return prod(L, R);
-    }
+    E sum(int L, int R){ return prod(L, R); }
 
     E get(int i){
         assert(i >= 0 and i < bit.n);
         return prod(i, i + 1);
     }
-
     vector<E> get_all(){
         vector<E> ret(bit.n);
         For(i, bit.n) ret[i] = get(i);

@@ -16,7 +16,7 @@ struct Wavelet_Matrix_2D {
 
     int n;
     vector<int> new_idx;
-
+    Wavelet_Matrix_2D() {}
     template <typename F>
     Wavelet_Matrix_2D(int n, F f) {
         build(n, f);
@@ -75,14 +75,6 @@ struct Wavelet_Matrix_2D {
     void set(int i, T t) { WM.set(new_idx[i], t); }
     // i is the first index passed
     void multiply(int i, T t) { WM.multiply(new_idx[i], t); }
-
-private:
-    template <typename T>
-    vector<T> rearrange(const vector<T> &A, const vector<int> &I) {
-        vector<T> B(len(I));
-        For(i, len(I)) B[i] = A[I[i]];
-        return B;
-    }
 };
 } // namespace mitsuha
 #endif // AJAY_WAVELET_MATRIX_2D

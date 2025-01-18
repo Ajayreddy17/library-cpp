@@ -3,7 +3,7 @@
 
 #include "library/datastructure/fastset.hpp"
 
-namespace mitsuha{
+namespace mitsuha {
 template <typename T>
 struct Intervals_Fast {
     const int LLIM, RLIM;
@@ -14,17 +14,13 @@ struct Intervals_Fast {
     FastSet ss;
 
     Intervals_Fast(int N, T none_val)
-            : LLIM(0),
-              RLIM(N),
-              none_val(none_val),
-              total_num(0),
-              total_len(0),
-              dat(N, none_val),
-              ss(N) {
+        : LLIM(0), RLIM(N), none_val(none_val), total_num(0), total_len(0),
+          dat(N, none_val), ss(N) {
         ss.insert(0);
     }
 
-    tuple<int, int, T> get(int x, bool ERASE) {
+    // get (l, r, t) of interval containing x
+    tuple<int, int, T> get(int x, bool ERASE = false) {
         int l = ss.prev(x);
         int r = ss.next(x + 1);
         T t = dat[l];
@@ -37,8 +33,10 @@ struct Intervals_Fast {
         return {l, r, t};
     }
 
+    // [L, R) information in this interval
+    // f(l, r, x)
     template <typename F>
-    void enumerate_range(int L, int R, F f, bool ERASE) {
+    void enumerate_range(int L, int R, F f, bool ERASE = false) {
         assert(LLIM <= L && L <= R && R <= RLIM);
         if (L == R) return;
         if (!ERASE) {
@@ -86,7 +84,9 @@ struct Intervals_Fast {
     }
 
     template <typename F>
-    void enumerate_all(F f) { enumerate_range(0, RLIM, f, false); }
+    void enumerate_all(F f) {
+        enumerate_range(0, RLIM, f, false);
+    }
 
     void merge_at(int p) {
         if (p <= 0 || RLIM <= p) return;
@@ -99,23 +99,24 @@ struct Intervals_Fast {
 };
 
 // https://codeforces.com/contest/1638/problem/E
-// has value type T, coordinate type X
-// Specify T none_val in the constructor
+// value_type = T, coord_type = X
+// specify none_val in constructor
 template <typename T, typename X = long long>
 struct Intervals {
-    static constexpr X LLIM = numeric_limits<X>::min() / 2;
+    static constexpr X LLIM = -numeric_limits<X>::max() / 2;
     static constexpr X RLIM = numeric_limits<X>::max() / 2;
-    const T none_val; // none_val
-    int total_num; // number and total length of sections that are not
+    T none_val;
+    int total_num;
     X total_len;
     map<X, T> dat;
+
     Intervals(T none_val) : none_val(none_val), total_num(0), total_len(0) {
         dat[LLIM] = none_val;
         dat[RLIM] = none_val;
     }
 
-    // Get information about the interval containing x l, r, t
-    tuple<X, X, T> get(X x, bool ERASE) {
+    // get (l, r, t) of interval containing x
+    tuple<X, X, T> get(X x, bool ERASE = false) {
         auto it2 = dat.upper_bound(x);
         auto it1 = prev(it2);
         auto [l, tl] = *it1;
@@ -129,9 +130,10 @@ struct Intervals {
         return {l, r, tl};
     }
 
-    // Get all data in [L, R) f(l, r, t)
+    // [L, R) information in this interval
+    // f(l, r, x)
     template <typename F>
-    void enumerate_range(X L, X R, F f, bool ERASE) {
+    void enumerate_range(X L, X R, F f, bool ERASE = false) {
         assert(LLIM <= L && L <= R && R <= RLIM);
         if (!ERASE) {
             auto it = prev(dat.upper_bound(L));
@@ -166,6 +168,7 @@ struct Intervals {
     }
 
     void set(X L, X R, T t) {
+        assert(L <= R);
         if (L == R) return;
         enumerate_range(L, R, [](int l, int r, T x) -> void {}, true);
         dat[L] = t;
@@ -175,7 +178,9 @@ struct Intervals {
     }
 
     template <typename F>
-    void enumerate_all(F f) { enumerate_range(LLIM, RLIM, f, false); }
+    void enumerate_all(F f, bool ERASE = false) {
+        enumerate_range(LLIM, RLIM, f, ERASE);
+    }
 
     void merge_at(X p) {
         if (p == LLIM || RLIM == p) return;

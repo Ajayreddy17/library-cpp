@@ -84,6 +84,7 @@ namespace mitsuha {
 #endif
 
 #define TL (long long)
+#define Sq(x) ((x) * (x))
 
 #define OVERLOAD5(a, b, c, d, e, ...) e
 #define REP1_0(b, c) REP1_1(b, c)

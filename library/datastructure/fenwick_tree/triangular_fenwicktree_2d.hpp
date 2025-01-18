@@ -1,89 +1,92 @@
-#ifndef AJAY_Triangular_Fenwicktree_2D
-#define AJAY_Triangular_Fenwicktree_2D
+#ifndef AJAY_TRIANGULAR_FENWICKTREE_2D
+#define AJAY_TRIANGULAR_FENWICKTREE_2D
 
-#include "library/datastructure/fenwick_tree/fenwicktree_2d_dense.hpp"
-#include "library/linear_algebra/transpose.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree_2d.hpp"
 
 namespace mitsuha{
-// O(min(H ^ 2 + HW), min(W ^ 2 + HW)) memory
-template<class Monoid>
+template<typename Monoid, typename XY, bool SMALL_X = false>
 struct Triangular_Fenwicktree_2D{
     using MX = Monoid;
     static_assert(MX::commute);
-    using X = typename MX::value_type;
-    bool transposed = false;
+    using E = typename MX::value_type;
 
-    FenwickTree_2D_Dense<Monoid> XA, XB, XC;
-    int H, W;
-    int INF;
+    FenwickTree_2D<Monoid, XY, SMALL_X> XA, XB, XC;
+    XY H;
+    XY INF;
 
     Triangular_Fenwicktree_2D() {}
-    Triangular_Fenwicktree_2D(vector<vector<X>> &A) { build(A); }
+    Triangular_Fenwicktree_2D(vector<XY>& X, vector<XY>& Y) { build(X, Y); }
+    Triangular_Fenwicktree_2D(vector<XY>& X, vector<XY>& Y, vector<E> wt) { build(X, Y, wt); }
 
-    void build(vector<vector<X>> A) {
-        INF = numeric_limits<int>::max() / 2;
-        H = len(A);
-        W = (H == 0 ? 0 : len(A[0]));
-        if (H > W){
-            swap(H, W); A = transpose(A);
-            transposed = true;
-        }
-        XA = FenwickTree_2D_Dense<Monoid>(A);
-        vector<vector<X>> B(H, vector<X>(H + W, MX::unit()));
-        vector<vector<X>> C(H, vector<X>(H + W, MX::unit()));
+    void build(vector<XY> X, vector<XY> Y) {
+        INF = numeric_limits<XY>::max() / 2;
+        int N = len(X);
+        vector<XY> Yb(N);
+        vector<XY> Xc(N);
+        vector<XY> Yc(N);
 
-        For(x, H) For(y, W) {
-            B[x][x + y] = A[x][y];
-            C[x][x + y] = A[H - 1 - x][y];
+        H = *max_element(X.begin(), X.end()) + 1;
+
+        XA = FenwickTree_2D<Monoid, XY, SMALL_X>(X, Y);
+        For(i, N){
+            XY x = X[i];
+            XY y = Y[i];
+            Yb[i] = x + y;
+            Xc[i] = H - 1 - x;
+            Yc[i] = H - 1 - x + y;
         }
-        XB = FenwickTree_2D_Dense<Monoid>(B);
-        XC = FenwickTree_2D_Dense<Monoid>(C);
+        XB = FenwickTree_2D<Monoid, XY, SMALL_X>(X, Yb);
+        XC = FenwickTree_2D<Monoid, XY, SMALL_X>(Xc, Yc);
     }
 
-    void add(int x, int y, X val) {
-        if (transposed) swap(x, y);
+    void build(vector<XY> X, vector<XY> Y, vector<E> wt) {
+        INF = numeric_limits<XY>::max() / 2;
+        int N = len(X);
+        vector<XY> Yb(N);
+        vector<XY> Xc(N);
+        vector<XY> Yc(N);
+
+        H = *max_element(X.begin(), X.end()) + 1;
+
+        XA = FenwickTree_2D<Monoid, XY, SMALL_X>(X, Y, wt);
+        For(i, N){
+            XY x = X[i];
+            XY y = Y[i];
+            Yb[i] = x + y;
+            Xc[i] = H - 1 - x;
+            Yc[i] = H - 1 - x + y;
+        }
+        XB = FenwickTree_2D<Monoid, XY, SMALL_X>(X, Yb, wt);
+        XC = FenwickTree_2D<Monoid, XY, SMALL_X>(Xc, Yc, wt);
+    }
+
+    void add(XY x, XY y, E val) {
         XA.add(x, y, val);
         XB.add(x, x + y, val);
         XC.add(H - 1 - x, H - 1 - x + y, val);
     }
 
-    X sum(int x1, int x2, int y1, int y2) {
-        if (transposed){
-            swap(x1, y1);
-            swap(x2, y2);
-        }
+    E sum(int x1, int x2, int y1, int y2) {
         return XA.sum(x1, x2, y1, y2);
     }
-    X prod(int x1, int x2, int y1, int y2){ return sum(x1, x2, y1, y2); }
+    E prod(int x1, int x2, int y1, int y2){ return sum(x1, x2, y1, y2); }
 
-    X lower_right(int x, int y, int k){
-        if (transposed) swap(x, y);
+    E lower_right(int x, int y, int k){
         return MX::op(XA.sum(x, x + k, y, INF),
                 MX::inverse(XB.sum(x, x + k, x + y + k, INF)));
     }
-    X upper_left(int x, int y, int k){
-        if (transposed) swap(x, y);
+    E upper_left(int x, int y, int k){
         return MX::op(XA.sum(x - k, x, -INF, y),
                 MX::inverse(XB.sum(x - k, x, -INF, x + y - k - 1)));
     }
-    X upper_right(int x, int y, int k){
-        if (transposed) {
-            swap(x, y);
-            return MX::op(XA.sum(x, x + k, -INF, y),
-                    MX::inverse(XC.sum(H - x - k, H - x, -INF, H - x + y - k - 1)));
-        }
+    E upper_right(int x, int y, int k){
         return MX::op(XA.sum(x - k, x, y, INF),
                     MX::inverse(XC.sum(H - x, H - x + k, H - x + y + k, INF)));
     }
-    X lower_left(int x, int y, int k){
-        if (transposed) {
-            swap(x, y);
-            return MX::op(XA.sum(x - k, x, y, INF),
-                    MX::inverse(XC.sum(H - x, H - x + k, H - x + y + k, INF)));
-        }
+    E lower_left(int x, int y, int k){
         return MX::op(XA.sum(x, x + k, -INF, y),
                     MX::inverse(XC.sum(H - x - k, H - x, -INF, H - x + y - k - 1)));
     }
 };
 } // namespace mitsuha
-#endif // AJAY_Triangular_Fenwicktree_2D
+#endif // AJAY_TRIANGULAR_FENWICKTREE_2D

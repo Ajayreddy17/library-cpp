@@ -3,3 +3,17 @@ sum (p C k * q C n - k) over k = [0, n] = p + q C n
 
 x1 + x2 + .... + xk = n, where xi >= 0
 ways = (n + k - 1) C (k - 1)
+
+
+ways to travel in a grid below a line.
+https://atcoder.jp/contests/abc205/tasks/abc205_f
+
+expected value of x1 * x2 * ... xn which are n
+random picks in N variables, such that x1 + x2 + ... xN == K
+https://atcoder.jp/contests/abc231/editorial/3089
+
+primitive root, a * n == b (mod p) possible (a, b) pairs
+https://atcoder.jp/contests/abc212/editorial/2373
+
+inclusion exclusion another form, diagonal segment on a grid
+https://atcoder.jp/contests/abc235/editorial/3262

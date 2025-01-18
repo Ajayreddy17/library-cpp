@@ -65,16 +65,10 @@ mint coef_of_rational_fps_ntt(vector<mint> P, vector<mint> Q, long long N) {
     ntt(P, 0), ntt(Q, 0);
 
     while (N >= n) {
-        if (N % 2 == 0) {
-            For(i, n) {
-                P[i] = (P[2 * i] * Q[2 * i + 1] + P[2 * i + 1] * Q[2 * i])
-                       * inv<mint>(2);
-            }
-        } else {
-            For(i, n) {
+        if (N % 2 == 0) For(i, n) 
+                P[i] = (P[2 * i] * Q[2 * i + 1] + P[2 * i + 1] * Q[2 * i]) * inv<mint>(2);
+        else For(i, n)
                 P[i] = (P[2 * i] * Q[2 * i + 1] - P[2 * i + 1] * Q[2 * i]) * W[i];
-            }
-        }
         For(i, n) Q[i] = Q[2 * i] * Q[2 * i + 1];
         P.resize(n), Q.resize(n);
         N /= 2;

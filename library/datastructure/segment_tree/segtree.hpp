@@ -108,7 +108,7 @@ struct SegTree {
         return n;
     }
 
-    template <class F>
+    template <typename F>
     int min_left(int r, const F &f) const {
         assert(0 <= r && r <= n);
         assert(f(MX::unit()));

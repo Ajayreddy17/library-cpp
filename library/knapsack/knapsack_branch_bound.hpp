@@ -2,13 +2,6 @@
 #define AJAY_KNAPSACK_BRANCH_BOUND
 
 namespace mitsuha{
-template <typename T>
-vector<T> __rearrange(const vector<T> &A, const vector<int> &I) {
-    vector<T> B(len(I));
-    For(i, len(I)) B[i] = A[I[i]];
-    return B;
-}
-
 // Branch limitation method. yukicoder 626
 template <typename WT, typename VAL>
 VAL knapsack_branch_bound(vector<WT> wt, vector<VAL> val, WT LIM) {
@@ -17,8 +10,8 @@ VAL knapsack_branch_bound(vector<WT> wt, vector<VAL> val, WT LIM) {
     vector<Re> sort_key(N);
     For(i, N) sort_key[i] = Re(val[i]) / wt[i];
     auto I = sorted_indices(N, [&](int i){ return -sort_key[i]; });
-    wt = __rearrange(wt, I);
-    val = __rearrange(val, I);
+    wt = rearrange(wt, I);
+    val = rearrange(val, I);
 
     VAL ANS = 0;
     auto dfs = [&](auto dfs, int nxt, WT now_wt, VAL now_val) -> void {

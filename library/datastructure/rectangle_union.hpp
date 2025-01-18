@@ -32,8 +32,8 @@ struct Rectangle_Union {
 
         vector<int> rk_y(N);
         For(i, N) rk_y[ord_y[i]] = i;
-        X = rearrange(X, ord_x);
-        Y = rearrange(Y, ord_y);
+        X = ange(X, ord_x);
+        Y = ange(Y, ord_y);
 
         using AM = ActedMonoid_MinMincnt_Add<XY>;
         Lazy_SegTree<AM> seg(N - 1, [&](int i) -> pair<XY, XY> { return {0, Y[i + 1] - Y[i]}; });
@@ -52,7 +52,7 @@ struct Rectangle_Union {
     }
 private:
     template <typename T>
-    vector<T> rearrange(const vector<T> &A, const vector<int> &I) {
+    vector<T> ange(const vector<T> &A, const vector<int> &I) {
         vector<T> B(len(I));
         For(i, len(I)) B[i] = A[I[i]];
         return B;

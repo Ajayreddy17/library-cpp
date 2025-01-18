@@ -3,7 +3,8 @@
 
 namespace mitsuha{
 // If non-persistent, 2 * number of elements nodes
-template <int LOG, bool PERSISTENT, int NODES, typename UINT = unsigned long long, typename SIZE_TYPE = int>
+template <int LOG, bool PERSISTENT, int NODES, 
+typename UINT = unsigned long long, typename SIZE_TYPE = int>
 struct Binary_Trie {
     using T = SIZE_TYPE;
     struct Node {
@@ -75,6 +76,11 @@ struct Binary_Trie {
     }
 
 private:
+    inline int topbit(int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }
+    inline int topbit(unsigned int x) { return (x == 0 ? -1 : 31 - __builtin_clz(x)); }
+    inline int topbit(long long x) { return (x == 0 ? -1 : 63 - __builtin_clzll(x)); }
+    inline int topbit(unsigned long long x) { return (x == 0 ? -1 : 63 - __builtin_clzll(x)); }
+    
     inline UINT mask(int k) { return (UINT(1) << k) - 1; }
 
     np new_node(int width, UINT val) {

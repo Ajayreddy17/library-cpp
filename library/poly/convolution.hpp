@@ -7,9 +7,8 @@
 #include "library/poly/convolution_naive.hpp"
 #include "library/poly/convolution_karatsuba.hpp"
 #include "library/poly/ntt.hpp"
-#include "library/poly/fft.hpp"
 
-namespace mitsuha{
+namespace mitsuha {
 template <class mint>
 vector<mint> convolution_ntt(vector<mint> a, vector<mint> b) {
     if (a.empty() || b.empty()) return {};
@@ -67,80 +66,43 @@ vector<mint> convolution_garner(const vector<mint>& a, const vector<mint>& b) {
     return c;
 }
 
-template <typename R>
-vector<double> convolution_fft(const vector<R>& a, const vector<R>& b) {
-    using C = CFFT::C;
-    int need = (int)a.size() + (int)b.size() - 1;
-    int nbase = 1;
-    while ((1 << nbase) < need) nbase++;
-    CFFT::ensure_base(nbase);
-    int sz = 1 << nbase;
-    vector<C> fa(sz);
-    for (int i = 0; i < sz; i++) {
-        double x = (i < (int)a.size() ? a[i] : 0);
-        double y = (i < (int)b.size() ? b[i] : 0);
-        fa[i] = C(x, y);
-    }
-    CFFT::fft(fa, sz);
-    C r(0, -0.25 / (sz >> 1)), s(0, 1), t(0.5, 0);
-    for (int i = 0; i <= (sz >> 1); i++) {
-        int j = (sz - i) & (sz - 1);
-        C z = (fa[j] * fa[j] - (fa[i] * fa[i]).conj()) * r;
-        fa[j] = (fa[i] * fa[i] - (fa[j] * fa[j]).conj()) * r;
-        fa[i] = z;
-    }
-    for (int i = 0; i < (sz >> 1); i++) {
-        C A0 = (fa[i] + fa[i + (sz >> 1)]) * t;
-        C A1 = (fa[i] - fa[i + (sz >> 1)]) * t * CFFT::rts[(sz >> 1) + i];
-        fa[i] = A0 + A1 * s;
-    }
-    CFFT::fft(fa, sz >> 1);
-    vector<double> ret(need);
-    for (int i = 0; i < need; i++) {
-        ret[i] = (i & 1 ? fa[i >> 1].y : fa[i >> 1].x);
-    }
-    return ret;
-}
-
-vector<long long> convolution(const vector<long long>& a, const vector<long long>& b) {
+vector<long long> convolution(vector<long long> a, vector<long long> b) {
     int n = len(a), m = len(b);
     if (!n || !m) return {};
     if (min(n, m) <= 2500) return convolution_naive(a, b);
-    long long abs_sum_a = 0, abs_sum_b = 0;
-    long long LIM = 1e15;
-    For(i, n) abs_sum_a = min(LIM, abs_sum_a + abs(a[i]));
-    For(i, m) abs_sum_b = min(LIM, abs_sum_b + abs(b[i]));
-    if (__int128(abs_sum_a) * abs_sum_b < 1e15) {
-        vector<double> c = convolution_fft<long long>(a, b);
-        vector<long long> res(len(c));
-        For(i, len(c)) res[i] = (long long)(floor(c[i] + .5));
-        return res;
+
+    long long mi_a = *min_element(a.begin(), a.end()), mi_b = *min_element(b.begin(), b.end());
+    for (auto& x : a) x -= mi_a;
+    for (auto& x : b) x -= mi_b;
+    assert((*max_element(a.begin(), a.end())) * (*max_element(b.begin(), b.end())) <= 1e18);
+
+    vector<long long> Ac(a.size() + 1);
+    vector<long long> Bc(a.size() + 1);
+    For(x, a.size()) Ac[x + 1] = Ac[x] + a[x];
+    For(x, b.size()) Bc[x + 1] = Bc[x] + b[x];
+    vector<long long> res(n + m - 1);
+    for (int k = 0; k < n + m - 1; ++k) {
+        int s = max(0, k - m + 1);
+        int t = min(n, k + 1);
+        res[k] += (t - s) * mi_a * mi_b;
+        res[k] += mi_a * (Bc[k - s + 1] - Bc[k - t + 1]);
+        res[k] += mi_b * (Ac[t] - Ac[s]);
     }
 
-    static constexpr unsigned int MOD1 = 167772161; // 2^25
-    static constexpr unsigned int MOD2 = 469762049; // 2^26
-    static constexpr unsigned int MOD3 = 754974721; // 2^24
-
+    static constexpr unsigned int MOD1 = 1004535809;
+    static constexpr unsigned int MOD2 = 1012924417;
     using mint1 = modint<MOD1>;
     using mint2 = modint<MOD2>;
-    using mint3 = modint<MOD3>;
 
     vector<mint1> a1(n), b1(m);
     vector<mint2> a2(n), b2(m);
-    vector<mint3> a3(n), b3(m);
-    For(i, n) a1[i] = a[i], a2[i] = a[i], a3[i] = a[i];
-    For(i, m) b1[i] = b[i], b2[i] = b[i], b3[i] = b[i];
+    For(i, n) a1[i] = a[i], a2[i] = a[i];
+    For(i, m) b1[i] = b[i], b2[i] = b[i];
 
     auto c1 = convolution_ntt<mint1>(a1, b1);
     auto c2 = convolution_ntt<mint2>(a2, b2);
-    auto c3 = convolution_ntt<mint3>(a3, b3);
 
-    unsigned __int128 prod = (unsigned __int128)(MOD1) * MOD2 * MOD3;
-    vector<long long> res(n + m - 1);
-    For(i, n + m - 1) {
-        unsigned __int128 x = CRT3<unsigned __int128, MOD1, MOD2, MOD3>(c1[i].val, c2[i].val, c3[i].val);
-        res[i] = (x < prod / 2 ? (long long)(x) : -(long long)(prod - x));
-    }
+    For(i, n + m - 1) { res[i] += CRT2<unsigned long long, MOD1, MOD2>(c1[i].val, c2[i].val); }
     return res;
 }
 
@@ -149,9 +111,11 @@ vector<mint> convolution(const vector<mint>& a, const vector<mint>& b) {
     int n = len(a), m = len(b);
     if (!n || !m) return {};
     if (mint::can_ntt()) {
-        return min(n, m) <= 50 ? convolution_karatsuba<mint>(a, b): convolution_ntt(a, b);
+        if (min(n, m) <= 50) return convolution_karatsuba<mint>(a, b);
+        return convolution_ntt(a, b);
     }
-    return min(n, m) <= 200 ? convolution_karatsuba<mint>(a, b): convolution_garner(a, b);
+    if (min(n, m) <= 200) return convolution_karatsuba<mint>(a, b);
+    return convolution_garner(a, b);
 }
 } // namespace mitsuha
 #endif // AJAY_CONVOLUTION

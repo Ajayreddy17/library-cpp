@@ -2,6 +2,7 @@
 #define AJAY_K_SHORTEST_PATH
 
 #include "library/graph/base.hpp"
+
 namespace mitsuha{
 // (cost, vs, es)
 template <typename T, typename GT>

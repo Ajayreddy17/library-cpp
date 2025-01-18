@@ -154,12 +154,6 @@ struct FenwickTree_2D {
     }
 
 private:
-    template<typename T>
-    vector<T> rearrange(const vector<T>& A, const vector<int>& I) {
-        vector<T> B(len(I));
-        For(i, len(I)) B[i] = A[I[i]];
-        return B;
-    }
 
     inline int xtoi(XY x) {
         if constexpr (SMALL_X) {

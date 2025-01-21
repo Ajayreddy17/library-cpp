@@ -3,32 +3,29 @@
 
 #include "library/graph/tree.hpp"
 
-namespace mitsuha{
-// (graph_label to tree_label, graph)
+namespace mitsuha {
+// returns (graph_vertex to tree_vertex, compressed_graph)
 // graph has edge weights [depth_weighted of tree]
 template <typename TREE>
-pair<vector<int>, typename TREE::Graph_type> compress_tree(TREE &tree, vector<int> V){
+pair<typename TREE::Graph_type, vector<int>> compress_tree(TREE &tree, vector<int> V){
     sort(V.begin(), V.end(), [&](auto &x, auto &y){ return tree.LID[x] < tree.LID[y]; });
     int n = len(V);
     For(i, n){
         int j = (i + 1 == n ? 0 : i + 1);
         V.emplace_back(tree.lca(V[i], V[j]));
     }
-    V.emplace_back(tree.V[0]);
     sort(V.begin(), V.end(), [&](auto &x, auto &y){ return tree.LID[x] < tree.LID[y]; });
     V.erase(unique(V.begin(), V.end()), V.end());
-
     n = len(V);
     using GT = typename TREE::Graph_type;
     using WT = typename GT::cost_type;
     GT G(n);
     vector<int> st = {0};
     For(i, 1, n){
-        while (1){
+        while (true){
             int p = V[st.back()];
             int v = V[i];
-            if (tree.in_subtree(v, p))
-                break;
+            if (tree.in_subtree(v, p)) break;
             st.pop_back();
         }
         int p = V[st.back()];
@@ -38,7 +35,7 @@ pair<vector<int>, typename TREE::Graph_type> compress_tree(TREE &tree, vector<in
         st.emplace_back(i);
     }
     G.build();
-    return {V, G};
+    return {G, V};
 }
 } // namespace mitsuha
 #endif // AJAY_COMPRESS_TREE

@@ -38,7 +38,7 @@ struct Range_Add_Range_Sum {
     }
     template <typename F>
     void build(int m, F f) {
-        bit.build(m, [&](int i) -> pair<E, E> { return {f(i), MX::unit()}; });
+        bit.build(m, [&](int i) -> pair<E, E> { return make_pair(f(i), MX::unit()); });
     }
 
     void add(int L, int R, E a) {

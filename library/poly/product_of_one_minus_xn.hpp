@@ -11,7 +11,7 @@ vector<mint> product_of_one_minus_xn(vector<INT> &A, int LIM) {
     for (auto&& x: A) {
         if (x <= LIM) CNT[x]++;
     }
-    if (CNT[0]) { return vc<mint>(LIM + 1); }
+    if (CNT[0]) { return vector<mint>(LIM + 1); }
 
     vector<mint> logf(LIM + 1);
     For(x, 1, LIM + 1) {

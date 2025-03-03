@@ -1,7 +1,13 @@
 #ifndef AJAY_SUBSET_ITER
 #define AJAY_SUBSET_ITER
 
-#include <x86intrin.h>
+#include "library/util/bit_utils.hpp"
+
+#ifdef LOCAL
+#define ATTR(x)
+#else
+#define ATTR(x) __attribute__((target(x)))
+#endif
 
 namespace mitsuha{
 template <typename T, std::enable_if_t<std::is_integral_v<T>, std::nullptr_t> = nullptr>
@@ -24,11 +30,11 @@ struct all_subset_k {
     struct all_subset_k_iter {
         const uint32_t n, k, s;
         uint32_t t;
-        __attribute__((target("avx2")))
+        ATTR("avx2")
         all_subset_k_iter(uint32_t s, uint32_t k) : n(uint32_t(1) << _mm_popcnt_u32(s)), k(k), s(s), t((uint32_t(1) << k) - 1) {}
-        __attribute__((target("bmi2")))
+        ATTR("bmi2")
         auto operator*() const { return _pdep_u32(t, s); }
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator++() {
             if (k == 0) {
                 t = std::numeric_limits<uint32_t>::max();
@@ -53,11 +59,11 @@ struct all_subset_k_64 {
         const uint64_t n, s;
         const uint32_t k;
         uint64_t t;
-        __attribute__((target("avx2")))
+        ATTR("avx2")
         all_subset_k_iter_64(uint64_t s, uint32_t k) : n(uint64_t(1) << _mm_popcnt_u64(s)), s(s), k(k), t((uint64_t(1) << k) - 1) {}
-        __attribute__((target("bmi2")))
+        ATTR("bmi2")
         auto operator*() const { return _pdep_u64(t, s); }
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator++() {
             if (k == 0) {
                 t = std::numeric_limits<uint64_t>::max();
@@ -81,9 +87,9 @@ struct all_setbit {
     struct all_setbit_iter {
         uint32_t s;
         all_setbit_iter(uint32_t s) : s(s) {}
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator*() { return _tzcnt_u32(s); }
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator++() { s = __blsr_u32(s); }
         auto operator!=(std::nullptr_t) { return s; }
     };
@@ -97,9 +103,9 @@ struct all_setbit_64 {
     struct all_setbit_iter_64 {
         uint64_t s;
         all_setbit_iter_64(uint64_t s) : s(s) {}
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator*() { return _tzcnt_u64(s); }
-        __attribute__((target("bmi")))
+        ATTR("bmi")
         auto operator++() { s = __blsr_u64(s); }
         auto operator!=(std::nullptr_t) { return s; }
     };
@@ -109,4 +115,5 @@ struct all_setbit_64 {
     auto end() { return nullptr; }
 };
 } // namespace mitsuha
+#undef ATTR
 #endif // AJAY_SUBSET_ITER

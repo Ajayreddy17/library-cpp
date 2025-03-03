@@ -2,6 +2,14 @@
 #define AJAY_LICHAO
 
 namespace mitsuha{
+/*
+struct F {
+    using value_type = long long;  // operator()
+    int a;
+    long long b;
+    long long operator()(long long x) { return a * x + b; }
+};
+*/
 // Evaluation score is long long
 // Define T operator() for FUNC f, T is a comparable type
 // Linear expression: FUNC = LiChaoTree_Line

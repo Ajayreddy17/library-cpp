@@ -3,11 +3,11 @@
 
 namespace mitsuha{
 /*
-- Add `x` at time `t`  
-- Remove `x` at time `t`  
-When these operations are given,  
-- Convert them into "add `x` in the time interval [l, r)"  
-To avoid conflicts from the same key appearing multiple times, assign an appropriate label.
+Add / Remove `x` at time `t`     
+Convert them into "add `x` in the time interval [l, r)"  
+add(t1, x1), add(t2, x2), add(t3, x2), .... is called , 
+then t1 <= t2 <= t3 <= ... is guaranteed [Monotone]
+To avoid conflicts assign an appropriate label.
 */
 template <typename X, bool monotone>
 struct Add_Remove_Query {

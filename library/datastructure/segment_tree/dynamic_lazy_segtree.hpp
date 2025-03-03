@@ -44,7 +44,7 @@ struct Dynamic_Lazy_SegTree {
     np new_node(long long l, long long r) { return new_node(default_prod(l, r)); }
     np new_node() { return new_node(L0, R0); }
 
-    np new_node(const vc<X> &dat) {
+    np new_node(const vector<X> &dat) {
         assert(L0 == 0 && R0 == len(dat));
         auto dfs = [&](auto &dfs, long long l, long long r) -> Node * {
             if (l == r) return nullptr;

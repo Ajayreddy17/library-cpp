@@ -136,10 +136,11 @@ public:
         return res;
     }
 
-private:
+
     int n, source, sink;
     vector<edge> _edges;
-
+    
+private:
     // inside edge
     struct _edge {
         int to, rev;

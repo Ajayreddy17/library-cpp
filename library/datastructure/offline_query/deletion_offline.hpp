@@ -8,7 +8,7 @@ namespace mitsuha{
 template<typename T>
 struct Deletion_Offline{
 	int qn; // Elements should lie in range [0, n).
-	vector<vector<int>> queue;
+	vector<vector<T>> queue;
 	Deletion_Offline(int qn):qn(qn), queue(qn << 1){
 		Assert(qn >= 0);
 	}

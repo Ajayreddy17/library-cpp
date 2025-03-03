@@ -3,7 +3,8 @@
 
 namespace mitsuha{
 // Incremental MaxFlow
-// Edge Cap can be changed, When the capacity to change is F, update in O((N+M)|F|) time
+// Edge Cap can be changed, 
+// When the capacity to change is F, update in O((N+M)|F|) time
 template <typename Cap>
 struct MaxFlow {
     struct Edge {

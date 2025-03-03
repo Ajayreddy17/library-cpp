@@ -10,7 +10,7 @@ template <typename T>
 vector<int> subset_sum_solution_1(vector<T>& vals, int target) {
     int n = len(vals);
     if (n == 0) return {};
-    int mx = MAX(vals);
+    int mx = *max_element(vals.begin(), vals.end());
     int b = 0, sb = 0;
     while (b < n && sb + vals[b] <= target) { sb += vals[b++]; }
     if (b == n && sb != target) return {};
@@ -97,7 +97,7 @@ vector<int> subset_sum_solution_2(vector<T>& vals, int target) {
 // sum=10^6 in 150ms：https://codeforces.com/contest/755/problem/F
 template <typename T>
 vector<int> subset_sum_solution_3(vector<T>& vals, int target) {
-    int SM = SUM<int>(vals);
+    int SM = accumulate(vals.begin(), vals.end(), T(0));
     int N = len(vals);
     vector<vector<int>> IDS(SM + 1);
     For(i, N) IDS[vals[i]].emplace_back(i);
@@ -190,7 +190,7 @@ vector<int> subset_sum(vector<T>& vals, T target) {
     if (target <= 0) return {};
     int n = len(vals);
     if (n == 0) return {};
-    int mx = *max_element(vals);
+    int mx = *max_element(vals.begin(), vals.end());
 
     // Threshold has not been adjusted
     // solution 1: O(N mx))

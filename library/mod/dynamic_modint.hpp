@@ -5,7 +5,7 @@
 #include "library/mod/primitive_root.hpp"
 #include "library/mod/barrett.hpp"
 
-namespace mitsuha{
+namespace mitsuha {
 template <int id>
 struct Dynamic_Modint {
     static constexpr bool is_modint = true;
@@ -49,7 +49,8 @@ struct Dynamic_Modint {
         assert(0 <= n);
         mint x = *this, r = 1;
         while (n) {
-            if (n & 1) r *= x;
+            if (n & 1)
+                r *= x;
             x *= x, n >>= 1;
         }
         return r;
@@ -65,18 +66,10 @@ struct Dynamic_Modint {
         return u;
     }
 
-    friend mint operator+(const mint& lhs, const mint& rhs) {
-        return mint(lhs) += rhs;
-    }
-    friend mint operator-(const mint& lhs, const mint& rhs) {
-        return mint(lhs) -= rhs;
-    }
-    friend mint operator*(const mint& lhs, const mint& rhs) {
-        return mint(lhs) *= rhs;
-    }
-    friend mint operator/(const mint& lhs, const mint& rhs) {
-        return mint(lhs) /= rhs;
-    }
+    friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs; }
+    friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }
+    friend mint operator*(const mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }
+    friend mint operator/(const mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }
     friend bool operator==(const mint& lhs, const mint& rhs) {
         return lhs.val == rhs.val;
     }
@@ -100,12 +93,17 @@ struct Dynamic_Modint {
 
 template <int id>
 void rd(Dynamic_Modint<id>& x) {
-  io::rd(x.val);
-  x.val %= Dynamic_Modint<id>::umod();
+    io::rd(x.val);
+    x.val %= Dynamic_Modint<id>::umod();
 }
 template <int id>
 void wt(Dynamic_Modint<id> x) {
-  io::wt(x.val);
+    io::wt(x.val);
+}
+
+template <int id>
+ostream& operator<<(ostream& out, const Dynamic_Modint<id>& number) {
+    return out << number.val;
 }
 
 using dmint = Dynamic_Modint<-1>;

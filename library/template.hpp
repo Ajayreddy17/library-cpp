@@ -1,5 +1,7 @@
 #ifndef LOCAL
+#include <bits/allocator.h>
 #pragma GCC optimize("Ofast", "unroll-loops")
+#pragma GCC target("avx2", "popcnt")
 #endif
 
 #include <bits/stdc++.h>
@@ -20,6 +22,12 @@ template <class T> constexpr T cld(const T x, const T y) {
 }
 template <class T> constexpr T rem(const T x, const T y) { 
     return x - y * fld(x, y); 
+}
+template<class... T> constexpr auto min(T... a){
+    return min(std::initializer_list<std::common_type_t<T...>>{a...});
+}
+template<class... T> constexpr auto max(T... a){
+    return max(std::initializer_list<std::common_type_t<T...>>{a...});
 }
 template <class Iterable> void settify(Iterable& a) { 
     std::sort(a.begin(), a.end()), a.erase(std::unique(a.begin(), a.end()), a.end()); 

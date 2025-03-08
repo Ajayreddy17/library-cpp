@@ -35,9 +35,7 @@ struct FenwickTree_2D {
             For(i, N) keyX[i] = min_X + i;
         }
 
-        vector<int> I(len(Y));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j) { return Y[i] < Y[j]; });
+        auto I = argsort(Y);
         X = rearrange(X, I), Y = rearrange(Y, I);
 
         For(i, len(X)) X[i] = xtoi(X[i]);
@@ -82,10 +80,7 @@ struct FenwickTree_2D {
             For(i, N) keyX[i] = min_X + i;
         }
 
-        vector<int> I(len(Y));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j) { return Y[i] < Y[j]; });
-
+        auto I = argsort(Y);
         X = rearrange(X, I), Y = rearrange(Y, I), wt = rearrange(wt, I);
 
         For(i, len(X)) X[i] = xtoi(X[i]);

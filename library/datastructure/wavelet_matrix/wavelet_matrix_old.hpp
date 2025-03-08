@@ -32,9 +32,7 @@ struct Wavelet_Matrix_Old {
         if (COMPRESS) {
             assert(!set_log);
             key.reserve(N);
-            vector<int> I(N);
-            iota(I.begin(), I.end(), 0);
-            sort(I.begin(), I.end(), [&](int i, int j){ return A[i] < A[j]; });
+            auto I = argsort(A);
             for (auto&& i: I) {
                 if (key.empty() || key.back() != A[i]) key.emplace_back(A[i]);
                 A[i] = (int) key.size() - 1;

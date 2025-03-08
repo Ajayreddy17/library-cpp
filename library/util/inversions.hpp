@@ -3,17 +3,15 @@
 
 #include "library/datastructure/fenwick_tree/fenwicktree_01.hpp"
 
-namespace mitsuha{
+namespace mitsuha {
 template <typename T>
 long long inversion(vector<T> A) {
     int N = len(A);
     if (A.empty()) return 0;
     long long ANS = 0;
     FenwickTree_01 bit(N);
-    vector<int> I(len(A));
-    iota(I.begin(), I.end(), 0);
-    sort(I.begin(), I.end(), [&](int i, int j){ return A[i] < A[j]; });
-    for (auto& i: I) {
+    auto I = argsort(A);
+    for (auto& i : I) {
         ANS += bit.sum_all() - bit.sum(i);
         bit.add(i, 1);
     }
@@ -27,12 +25,12 @@ vector<long long> inversion_rotate(vector<T>& A) {
     if (not SMALL) {
         auto key = A;
         settify(key);
-        for (auto&& x: A) x = lower_bound(key.begin(), key.end(), x) - key.begin();
+        for (auto&& x : A) x = lower_bound(key.begin(), key.end(), x) - key.begin();
     }
     long long K = *max_element(A.begin(), A.end()) + 1;
     long long ANS = 0;
     FenwickTree<Monoid_Add<int>> bit(K);
-    for (auto&& x: A) {
+    for (auto&& x : A) {
         ANS += bit.sum(x + 1, K);
         bit.add(x, 1);
     }

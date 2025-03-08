@@ -32,9 +32,7 @@ struct Dual_FenwickTree_2D {
             For(i, N) keyX[i] = min_X + i;
         }
         vector<vector<XY>> keyY_raw(N);
-        vector<int> I(len(Y));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){ return Y[i] < Y[j]; });
+        auto I = argsort(Y);
         for (auto&& i: I) {
             int ix = xtoi(X[i]);
             XY y = Y[i];

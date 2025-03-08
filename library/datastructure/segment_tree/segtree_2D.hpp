@@ -63,9 +63,7 @@ struct SegTree_2D {
         to_left.assign(indptr[size], 0);
 
         vector<int> ptr = indptr;
-        vector<int> I(len(Y));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){ return Y[i] < Y[j]; });
+        auto I = argsort(Y);
         pos.resize(N);
         for(long long i = 0; i < N; i++) pos[I[i]] = i;
         for (auto raw_idx: I) {

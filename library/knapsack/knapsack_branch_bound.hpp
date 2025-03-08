@@ -9,7 +9,8 @@ VAL knapsack_branch_bound(vector<WT> wt, vector<VAL> val, WT LIM) {
     using Re = long double;
     vector<Re> sort_key(N);
     For(i, N) sort_key[i] = Re(val[i]) / wt[i];
-    auto I = sorted_indices(N, [&](int i){ return -sort_key[i]; });
+    auto I = argsort(sort_key);
+    reverse(I.begin(), I.end());
     wt = rearrange(wt, I);
     val = rearrange(val, I);
 

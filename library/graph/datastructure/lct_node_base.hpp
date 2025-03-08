@@ -1,6 +1,8 @@
 #ifndef AJAY_LCT_NODE_BASE
 #define AJAY_LCT_NODE_BASE
 
+#include "library/graph/datastructure/link_cut_tree.hpp"
+
 namespace mitsuha{
 // SUBTREE : If cluster has subtree information
 struct LCT_Node_Base {

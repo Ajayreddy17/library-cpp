@@ -42,11 +42,7 @@ template <typename T>
 struct Index_Compression_SAME_LARGE {
     vector<T> dat;
     vector<int> build(vector<T> X) {
-        vector<int> I(len(X));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return X[i] < X[j];
-        });
+        auto I = argsort(X);
         vector<int> res(len(X));
         for (auto& i: I) {
             if (!dat.empty() && dat.back() == X[i]) {
@@ -66,11 +62,7 @@ template <typename T>
 struct Index_Compression_DISTINCT_LARGE {
     vector<T> dat;
     vector<int> build(vector<T> X) {
-        vector<int> I(len(X));
-        iota(I.begin(), I.end(), 0);
-        sort(I.begin(), I.end(), [&](int i, int j){
-            return X[i] < X[j];
-        });
+        auto I = argsort(X);
         vector<int> res(len(X));
         for (auto& i: I) { res[i] = len(dat), dat.emplace_back(X[i]); }
         dat.shrink_to_fit();

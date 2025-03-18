@@ -17,3 +17,8 @@ https://atcoder.jp/contests/abc212/editorial/2373
 
 inclusion exclusion another form, diagonal segment on a grid
 https://atcoder.jp/contests/abc235/editorial/3262
+
+
+digit dp
+https://atcoder.jp/contests/abc208/submissions/60619284
+https://atcoder.jp/contests/abc235/submissions/60714688

@@ -25,8 +25,8 @@ struct Slide_Split_Sum {
         while (len(ql) > k) { push_r(pop_l()); }
         return {sl, sr};
     }
-    T query_l(int k) { return query(k).fi; }
-    T query_r(int k) { return query(size() - k).se; }
+    T query_l(int k) { return query(k).first; }
+    T query_r(int k) { return query(size() - k).second; }
 
 private:
     inline T lmax() { return (ql.empty() ? numeric_limits<T>::min() / 2 : ql.top()); }

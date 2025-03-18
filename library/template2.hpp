@@ -49,6 +49,10 @@ template <class T> constexpr T cld(const T x, const T y) {
 template <class T> constexpr T rem(const T x, const T y) { 
     return x - y * fld(x, y); 
 }
+template <class T> constexpr std::pair<T, T> divmod(const T x, const T y) {
+    T q = fld(x, y);
+    return std::make_pair(q, x - q * y);
+}
 template<class... T> constexpr auto min(T... a){
     return min(std::initializer_list<std::common_type_t<T...>>{a...});
 }

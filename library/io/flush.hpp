@@ -1,12 +1,12 @@
 namespace mitsuha{
 
-#define Int(...) int __VA_ARGS__; IN(__VA_ARGS__)
-#define Ll(...)  long long __VA_ARGS__; IN(__VA_ARGS__)
-#define Str(...) std::string __VA_ARGS__; IN(__VA_ARGS__)
-#define Chr(...) char __VA_ARGS__; IN(__VA_ARGS__)
-#define Dbl(...) long double __VA_ARGS__; IN(__VA_ARGS__)
-#define Vt(type, name, size) std::vector<type> name(size); read(name)
-#define Vvt(type, name, h, w) std::vector<std::vector<type>> name(h, std::vector<type>(w)); read(name)
+#define INT(...) int __VA_ARGS__; IN(__VA_ARGS__)
+#define LL(...)  long long __VA_ARGS__; IN(__VA_ARGS__)
+#define STR(...) std::string __VA_ARGS__; IN(__VA_ARGS__)
+#define CHR(...) char __VA_ARGS__; IN(__VA_ARGS__)
+#define DBL(...) long double __VA_ARGS__; IN(__VA_ARGS__)
+#define VT(type, name, size) std::vector<type> name(size); read(name)
+#define VVT(type, name, h, w) std::vector<std::vector<type>> name(h, std::vector<type>(w)); read(name)
 
 void read(int &a) { std::cin >> a; }
 void read(long long &a) { std::cin >> a; }

@@ -109,5 +109,23 @@ mint C_negative(long long n, long long d) {
     if (n == 0) { return (d == 0 ? mint(1) : mint(0)); }
     return C<mint, large, dense>(n + d - 1, d);
 }
+
+template <typename mint, bool large = false>
+mint P(long long n, long long k) {
+    assert(n >= 0);
+    if (k < 0 || n < k) return 0;
+    if constexpr (!large) return multinomial<mint>(n, n - k);
+    mint res = mint{1};
+    for(auto i = n; i > n - k; -- i) res *= mint(i);
+    return res;
+}
+
+// ways to put k identical items into n distinguishable bins
+template <typename mint, bool large = false, bool dense = false>
+mint H(long long n, long long k) {
+    assert(0 <= min(n, k));
+    if (n == 0) return mint{0};
+    return C<mint, large, dense>(n + k - 1, k);
+}
 } // namespace mitsuha
 #endif // AJAY_MODINT_COMMON

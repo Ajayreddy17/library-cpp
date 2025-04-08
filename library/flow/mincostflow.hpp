@@ -33,8 +33,8 @@ struct simple_queue {
 }
 
 /*
-・Slightly modified version of atcoder library
-・If DAG = true, negative side OK (1st shortest path is done with dp)
+Slightly modified version of atcoder library
+If DAG = true, negative side OK (1st shortest path is done with dp)
 However, it is assumed that the vertex numbers have been toposorted.
 */
 template <class Cap = int, class Cost = long long, bool DAG = false>

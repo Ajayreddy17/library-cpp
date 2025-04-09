@@ -13,7 +13,7 @@ struct Ordered_Multiset {
     using Tree = tree<
         Entry,
         __gnu_pbds::null_type,
-        std::less<Entry>,
+        less<Entry>,
         __gnu_pbds::rb_tree_tag,
         __gnu_pbds::tree_order_statistics_node_update>;
 

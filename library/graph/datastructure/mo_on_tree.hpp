@@ -66,7 +66,7 @@ struct Mo_on_Tree {
 
         int l = 1, r = 1;
         for (auto idx: I) {
-            int L = LR[idx].fi, R = LR[idx].se;
+            int L = LR[idx].first, R = LR[idx].second;
             while (l > L) { flip_left(--l); }
             while (r < R) { flip_right(r++); }
             while (l < L) { flip_left(l++); }
@@ -121,7 +121,7 @@ struct Mo_on_Tree {
 
         int l = 1, r = 1;
         for (auto idx: I) {
-            int L = LR[idx].fi, R = LR[idx].se;
+            int L = LR[idx].first, R = LR[idx].second;
             while (l > L) { flip_left(--l); }
             while (r < R) { flip_right(r++); }
             while (l < L) { flip_left(l++); }

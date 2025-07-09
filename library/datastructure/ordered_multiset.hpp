@@ -57,6 +57,10 @@ struct Ordered_Multiset {
         auto it = data.lower_bound({key, 0});
         return it == data.begin() ? nullopt : make_optional((--it)->first);
     }
+    std::optional<T> kth(int k) const {
+        if (k < 0 || k >= size()) return std::nullopt;
+        return std::make_optional(data.find_by_order(k)->first);
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_ORDERED_MULTISET

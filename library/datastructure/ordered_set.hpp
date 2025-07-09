@@ -51,6 +51,9 @@ struct Ordered_Set {
         auto it = data.lower_bound(value);
         return it == data.begin() ? std::nullopt : std::make_optional(*std::prev(it));
     }
+    std::optional<T> kth(int k) const {
+        return (k < 0 || k >= int(data.size())) ? std::nullopt : std::make_optional(*data.find_by_order(k));
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_ORDERED_SET

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# oj-verify invokes CXX for dependency/macro analysis too — pass those through.
+for arg in "$@"; do
+  case "$arg" in
+    -M|-MM|-MD|-MMD|-E|-dM)
+      exec g++ "$@"
+      ;;
+  esac
+done
+
+if (($# == 0)); then
+  echo "verify-g++: missing compiler arguments" >&2
+  exit 2
+fi
+
+source_file="${!#}"
+if [[ ! -f "$source_file" ]]; then
+  echo "verify-g++: source file not found: $source_file" >&2
+  exit 2
+fi
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+library_dir="$(cd "$script_dir/.." && pwd)"
+work_dir="$(mktemp -d "${TMPDIR:-/tmp}/ajay-verify.XXXXXX")"
+trap 'rm -rf -- "$work_dir"' EXIT
+
+expanded_file="$work_dir/expanded.cpp"
+python3 "$library_dir/scripts/expander.py" "$source_file" > "$expanded_file"
+
+compiler_args=("${@:1:$#-1}")
+g++ "${compiler_args[@]}" "$expanded_file"

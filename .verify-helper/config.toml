@@ -1,0 +1,8 @@
+[[languages.cpp.environments]]
+CXX = "shell/verify-g++"
+CXXFLAGS = [
+  "-std=c++17",
+  "-O2",
+  "-Wall",
+  "-g",
+]

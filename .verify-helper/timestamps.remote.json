@@ -1,3 +1,7 @@
 {
-"example.test.cpp": "2024-11-01 02:07:53 +0530"
+"example.test.cpp": "2024-11-01 02:07:53 +0530",
+"test/datastructure/segment_tree/dual_segtree/range_affine_point_get.test.cpp": "2026-10-19 02:57:50 +0530",
+"test/datastructure/segment_tree/lazy_segtree/range_affine_range_sum.test.cpp": "2026-10-19 02:57:50 +0530",
+"test/datastructure/segment_tree/segtree/point_add_range_sum.test.cpp": "2026-10-19 02:57:50 +0530",
+"test/datastructure/segment_tree/segtree/staticrmq.test.cpp": "2026-10-19 02:57:50 +0530"
 }

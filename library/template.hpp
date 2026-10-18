@@ -118,8 +118,10 @@ namespace mitsuha {
 #define STR(...) string __VA_ARGS__; read(__VA_ARGS__)
 #define VT(type, name, size) vector<type> name(size); read(name)
 #define VVT(type, name, h, w) vector<vector<type>> name(h, vector<type>(w)); read(name)
+// clang-format off
 #define DIE_I(...) do { print(__VA_ARGS__); return; } while (false)
 #define DIE_E(...) do { print(__VA_ARGS__); return 0; } while (false)
+// clang-format on
 
 #define All(iterable) std::begin(iterable), std::end(iterable)
 #define len(iterable) TL iterable.size()

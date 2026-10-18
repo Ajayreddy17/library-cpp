@@ -5,10 +5,12 @@
 
 #define FASTIO
 namespace mitsuha::io {
+// clang-format off
 #define READ_INTEGRAL(type_t) void rd(type_t &x) { rd_integer(x); }
 #define READ_FLOATING(type_t) void rd(type_t &x) { rd_real(x); }
 #define WRITE_INTEGRAL(type_t) void wt(type_t x) { wt_integer(x); }
 #define WRITE_FLOATING(type_t) void wt(type_t x) { wt_real(x); }
+// clang-format on
 
 static constexpr uint32_t SZ = 1 << 17;
 char input_buffer[SZ];

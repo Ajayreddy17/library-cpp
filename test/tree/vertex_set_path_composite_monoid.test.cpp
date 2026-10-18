@@ -1,0 +1,48 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/vertex_set_path_composite"
+
+#include <library/template.hpp>
+
+#include <library/monoid/monoid_affine.hpp>
+#include <library/mod/modint.hpp>
+#include <library/graph/datastructure/tree_monoid.hpp>
+
+using mint = modint998;
+
+void solve() {
+    LL(N, Q);
+    using Mono = Monoid_Affine<mint>;
+    using E = pair<mint, mint>;
+    vector<E> A(N);
+    For(i, N) {
+        LL(a, b);
+        A[i] = E({a, b});
+    }
+
+    Graph<int> G(N);
+    G.read_tree(0, 0);
+
+    Tree tree(G);
+    Tree_Monoid<decltype(tree), Mono, false> TM(tree, A);
+
+    For(Q) {
+        LL(t);
+        if (t == 0) {
+            LL(v, c, d);
+            TM.set(v, E({mint(c), mint(d)}));
+        } else {
+            LL(u, v, x);
+            auto e = TM.prod_path(u, v);
+            print(Mono::eval(e, mint(x)));
+        }
+    }
+}
+
+signed main() {
+    cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout << setprecision(15);
+
+    solve();
+
+    return 0;
+}

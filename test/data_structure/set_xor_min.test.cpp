@@ -1,0 +1,35 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/set_xor_min"
+#include <library/template.hpp>
+#include <library/datastructure/binary_trie.hpp>
+#include <library/datastructure/hashmap.hpp>
+
+void solve() {
+    INT(Q);
+    HashMap<char> MP(Q);
+    Binary_Trie<30, false, uint32_t, uint32_t> X;
+    using np = decltype(X)::np;
+    np root = nullptr;
+    For(Q) {
+        INT(t, x);
+        if (t == 0) {
+            if (MP[x] == 0) {
+                MP[x] = 1;
+                root = X.add(root, x, 1);
+            }
+        }
+        if (t == 1) {
+            if (MP[x] == 1) {
+                MP[x] = 0;
+                root = X.add(root, x, -1);
+            }
+        }
+        if (t == 2) {
+            print(X.min(root, x));
+        }
+    }
+}
+
+signed main() {
+    solve();
+    return 0;
+}

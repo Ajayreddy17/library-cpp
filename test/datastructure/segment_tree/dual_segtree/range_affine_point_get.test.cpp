@@ -9,21 +9,21 @@
 using mint = modint998;
 
 int main(){
-    Int(n, q);
+    INT(n, q);
 
-    Vt(mint, a, n);
+    VT(mint, a, n);
     Dual_SegTree<Monoid_Affine<mint>> Dseg(n);
-    Loop(q){
-        Int(t);
+    For(q){
+        INT(t);
         if (t == 0){
-            Int(l, r);
+            INT(l, r);
             mint b, c;
             read(b, c);
 
             Dseg.apply(l, r, {b, c});
         }
         else{
-            Int(p);
+            INT(p);
             print(Monoid_Affine<mint>::eval(Dseg[p], a[p]));
         }
     }

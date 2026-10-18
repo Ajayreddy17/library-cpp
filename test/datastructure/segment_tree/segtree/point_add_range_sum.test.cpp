@@ -6,19 +6,19 @@
 #include <library/monoid/monoid_add.hpp>
 
 int main(){
-    
-    Int(n, q);
-    Vt(long long, a, n);
+
+    INT(n, q);
+    VT(long long, a, n);
 
     SegTree<Monoid_Add<long long>> Seg(a);
-    Loop(q){
-        Int(t);
+    For(q){
+        INT(t);
         if (t == 0){
-            Int(p, x);
+            INT(p, x);
             Seg[p] += x;
         }
         else{
-            Int(l, r);
+            INT(l, r);
             print(Seg(l, r));
         }
     }

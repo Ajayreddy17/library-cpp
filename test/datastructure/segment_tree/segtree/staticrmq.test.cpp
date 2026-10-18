@@ -6,13 +6,13 @@
 #include <library/monoid/monoid_min.hpp>
 
 int main(){
-    
-    Int(n, q);
-    Vt(int, a, n);
+
+    INT(n, q);
+    VT(int, a, n);
 
     SegTree<Monoid_Min<int>> Seg(a);
-    Loop(q){
-        Int(l, r);
+    For(q){
+        INT(l, r);
         print(Seg(l, r));
     }
 

@@ -40,17 +40,22 @@ def expand_file(path):
     )
 
     with open(path) as f:
-        for line in f:
-            m = include_pattern.match(line)
-            if m:
-                header = m.group(1)
-                resolved = resolve_include(header, abs_path)
-                if resolved:
-                    expand_file(resolved)
-                else:
-                    print(line, end='')
+        content = f.read()
+
+    if content and not content.endswith('\n'):
+        content += '\n'
+
+    for line in content.splitlines(keepends=True):
+        m = include_pattern.match(line)
+        if m:
+            header = m.group(1)
+            resolved = resolve_include(header, abs_path)
+            if resolved:
+                expand_file(resolved)
             else:
                 print(line, end='')
+        else:
+            print(line, end='')
 
 
 def main():

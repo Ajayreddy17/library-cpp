@@ -9,21 +9,21 @@
 using mint = modint998;
 
 int main(){
-    Int(n, q);
+    INT(n, q);
 
-    Vt(mint, a, n);
+    VT(mint, a, n);
     Lazy_SegTree<ActedMonoid_Sum_Affine<mint>> Lseg(a);
     For(q){
-        Int(t);
+        INT(t);
         if (t == 0){
-            Int(l, r);
+            INT(l, r);
             mint b, c;
             read(b, c);
 
             Lseg.apply(l, r, {b, c});
         }
         else{
-            Int(l, r);
+            INT(l, r);
             print(Lseg(l, r));
         }
     }

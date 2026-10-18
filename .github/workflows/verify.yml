@@ -23,7 +23,9 @@ jobs:
         python-version: "3.12"
 
     - name: Install dependencies
-      run: pip3 install -U online-judge-verify-helper
+      run: |
+        pip3 install -U setuptools
+        pip3 install -U online-judge-verify-helper
 
     - name: Restore downloaded test cases
       uses: actions/cache@v4

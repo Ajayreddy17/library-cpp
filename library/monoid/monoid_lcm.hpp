@@ -12,7 +12,7 @@ struct Monoid_Lcm {
             return numeric_limits<T>::max() / 2;
         }
         x /= gcd(x, y);
-        if (x >= ceil(numeric_limits<T>::max() / 2, y)) {
+        if (x >= cld(numeric_limits<T>::max() / 2, y)) {
             return numeric_limits<T>::max() / 2;
         }
         return x * y;

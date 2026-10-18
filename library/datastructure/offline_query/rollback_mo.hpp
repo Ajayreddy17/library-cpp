@@ -16,7 +16,7 @@ struct Rollback_Mo {
         int N = 0;
         for (auto &&[L, R]: LR) chmax(N, R);
         const int b_num = sqrt(Q);
-        const int b_sz = ceil(N, b_num);
+        const int b_sz = cld(N, b_num);
         vector<vector<int>> QID((N - 1) / b_sz + 1);
         // Sort by block to which the left end belongs
         // Items whose left and right ends belong to the same block are processed first.

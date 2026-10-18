@@ -6,9 +6,10 @@
                 "${workspaceFolder}/**"
             ],
             "defines": [
-                "LOCAL"
+                "LOCAL",
+                "__GNUC__"
             ],
-            "compilerPath": "/opt/homebrew/Cellar/gcc@13/13.3.0/bin/g++-13",
+            "compilerPath": "/opt/homebrew/Cellar/gcc@14/14.3.0/bin/g++-14",
             "intelliSenseMode": "macos-gcc-x64",
             "cppStandard": "c++20",
             "cStandard": "c23"

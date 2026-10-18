@@ -3,19 +3,24 @@
 
 #include "library/monoid/monoid_min.hpp"
 #include "library/datastructure/sparse_table/static_rmq.hpp"
+#include "library/datastructure/segment_tree/segtree.hpp"
 
 namespace mitsuha{
 // lex i-th suffix starts at j-th pos
 // SA[i] = j, ISA[j] = i
 // LCP[i] = lcp(SA[i], SA[i + 1])
 // Assumes |S| > 0 (if not, use by adding dummy character)
+template <bool USE_SPARSE_TABLE = true>
 struct Suffix_Array {
     vector<int> SA;
     vector<int> ISA;
     vector<int> LCP;
-    Static_RMQ<Monoid_Min<int>> seg;
+    using Mono = Monoid_Min<int>;
+    using SegType = conditional_t<USE_SPARSE_TABLE, Static_RMQ<Mono>, SegTree<Mono>>;
+    SegType seg;
     bool build_seg;
 
+    Suffix_Array() {}
     Suffix_Array(string& s) {
         build_seg = 0;
         assert(len(s) > 0);
@@ -67,6 +72,8 @@ struct Suffix_Array {
     int compare(int L1, int R1, int L2, int R2) {
         int n1 = R1 - L1, n2 = R2 - L2;
         int n = lcp(L1, L2);
+        chmin(n, n1);
+        chmin(n, n2);
         if (n == n1 && n == n2) return 0;
         if (n == n1) return -1;
         if (n == n2) return 1;

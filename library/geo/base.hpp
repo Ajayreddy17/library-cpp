@@ -102,9 +102,9 @@ struct Line {
         if (b == 0 && a < 0) { a = -a, b = -b, c = -c; }
     }
 
-    // bool operator<(Line l) const {
-    //     return tie(a, b, c) < tie(l.a, l.b, l.c);
-    // }
+    bool operator<(Line l) const {
+        return tie(a, b, c) < tie(l.a, l.b, l.c);
+    }
 
     bool is_parallel(Line other) { return a * other.b - b * other.a == 0; }
     bool is_orthogonal(Line other) { return a * other.a + b * other.b == 0; }

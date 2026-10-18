@@ -136,6 +136,7 @@ template <class T> using max_priority_queue
 #define All(iterable) std::begin(iterable), std::end(iterable)
 #define len(iterable) TL iterable.size()
 #define elif else if
+#define lnt long long
 
 #define KBIT(a, k) ((a >> k) & 1)
 

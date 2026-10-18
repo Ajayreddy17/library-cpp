@@ -261,11 +261,6 @@ struct Slope_Trick_Super {
             T nx = (i + 1 < len(tmp) ? tmp[i + 1].first : g.x1);
             a += tmp[i].second;
             f = convolve_segment(f, 0, nx - tmp[i].first, a, 0);
-            for (auto &[x, a] : ST.get_all(f.root)) {
-                assert(f.x0 <= x && x <= f.x1);
-                if (f.root)
-                    assert(!f.root->p);
-            }
         }
         return f;
     }
@@ -404,7 +399,7 @@ struct Slope_Trick_Super {
             f.y0 = y, f.a0 = 0;
             return f;
         }
-        T x = ST.get(f.root, 0).first;
+        T x = ST.get(r, 0).first;
         T y = f.y0 + f.a0 * (x - f.x0) + x * asum - xasum;
         T a = f.a0 + asum + ST.get(r, 0).second;
         ST.free_subtree(l);

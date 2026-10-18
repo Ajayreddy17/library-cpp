@@ -18,6 +18,7 @@ struct Dynamic_Modint {
     static void set_mod(int m) {
         assert(1 <= m);
         bt = Barrett(m);
+        get_ntt() = {-1, -1};
     }
 
     static Dynamic_Modint raw(unsigned int v) {

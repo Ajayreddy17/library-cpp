@@ -15,7 +15,7 @@ struct Dynamic_UnionFind {
     np new_root() { return PA.new_root(); }
 
     int root(np c, int x) {
-        while (1) {
+        while (true) {
             int p = PA.get(c, x);
             assert(x != p);
             if (p < 0) break;

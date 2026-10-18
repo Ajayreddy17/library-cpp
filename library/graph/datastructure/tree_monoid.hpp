@@ -51,7 +51,7 @@ struct Tree_Monoid {
         if constexpr (edge) i = tree.e_to_v(i);
         i = tree.LID[i];
         seg.multiply(i, x);
-        if constexpr (!MX::commute) seg_r.multiply(i, x);
+        if constexpr (!MX::commute) seg_r.set(i, seg.get(i));
     }
     
     X prod_path(int u, int v) {
@@ -64,8 +64,8 @@ struct Tree_Monoid {
     // Last x on uv path where prod_path(u, x) satisfies check
     // If not (i.e. path(u,u) is ng) -1
     template <class F>
-    int max_path(int u, int v, F &check) {
-        if constexpr (edge) return max_path_edge(check, u, v);
+    int max_path(int u, int v, F check) {
+        if constexpr (edge) return max_path_edge(u, v, check);
         if (!check(prod_path(u, u))) return -1;
         auto pd = tree.get_path_decomposition(u, v, edge);
         X val = MX::unit();
@@ -93,7 +93,7 @@ struct Tree_Monoid {
 
     X prod_subtree(int u, int root = -1) {
         if (root == u) return prod_all();
-        if (root == -1 || tree.in_subtree(u, root)) {
+        if (root == -1 || !tree.in_subtree(root, u)) {
           int l = tree.LID[u], r = tree.RID[u];
           return seg.prod(l + edge, r);
         }
@@ -114,7 +114,7 @@ struct Tree_Monoid {
 
 private:
     template <class F>
-    int max_path_edge(int u, int v, F &check) {
+    int max_path_edge(int u, int v, F check) {
         static_assert(edge);
         if (!check(MX::unit())) return -1;
         int lca = tree.lca(u, v);

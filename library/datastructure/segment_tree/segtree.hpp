@@ -76,11 +76,12 @@ struct SegTree {
     // prod{l <= i < r} A[i xor x]
     T xor_prod(int l, int r, int xor_val) {
         static_assert(MX::commute);
+        int log = (m == 1 ? 0 : 31 - __builtin_clz(m));
         T x = MX::unit();
-        for (int k = 0; k < m + 1; ++k) {
+        for (int k = 0; k < log + 1; ++k) {
             if (l >= r) break;
-            if (l & 1) { x = MX::op(x, data[((1 << m) >> k) + ((l++) ^ xor_val)]); }
-            if (r & 1) { x = MX::op(x, data[((1 << m) >> k) + ((--r) ^ xor_val)]); }
+            if (l & 1) { x = MX::op(x, data[(m >> k) + ((l++) ^ xor_val)]); }
+            if (r & 1) { x = MX::op(x, data[(m >> k) + ((--r) ^ xor_val)]); }
             l /= 2, r /= 2, xor_val /= 2;
         }
         return x;

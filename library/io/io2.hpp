@@ -28,7 +28,7 @@ struct Pre {
 } constexpr pre;
 
 inline void load() {
-    memcpy(input_buffer, input_buffer + pil, pir - pil);
+    std::memcpy(input_buffer, input_buffer + pil, pir - pil);
     pir = pir - pil + fread(input_buffer + pir - pil, 1, SZ - pir + pil, stdin);
     pil = 0;
     if (pir < SZ) input_buffer[pir++] = '\n';
@@ -90,7 +90,6 @@ READ_INTEGRAL(unsigned long long)
 READ_INTEGRAL(unsigned __int128)
 READ_FLOATING(double)
 READ_FLOATING(long double)
-READ_FLOATING(__float128)
 
 template<class T, class U> void rd(std::pair <T, U> &p) {
     rd(p.first);
@@ -174,7 +173,6 @@ WRITE_INTEGRAL(unsigned long long)
 WRITE_INTEGRAL(unsigned __int128)
 WRITE_FLOATING(double)
 WRITE_FLOATING(long double)
-WRITE_FLOATING(__float128)
 
 template<class T, class U>
 void wt(const std::pair <T, U> val) {

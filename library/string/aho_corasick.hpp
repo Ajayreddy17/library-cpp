@@ -58,6 +58,9 @@ struct Aho_Corasick {
         assert(_built);
         return _count[state];
     }
+    int size() const {
+        return _next.size();
+    }
 private:
     vector<int> _failure;
     vector<map<value_type, int>> _next;

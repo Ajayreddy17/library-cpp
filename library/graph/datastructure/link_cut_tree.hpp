@@ -1,7 +1,7 @@
 #ifndef AJAY_LINK_CUT_TREE
 #define AJAY_LINK_CUT_TREE
 
-namespace mitsuha{
+namespace mitsuha {
 /*
 Have each heavy path in a splay tree with the head on the left and the tail on the right.
 Only those that can be directly called by the user are also implemented as int.
@@ -111,7 +111,6 @@ struct Link_Cut_Tree {
         return c->idx;
     }
 
-
     // Change [root, c] to become one splay tree.
     // c is at the right end and is the root of the splay tree.
     // path query looks at data in c in this state.
@@ -144,9 +143,11 @@ struct Link_Cut_Tree {
 
     Node *get_parent(Node *x) {
         expose(x);
+        x->push();
         if (!x->l) return nullptr;
         x = x->l;
-        while (x->r) x = x->r;
+        x->push();
+        while (x->r) x = x->r, x->push();
         return x;
     }
 
@@ -200,21 +201,6 @@ struct Link_Cut_Tree {
         return res;
     }
 
-    void debug_internal() {
-        debug("p, l, r, rev");
-        auto f = [&](np c) -> int { return (c ? c->idx : -1); };
-        For(i, len(nodes)) {
-            debug(i, ",", f((*this)[i]->p), f((*this)[i]->l), f((*this)[i]->r),
-                  (*this)[i]->rev);
-        }
-        For(i, len(nodes)) {
-            np c = (*this)[i];
-            if (c->l) assert(c->l->p == c);
-            if (c->r) assert(c->r->p == c);
-        }
-    }
-
-private:
     // Operations that are completed within the splay tree.
     // In particular, the heavy and light structures do not change.
     // light pointer is taken care of in rotate
@@ -241,13 +227,56 @@ private:
         }
     }
 
+    // On the u–v path, the last x such that prod_path(u, x) satisfies check.
+    // If none exists (i.e. path(u, u) is ng), return -1.
+    // Change the root.
+    // Not very well verified.
+    // https://codeforces.com/contest/1039/submission/320681517
+    // https://codesprintla25.kattis.com/contests/cxeqb3/submissions/17431394
+    template <class F>
+    int max_path(F check, int u, int v) {
+        evert(u), expose(v);
+        Node *c = (*this)[v];
+        using MX = typename Node::MX;
+        using X = typename MX::value_type;
+        Node *last_ok = nullptr, *last = nullptr;
+        X lprod = MX::unit();
+        while (c) {
+            last = c;
+            c->push();
+            X x = (c->l ? MX::op(c->l->x, c->vx) : c->vx);
+            x = MX::op(lprod, x);
+            if (!check(x)) {
+                c = c->l;
+            } else {
+                last_ok = c, c = c->r, lprod = x;
+            }
+        }
+        splay(last);
+        if (!last_ok) return -1;
+        return last_ok->idx;
+    }
 
+    void debug_internal() {
+        debug("p, l, r, rev");
+        auto f = [&](np c) -> int { return (c ? c->idx : -1); };
+        For(i, len(nodes)) {
+            debug(i, ",", f((*this)[i]->p), f((*this)[i]->l), f((*this)[i]->r), (*this)[i]->rev);
+        }
+        For(i, len(nodes)) {
+            np c = (*this)[i];
+            if (c->l) assert(c->l->p == c);
+            if (c->r) assert(c->r->p == c);
+        }
+    }
+
+  private:
     // Is it the root of the splay tree representing the path?
     // not the underlying tree
     bool is_root(Node *c) { return state(c) == 0; }
 
-    // Operations that are completed within the splay tree. In particular, the heavy and light structures do not change.
-    // light edge pointer can be changed
+    // Operations that are completed within the splay tree. In particular, the heavy and
+    // light structures do not change. light edge pointer can be changed
     void rotate(Node *n) {
         // n bring closer to the roots
         Node *pp, *p, *c;

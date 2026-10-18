@@ -12,8 +12,8 @@ unsigned long long RNG_64() {
     return x_ ^= x_ >> 9;
 }
 
-unsigned long long RNG(unsigned long long lim) { return RNG_64() % lim; }
+unsigned long long RNG(unsigned long long lim) { assert(lim > 0); return RNG_64() % lim; }
 
-long long RNG(long long l, long long r) { return l + RNG_64() % (r - l); }
+long long RNG(long long l, long long r) { assert(l < r); return l + RNG_64() % (r - l); }
 } // namespace mitsuha
 #endif // AJAY_RANDOM

@@ -25,7 +25,7 @@ void enumerate_partition(int N, F query, int LIM_len = -1, int LIM_val = -1) {
         if (LIM_val != -1) chmin(nxt, LIM_val);
         chmin(nxt, N - sum);
         p.emplace_back(0);
-        For(x, 1, nxt + 1) {
+        Frr(x, 1, nxt + 1) {
             p.back() = x;
             self(self, p, sum + x);
         }

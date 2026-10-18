@@ -4,6 +4,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha {
+// make sure to use larger T
 // allow_180 = true It breaks if there are identical coordinate points
 // If full, I[0] becomes the minimum in the sorted order
 template <typename T, bool allow_180 = false>

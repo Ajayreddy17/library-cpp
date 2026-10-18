@@ -65,8 +65,8 @@ struct Rollback_Lazy_SegTree {
     }
  
     vector<X> get_all() {
-        auto tmp = dat.get_all();
         for(int k = 1; k < size; k++) push(k);
+        auto tmp = dat.get_all();
         return {tmp.begin() + size, tmp.begin() + size + n};
     }
  

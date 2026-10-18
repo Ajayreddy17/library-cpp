@@ -1,5 +1,5 @@
-#ifndef AJAY_COUNTER
-#define AJAY_COUNTER
+#ifndef AJAY_FREQUENCY_COUNTER
+#define AJAY_FREQUENCY_COUNTER
 
 namespace mitsuha{
 // n: # of items
@@ -8,17 +8,17 @@ namespace mitsuha{
 // pos[x]: position of the item x in the list
 // freq[x]: frequency of the item x
 // fpos[f]: starting position of items for freqeuncy f
-struct Counter{
+struct Frequency_Counter{
     int n, m;
     vector<int> order, pos, freq, fpos;
     // O(n + m)
-    Counter(int n, int m): n(n), m(m), order(n), pos(n), freq(n), fpos(m + 2, n){
+    Frequency_Counter(int n, int m): n(n), m(m), order(n), pos(n), freq(n), fpos(m + 2, n){
         fpos[0] = 0;
         iota(order.begin(), order.end(), 0);
         iota(pos.begin(), pos.end(), 0);
     }
     // O(n + m)
-    Counter(int n, int m, const vector<int> &freq): n(n), m(m), pos(n), freq(freq), fpos(m + 2, n){
+    Frequency_Counter(int n, int m, const vector<int> &freq): n(n), m(m), pos(n), freq(freq), fpos(m + 2, n){
         assert((int)freq.size() == n && *max_element(freq.begin(), freq.end()) <= m);
         iota(order.begin(), order.end(), 0);
         vector<vector<int>> occur(m + 1);
@@ -51,4 +51,4 @@ struct Counter{
     }
 };
 } // namespace mitsuha
-#endif // AJAY_COUNTER
+#endif // AJAY_FREQUENCY_COUNTER

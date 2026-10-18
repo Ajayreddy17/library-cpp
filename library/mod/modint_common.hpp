@@ -102,6 +102,7 @@ mint C_inv(long long n, long long k) {
 }
 
 // [x^d](1-x)^{-n}
+// ways to put d identical items into n distinguishable bins
 template <typename mint, bool large = false, bool dense = false>
 mint C_negative(long long n, long long d) {
     assert(n >= 0);
@@ -118,14 +119,6 @@ mint P(long long n, long long k) {
     mint res = mint{1};
     for(auto i = n; i > n - k; -- i) res *= mint(i);
     return res;
-}
-
-// ways to put k identical items into n distinguishable bins
-template <typename mint, bool large = false, bool dense = false>
-mint H(long long n, long long k) {
-    assert(0 <= min(n, k));
-    if (n == 0) return mint{0};
-    return C<mint, large, dense>(n + k - 1, k);
 }
 } // namespace mitsuha
 #endif // AJAY_MODINT_COMMON

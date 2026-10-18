@@ -199,7 +199,7 @@ private:
     template <typename F>
     long long max_right_rec(np c, const F &check, long long l, long long r, long long ql, X &x) {
         if (!c || r <= ql) return R0;
-        if (check(MX::op(x, c->prod))) {
+        if (ql <= l && check(MX::op(x, c->prod))) {
             x = MX::op(x, c->prod);
             return R0;
         }
@@ -216,7 +216,7 @@ private:
     template <typename F>
     long long min_left_rec(np c, const F &check, long long l, long long r, long long qr, X &x) {
         if (!c || qr <= l) return L0;
-        if (check(MX::op(c->prod, x))) {
+        if (r <= qr && check(MX::op(c->prod, x))) {
             x = MX::op(c->prod, x);
             return L0;
         }

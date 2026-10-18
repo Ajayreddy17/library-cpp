@@ -5,7 +5,7 @@
 
 namespace mitsuha {
 template <typename GT>
-vector<int> vs_to_es(GT& G, vector<int>& vs, bool ALLOW_USE_TWICE = false) {
+vector<int> vs_to_es(GT& G, vector<int>& vs, bool allow_use_twice = false) {
     assert(!vs.empty());
 
     HashMap<int, -1> MP(G.M);

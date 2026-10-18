@@ -24,7 +24,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip3 install -U setuptools
+        pip3 install "setuptools<81"
         pip3 install -U online-judge-verify-helper
 
     - name: Restore downloaded test cases

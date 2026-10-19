@@ -5,7 +5,8 @@
 
 void solve() {
     LL(N);
-    VT(pair<long long, long long>, P, N);
+    using pll = pair<long long, long long>;
+    VT(pll, P, N);
     auto I = angle_sort(P);
     P = rearrange(P, I);
     For(i, N) print(P[i]);

@@ -8,8 +8,7 @@ void solve() {
     VT(int, A, N);
     vector<pair<int, int>> LR(Q);
     For(q, Q) read(LR[q]);
-    vector<int> ANS(Q);
-    static_monoid_products<Monoid_Min<int>>(A, LR, [&](int q, int lx, int rx) -> void { ANS[q] = min(lx, rx); });
+    auto ANS = static_monoid_products<Monoid_Min<int>>(A, LR);
     for (auto& x: ANS) print(x);
 }
 

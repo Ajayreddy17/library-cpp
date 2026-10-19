@@ -12,7 +12,7 @@ void solve() {
     vector<vector<int>> vs(N);
     For(v, N) { vs[uf[v]].emplace_back(v); }
 
-    print(uf.n_comp);
+    print(uf.group_count());
     for (auto &V: vs) {
         if (!V.empty()) print(len(V), V);
     }

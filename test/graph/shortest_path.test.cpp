@@ -11,7 +11,7 @@ void solve() {
     G.read_graph(M, 1, 0);
 
     auto [dist, par] = dijkstra<long long>(G, s);
-    if (dist[t] == infty<long long>) return print(-1);
+    if (dist[t] == linf) return print(-1);
 
     vector<int> pth = restore_path(par, t);
     print(dist[t], len(pth) - 1);

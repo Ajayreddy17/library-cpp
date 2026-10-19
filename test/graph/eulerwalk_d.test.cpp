@@ -8,8 +8,8 @@ void solve() {
     Graph<int, 1> G(N);
     G.read_graph(M, 0, 0);
     auto [vs, es] = euler_walk(G);
-    if (vs.empty()) return No();
-    Yes();
+    if (vs.empty()) { print("No"); return; }
+    print("Yes");
     print(vs);
     print(es);
 }

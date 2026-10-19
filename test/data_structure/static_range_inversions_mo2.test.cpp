@@ -8,9 +8,9 @@ void solve() {
     LL(N, Q);
     VT(long long, A, N);
     vector<long long> key = A;
-    UNIQUE(key);
+    settify(key);
 
-    for (auto&& x: A) x = LB(key, x);
+    for (auto&& x: A) x = lower_bound(key.begin(), key.end(), x) - key.begin();
     long long K = len(key);
     FenwickTree<Monoid_Add<int>> bit(K);
 
@@ -38,7 +38,7 @@ void solve() {
         history.emplace_back(x);
     };
     auto rb = [&](int t) -> void {
-        while (len(history) > t) { bit.add(POP(history), -1); }
+        while (len(history) > t) { int x = history.back(); history.pop_back(); bit.add(x, -1); }
     };
     auto reset = [&]() -> void {
         rb(0);

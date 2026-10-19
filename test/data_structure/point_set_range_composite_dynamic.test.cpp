@@ -13,7 +13,7 @@ void solve() {
     LL(N, Q);
     VT(X, dat, N);
 
-    Dynamic_SegTree<Mono, false> seg(500000, 0, N);
+    Dynamic_SegTree<Mono, false> seg(1200000, 0, N);
     auto root = seg.new_node(dat);
 
     For(Q) {

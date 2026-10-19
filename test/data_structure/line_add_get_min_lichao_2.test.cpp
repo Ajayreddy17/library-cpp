@@ -31,6 +31,7 @@ void solve() {
             points.emplace_back(x);
         }
     }
+    if (points.empty()) return;
     LiChao_Tree<F, 1, 1> X(points, {0, linf});
     for (auto&& [t, a, b]: query) {
         if (t == 0) X.add_line({a, b});

@@ -102,7 +102,7 @@ private:
     void rebuild() {
         vector<X> X;
         Frr(i, len(dat_l)) X.emplace_back(dat_l[i]);
-        X.insert(X.end(), dat_r.begin(). dat_r.end());
+        X.insert(X.end(), dat_r.begin(), dat_r.end());
         clear();
         int m = len(X) / 2;
         Frr(i, m) push_front(X[i]);

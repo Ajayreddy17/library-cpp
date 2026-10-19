@@ -6,7 +6,7 @@
 void solve() {
     INT(Q);
     HashMap<char> MP(Q);
-    Binary_Trie<30, false, uint32_t, uint32_t> X;
+    Binary_Trie<30, false, 2000000, uint32_t, uint32_t> X;
     using np = decltype(X)::np;
     np root = nullptr;
     For(Q) {

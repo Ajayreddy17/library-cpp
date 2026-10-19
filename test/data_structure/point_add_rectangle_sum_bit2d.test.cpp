@@ -31,7 +31,7 @@ void solve() {
         if (a == uint32_t(-1)) {
             bit.add(b, c, d);
         } else {
-            print(bit.prod(a, b, c, d));
+            print((unsigned long long)bit.prod(a, b, c, d));
         }
     }
 }

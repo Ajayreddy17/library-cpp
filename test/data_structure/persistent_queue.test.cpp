@@ -7,7 +7,7 @@ void solve() {
     LL(Q);
     vector<int> L, R;
 
-    Dynamic_Array<int, true> X(0);
+    Dynamic_Array<int, true> X(2000000, 0);
     using np = typename decltype(X)::np;
     vector<np> roots;
 

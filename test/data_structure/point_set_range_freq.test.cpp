@@ -6,7 +6,7 @@
 void solve() {
     INT(N, Q);
     HashMap<int> MP(N + Q);
-    vector<vector<pair<int, int>> dat(N + Q);
+    vector<vector<pair<int, int>>> dat(N + Q);
     int p = 0;
     auto get = [&](int x) -> int {
         int k = MP.get(x, -1);

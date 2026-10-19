@@ -31,9 +31,9 @@ void solve() {
             points.emplace_back(x);
         }
     }
-    LiChao_Tree<F, 1, 1> X(points, {0, infty<long long>});
+    LiChao_Tree<F, 1, 1> X(points, {0, linf});
     for (auto&& [t, a, b]: query) {
-        if (t == 0) X.chmin_line({a, b});
+        if (t == 0) X.add_line({a, b});
         if (t == 1) print(X.query(a).first);
     }
 }

@@ -14,13 +14,13 @@ void solve() {
     For(q, Q) {
         LL(t);
         if (t == 0) {
-            U32(x, y, w);
+            uint32_t x, y, w; read(x, y, w);
             X.emplace_back(x);
             Y.emplace_back(y);
             W.emplace_back(0);
-            query[q] = make_tuple(-1, x, y, w);
+            query[q] = make_tuple(uint32_t(-1), x, y, w);
         } else {
-            U32(a, b, c, d);
+            uint32_t a, b, c, d; read(a, b, c, d);
             query[q] = make_tuple(a, c, b, d);
         }
     }

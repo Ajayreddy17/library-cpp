@@ -20,12 +20,12 @@ void solve() {
         }
         if (t == 2) { print(seg.get(k)); }
         if (t == 3) {
-            int ans = seg.max_right([&](auto e) -> bool { return e == 0; }, k);
+            int ans = seg.max_right(k, [&](auto e) -> bool { return e == 0; });
             if (ans == N) ans = -1;
             print(ans);
         }
         if (t == 4) {
-            int ans = seg.min_left([&](auto e) -> bool { return e == 0; }, k + 1) - 1;
+            int ans = seg.min_left(k + 1, [&](auto e) -> bool { return e == 0; }) - 1;
             print(ans);
         }
     }

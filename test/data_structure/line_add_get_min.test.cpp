@@ -4,8 +4,8 @@
 
 void solve() {
     LL(N, Q);
-    CHT_Min<long long> cht_min;
-    CHT_Max<long long> cht_max;
+    CHT_min<long long> cht_min;
+    CHT_max<long long> cht_max;
     For(N) {
         LL(a, b);
         cht_min.add(a, b);

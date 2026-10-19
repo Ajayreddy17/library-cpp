@@ -50,11 +50,11 @@ void sol_3() {
             key.emplace_back(k);
         }
     }
-    UNIQUE(key);
+    settify(key);
     vector<long long> A(len(key));
     For(q, Q) {
         auto [t, k, v] = query[q];
-        k = LB(key, k);
+        k = lower_bound(key.begin(), key.end(), k) - key.begin();
         if (t == 0) {
             A[k] = v;
         } else {

@@ -5,8 +5,8 @@
 void solve() {
     LL(N, Q);
     VT(int, A, N);
-    Removable_Queue<pq_min<int>> que1(A);
-    Removable_Queue<pq_max<int>> que2(A);
+    Removable_Queue<min_priority_queue<int>> que1(A);
+    Removable_Queue<max_priority_queue<int>> que2(A);
 
     For(Q) {
         LL(t);

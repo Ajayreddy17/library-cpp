@@ -10,7 +10,7 @@ using mint = modint998;
 void solve() {
     LL(Q);
     using G = Monoid_Affine<mint>;
-    Sliding_Window_Aggregation_Deque<G> X;
+    SWAG_deque<G> X;
     For(Q) {
         LL(t);
         if (t == 0) {

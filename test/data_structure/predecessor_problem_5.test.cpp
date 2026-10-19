@@ -22,12 +22,12 @@ void solve() {
             print(ans);
         }
         if (t == 3) {
-            int ans = bit.max_right([&](int x) -> bool { return x <= 0; }, k);
+            int ans = bit.max_right(k, [&](int x) -> bool { return x <= 0; });
             if (ans == N) ans = -1;
             print(ans);
         }
         if (t == 4) {
-            int ans = bit.min_left([&](int x) -> bool { return x <= 0; }, k + 1) - 1;
+            int ans = bit.min_left(k + 1, [&](int x) -> bool { return x <= 0; }) - 1;
             print(ans);
         }
     }

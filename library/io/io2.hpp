@@ -29,17 +29,42 @@ struct Pre {
     }
 } constexpr pre;
 
+#ifdef LOCAL
+bool eof_hit = false;
+#endif
 inline void load() {
-    std::memcpy(input_buffer, input_buffer + pil, pir - pil);
-    pir = pir - pil + fread(input_buffer + pir - pil, 1, SZ - pir + pil, stdin);
+    std::memmove(input_buffer, input_buffer + pil, pir - pil);
+    size_t got = fread(input_buffer + pir - pil, 1, SZ - pir + pil, stdin);
+#ifdef LOCAL
+    if (got == 0) eof_hit = true;
+#endif
+    pir = pir - pil + got;
     pil = 0;
     if (pir < SZ) input_buffer[pir++] = '\n';
 }
+#ifdef LOCAL
+// Local only: abort with a stack trace if the program reads more tokens than the input has.
+inline void check_input_left() {
+    while (true) {
+        if (pil >= pir) {
+            if (eof_hit) {
+                fprintf(stderr, "\nRuntime error: tried to read past the end of input\n");
+                std::abort();
+            }
+            load();
+        } else if (isspace((unsigned char)input_buffer[pil])) pil++;
+        else break;
+    }
+}
+#else
+inline void check_input_left() {}
+#endif
 inline void flush() {
     fwrite(output_buffer, 1, por, stdout);
     por = 0;
 }
 void rd(char &c) { 
+    check_input_left();
     do { 
         if (pil >= pir) load(); 
         c = input_buffer[pil++]; 
@@ -47,6 +72,7 @@ void rd(char &c) {
 }
 void rd(std::string &x) {
     x.clear();
+    check_input_left();
     char c;
     do { 
         if (pil >= pir) load(); 
@@ -66,6 +92,7 @@ void rd_real(T &x) {
 }
 template<typename T>
 void rd_integer(T &x) {
+    check_input_left();
     if (pil + 100 > pir) load();
     char c;
     do c = input_buffer[pil++]; while (c < '-');

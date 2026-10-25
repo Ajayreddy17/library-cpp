@@ -85,7 +85,7 @@ pair<int, int> closest_pair_dc(vector<Point<long long>> point) {
   upd(0, 1);
 
   auto dfs = [&](auto &dfs, int L, int R) -> vector<int> {
-    // return: [L,R) を y について sort したもの
+    // return: [L,R) sorted by y
     if (R == L + 1) return {L};
     int M = (L + R) / 2;
     vector<int> I0 = dfs(dfs, L, M);

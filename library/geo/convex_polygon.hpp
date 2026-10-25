@@ -4,8 +4,8 @@
 #include "library/geo/base.hpp"
 #include "library/geo/convexhull.hpp"
 
-// strict: n>=3 の反時計回り狭義凸多角形。
-// non-strict: n=1 の点、n=2 の線分、または n>=3 の反時計回り凸多角形。
+// strict: n>=3 counter-clockwise strictly convex polygon.
+// non-strict: n=1 point, n=2 segment, or n>=3 counter-clockwise convex polygon.
 namespace mitsuha{
 template <typename T, bool is_strict = true>
 struct Convex_Polygon {
@@ -51,7 +51,7 @@ struct Convex_Polygon {
   int nxt_idx(int i) const { return (i + 1 == n ? 0 : i + 1); }
   int prev_idx(int i) const { return (i == 0 ? n - 1 : i - 1); }
 
-  // 中：1, 境界：0, 外：-1.
+  // Inside: 1, Boundary: 0, Outside: -1.
   int side(P p) const {
     if (n == 1) return (p == point[0] ? 0 : -1);
     if (n == 2) {
@@ -83,7 +83,7 @@ struct Convex_Polygon {
     return 0;
   }
 
-  // return {min, i, j}. i==j は頂点, i!=j は最適辺 i -> j。
+  // return {min, i, j}. i==j means vertex, i!=j means optimal edge i -> j.
   // p==(0,0): return {0,0,0}
   tuple<T, int, int> min_dot(P p) const {
     static_assert(is_strict);
@@ -97,7 +97,7 @@ struct Convex_Polygon {
     return {val, idx, idx};
   }
 
-  // return {max, i, j}. i==j は頂点, i!=j は最適辺 i -> j。
+  // return {max, i, j}. i==j means vertex, i!=j means optimal edge i -> j.
   // p==(0,0): return {0,0,0}
   tuple<T, int, int> max_dot(P p) const {
     static_assert(is_strict);
@@ -133,8 +133,8 @@ struct Convex_Polygon {
     return true;
   }
 
-  // 0: 共通点なし, 1: 一意な共通点, 2: 異なる共通点が2個,
-  // iinf: 境界辺と正の長さで重なる.
+  // 0: no intersection, 1: unique intersection, 2: two distinct intersections,
+  // iinf: overlaps with a boundary edge with positive length.
   int count_boundary_cross_line(P A, P B) const {
     static_assert(is_strict);
     assert(A != B);
@@ -153,7 +153,7 @@ struct Convex_Polygon {
 
   // return {t, eid, s} in increasing t order.
   // A+t*(B-A) = point[eid]*(1-s)+point[nxt_idx(eid)]*s, 0<=s<1.
-  // 辺と重なる場合は、その辺の両端点を返す.
+  // When overlapping with an edge, returns both endpoints of that edge.
   template <typename REAL>
   vector<tuple<REAL, int, REAL>> boundary_cross_line(P A, P B) const {
     static_assert(is_strict);

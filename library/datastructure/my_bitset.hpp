@@ -220,7 +220,7 @@ struct My_Bitset {
         }
     }
 
-    // [L,R) に p を or
+    // OR p into range [L,R)
     void or_to_range(int L, int R, My_Bitset &p) {
         assert(p.N == R - L);
         int a = 0, b = p.N;

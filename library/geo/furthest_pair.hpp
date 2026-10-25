@@ -24,9 +24,9 @@ pair<int, int> furthest_pair(vector<Point<T>> point) {
     return {I[0], I[1]};
   }
   /*
-  直径と垂直な平行線 2 本で凸包をはさめる
-  平行線 2 本ではさんで引っかかる 2 点が候補
-  p[i]p[i+1] の反対側を候補とすればよい
+  Two parallel lines perpendicular to the diameter can sandwich the convex hull.
+  The two points caught by the parallel lines are candidates.
+  Take the opposite side of p[i]p[i+1] as the candidate.
   */
   For(i, n) I.emplace_back(I[i]);
 

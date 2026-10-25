@@ -5,7 +5,7 @@
 #include "library/datastructure/fastset.hpp"
 #include "library/random/shuffle.hpp"
 
-// 座標の 4 乗がオーバーフローしない
+// 4th power of coordinates must not overflow
 // return : array<int,3>, triangles
 // https://codeforces.com/contest/154/problem/E
 // https://codeforces.com/contest/549/problem/E

@@ -5,22 +5,22 @@
 #include "library/datastructure/segment_tree/dual_segtree.hpp"
 #include "library/monoid/monoid_min.hpp"
 
-// 点群 {p_i | i in [l, r)} に対する最近点対の計算を行うクエリ
+// Closest pair query for point set {p_i | i in [l, r)}
 // O(KNlogKN + QlogN)
 // https://qoj.ac/problem/5463
 // https://codeforces.com/gym/104172/attachments/download/18933/Hong_Kong_Tutorial.pdf
-// 点群が 1 次元：https://codeforces.com/problemset/problem/765/F
+// 1D point set: https://codeforces.com/problemset/problem/765/F
 namespace mitsuha{
 struct Range_Closest_Pair_Query {
   /*
-  ・R を増やしながら、L ごとの答を管理する
-  ・2^{k-1} <= ANS[L:R] < 2^{k} となる L ：レベル k （レベル 0：距離 0）
-  ・レベル 0, 1, 2, ..., 29 のグリッドを用意する
-  　・幅は 2^k
-　  ・一辺 1.99 の正方形内で点対距離が 1 以上 → 8 個までありうる
-  ・レベル 29, 28, ..., 0 の順に探索する：9 近傍
-  　・答が見つかったらレベルを下げる。左向きに伝搬。
-  　・レベルの減少は 30N 回までしか起きない
+  - Manage the answer per L while increasing R
+  - L with 2^{k-1} <= ANS[L:R] < 2^{k}: level k (level 0: distance 0)
+  - Prepare grids for levels 0, 1, 2, ..., 29
+    - Width is 2^k
+    - In a square of side 1.99, pairwise distance >= 1 -> at most 8 points
+  - Search in order level 29, 28, ..., 0: 9 neighbors
+    - When an answer is found, decrease the level. Propagate leftward.
+    - Level decreases happen at most 30N times
   */
   const int LOG = 30;
   vector<pair<int, int>> point;
@@ -44,9 +44,9 @@ struct Range_Closest_Pair_Query {
     const int K = LOG;
     const int N = len(point), Q = len(query);
     using A9 = array<int, 9>;
-    // それぞれのレベルのときのセル番号
+    // Cell index for each level
     vector<vector<int>> IDX(K, vector<int>(N, -1));
-    // 各セル番号に対する近傍
+    // Neighbors for each cell index
     vector<A9> nbd;
     For(k, 1, K) {
       HashMap<int> MP(N);
@@ -96,7 +96,7 @@ struct Range_Closest_Pair_Query {
     };
 
     auto solve_level = [&](int k, int i) -> vector<pair<int, long long>> {
-      // レベル k の点群に対する答の計算
+      // Compute answers for level k point set
       vector<pair<int, long long>> res;
       int me = IDX[k][i];
       for (auto&& idx : nbd[me]) {
@@ -126,7 +126,7 @@ struct Range_Closest_Pair_Query {
     vector<long long> ANS(Q);
 
     For(R, N) {
-      // R 番目の点を用いた答の更新
+      // Update answers using the R-th point
       vector<pair<int, long long>> upd;
       For(k, 1, K) {
         auto res = solve_level(k, R);
@@ -136,9 +136,9 @@ struct Range_Closest_Pair_Query {
       for (auto [i, d] : upd) {
         int lv = get_lv(d);
         if (seg.get(i) < d) continue;
-        // 答えの更新
+        // Update the answer
         seg.apply(0, i + 1, d);
-        // レベルの更新
+        // Update the level
         while (i >= 0 && LEVEL[i] > lv) {
           rm(LEVEL[i], i);
           LEVEL[i] = lv;

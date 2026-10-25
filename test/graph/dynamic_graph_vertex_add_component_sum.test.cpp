@@ -52,7 +52,7 @@ void solve() {
         for (auto&& i: upd_query_I) {
             auto [a, b, X] = upd[i];
             if (a <= begin && end <= b) {
-                // X で表される update query を処理する
+                // Process the update query represented by X
                 auto [p, q] = X;
                 if (p >= 0) {
                     int u = p, v = q;

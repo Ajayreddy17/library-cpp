@@ -16,7 +16,7 @@ REAL distance(Segment<T> S, Point<U> P) {
     return distance<REAL, T, T>(A, P);
   }
   Line<T> L = S.to_line();
-  // 点と直線の距離
+  // Distance from point to line
   return REAL(abs(L.eval(P))) / sqrt(REAL(L.a) * L.a + REAL(L.b) * L.b);
 }
 
@@ -36,7 +36,7 @@ REAL distance(Point<T> P, Line<T> L) {
 }
 
 // return: {a, b}. where dist=sqrt(a/b)
-// a,b:座標の 4 乗
+// a,b: 4th power of coordinates
 template <typename T>
 pair<int, int> distance_exact(Segment<T> S, Point<T> P) {
   Point<T> A = S.A, B = S.B;

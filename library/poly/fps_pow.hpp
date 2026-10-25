@@ -8,8 +8,8 @@
 namespace mitsuha{
 // Find fps to the kth power. The assumption is that k >= 0.
 // If the constant term is 1 and k is mint, use fps_pow_1.
-// ・Dense case: use log, exp O(NlogN)
-// ・If sparse: O(NK)
+// - Dense case: use log, exp O(NlogN)
+// - If sparse: O(NK)
 template <typename mint>
 vector<mint> fps_pow(const vector<mint>& f, long long k) {
     assert(0 <= k);

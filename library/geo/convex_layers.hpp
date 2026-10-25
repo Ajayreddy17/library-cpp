@@ -4,7 +4,7 @@
 #include "library/geo/dynamic_upper_hull.hpp"
 
 // https://codeforces.com/contest/1599/problem/D
-// 出力は反時計回りである
+// Output is in counter-clockwise order
 namespace mitsuha{
 vector<vector<int>> convex_layers(vector<Point<long long>> points) {
   int N = len(points);

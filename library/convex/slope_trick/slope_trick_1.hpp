@@ -181,24 +181,24 @@ struct Slope_Trick_1 {
     //   f = shift(f, x0, a * x0 + b);
     //   T d = x1 - x0;
     //   if (d == 0) return f;
-    //   // (0,0) から (x1,ax1) への線分をどこかに挿入する
-    //   // 特に x0, y0 はこのままでよい
+    //   // Insert the segment from (0,0) to (x1,ax1) somewhere
+    //   // In particular, x0, y0 can remain as is
     //   if (f.x0 == f.x1) { return {nullptr, f.x0, f.x0 + d, a, f.y0}; }
-    //   // 先頭に挿入できる場合
+    //   // Case: can insert at the beginning
     //   if (a <= f.a0) {
     //     ST.apply(f.root, d);
     //     f.root = ST.merge(ST.new_node({f.x0 + d, f.a0 - a}), f.root);
     //     f.x1 += d, f.a0 = a;
     //     return f;
     //   }
-    //   // 末尾に挿入できる場合
+    //   // Case: can insert at the end
     //   T a_last = f.a0 + ST.prod(f.root).fi;
     //   if (a_last <= a) {
     //     f.root = ST.merge(f.root, ST.new_node({f.x1, a - a_last}));
     //     f.x1 += d;
     //     return f;
     //   }
-    //   // 間のどこかに挿入
+    //   // Insert somewhere in between
     //   auto [l, r] = ST.split_max_right_prod(f.root, [&](auto prod) -> bool { return
     //   f.a0 + prod.fi < a; }); T asum = ST.prod(l).fi; T a1 = a - (asum + f.a0); auto
     //   [xx, aa] = ST.get(r, 0); ST.apply(r, d); ST.set(r, 0, {xx + d, aa - a1}); f.root

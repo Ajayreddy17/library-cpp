@@ -4,7 +4,7 @@
 
 #include "library/geo/base.hpp"
 
-// とりあえずコピペしたものを使う
+// Using cp-algorithms implementation for now
 
 namespace mitsuha{
 namespace CP_ALGO {

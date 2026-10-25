@@ -4,8 +4,8 @@
 namespace mitsuha{
 /*
 Full enumeration of knapsack01
-・In O(2^n), enumerate all (wt, val) + sort by wt
-・remove extra = true → leave only the parts where val increases
+- In O(2^n), enumerate all (wt, val) + sort by wt
+- remove extra = true → leave only the parts where val increases
 */
 template <typename WT, typename VAL>
 vector<pair<WT, VAL>> knapsack01_gen_all(vector<WT> weight, vector<VAL> val, bool remove_extra) {

@@ -6,24 +6,24 @@
 namespace mitsuha{
 /*
 https://codeforces.com/blog/entry/75929
-動的凸包。
-x 座標でソートして完全二分木のセグ木の形にしておく。
-セグ木のマージ部分（次の bridge を求める）で二分探索する。
-bridge 同士の 4 点での上側凸包を見れば、次に探索するべき区間対が分かる。
+Dynamic convex hull.
+Sort by x-coordinate and store in a complete binary segment tree.
+Binary search during segment tree merge (finding the next bridge).
+By looking at the upper convex hull of the 4 bridge points, we can determine the next interval pair to search.
 
-構築 O(NlogN)、更新 O(Nlog^2N)
-座標 10^9 以下の整数を仮定
+Construction O(NlogN), update O(Nlog^2N)
+Assumes integer coordinates <= 10^9
 */
 template <typename Point>
 struct Dynamic_Upper_Hull {
   struct node {
-    int l, r;    // 範囲 (-1 if no vertex)
+    int l, r;    // range (-1 if no vertex)
     int bl, br;  // bridge idx
   };
   int N, sz;
   vector<Point> P;
   vector<node> seg;
-  // 受け取ったインデックスとの対応
+  // Mapping to/from original indices
   vector<int> to_original_idx, to_seg_idx;
 
   Dynamic_Upper_Hull(vector<Point> P) : Dynamic_Upper_Hull(P, 0) {}

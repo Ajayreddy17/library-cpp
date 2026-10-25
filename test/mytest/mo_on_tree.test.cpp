@@ -96,13 +96,13 @@ void solve() {
 }
 
 signed main() {
-    // パスの向きが可逆で頂点可換モノイド積
+    // Reversible path, vertex commutative monoid product
     test<Monoid_Add_Pair<mint>, false>();
-    // パスの向きが不可逆で頂点非可換モノイド積
+    // Non-reversible path, vertex non-commutative monoid product
     test<Monoid_Affine<mint>, false>();
-    // パスの向きが可逆で辺可換モノイド積
+    // Reversible path, edge commutative monoid product
     test<Monoid_Add_Pair<mint>, true>();
-    // パスの向きが不可逆で辺非可換モノイド積
+    // Non-reversible path, edge non-commutative monoid product
     test<Monoid_Affine<mint>, true>();
     solve();
     return 0;

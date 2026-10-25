@@ -5,8 +5,8 @@
 #include "library/random/shuffle.hpp"
 #include "library/geo/outcircle.hpp"
 
-// randomize を利用した expected O(N) アルゴリズム
-// 座標の 4 乗が登場！オーバーフロー注意！
+// Expected O(N) algorithm using randomization
+// 4th power of coordinates appears! Beware of overflow!
 // return: {C,0,-1,-1} or {C,i,j,-1} or {C,i,j,k}
 // https://codeforces.com/problemset/problem/119/E
 // https://qoj.ac/contest/1452/problem/7934

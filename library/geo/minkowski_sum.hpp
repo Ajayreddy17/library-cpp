@@ -5,8 +5,8 @@
 
 // https://codeforces.com/contest/87/problem/E
 // https://atcoder.jp/contests/stpc2025_1/tasks/stpc2025_1_l
-// 入力は ccw 凸多角形であることを仮定.
-// return は strict (180度なし)
+// Input assumed to be ccw convex polygons.
+// Return is strict (no 180-degree angles)
 namespace mitsuha{
 template <typename T>
 vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {

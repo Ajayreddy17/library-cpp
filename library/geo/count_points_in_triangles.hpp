@@ -7,9 +7,9 @@
 #include "library/random/base.hpp"
 #include "library/datastructure/fenwick_tree/fenwicktree_01.hpp"
 
-// 点群 A, B を入力 （Point<long long>）
-// query(i,j,k)：三角形 AiAjAk 内部の Bl の個数（非負）を返す
-// 前計算 O(NMlogM)、クエリ O(1)
+// Input point sets A, B (Point<long long>)
+// query(i,j,k): returns count (non-negative) of B[l] inside triangle A[i]A[j]A[k]
+// Preprocessing O(NMlogM), Query O(1)
 // https://codeforces.com/contest/13/problem/D
 // https://codeforces.com/contest/852/problem/H
 namespace mitsuha{
@@ -17,10 +17,10 @@ struct Count_Points_in_Triangles {
   using P = Point<long long>;
   const int LIM = 1'000'000'000 + 10;
   vector<P> A, B;
-  vector<int> new_idx; // O から見た偏角ソート順を管理
-  vector<int> point;   // A[i] と一致する B[j] の数え上げ
-  vector<vector<int>> seg;    // 線分 A[i]A[j] 内にある B[k] の数え上げ
-  vector<vector<int>> tri;    // OA[i]A[j] 内部にある B[k] の数え上げ
+  vector<int> new_idx; // manages argument-sorted order as seen from O
+  vector<int> point;   // count of B[j] coinciding with A[i]
+  vector<vector<int>> seg;    // count of B[k] on segment A[i]A[j]
+  vector<vector<int>> tri;    // count of B[k] inside triangle OA[i]A[j]
   Count_Points_in_Triangles(const vector<P>& A, const vector<P>& B) : A(A), B(B) {
     for (auto&& p: A) assert(max(abs(p.x), abs(p.y)) < LIM);
     for (auto&& p: B) assert(max(abs(p.x), abs(p.y)) < LIM);
@@ -49,7 +49,7 @@ struct Count_Points_in_Triangles {
 
 private:
   P take_origin() {
-    // OAiAj, OAiBj が同一直線上にならないようにする
+    // Ensure OAiAj, OAiBj are not collinear
     // fail prob: at most N(N+M)/LIM
     return P{-LIM, RNG(-LIM, LIM)};
   }

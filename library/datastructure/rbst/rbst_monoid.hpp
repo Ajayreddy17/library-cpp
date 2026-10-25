@@ -8,7 +8,7 @@ struct RBST_Monoid {
 
     struct Node {
         Node *l, *r;
-        X x, prod, rev_prod; // rev 反映済
+        X x, prod, rev_prod; // rev already applied
         unsigned int size;
         bool rev;
     };

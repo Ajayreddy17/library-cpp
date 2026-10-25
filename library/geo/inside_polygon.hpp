@@ -2,7 +2,7 @@
 #define AJAY_INSIDE_POLYGON
 
 // https://qoj.ac/problem/5443
-// 線分上に頂点や辺が来ることは許容
+// Allows vertices or edges to lie on the segment
 namespace mitsuha{
 template <typename T>
 bool inside_polygon(Segment<T> S, vector<Point<T>>& dat) {

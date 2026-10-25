@@ -64,11 +64,11 @@ struct Static_Tree_Monoid {
             }
             auto check_tmp = [&](X x) -> bool { return check(MX::op(val, x)); };
             if (a <= b) {
-                // 下り
+                // descending
                 int i = seg.max_right(check_tmp, a);
                 return (i == a ? u : tree.V[i - 1]);
             } else {
-                // 上り
+                // ascending
                 int i = 0;
                 if constexpr (MX::commute) i = seg.min_left(check_tmp, a + 1);
                 if constexpr (!MX::commute) i = seg_r.min_left(check_tmp, a + 1);
@@ -84,7 +84,7 @@ struct Static_Tree_Monoid {
         return seg.prod(l + edge, r);
     }
 
-    // [a,b] heavy path 形式
+    // [a,b] heavy path format
     inline X get_prod(int a, int b) {
         if constexpr (MX::commute)
             return (a <= b ? seg.prod(a, b + 1) : seg.prod(b, a + 1));

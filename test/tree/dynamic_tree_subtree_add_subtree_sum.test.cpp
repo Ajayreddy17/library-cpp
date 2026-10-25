@@ -5,21 +5,21 @@
 #include <library/graph/datastructure/link_cut_tree.hpp>
 
 /*
-sm は lazy 反映済
-ただし light edge からの lazy_light - cancel は未反映
+sm has lazy already applied.
+However, lazy_light - cancel from light edges is not yet applied.
 */
 struct Node {
     using np = Node *;
-    // デフォルト
+    // Default
     np l, r, p;
-    int idx, size; // size は heavy path の頂点数
+    int idx, size; // size is the number of vertices in the heavy path
     bool rev;
     struct X {
         long long cnt, sum;
     };
 
     using VX = X;
-    // 目的ごとに定義する.
+    // Define per purpose.
     X x, vx, mid;
     long long lazy, lazy_light, cancel;
 
@@ -65,13 +65,13 @@ struct Node {
         mid.sum += (mid.cnt * a);
     }
 
-    // data の reverse も行う
+    // Also reverse the data
     void reverse() {
         rev ^= 1;
         swap(l, r);
     }
 
-    // LCT 内で expose, update を行うのでここは変更だけ
+    // expose and update are done inside LCT, so only modify here
     void set(X x) { vx = x; }
 
     void add_light(np c) {
@@ -85,7 +85,7 @@ struct Node {
         mid.cnt -= c->x.cnt, mid.sum -= c->x.sum;
     }
 
-    // b->x に subtree value が入っている.
+    // b->x contains the subtree value.
     void change_light(np a, np b) {
         b->cancel = a->cancel;
         a->cancel = 0;

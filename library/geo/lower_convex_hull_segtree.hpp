@@ -1,7 +1,7 @@
 #ifndef AJAY_LOWER_CONVEX_HULL_SEGTREE
 #define AJAY_LOWER_CONVEX_HULL_SEGTREE
 
-// ALLOW_180=true のときに同一座標の点があると壊れる気がする
+// May break when ALLOW_180=true and there are points with identical coordinates
 namespace mitsuha{
 template <typename T, bool ALLOW_180 = false>
 struct Lower_Convex_Hull_SegTree {
@@ -68,7 +68,7 @@ struct Lower_Convex_Hull_SegTree {
     while (i > 1) i /= 2, update(i);
   }
 
-  // 中：1, 境界：0, 外：-1
+  // Inside: 1, Boundary: 0, Outside: -1
   int side(T x, T y) {
     if (!dat[1].exist) return -1;
     P a(x, y);
@@ -100,7 +100,7 @@ struct Lower_Convex_Hull_SegTree {
     return ANS;
   }
 
-  // 同一座標の点があると unique されたりされなかったりするはず？
+  // Points with identical coordinates may or may not be deduplicated?
   vector<int> get_hull() {
     vector<int> res;
     // closed range
@@ -121,7 +121,7 @@ struct Lower_Convex_Hull_SegTree {
   }
 
  private:
-  // A,B,C は昇順. 同一座標の点はタイブレイクする.
+  // A,B,C are in ascending order. Tie-break points with identical coordinates.
   int ccw(P A, P B, P C) {
     auto [x1, y1] = B - A;
     auto [x2, y2] = C - B;

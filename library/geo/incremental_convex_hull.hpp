@@ -3,7 +3,7 @@
 
 #include "library/geo/base.hpp"
 
-// 下側凸包
+// Lower convex hull
 namespace mitsuha{
 template <typename T, bool strict = true>
 struct Incremental_Convex_Hull_Lower {
@@ -20,7 +20,7 @@ struct Incremental_Convex_Hull_Lower {
     if (strict && s >= 0) return;
     if (!strict && s > 0) return;
 
-    // 点追加
+    // Add point
     add_v(p);
     S.insert(p);
 
@@ -61,7 +61,7 @@ struct Incremental_Convex_Hull_Lower {
       }
     }
 
-    // 点削除
+    // Remove points
     if (len(left) > 1) {
       S.erase(next(S.find(left.back())), S.find(p));
     }
@@ -71,7 +71,7 @@ struct Incremental_Convex_Hull_Lower {
     For(i, len(left) - 1) rm_v(left[i]);
     For(i, len(right) - 1) rm_v(right[i]);
 
-    // 辺削除
+    // Remove edges
     if (len(left) && len(right)) {
       auto a = left[0], b = right[0];
       rm_e(a, b);
@@ -84,7 +84,7 @@ struct Incremental_Convex_Hull_Lower {
       auto a = right[i], b = right[i + 1];
       rm_e(a, b);
     }
-    // 辺追加
+    // Add edges
     if (len(left)) {
       add_e(left.back(), p);
     }
@@ -93,16 +93,16 @@ struct Incremental_Convex_Hull_Lower {
     }
   }
 
-  // 中：1, 境界：0, 外：-1
+  // Inside: 1, Boundary: 0, Outside: -1
   int side(Point<T> p) {
     auto r = S.lower_bound(p);
     if (r == S.begin()) {
-      // 全部 p 以上
+      // all >= p
       if (len(S) && (*r) == p) return 0;
       return -1;
     }
     if (r == S.end()) {
-      // p は max より大きい
+      // p is greater than max
       return -1;
     }
     auto l = prev(r);
@@ -167,7 +167,7 @@ struct Incremental_Convex_Hull {
         [](Point<T> s, Point<T> t) {});
   }
 
-  // 中：1、境界：0、外：-1
+  // Inside: 1, Boundary: 0, Outside: -1
   int side(Point<T> p) {
     int a = LOWER.side(p);
     int b = UPPER.side(-p);

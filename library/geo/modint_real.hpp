@@ -1,7 +1,7 @@
 #ifndef AJAY_MODINT_REAL
 #define AJAY_MODINT_REAL
 
-// Point<T>, Line<T> などがある程度動くと期待している
+// Expects Point<T>, Line<T> etc. to work reasonably
 // https://codeforces.com/contest/44/submission/319952578
 namespace mitsuha{
 template <typename mint, typename Re>

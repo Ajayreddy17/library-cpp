@@ -3,7 +3,7 @@
 #include <library/convex/lichao.hpp>
 
 struct F {
-    using value_type = long long; // operator() の戻り値
+    using value_type = long long; // return type of operator()
     int a;
     long long b;
     long long operator()(long long x) { return a * x + b; }

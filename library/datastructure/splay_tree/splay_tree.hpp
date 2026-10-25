@@ -328,7 +328,7 @@ struct SplayTree {
 
     template <typename F>
     np find_max_right(np root, const F &check) {
-        // 最後に見つけた ok の点、最後に探索した点
+        // Last found ok point, last searched point
         np last_ok = nullptr, last = nullptr;
         while (root) {
             last = root;

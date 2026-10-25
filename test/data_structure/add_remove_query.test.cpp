@@ -53,8 +53,8 @@ void solve() {
 
         vector<int> IL, IR;
         int mid = (begin + end) / 2;
-        // 区間を完全に含む更新クエリを処理する。
-        // 部分的に交わるクエリを J に入れる
+        // Process update queries that fully contain the interval.
+        // Put partially overlapping queries into J
         for (auto&& i: I) {
             auto [a, b, X] = upd[i];
             if (a <= begin && end <= b) {
@@ -77,7 +77,7 @@ void solve() {
             if (mid < b) IR.emplace_back(i);
         }
         if (begin + 1 == end) {
-            // 求値クエリ
+            // Evaluation query
             int v = query[begin];
             ANS[begin] = A.get(uf[v]);
         } else {

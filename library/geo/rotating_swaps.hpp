@@ -6,9 +6,9 @@
 namespace mitsuha{
 /*
 return : {init, events}
-init: 方向ベクトル (-1,-eps) 方向についてソートしたときの順序
-events: i,j の順位が入れ替わる (i<j から j<i)というイベントの列
-360度分ある, 最後には init に戻ってくる
+init: order when sorted by direction vector (-1,-eps)
+events: sequence of events where ranks of i,j swap (from i<j to j<i)
+Covers full 360 degrees, returns to init at the end
 https://atcoder.jp/contests/tupc2023/tasks/tupc2023_m
 https://atcoder.jp/contests/pakencamp-2025-day2/tasks/pakencamp_2025_day2_f
 */
@@ -16,15 +16,15 @@ template <typename T>
 pair<vector<int>, vector<pair<int, int>>> rotating_swaps(vector<Point<T>> point) {
   using P = Point<T>;
   /*
-  角度 t におけるタイブレイクについて
-  角度 t-eps のときのソート順を p1,...,pk とする
-  これらが一斉にタイになったあと reverse されるということになる
-  (i,j) をペア辞書順に swap すればよい
+  On tie-breaking at angle t:
+  Let p1,...,pk be the sorted order at angle t-eps
+  These all tie simultaneously and then get reversed
+  Swap (i,j) in pair-lexicographic order
 
-  同一座標の点について
-  同じ座標であるものは常にもとのインデックス順であるとする
+  On points with identical coordinates:
+  Points with same coordinates are always in original index order
   (..i1,...,i2) (...,j1,...,j2)
-  j は小さいもの, i は大きいものを優先する
+  j prioritizes smaller values, i prioritizes larger values
   */
   for (auto &p : point) p = -p;
   auto I = argsort(point);
@@ -46,16 +46,16 @@ pair<vector<int>, vector<pair<int, int>>> rotating_swaps(vector<Point<T>> point)
     P p2 = (point[j2] - point[i2]).rot90(true);
     int c = angle_comp_3(p1, p2);
     if (c != 0) return c == -1;
-    // p1,p2 は平行
+    // p1,p2 are parallel
     if (point[i1].dot(p1) != point[i2].dot(p1)) {
       return point[i1].dot(p1) < point[i2].dot(p1);
     }
-    // p1 - eps のときの dot の pair の辞書順で比べる
+    // compare by lexicographic order of dot pairs at p1 - eps
     P d = p1.rot90(false);
     pair<T, T> s1 = {point[j1].dot(d), point[i1].dot(d)};
     pair<T, T> s2 = {point[j2].dot(d), point[i2].dot(d)};
     if (s1 != s2) return s1 < s2;
-    // ここに来た時点で座標の組が完全一致している
+    // at this point the coordinate pairs are exactly identical
     assert(point[i1] == point[i2] && point[j1] == point[j2]);
     if (i1 != i2) return i1 > i2;
     return j1 < j2;

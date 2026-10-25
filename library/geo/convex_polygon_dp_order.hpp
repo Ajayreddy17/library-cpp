@@ -5,10 +5,10 @@
 
 namespace mitsuha{
 /*
-点群は distinct
-edge(i,j): i->j で遷移していくと偏角昇順（strict）な辺の列になる順
-典型的には v を固定して v->v を作ると凸多角形になる
-通常は退化ケースは別途処理し，非退化を保証するために使った辺が3個以上かのフラグを持つ
+Point set is distinct.
+edge(i,j): ordering such that transitions i->j form edges in strictly increasing argument order.
+Typically, fixing v and forming v->v gives a convex polygon.
+Usually degenerate cases are handled separately; a flag tracks whether 3+ edges were used to ensure non-degeneracy.
 */
 template <typename P>
 vector<pair<int, int>> convex_polygon_dp_order(vector<P> A) {

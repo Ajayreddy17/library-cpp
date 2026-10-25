@@ -4,8 +4,8 @@
 #include "library/datastructure/segment_tree/segtree.hpp"
 #include "library/monoid/monoid_minidx.hpp"
 
-// 点群 FRM から点群 TO への最近点探索
-// vector の pair を返す：dist, nbd_idx
+// Nearest neighbor search from point set FRM to point set TO
+// Returns pair of vectors: dist, nbd_idx
 namespace mitsuha{
 template <typename X = long long>
 pair<vector<X>, vector<int>> manhattan_nns(vector<pair<X, X>> FRM, vector<pair<X, X>>& TO) {

@@ -7,7 +7,7 @@
 
 namespace mitsuha{
 // https://noshi91.hatenablog.com/entry/2024/03/16/224034
-// k fix it [x^k]f(x)^ig(x) を i=0,1,...,n Find it with.
+// For fixed k, find [x^k]f(x)^i*g(x) for i=0,1,...,n.
 template <typename mint>
 vector<mint> coef_of_fps_pows(vector<mint> f, int k, int n, vector<mint> g = {mint(1)}) {
     assert(len(f) == k + 1);

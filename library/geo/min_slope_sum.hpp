@@ -3,8 +3,8 @@
 
 
 // https://uoj.ac/contest/104/problem/1037
-// A, B が下側凸包になっていて A[i]+B[j] の x 座標が正であることが保証
-// A[i]+B[j] の min slope を求める. O(log N+log M)
+// A, B form lower convex hulls and A[i]+B[j] is guaranteed to have positive x-coordinate
+// Find the min slope of A[i]+B[j]. O(log N+log M)
 namespace mitsuha{
 template <typename P>
 P min_slope_sum(vector<P>& A, vector<P>& B) {

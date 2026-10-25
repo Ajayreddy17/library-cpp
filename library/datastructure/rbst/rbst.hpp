@@ -99,7 +99,7 @@ struct RBST {
         return res;
     }
 
-    // 最後に check(s) が成り立つところまでを左として split
+    // Split so that the left part extends to the last position where check(s) holds
     template <typename F>
     pair<np, np> split_max_right(np root, const F check) {
         return split_max_right_rec(root, check);

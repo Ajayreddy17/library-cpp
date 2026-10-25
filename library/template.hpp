@@ -146,3 +146,6 @@ using namespace std;
  
 constexpr int iinf = std::numeric_limits<int>::max() / 2;
 constexpr long long linf = std::numeric_limits<long long>::max() / 2;
+
+template <typename T>
+constexpr T infty = std::numeric_limits<T>::max() / 2;

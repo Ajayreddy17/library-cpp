@@ -99,5 +99,14 @@ tuple<bool, Point<T>, Point<T>> cross_point_circle(Circle<T> C1, Circle<T> C2) {
     P Y = A + P{C1.r * cos(u - t), C1.r * sin(u - t)};
     return {true, X, Y};
 }
+template <typename T>
+tuple<T, T, T> cross_point_exact(const Line<T> L1, const Line<T> L2) {
+    T det = L1.a * L2.b - L1.b * L2.a;
+    assert(det != 0);
+    T x = -L1.c * L2.b + L1.b * L2.c;
+    T y = -L1.a * L2.c + L1.c * L2.a;
+    if (det < 0) x = -x, y = -y, det = -det;
+    return {x, y, det};
+}
 } // namespace mitsuha
 #endif // AJAY_CROSS_POINT

@@ -95,6 +95,70 @@ struct Polygon {
         return {in, out};
     }
 
+    template <typename REAL>
+    vector<Segment<REAL>> cross_line(Line<T> L, bool allow_perimeter) {
+        static_assert(is_integral_v<T>);
+        using RP = Point<REAL>;
+        int N = len(point);
+        vector<int> sd(N);
+        auto sgn = [&](T x) -> int { return (x > 0 ? 1 : x < 0 ? -1 : 0); };
+
+        For(i, N) sd[i] = sgn(L.eval(point[i]));
+        vector<pair<RP, int>> event;
+
+        For(i, N) {
+            int j = (i + 1) % N;
+
+            if (sd[i] == 0) {
+                int k = (i + N - 1) % N;
+                int c = sd[k] - sd[j];
+                event.emplace_back(RP(point[i]), c);
+            }
+
+            if (sd[i] * sd[j] < 0) {
+                RP p = cross_point<REAL>(L, Line<T>(point[i], point[j]));
+                int c = sd[i] - sd[j];
+                event.emplace_back(p, c);
+            }
+        }
+
+        if (L.b != 0) {
+            sort(event.begin(), event.end(), [&](auto& x, auto& y) {
+                if (x.first.x != y.first.x) return x.first.x < y.first.x;
+                return x.first.y < y.first.y;
+            });
+        } else {
+            sort(event.begin(), event.end(), [&](auto& x, auto& y) {
+                if (x.first.y != y.first.y) return x.first.y < y.first.y;
+                return x.first.x < y.first.x;
+            });
+        }
+
+        vector<Segment<REAL>> ANS;
+        int in = 0;
+
+        if (allow_perimeter) {
+            int l = 0;
+            For(i, len(event)) {
+                in += event[i].second;
+                if (i + 1 == len(event) || in == 0) {
+                    ANS.emplace_back(event[l].first, event[i].first);
+                    l = i + 1;
+                }
+            }
+        } else {
+            For(i, len(event)) {
+                in += event[i].second;
+                if (i + 1 < len(event) && abs(in) == 2) {
+                    ANS.emplace_back(event[i].first, event[i + 1].first);
+                }
+            }
+        }
+
+        assert(in == 0);
+        return ANS;
+    }
+
 private:
     void build() {
         a = 0;

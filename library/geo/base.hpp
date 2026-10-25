@@ -10,6 +10,10 @@ struct Point {
     Point(A x, B y) : x(x), y(y) {}
     template <typename A, typename B>
     Point(pair<A, B> p) : x(p.first), y(p.second) {}
+    template <typename U>
+    Point(Point<U> p) : x(p.x), y(p.y) {
+        static_assert(!is_integral_v<T> || is_integral_v<U>);
+    }
 
     Point operator+=(const Point p) {
         x += p.x, y += p.y;
@@ -73,6 +77,11 @@ REAL dist(Point<T> A, Point<U> B) {
     return sqrtl(dx * dx + dy * dy);
 }
 
+template <typename REAL, typename T = REAL, typename U = T>
+REAL distance(Point<T> A, Point<U> B) {
+    return dist<REAL, T, U>(A, B);
+}
+
 // ax+by+c
 template <typename T>
 struct Line {
@@ -108,6 +117,12 @@ struct Line {
 
     bool is_parallel(Line other) { return a * other.b - b * other.a == 0; }
     bool is_orthogonal(Line other) { return a * other.a + b * other.b == 0; }
+    bool is_same_line(Line other) {
+        if (a * other.b != b * other.a) return 0;
+        if (a * other.c != c * other.a) return 0;
+        if (b * other.c != c * other.b) return 0;
+        return 1;
+    }
 };
 
 template <typename T>
@@ -126,12 +141,14 @@ struct Segment {
     }
 
     Line<T> to_Line() { return Line(A, B); }
+    Line<T> to_line() { return Line(A, B); }
 };
 
 template <typename REAL>
 struct Circle {
     Point<REAL> O;
     REAL r;
+    Circle() {}
     Circle(Point<REAL> O, REAL r) : O(O), r(r) {}
     Circle(REAL x, REAL y, REAL r) : O(x, y), r(r) {}
     template <typename T>

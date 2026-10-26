@@ -92,8 +92,8 @@ private:
       Frr(i, j) {
         while (k > 0 && A[i].det(B[k - 1]) > 0) { bit.add(rk[--k], 1); }
         P p = A[i] - A[j];
-        int lb = [&]() { int lo = 0, hi = m + 1; while (lo < hi) { int mid = (lo + hi) / 2; if (mid == 0 ? true : C[mid - 1].det(p) > 0) lo = mid + 1; else hi = mid; } return lo; }();
-        int ub = [&]() { int lo = 0, hi = m + 1; while (lo < hi) { int mid = (lo + hi) / 2; if (mid == 0 ? true : C[mid - 1].det(p) >= 0) lo = mid + 1; else hi = mid; } return lo; }();
+        int lb = [&]() { int lo = 0, hi = m + 1; while (lo < hi) { int mid = (lo + hi) / 2; if (mid == 0 ? true : C[mid - 1].det(p) > 0) lo = mid + 1; else hi = mid; } return lo - 1; }();
+        int ub = [&]() { int lo = 0, hi = m + 1; while (lo < hi) { int mid = (lo + hi) / 2; if (mid == 0 ? true : C[mid - 1].det(p) >= 0) lo = mid + 1; else hi = mid; } return lo - 1; }();
         seg[i][j] += bit.sum(lb, ub), tri[i][j] += bit.sum(lb);
       }
     }

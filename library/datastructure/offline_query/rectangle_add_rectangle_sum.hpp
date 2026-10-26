@@ -29,7 +29,7 @@ private:
         bit4(int N): N(N), sum(N + 1, {0, 0, 0, 0}) {}
 
         void apply(XY l, XY r, int lc, int rc, T z1, T z2) {
-            T a = l * z1, b = r * z1, c = l * z2, d = r * z2;
+            T a = T(l) * z1, b = T(r) * z1, c = T(l) * z2, d = T(r) * z2;
             for (int i = lc + 1; i <= N; i += (i & (-i))) {
                 sum[i][0] -= a; sum[i][1] += z1;
                 sum[i][2] -= c; sum[i][3] += z2;
@@ -46,7 +46,7 @@ private:
                 a += sum[i][0]; b += sum[i][1];
                 c += sum[i][2]; d += sum[i][3];
             }
-            return {a + (b * r), c + (d * r)};
+            return {a + (b * T(r)), c + (d * T(r))};
         }
 
         pair<T, T> prod(XY l, XY r, int lc, int rc) {
@@ -100,15 +100,15 @@ private:
 
         while (qid < 2 * M) {
             if (uid < 2 * N && U[uid].lx < Q[qid].lx) {
-                bit.apply(U[uid].ly, U[uid].ry, U[uid].lyc, U[uid].ryc, -U[uid].z * U[uid].lx, U[uid].z);
+                bit.apply(U[uid].ly, U[uid].ry, U[uid].lyc, U[uid].ryc, -U[uid].z * T(U[uid].lx), U[uid].z);
                 uid++;
             } else {
                 auto [a, b] = bit.prod(Q[qid].ly, Q[qid].ry, Q[qid].lyc, Q[qid].ryc);
                 int id = Q[qid].id;
                 if (id >= M) {
-                    ans[id - M] += a + Q[qid].lx * b;
+                    ans[id - M] += a + T(Q[qid].lx) * b;
                 } else {
-                    ans[id    ] -= a + Q[qid].lx * b;
+                    ans[id    ] -= a + T(Q[qid].lx) * b;
                 }
                 qid++;
             }

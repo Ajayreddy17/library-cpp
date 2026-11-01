@@ -1,9 +1,5 @@
 # Divisor / Multiple Transforms, Möbius, Multiplicative Functions
 
-Study sheet for competitive programming. Sections 0–1 are the core idea,
-2–6 are theory, 7–9 are formulas, techniques and pitfalls, 10 is a
-recognition checklist, 11 is practice, 12 is a cheat sheet.
-
 Notation: `n | m` means n divides m. `[P]` is 1 if P is true, else 0.
 `⌊x⌋` is floor. `N` is the array size.
 
@@ -343,20 +339,7 @@ multiplicative, want prefix sum for huge n → convolution trick + blocks
 
 ---
 
-## 11. Practice (verify each statement on the judge)
-
-- AtCoder ABC162 E, "Sum of gcd of Tuples (Hard)": exact-gcd counting via
-  `x^N` and inversion.
-- CSES 2417, "Counting Coprime Pairs": Section 7.
-- Codeforces 1043F, "Make It One": minimum subset with gcd 1 via inclusion–
-  exclusion over multiples.
-- Codeforces 1139D, "Steps to One": Möbius on an expectation DP.
-- For the harder tier: sums of `φ`, `μ`, `σ` up to 1e10–1e12 using
-  Dirichlet-hyperbola / min_25 / Du's sieve.
-
----
-
-## 12. One-page cheat sheet
+## 11. One-page cheat sheet
 
 ```
 Zeta over multiples   F(j) = Σ_{j|k} f(k)
@@ -379,12 +362,12 @@ floor(x/y), y>0:   q = x/y; if (x%y && x<0) q--;      ceil(a/b) = −floor(−a/
 
 ---
 
-## 13. Mapping theory to `library/number`
+## 12. Mapping theory to `library/number`
 
 Everything in Sections 1–8 already exists in `library/number`. This section
 links each piece of theory to the function that implements it.
 
-### 13.1 The four transforms: `zeta.hpp`
+### 12.1 The four transforms: `zeta.hpp`
 
 All take `vector<T>& A`, **1-indexed** (`A[0]` must be 0, asserted), and
 work in place in `O(N log log N)` using the prime-by-prime loops of
@@ -416,7 +399,7 @@ divisor_zeta     <-->  divisor_mobius        (g  <->  G = g * 1)
 multiplier_zeta  <-->  multiplier_mobius     (f  <->  F = Σ over multiples)
 ```
 
-### 13.2 Functions built from them
+### 12.2 Functions built from them
 
 | Library | Theory used | How |
 |---|---|---|
@@ -448,7 +431,7 @@ vector<T> lcm_convolution(vector<T> A, vector<T> B) {
 (Entries beyond `N` are dropped by both transforms, so `c[l]` for `l ≤ N`
 only sums pairs whose lcm is at most `N`, which is what you want.)
 
-### 13.3 Recipes by what you need
+### 12.3 Recipes by what you need
 
 ```
 count of x with d | x        →  cnt[d] via multiplier_zeta on a frequency array
@@ -471,7 +454,7 @@ For(d, 1, N + 1) pairs[d] = cnt[d] * (cnt[d] - 1) / 2;
 multiplier_mobius(pairs);             // pairs[g] = #pairs with gcd exactly g
 ```
 
-### 13.4 Transforms on the divisors of one huge number: `array_on_divisors.hpp`
+### 12.4 Transforms on the divisors of one huge number: `array_on_divisors.hpp`
 
 When `n` is up to `1e18` you cannot index `1..n`, but you only need the
 divisors of `n` (at most about 100 000). `Array_On_Divisors<T>` stores an
@@ -510,7 +493,7 @@ Typical use: answer a question that sums over `d | n` (number of divisors with
 some property, `Σ_{d│n} f(d)·g(n/d)`, a divisor-lattice DP) in
 `O(τ(n)·ω(n))` instead of `O(τ(n)²)`.
 
-### 13.5 The supporting pieces
+### 12.5 The supporting pieces
 
 | Library | Theory | Notes |
 |---|---|---|
@@ -521,23 +504,3 @@ some property, `Σ_{d│n} f(d)·g(n/d)`, a divisor-lattice DP) in
 
 Use `lpf_table` + `factor_by_lpf` when you need to factor many small numbers;
 use `factor` for a few large ones.
-
-### 13.6 What the library does not have (write when needed)
-
-- Linear sieve for `μ` and `φ` of every `n ≤ N` as one table (Section 2). The
-  library gets `φ` from `divisor_mobius` instead, which is fine for `n ≤ 1e7`.
-  A `μ` table can also come from the transform: `μ * 1 = ε`, so set
-  `A[1] = 1` and all other entries 0 (that is `ε`), then call
-  `divisor_mobius(A)`; the result is `μ`.
-- Dirichlet convolution of two arbitrary functions `f * g` in
-  `O(N log N)`: `for d: for k: h[dk] += f[d]·g[k]`.
-- Prefix sums of `μ` / `φ` for huge `n` (Mertens, Section 5).
-- LCM convolution (snippet in 13.2).
-
-### 13.7 Known issue in the library headers
-
-`euler_phi.hpp` opens with `#ifndef AJAY_EULER_PHI` but then does
-`#define AJAY_EULAR_PHI` (spelling differs). The guard never becomes active,
-so including the file twice (directly or through two other headers) will
-redefine `euler_phi` and fail to compile. Fix the second line to
-`#define AJAY_EULER_PHI`.

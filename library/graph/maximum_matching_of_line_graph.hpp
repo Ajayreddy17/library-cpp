@@ -2,7 +2,7 @@
 #define AJAY_MAXIMUM_MATCHING_OF_LINE_GRAPH
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_matching_of_line_graph.hpp

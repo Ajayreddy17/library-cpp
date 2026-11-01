@@ -3,7 +3,6 @@
 
 #include "library/poly/sum_of_rationals.hpp"
 #include "library/poly/fps_inv.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/sum_of_exp_bx.hpp

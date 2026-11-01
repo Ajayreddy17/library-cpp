@@ -14,7 +14,7 @@ pair<int, int> closest_pair(vector<Point<T>> points) {
   assert(N >= 2);
   HashMap<int> MP(N);
   vector<int> I(N);
-  iota(All(I), 0);
+  iota(I.begin(), I.end(), 0);
   shuffle(I);
   points = rearrange(points, I);
 

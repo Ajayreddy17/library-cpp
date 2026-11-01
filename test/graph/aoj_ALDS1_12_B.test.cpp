@@ -1,7 +1,6 @@
 #define PROBLEM  "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_12_B"
 #include "library/template.hpp"
 #include "library/graph/shortestpath/dial.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N);

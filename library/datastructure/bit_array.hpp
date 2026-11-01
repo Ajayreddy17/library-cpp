@@ -1,7 +1,7 @@
 #ifndef AJAY_BIT_ARRAY
 #define AJAY_BIT_ARRAY
 
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/bit_array.hpp
@@ -31,13 +31,13 @@ struct Bit_Array {
     assert(0 <= n && n <= INT_MAX - 63);
     dat.resize((n + 63) >> 6);
     int r = n & 63;
-    if (r) dat.back() &= full_mask(r);
+    if (r) dat.back() &= (1ULL << r) - 1;
     N = n;
   }
 
-  void fill0() { fill(All(dat), uint64_t(0)); }
+  void fill0() { fill(dat.begin(), dat.end(), uint64_t(0)); }
   void fill1() {
-    fill(All(dat), uint64_t(-1));
+    fill(dat.begin(), dat.end(), uint64_t(-1));
     resize(N);
   }
 
@@ -151,7 +151,7 @@ struct Bit_Array {
 
   int count() const {
     int ans = 0;
-    for (uint64_t val : dat) ans += popcnt(val);
+    for (uint64_t val : dat) ans += popcount(val);
     return ans;
   }
 
@@ -159,7 +159,7 @@ struct Bit_Array {
   int dot(const T &p) const {
     assert(N == p.N);
     int ans = 0;
-    For(i, len(dat)) ans += popcnt(dat[i] & p.dat[i]);
+    For(i, len(dat)) ans += popcount(dat[i] & p.dat[i]);
     return ans;
   }
 
@@ -172,11 +172,11 @@ struct Bit_Array {
       uint64_t x = dat[k];
       int s = i & 63;
       x = (x >> s) << s;
-      if (x) return (k << 6) | lowbit(x);
+      if (x) return (k << 6) | lsb(x);
     }
     For(idx, k + 1, len(dat)) {
       if (dat[idx] == 0) continue;
-      return (idx << 6) | lowbit(dat[idx]);
+      return (idx << 6) | lsb(dat[idx]);
     }
     return N;
   }
@@ -189,12 +189,12 @@ struct Bit_Array {
     if ((i & 63) < 63) {
       uint64_t x = dat[k];
       x &= (uint64_t(1) << ((i & 63) + 1)) - 1;
-      if (x) return (k << 6) | topbit(x);
+      if (x) return (k << 6) | msb(x);
       --k;
     }
     Frr(idx, k + 1) {
       if (dat[idx] == 0) continue;
-      return (idx << 6) | topbit(dat[idx]);
+      return (idx << 6) | msb(dat[idx]);
     }
     return -1;
   }
@@ -227,7 +227,7 @@ struct Bit_Array {
     while ((L < R) && (L & 63)) cnt += (*this)[L++];
     while ((L < R) && (R & 63)) cnt += (*this)[--R];
     int l = L >> 6, r = R >> 6;
-    For(i, l, r) cnt += popcnt(dat[i]);
+    For(i, l, r) cnt += popcount(dat[i]);
     return cnt;
   }
 
@@ -360,7 +360,7 @@ struct Bit_Array {
     For(i, len(dat)) {
       uint64_t x = dat[i] & other.dat[i];
       while (x) {
-        int k = lowbit(x);
+        int k = lsb(x);
         f(64 * i + k, end);
         if (end) return;
         x &= x - 1;
@@ -370,7 +370,7 @@ struct Bit_Array {
 
   bool ALL() const {
     int r = N & 63;
-    if (r != 0 && dat.back() != full_mask(r)) return 0;
+    if (r != 0 && dat.back() != (1ULL << r) - 1) return 0;
     for (int i = 0; i < N / 64; ++i)
       if (dat[i] != uint64_t(-1)) return false;
     return true;
@@ -380,7 +380,7 @@ struct Bit_Array {
     int M = cld(N, 64) * 64;
     Bit_Array a = *this;
     a.resize(M);
-    reverse(All(a.dat));
+    reverse(a.dat.begin(), a.dat.end());
     for (uint64_t &x : a.dat) x = bit_reverse(x);
     return a.slice(M - N, M);
   }

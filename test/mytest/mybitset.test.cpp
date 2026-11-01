@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/random/base.hpp"
 #include "library/datastructure/bit_array.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 2000) {

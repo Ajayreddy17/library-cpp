@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/mod/modint.hpp"
 #include "library/setfunc/sps_exp.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 void solve() {

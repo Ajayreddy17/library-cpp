@@ -1,7 +1,7 @@
 #ifndef AJAY_STABLE_MATCHING
 #define AJAY_STABLE_MATCHING
 
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/stable_matching.hpp
@@ -21,7 +21,7 @@ struct Stable_Matching {
 
   vector<pair<int, int>> calc() {
     For(v1, N1) {
-      sort(All(dat[v1]),
+      sort(dat[v1].begin(), dat[v1].end(),
            [&](auto& a, auto& b) -> bool { return get<1>(a) < get<1>(b); });
     }
     match_1.assign(N1, -1), match_2.assign(N2, -1);

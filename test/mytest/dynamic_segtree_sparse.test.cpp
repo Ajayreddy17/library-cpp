@@ -3,7 +3,6 @@
 #include <library/monoid/monoid_min.hpp>
 #include <library/datastructure/segment_tree/dynamic_segtree_sparse.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 void test() {
     using Mono = Monoid_Min<int>;
     int id = Mono::unit();
@@ -47,7 +46,7 @@ void test() {
                 int naive = [&]() -> int {
                     long long mi = id;
                     For(i, L, N) {
-                        chmin(mi, A[i]);
+                        chmin(mi, (long long)A[i]);
                         if (mi < LIM) return i;
                     }
                     return N;

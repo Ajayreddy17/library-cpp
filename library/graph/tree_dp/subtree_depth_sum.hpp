@@ -2,7 +2,6 @@
 #define AJAY_SUBTREE_DEPTH_SUM
 
 #include "library/graph/tree_dp/rerooting_dp.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_dp/subtree_depth_sum.hpp

@@ -42,7 +42,7 @@ void solve() {
     Q = len(query);
     vector<long long> ANS(Q);
     vector<int> I(len(upd));
-    iota(All(I), 0);
+    iota(I.begin(), I.end(), 0);
 
     Rollback_Array<long long> A(A0);
     Rollback_UnionFind uf(N);

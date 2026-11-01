@@ -6,7 +6,6 @@
 #include "library/monoid/monoid_min.hpp"
 #include "library/graph/base.hpp"
 #include "library/datastructure/fenwick_tree/fenwicktree_01.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/range_edge_connected_component_query.hpp

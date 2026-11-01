@@ -2,7 +2,7 @@
 #define AJAY_COUNT_K4
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_K4.hpp
@@ -55,7 +55,7 @@ long long count_K4(GT& G) {
         }
       }
       for (auto&& e : H.edges) {
-        ANS += popcnt(dp[e.frm] & dp[e.to]);
+        ANS += popcount(dp[e.frm] & dp[e.to]);
       }
     }
     For(i, len(V)) new_idx[V[i]] = -1;

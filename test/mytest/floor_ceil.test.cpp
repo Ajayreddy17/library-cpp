@@ -1,6 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include <library/template.hpp>
-#include "library/util/maspy_compat.hpp"
 template <typename T>
 void test() {
     vector<T> X;

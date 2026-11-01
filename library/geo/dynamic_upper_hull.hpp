@@ -32,7 +32,7 @@ struct Dynamic_Upper_Hull {
 
   Dynamic_Upper_Hull(vector<Point> _P, vector<bool> isin) : N(len(_P)), P(_P) {
     to_original_idx = argsort(P);
-    sort(All(P));
+    sort(P.begin(), P.end());
     sz = 1;
     while (sz < N) sz *= 2;
     to_seg_idx.resize(N);

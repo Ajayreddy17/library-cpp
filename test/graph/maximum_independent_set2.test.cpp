@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/maximum_independent_set"
 #include "library/template.hpp"
 #include "library/graph/maximum_independent_set_weighted.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N, M);

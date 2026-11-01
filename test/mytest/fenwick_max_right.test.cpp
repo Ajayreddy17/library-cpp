@@ -2,7 +2,6 @@
 #include <library/template.hpp>
 #include <library/datastructure/fenwick_tree/fenwicktree.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 void test(int N) {
     FenwickTree<Monoid_Add<int>> bit(N);
 

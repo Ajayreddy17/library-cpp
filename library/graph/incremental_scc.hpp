@@ -2,7 +2,6 @@
 #define AJAY_INCREMENTAL_SCC
 
 #include "library/graph/strongly_connected_component.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/incremental_scc.hpp

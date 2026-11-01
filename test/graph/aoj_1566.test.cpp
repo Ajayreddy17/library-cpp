@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1566"
 #include "library/template.hpp"
 #include "library/flow/bipartite_matching.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N);
@@ -23,7 +22,7 @@ void solve() {
 
   Bipartite_Matching<decltype(G)> X(G);
   long long a = len(X.matching());
-  long long b = SUM<int>(isin);
+  long long b = accumulate(isin.begin(), isin.end(), int(0));
   print((a + b) * 50);
 }
 

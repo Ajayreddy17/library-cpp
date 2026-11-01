@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/datastructure/rolling_hash_on_tree.hpp"
 #include "library/random/random_graph.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test_edge() {
   long long N = RNG(1, 20);

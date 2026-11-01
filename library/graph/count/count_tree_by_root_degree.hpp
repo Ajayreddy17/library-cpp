@@ -2,7 +2,6 @@
 #define AJAY_COUNT_TREE_BY_ROOT_DEGREE
 
 #include "library/mod/modint_common.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_tree_by_root_degree.hpp

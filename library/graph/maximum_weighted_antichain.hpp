@@ -3,7 +3,6 @@
 
 #include "library/flow/maxflow.hpp"
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_weighted_antichain.hpp
@@ -21,7 +20,7 @@ pair<WT, vector<int>> maximum_weighted_antichain(GT& G, vector<WT> wt) {
   For(v, N) {
     if (cut[2 * v + 0] == 0 && cut[2 * v + 1] == 1) antichain.emplace_back(v);
   }
-  ans = SUM<WT>(wt) - ans;
+  ans = accumulate(wt.begin(), wt.end(), WT(0)) - ans;
   return {ans, antichain};
 }
 } // namespace mitsuha

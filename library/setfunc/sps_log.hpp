@@ -3,7 +3,7 @@
 
 #include "library/mod/modint.hpp"
 #include "library/setfunc/sps_composition.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/setfunc/sps_log.hpp
@@ -11,7 +11,7 @@ namespace mitsuha{
 // computed by reversing the steps of exp
 template <typename mint, int LIM>
 vector<mint> sps_log(vector<mint>& dp) {
-  const int N = topbit(len(dp));
+  const int N = msb(len(dp));
   assert(len(dp) == (1 << N) && dp[0] == mint(1));
   vector<mint> s(1 << N);
   Frr(i, N) {
@@ -25,7 +25,7 @@ vector<mint> sps_log(vector<mint>& dp) {
       For(d, i + 1) { For(i, d) f[d] -= f[i] * g[d - i]; }
     }
     a = ranked_mobius<mint, LIM>(RA);
-    copy(All(a), s.begin() + (1 << i));
+    copy(a.begin(), a.end(), s.begin() + (1 << i));
   }
   return s;
 }

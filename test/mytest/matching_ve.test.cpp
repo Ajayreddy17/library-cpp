@@ -3,7 +3,6 @@
 #include "library/graph/maximum_matching_between_vertex_edge.hpp"
 #include "library/flow/bipartite_matching.hpp"
 #include "library/random/random_graph.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 50) {

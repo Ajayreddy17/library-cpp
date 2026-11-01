@@ -1,7 +1,6 @@
 #ifndef AJAY_FIND_VERTEX_COVER
 #define AJAY_FIND_VERTEX_COVER
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_vertex_cover.hpp
@@ -20,14 +19,14 @@ vector<int> find_vertex_cover(GT G, int K) {
     adj[e.frm][e.to] = adj[e.to][e.frm] = 1;
   }
   vector<int> deg(N);
-  For(v, N) deg[v] = SUM<int>(adj[v]);
+  For(v, N) deg[v] = accumulate(adj[v].begin(), adj[v].end(), int(0));
 
   if (K == 0) return {};
 
   vector<bool> used(N);
   vector<int> S;
   bool end = 0;
-  int M = SUM<int>(deg) / 2;
+  int M = accumulate(deg.begin(), deg.end(), int(0)) / 2;
 
   auto on = [&](int v) -> void {
     assert(!used[v]);
@@ -51,7 +50,7 @@ vector<int> find_vertex_cover(GT G, int K) {
 
   auto dfs = [&](auto& dfs) -> void {
     if (end) return;
-    int c = max_element(All(deg)) - deg.begin();
+    int c = max_element(deg.begin(), deg.end()) - deg.begin();
     if (deg[c] * (K - len(S)) < M) { return; }
     if (deg[c] == 0) {
       assert(M == 0);

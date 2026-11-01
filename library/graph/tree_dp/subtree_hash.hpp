@@ -6,7 +6,6 @@
 #include "library/graph/tree.hpp"
 #include "library/random/base.hpp"
 #include "library/graph/tree_dp/rerooting_dp.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_dp/subtree_hash.hpp

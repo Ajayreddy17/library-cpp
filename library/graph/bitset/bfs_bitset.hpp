@@ -2,7 +2,6 @@
 #define AJAY_BFS_BITSET
 
 #include "library/datastructure/bit_array.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bitset/bfs_bitset.hpp

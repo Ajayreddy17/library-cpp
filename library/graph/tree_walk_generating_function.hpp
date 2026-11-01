@@ -4,7 +4,6 @@
 #include "library/graph/shortestpath/bfs01.hpp"
 #include "library/graph/characteristic_poly_of_tree_adjacency_matrix.hpp"
 #include "library/poly/convolution_all.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_walk_generating_function.hpp

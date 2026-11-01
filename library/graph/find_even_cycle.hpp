@@ -2,7 +2,7 @@
 #define AJAY_FIND_EVEN_CYCLE
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_even_cycle.hpp

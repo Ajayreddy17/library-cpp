@@ -3,7 +3,7 @@
 
 #include "library/graph/base.hpp"
 #include "library/setfunc/sps_exp.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_tree_subgraph.hpp
@@ -18,7 +18,7 @@ vector<T> count_tree_subgraph(Graph<int, 0> G) {
     for (auto& e: G[r])
       if (e.to < r) nbd |= 1 << e.to;
     vector<T> f(1 << r);
-    For(s, 1 << r) f[s] = dp[s] * popcnt(nbd & s);
+    For(s, 1 << r) f[s] = dp[s] * popcount(nbd & s);
     f = sps_exp<T, LIM>(f);
     For(s, 1 << r) dp[s | 1 << r] = f[s];
   }

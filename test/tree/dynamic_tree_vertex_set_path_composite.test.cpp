@@ -4,7 +4,6 @@
 #include "library/graph/datastructure/lct_node_monoid.hpp"
 #include "library/monoid/monoid_affine.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

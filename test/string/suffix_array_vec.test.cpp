@@ -1,10 +1,10 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/suffixarray"
 #include <library/template.hpp>
 #include <library/string/suffix_array.hpp>
-#include "library/util/maspy_compat.hpp"
 void solve() {
     STR(S);
-    auto A = s_to_vi(S, 'a');
+    vector<int> A(len(S));
+    For(i, len(S)) A[i] = S[i] - 'a';
     Suffix_Array sa(S);
     print(sa.SA);
 }

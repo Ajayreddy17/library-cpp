@@ -4,7 +4,6 @@
 #include "library/graph/base.hpp"
 #include "library/random/base.hpp"
 #include "library/number/GF2.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_path_through_specified.hpp

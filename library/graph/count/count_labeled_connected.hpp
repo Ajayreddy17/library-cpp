@@ -3,7 +3,6 @@
 
 #include "library/graph/count/count_labeled_undirected.hpp"
 #include "library/poly/fps_log.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_connected.hpp

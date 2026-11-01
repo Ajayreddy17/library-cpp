@@ -5,7 +5,7 @@
 #include "library/setfunc/sps_exp.hpp"
 #include "library/setfunc/sps_composition.hpp"
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tutte_polynomial.hpp
@@ -40,7 +40,7 @@ mint tutte_polynomial_eval_connected(Graph<int, 0> G, mint X, mint Y) {
     uint32_t nbd = 0;
     for (auto& e : G[v]) nbd |= 1 << e.to;
     vector<mint> f(1 << v);
-    For(s, 1 << v) { f[s] = F[s] * wt[popcnt(s & nbd)]; }
+    For(s, 1 << v) { f[s] = F[s] * wt[popcount(s & nbd)]; }
     f = sps_exp<mint, NMAX>(f);
     For(s, 1 << v) { F[s | 1 << v] = f[s]; }
   }

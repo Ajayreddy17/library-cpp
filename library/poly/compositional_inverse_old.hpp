@@ -3,7 +3,6 @@
 
 #include "library/poly/diferentiate.hpp"
 #include "library/poly/fps_div.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/compositional_inverse_old.hpp

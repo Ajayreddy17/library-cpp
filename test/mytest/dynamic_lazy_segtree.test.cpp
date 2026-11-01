@@ -3,7 +3,6 @@
 #include <library/acted_monoid/am_summax_assign.hpp>
 #include <library/datastructure/segment_tree/dynamic_lazy_segtree.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 void test() {
     using AM = ActedMonoid_SumMax_Assign<int, -1>;
     using P = typename AM::X;
@@ -46,7 +45,7 @@ void test() {
                 int naive = [&]() -> int {
                     long long mx = 0;
                     For(i, L, N) {
-                        chmax(mx, A[i]);
+                        chmax(mx, (long long)A[i]);
                         if (mx > LIM) return i;
                     }
                     return N;

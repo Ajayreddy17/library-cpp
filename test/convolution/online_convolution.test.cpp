@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/mod/modint.hpp"
 #include "library/poly/online/online_convolution.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

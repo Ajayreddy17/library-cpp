@@ -4,7 +4,8 @@
 #include "library/random/base.hpp"
 #include "library/graph/tree.hpp"
 #include "library/mod/modint61.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
+#include "library/util/binary_serch.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/rolling_hash_on_tree.hpp
@@ -79,8 +80,8 @@ struct Rolling_Hash_on_Tree {
     // vertices of the heavy path
     auto path1 = tree.get_path_decomposition(s1, t1, EDGE);
     auto path2 = tree.get_path_decomposition(s2, t2, EDGE);
-    reverse(All(path1));
-    reverse(All(path2));
+    reverse(path1.begin(), path1.end());
+    reverse(path2.begin(), path2.end());
     while (len(path1) && len(path2)) {
       int a, b, c, d;
       tie(a, b) = POP(path1), tie(c, d) = POP(path2);
@@ -115,7 +116,7 @@ struct Rolling_Hash_on_Tree {
                           : from_hld_pair(c, c - n + 1));
         return x1 == x2;
       };
-      long long k = binary_search_check(check, 0, n);
+      long long k = binary_search<LastTrue>(0LL, n - 1, check);
       lcp += k;
       a = (a <= b ? a + k : a - k);
       c = (c <= d ? c + k : c - k);

@@ -38,6 +38,7 @@ jobs:
     - name: Run verification
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        YUKICODER_TOKEN: ${{ secrets.YUKICODER_TOKEN }}
       run: oj-verify all
 
     - name: Commit verification timestamps

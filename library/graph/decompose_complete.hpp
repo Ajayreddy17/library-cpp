@@ -1,7 +1,6 @@
 #ifndef AJAY_DECOMPOSE_COMPLETE
 #define AJAY_DECOMPOSE_COMPLETE
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/decompose_complete.hpp

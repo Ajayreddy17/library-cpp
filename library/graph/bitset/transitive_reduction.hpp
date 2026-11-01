@@ -2,7 +2,6 @@
 #define AJAY_TRANSITIVE_REDUCTION
 
 #include "library/graph/bitset/transitive_closure.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bitset/transitive_reduction.hpp

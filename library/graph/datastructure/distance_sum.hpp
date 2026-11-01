@@ -2,7 +2,6 @@
 #define AJAY_DISTANCE_SUM
 
 #include "library/graph/datastructure/static_toptree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/distance_sum.hpp

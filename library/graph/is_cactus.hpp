@@ -4,7 +4,6 @@
 #include "library/graph/block_cut.hpp"
 #include "library/graph/tree.hpp"
 #include "library/graph/two_edge_component.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/is_cactus.hpp

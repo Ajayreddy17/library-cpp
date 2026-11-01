@@ -5,7 +5,6 @@
 #include <library/monoid/monoid_add.hpp>
 #include <library/acted_monoid/am_sum_assign.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 struct PROB {
     int N, Q;
     vector<long long> INIT;

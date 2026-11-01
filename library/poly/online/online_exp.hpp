@@ -2,7 +2,6 @@
 #define AJAY_ONLINE_EXP
 
 #include "library/poly/online/online_convolution.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/online/online_exp.hpp

@@ -130,7 +130,7 @@ struct Range_Closest_Pair_Query {
       vector<pair<int, long long>> upd;
       For(k, 1, K) {
         auto res = solve_level(k, R);
-        upd.insert(upd.end(), All(res));
+        upd.insert(upd.end(), res.begin(), res.end());
       }
 
       for (auto [i, d] : upd) {

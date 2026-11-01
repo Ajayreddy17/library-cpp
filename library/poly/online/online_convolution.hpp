@@ -3,7 +3,6 @@
 
 #include "library/poly/ntt.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/online/online_convolution.hpp

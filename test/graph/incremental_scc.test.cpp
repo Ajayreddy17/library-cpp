@@ -3,7 +3,6 @@
 #include "library/mod/modint.hpp"
 #include "library/graph/incremental_scc.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

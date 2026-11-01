@@ -4,7 +4,7 @@
 #include "library/poly/convolution.hpp"
 #include "library/poly/poly_taylor_shift.hpp"
 #include "library/poly/transposed_ntt.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/composition.hpp
@@ -62,7 +62,7 @@ vector<mint> composition_0_ntt(vector<mint> f, vector<mint> g) {
   {
     // bit reverse order
     vector<int> btr(n);
-    int log = topbit(n);
+    int log = msb(n);
     For(i, n) { btr[i] = (btr[i >> 1] >> 1) + ((i & 1) << (log - 1)); }
     int t = mint::ntt_info().first;
     mint r = mint::ntt_info().second;
@@ -75,7 +75,7 @@ vector<mint> composition_0_ntt(vector<mint> f, vector<mint> g) {
 
   auto rec = [&](auto& rec, int n, int k, vector<mint>& Q) -> vector<mint> {
     if (n == 1) {
-      reverse(All(f));
+      reverse(f.begin(), f.end());
       transposed_ntt(f, 1);
       mint c = mint(1) / mint(k);
       for (auto& x : f) x *= c;
@@ -113,13 +113,13 @@ vector<mint> composition_0_ntt(vector<mint> f, vector<mint> g) {
         For(j, l, r) {
           move(A.begin() + 2 * n * j, A.begin() + 2 * n * (j + 1), f.begin());
           ntt(f, 0);
-          move(All(f), A.begin() + 2 * n * j);
+          move(f.begin(), f.end(), A.begin() + 2 * n * j);
         }
       } else {
         For(j, l, r) {
           move(A.begin() + 2 * n * j, A.begin() + 2 * n * (j + 1), f.begin());
           transposed_ntt(f, 0);
-          move(All(f), A.begin() + 2 * n * j);
+          move(f.begin(), f.end(), A.begin() + 2 * n * j);
         }
       }
     };
@@ -162,7 +162,7 @@ vector<mint> composition_0_ntt(vector<mint> f, vector<mint> g) {
 
   vector<mint> p = rec(rec, n, 1, Q);
   p.resize(n);
-  reverse(All(p));
+  reverse(p.begin(), p.end());
   p.resize(n0);
   return p;
 }
@@ -177,7 +177,7 @@ vector<mint> composition_0_garner(vector<mint> f, vector<mint> g) {
   auto rec = [&](auto& rec, int n, int k, vector<mint> Q) -> vector<mint> {
     if (n == 1) {
       vector<mint> p(2 * k);
-      reverse(All(f));
+      reverse(f.begin(), f.end());
       For(i, k) p[2 * i] = f[i];
       return p;
     }
@@ -233,7 +233,7 @@ vector<mint> composition_0_garner(vector<mint> f, vector<mint> g) {
 
   vector<mint> output(n);
   For(i, n) output[i] = p[i];
-  reverse(All(output));
+  reverse(output.begin(), output.end());
   output.resize(out_len);
   return output;
 }

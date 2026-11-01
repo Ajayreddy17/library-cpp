@@ -2,7 +2,6 @@
 #define AJAY_POWER_QUERY
 
 #include "library/monoid/monoid_mul.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/power_query.hpp

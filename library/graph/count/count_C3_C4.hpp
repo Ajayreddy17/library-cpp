@@ -2,7 +2,6 @@
 #define AJAY_COUNT_C3_C4
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_C3_C4.hpp
@@ -15,7 +14,7 @@ pair<vector<long long>, vector<long long>> count_C3_C4_pointwise(GT &G) {
   int N = G.N;
   auto deg = G.deg_array();
   auto I = argsort(deg);
-  reverse(All(I));
+  reverse(I.begin(), I.end());
   vector<int> rk(N);
   For(i, N) rk[I[i]] = i;
 
@@ -25,7 +24,7 @@ pair<vector<long long>, vector<long long>> count_C3_C4_pointwise(GT &G) {
     int a = rk[e.frm], b = rk[e.to];
     TO[a].emplace_back(b), TO[b].emplace_back(a);
   }
-  For(v, N) { sort(All(TO[v])), reverse(All(TO[v])); }
+  For(v, N) { sort(TO[v].begin(), TO[v].end()), reverse(TO[v].begin(), TO[v].end()); }
 
   vector<int> A(N);
   vector<long long> C3(N), C4(N);
@@ -56,7 +55,7 @@ pair<long long, long long> count_C3_C4(GT &G) {
   long long x3 = 0, x4 = 0;
   auto deg = G.deg_array();
   auto I = argsort(deg);
-  reverse(All(I));
+  reverse(I.begin(), I.end());
   vector<int> rk(N);
   For(i, N) rk[I[i]] = i;
 
@@ -67,8 +66,8 @@ pair<long long, long long> count_C3_C4(GT &G) {
     if (a != b) TO[a].emplace_back(b), TO[b].emplace_back(a);
   }
   For(v, N) {
-    sort(All(TO[v]));
-    reverse(All(TO[v]));
+    sort(TO[v].begin(), TO[v].end());
+    reverse(TO[v].begin(), TO[v].end());
   }
 
   vector<int> A(N);

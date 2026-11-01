@@ -2,7 +2,7 @@
 #define AJAY_SPS_COMPOSITION
 
 #include "library/setfunc/ranked_zeta.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/setfunc/sps_composition.hpp
@@ -10,7 +10,7 @@ namespace mitsuha{
 // sum_i f_i/i! s^i, s^i is subset-convolution
 template <typename mint, int LIM>
 vector<mint> sps_composition_egf(vector<mint> f, vector<mint>& s) {
-  const int N = topbit(len(s));
+  const int N = msb(len(s));
   assert(len(s) == (1 << N) && s[0] == mint(0));
   if (f.empty()) return vector<mint>(1 << N, mint(0));
   if (len(f) > N) f.resize(N + 1);
@@ -38,7 +38,7 @@ vector<mint> sps_composition_egf(vector<mint> f, vector<mint>& s) {
         }
       }
       auto x = ranked_mobius<mint, LIM>(znewdp);
-      copy(All(x), newdp.begin() + (1 << i));
+      copy(x.begin(), x.end(), newdp.begin() + (1 << i));
     }
     swap(dp, newdp);
   }
@@ -48,7 +48,7 @@ vector<mint> sps_composition_egf(vector<mint> f, vector<mint>& s) {
 // sum_i f_i s^i, s^i is subset-convolution
 template <typename mint, int LIM>
 vector<mint> sps_composition_poly(vector<mint> f, vector<mint> s) {
-  const int N = topbit(len(s));
+  const int N = msb(len(s));
   assert(len(s) == (1 << N));
   if (f.empty()) return vector<mint>(1 << N, mint(0));
   // convert to egf problem

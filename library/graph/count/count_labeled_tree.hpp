@@ -1,7 +1,6 @@
 #ifndef AJAY_COUNT_LABELED_TREE
 #define AJAY_COUNT_LABELED_TREE
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_tree.hpp

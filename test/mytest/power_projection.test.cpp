@@ -4,7 +4,6 @@
 #include "library/poly/power_projection.hpp"
 #include "library/mod/modint.hpp"
 #include "library/poly/fps_pow.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

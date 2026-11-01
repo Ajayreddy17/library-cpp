@@ -4,7 +4,6 @@
 #include <library/acted_monoid/am_min_min.hpp>
 #include <library/random/base.hpp>
 #include <library/datastructure/segment_tree/lazy_segtree.hpp>
-#include "library/util/maspy_compat.hpp"
 void test() {
     int N = RNG(1, 100);
     vector<int> A(N);
@@ -19,7 +18,7 @@ void test() {
         if (L > R) swap(L, R);
         ++R;
         if (t == 1) {
-            long long x = RNG(1, 100);
+            int x = RNG(1, 100);
             For(i, L, R) chmin(A[i], x);
             seg.apply(L, R, x);
         }

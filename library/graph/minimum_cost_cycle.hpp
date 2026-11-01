@@ -2,7 +2,7 @@
 #define AJAY_MINIMUM_COST_CYCLE
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/minimum_cost_cycle.hpp
@@ -65,8 +65,8 @@ tuple<T, vector<int>, vector<int>> minimum_cost_cycle_directed(GT& G) {
         vs.emplace_back(G.edges[eid].frm);
         if (vs.back() == r) break;
       }
-      reverse(All(vs));
-      reverse(All(es));
+      reverse(vs.begin(), vs.end());
+      reverse(es.begin(), es.end());
     };
   }
   return {ans, vs, es};
@@ -113,7 +113,7 @@ tuple<T, vector<int>, vector<int>> minimum_cost_cycle_undirected(GT& G) {
       a = G.edges[eid].frm ^ G.edges[eid].to ^ a;
     }
     vs.emplace_back(a);
-    reverse(All(vs)), reverse(All(es));
+    reverse(vs.begin(), vs.end()), reverse(es.begin(), es.end());
     es.emplace_back(best_e);
     while (b != r) {
       int eid = par_e[b];

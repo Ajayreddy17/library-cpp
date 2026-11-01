@@ -4,7 +4,6 @@
 #include "library/poly/online/online_exp.hpp"
 #include "library/mod/modint.hpp"
 #include "library/poly/convolution.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_unlabeled_tree.hpp

@@ -4,7 +4,6 @@
 #include "library/poly/compositional_inverse_old.hpp"
 #include "library/poly/composition.hpp"
 #include "library/random/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

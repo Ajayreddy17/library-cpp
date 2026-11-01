@@ -2,7 +2,6 @@
 #define AJAY_COMPOSITION_F_EX
 
 #include "library/poly/sum_of_exp_bx.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/composition_f_ex.hpp

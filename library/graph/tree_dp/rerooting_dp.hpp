@@ -2,7 +2,6 @@
 #define AJAY_REROOTING_DP
 
 #include "library/graph/tree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_dp/rerooting_dp.hpp

@@ -3,7 +3,6 @@
 #include "library/graph/shortestpath/dijkstra.hpp"
 #include "library/graph/dag_path_cover.hpp"
 #include "library/graph/toposort.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve(long long N, long long M, long long L) {
   vector<vector<long long>> dist(N, vector<long long>(N));
@@ -27,7 +26,7 @@ void solve(long long N, long long M, long long L) {
   G = G.rearrange(V);
 
   auto color = dag_path_cover(G);
-  print(*max_element(All(color)) + 1);
+  print(*max_element(color.begin(), color.end()) + 1);
 }
 
 signed main() {

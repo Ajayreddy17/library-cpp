@@ -4,7 +4,7 @@
 #include "library/graph/count/count_connected_subgraph.hpp"
 #include "library/setfunc/subset_convolution.hpp"
 #include "library/setfunc/sps_exp.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_bridgeless_subgraph.hpp
@@ -26,7 +26,7 @@ vector<T> count_bridgeless_subgraph(Graph<int, 0> G, bool connected = true) {
     vector<T> g(1 << (N - 1));
     For(L, 1 << r) {
       For(R, 1 << (N - 1 - r)) {
-        f[L | R << r] = dp[L | R << (1 + r)] * popcnt(L & nbd);
+        f[L | R << r] = dp[L | R << (1 + r)] * popcount(L & nbd);
         g[L | R << r] = dp[L | R << (1 + r) | (1 << r)];
       }
     }

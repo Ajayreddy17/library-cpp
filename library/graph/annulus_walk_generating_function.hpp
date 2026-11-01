@@ -2,7 +2,6 @@
 #define AJAY_ANNULUS_WALK_GENERATING_FUNCTION
 
 #include "library/poly/poly_taylor_shift.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/annulus_walk_generating_function.hpp
@@ -13,7 +12,7 @@ namespace mitsuha{
 template <typename mint>
 pair<vector<mint>, vector<mint>> annulus_walk_generating_function(
     int N, int s, int t, mint stay) {
-  int k = bmod<int>(t - s, N);
+  int k = rem(t - s, N);
   auto get_D = [&](int m) -> vector<mint> {
     if (m < 0) return vector<mint>{mint(0)};
     vector<mint> f(m + 1);
@@ -38,9 +37,9 @@ pair<vector<mint>, vector<mint>> annulus_walk_generating_function(
   add(Q, get_D(N - 2), 2, -1);
   Q[N] -= 2;
   auto conv = [&](vector<mint>& f) -> void {
-    reverse(All(f));
+    reverse(f.begin(), f.end());
     f = poly_taylor_shift<mint>(f, -stay);
-    reverse(All(f));
+    reverse(f.begin(), f.end());
   };
   if (stay != 0) {
     conv(P), conv(Q);

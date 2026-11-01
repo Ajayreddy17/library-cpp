@@ -3,7 +3,7 @@
 
 #include "library/graph/base.hpp"
 #include "library/graph/shortestpath/dijkstra.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/nonzero_group_product_shortest_path.hpp

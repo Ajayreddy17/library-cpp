@@ -4,7 +4,6 @@
 #include "library/graph/strongly_connected_component.hpp"
 #include "library/graph/scc_tournament_by_indegrees.hpp"
 #include "library/random/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 1, 50) {

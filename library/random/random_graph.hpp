@@ -5,7 +5,7 @@
 #include "library/random/base.hpp"
 #include "library/random/shuffle.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/random/random_graph.hpp

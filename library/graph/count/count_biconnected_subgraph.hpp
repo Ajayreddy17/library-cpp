@@ -3,7 +3,6 @@
 
 #include "library/graph/count/count_connected_subgraph.hpp"
 #include "library/setfunc/sps_log.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_biconnected_subgraph.hpp

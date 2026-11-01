@@ -2,7 +2,6 @@
 #define AJAY_DIAL
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/dial.hpp
@@ -13,7 +12,7 @@ pair<vector<typename Graph::cost_type>, vector<int>> dial(Graph& G, int s) {
   assert(G.is_prepared());
   long long W = 0;
   long long N = G.N;
-  for (auto&& e: G.edges) chmax(W, e.cost);
+  for (auto&& e: G.edges) chmax(W, (long long)e.cost);
   vector<int> S(N * W + 2, -1);
   vector<int> T(N * W + 2, -1);
   vector<int> prev(N);

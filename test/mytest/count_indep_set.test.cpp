@@ -3,7 +3,7 @@
 #include "library/random/random_graph.hpp"
 #include "library/graph/base.hpp"
 #include "library/graph/count/count_independent_set.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 void test() {
   For(100) {
@@ -23,7 +23,7 @@ void test() {
         }
         if (!ok) continue;
         --X;
-        --Y[popcnt(s)];
+        --Y[popcount(s)];
       }
       assert(X == 0);
       assert(len(Y) == n + 1);

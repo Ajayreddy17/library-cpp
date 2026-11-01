@@ -2,7 +2,6 @@
 #define AJAY_COUNT_CLIQUE
 
 #include "library/graph/count/count_independent_set.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_clique.hpp
@@ -18,7 +17,7 @@ uint64_t count_clique(GT& G) {
 
   while (N) {
     auto deg = G.deg_array();
-    int p = min_element(All(deg)) - deg.begin();
+    int p = min_element(deg.begin(), deg.end()) - deg.begin();
     vector<int> nbd, other;
     for (auto& e: G[p]) nbd.emplace_back(e.to);
     For(v, N) {

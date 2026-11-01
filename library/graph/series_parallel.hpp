@@ -1,7 +1,7 @@
 #ifndef AJAY_SERIES_PARALLEL
 #define AJAY_SERIES_PARALLEL
 
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/series_parallel.hpp
@@ -71,7 +71,7 @@ struct Series_Parallel {
       // normalise nodes[i]
       if (nodes[i].s != s) {
         swap(nodes[i].s, nodes[i].t);
-        reverse(All(nodes[i].ch));
+        reverse(nodes[i].ch.begin(), nodes[i].ch.end());
       }
       assert(nodes[i].s == s);
       if (nodes[i].type == Etype::EDGE) return;
@@ -80,7 +80,7 @@ struct Series_Parallel {
       auto F = [&](auto& F, int j, int s) -> void {
         if (nodes[j].s != s) {
           swap(nodes[j].s, nodes[j].t);
-          reverse(All(nodes[j].ch));
+          reverse(nodes[j].ch.begin(), nodes[j].ch.end());
         }
         if (nodes[i].type != nodes[j].type) {
           ch.emplace_back(j);
@@ -125,7 +125,7 @@ struct Series_Parallel {
   void add_node(int s, int t, Etype type, vector<int> ch) {
     if (s > t) {
       swap(s, t);
-      reverse(All(ch));
+      reverse(ch.begin(), ch.end());
     }
     int idx = len(nodes);
     nodes.emplace_back(Node{s, t, type, ch});

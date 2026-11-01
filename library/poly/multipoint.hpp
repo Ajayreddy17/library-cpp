@@ -6,7 +6,6 @@
 #include "library/poly/fps_div.hpp"
 #include "library/poly/ntt_doubling.hpp"
 #include "library/poly/transposed_ntt.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/multipoint.hpp
@@ -61,7 +60,7 @@ struct SubproductTree {
       For(k, len(t[i])) t[i][k] += tt[k];
     }
     t[1].resize(m);
-    reverse(All(t[1]));
+    reverse(t[1].begin(), t[1].end());
     return t[1];
   }
 };
@@ -83,14 +82,14 @@ vector<mint> multipoint_evaluation_ntt(vector<mint> f, const vector<mint>& point
       ntt_doubling(f1), ntt_doubling(f2);
       For(i, b) f1[i] += 1, f2[i] += 1;
       For(i, b, 2 * b) f1[i] -= 1, f2[i] -= 1;
-      copy(All(f1), F[d].begin() + L);
-      copy(All(f2), F[d].begin() + L + 2 * b);
+      copy(f1.begin(), f1.end(), F[d].begin() + L);
+      copy(f2.begin(), f2.end(), F[d].begin() + L + 2 * b);
       For(i, 2 * b) { F[d + 1][L + i] = f1[i] * f2[i] - 1; }
     }
   }
   vector<mint> P = {F[k].begin(), F[k].begin() + n};
-  ntt(P, 1), P.emplace_back(1), reverse(All(P)), P.resize(len(f)), P = fps_inv<mint>(P);
-  f.resize(n + len(P) - 1), f = middle_product<mint>(f, P), reverse(All(f));
+  ntt(P, 1), P.emplace_back(1), reverse(P.begin(), P.end()), P.resize(len(f)), P = fps_inv<mint>(P);
+  f.resize(n + len(P) - 1), f = middle_product<mint>(f, P), reverse(f.begin(), f.end());
   transposed_ntt(f, 1);
   vector<mint>& G = f;
   Frr(d, k) {
@@ -221,7 +220,7 @@ vector<mint> multipoint_interpolate_on_geom_seq(vector<mint> Y, mint a, mint r) 
   f = convolution<mint>(f, g);
   f.resize(n);
 
-  reverse(All(f));
+  reverse(f.begin(), f.end());
   mint ia = a.inverse();
   mint pow = 1;
   For(i, n) f[i] *= pow, pow *= ia;

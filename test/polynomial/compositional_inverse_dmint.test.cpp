@@ -3,7 +3,6 @@
 #include "library/mod/dynamic_modint.hpp"
 #include "library/poly/power_projection.hpp"
 #include "library/poly/compositional_inverse.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = dmint;
 

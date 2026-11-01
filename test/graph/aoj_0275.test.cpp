@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/reachability.hpp"
 #include "library/graph/shortestpath/dijkstra.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N, M);

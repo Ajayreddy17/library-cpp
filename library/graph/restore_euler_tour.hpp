@@ -2,7 +2,7 @@
 #define AJAY_RESTORE_EULER_TOUR
 
 #include "library/datastructure/decremental_fastset.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/restore_euler_tour.hpp
@@ -23,7 +23,7 @@ vector<int> restore_euler_tour(int N, vector<int> A) {
   vector<int> other;
   For(x, N) if (!exist[x]) other.emplace_back(x);
   For(N + N - 1) other.emplace_back(N);
-  reverse(All(other));
+  reverse(other.begin(), other.end());
 
   vector<int> nxt(N + N - 1, -1), pre(N + N - 1, -1);
   {
@@ -79,7 +79,7 @@ vector<int> restore_euler_tour(int N, vector<int> A) {
         else break;
       }
     }
-    if (*min_element(All(A)) >= 0) return;
+    if (*min_element(A.begin(), A.end()) >= 0) return;
     for (auto& x : A)
       if (x == -1) x = A[0];
   };
@@ -150,8 +150,8 @@ vector<int> restore_euler_tour(int N, vector<int> A) {
   }
 
   // check
-  if (*max_element(All(A)) >= N) return {};
-  if (*min_element(All(A)) == -1) return {};
+  if (*max_element(A.begin(), A.end()) >= N) return {};
+  if (*min_element(A.begin(), A.end()) == -1) return {};
   vector<int> vis(N);
   vector<int> path = {A[0]};
   For(i, 1, len(A)) {

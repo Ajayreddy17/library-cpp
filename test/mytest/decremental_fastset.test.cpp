@@ -5,7 +5,6 @@
 #include "library/util/timer.hpp"
 #include "library/datastructure/fastset.hpp"
 #include "library/datastructure/decremental_fastset.hpp"
-#include "library/util/maspy_compat.hpp"
 
 // ackermann; uses more memory
 struct Decremental_FastSet_UF_ONLY {
@@ -101,9 +100,9 @@ void test() {
     assert(ANS1 == ANS2);
     assert(ANS1 == ANS3);
   }
-  // print(SUM<double>(X));
-  // print(SUM<double>(Y));
-  // print(SUM<double>(Z));
+  // print(accumulate(X.begin(), X.end(), double(0)));
+  // print(accumulate(Y.begin(), Y.end(), double(0)));
+  // print(accumulate(Z.begin(), Z.end(), double(0)));
 }
 
 void solve() {

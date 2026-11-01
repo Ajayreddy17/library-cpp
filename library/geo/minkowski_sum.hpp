@@ -11,8 +11,8 @@ namespace mitsuha{
 template <typename T>
 vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {
   using P = Point<T>;
-  rotate(A.begin(), min_element(All(A)), A.end());
-  rotate(B.begin(), min_element(All(B)), B.end());
+  rotate(A.begin(), min_element(A.begin(), A.end()), A.end());
+  rotate(B.begin(), min_element(B.begin(), B.end()), B.end());
   if (len(A) > len(B)) swap(A, B);
   if (len(A) == 1) {
     for (auto &p : B) {
@@ -34,8 +34,8 @@ vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {
     if (a != b) return a < b;
     return L.det(R) > 0;
   };
-  rotate(DA.begin(), min_element(All(DA), comp), DA.end());
-  rotate(DB.begin(), min_element(All(DB), comp), DB.end());
+  rotate(DA.begin(), min_element(DA.begin(), DA.end(), comp), DA.end());
+  rotate(DB.begin(), min_element(DB.begin(), DB.end(), comp), DB.end());
 
   int a = 0, b = 0;
   vector<P> C(NA + NB + 1);
@@ -48,7 +48,7 @@ vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {
   }
   assert(C[NA + NB] == P(0, 0));
   C.pop_back();
-  rotate(C.begin(), min_element(All(C)), C.end());
+  rotate(C.begin(), min_element(C.begin(), C.end()), C.end());
 
   P add = p0 - C[0];
   for (auto &x : C) x += add;

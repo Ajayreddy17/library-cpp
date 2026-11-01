@@ -1,7 +1,6 @@
 #define PROBLEM  "https://judge.yosupo.jp/problem/composition_of_formal_power_series_large"
 #include "library/template.hpp"
 #include "library/poly/composition.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

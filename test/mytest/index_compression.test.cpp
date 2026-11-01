@@ -2,7 +2,6 @@
 #include <library/template.hpp>
 #include <library/datastructure/index_compression.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 template <bool SMALL>
 void test_distinct() {
     vector<int> X = {3, 4, 7, 4, 3, 6, 6, 7, 3};
@@ -25,7 +24,7 @@ void test_distinct() {
             auto I = argsort(X);
             For(i, N) assert(Y[I[i]] == i);
             X = rearrange(X, I);
-            For(x, -100, 100) assert(IDX.val_to_idx(x) == LB(X, x));
+            For(x, -100, 100) assert(IDX.val_to_idx(x) == (lower_bound(X.begin(), X.end(), x) - X.begin()));
         }
     }
 }
@@ -51,8 +50,8 @@ void test_same() {
             vector<int> Y = IDX.build(X);
             vector<int> key = X;
             settify(key);
-            For(i, N) assert(LB(key, X[i]) == Y[i]);
-            For(x, -100, 100) assert(IDX.val_to_idx(x) == LB(key, x));
+            For(i, N) assert((lower_bound(key.begin(), key.end(), X[i]) - key.begin()) == Y[i]);
+            For(x, -100, 100) assert(IDX.val_to_idx(x) == (lower_bound(key.begin(), key.end(), x) - key.begin()));
         }
     }
 }

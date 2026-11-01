@@ -1,7 +1,6 @@
 #ifndef AJAY_GRAPH_BLACKBOX_TOPOSORT
 #define AJAY_GRAPH_BLACKBOX_TOPOSORT
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/blackbox/toposort.hpp
@@ -25,7 +24,7 @@ vector<int> blackbox_toposort(int N, F0 init, F1 set_used, F2 find_unused,
     V.emplace_back(v);
   };
   For(v, N) if (!done[v]) dfs(dfs, v);
-  reverse(All(V));
+  reverse(V.begin(), V.end());
   if (check) {
     init();
     Frr(i, N) {

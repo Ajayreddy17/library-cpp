@@ -3,7 +3,6 @@
 #include "library/random/random_graph.hpp"
 #include "library/graph/count/count_C3_C4.hpp"
 #include "library/graph/find_C4.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 20) {

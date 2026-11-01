@@ -3,7 +3,6 @@
 
 #include "library/graph/base.hpp"
 #include "library/datastructure/offset_vector.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_dp/O_NK_rerooting_tree_dp.hpp

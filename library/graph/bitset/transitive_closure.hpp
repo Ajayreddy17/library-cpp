@@ -2,7 +2,6 @@
 #define AJAY_TRANSITIVE_CLOSURE
 
 #include "library/datastructure/bit_array.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bitset/transitive_closure.hpp

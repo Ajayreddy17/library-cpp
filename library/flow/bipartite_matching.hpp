@@ -4,7 +4,7 @@
 #include "library/graph/base.hpp"
 #include "library/graph/bipartite_vertex_coloring.hpp"
 #include "library/graph/strongly_connected_component.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/flow/bipartite_matching.hpp
@@ -105,7 +105,7 @@ struct Bipartite_Matching {
         done[e.to] = 1;
       }
     }
-    sort(All(res));
+    sort(res.begin(), res.end());
     return res;
   }
 
@@ -154,13 +154,13 @@ struct Bipartite_Matching {
     For(i, n) {
       int v = V[i];
       if (match[v] != -1) {
-        int j = LB(V, match[v]);
+        int j = (lower_bound(V.begin(), V.end(), match[v]) - V.begin());
         DG.add(i, j);
       }
       if (color[v] == 0) {
         for (auto&& e : G[v]) {
           if (W[e.to] != -1 || e.to == match[v]) continue;
-          int j = LB(V, e.to);
+          int j = (lower_bound(V.begin(), V.end(), e.to) - V.begin());
           DG.add(i, j);
         }
       }

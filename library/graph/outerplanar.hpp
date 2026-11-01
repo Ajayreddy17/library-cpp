@@ -2,7 +2,7 @@
 #define AJAY_OUTERPLANAR
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/outerplanar.hpp
@@ -23,7 +23,7 @@ bool check_outerplanar(vector<int> cycle, Graph<int, 0> G) {
       LR.emplace_back(a, b);
     }
   }
-  sort(All(LR), [&](auto& a, auto& b) {
+  sort(LR.begin(), LR.end(), [&](auto& a, auto& b) {
     if (a.first != b.first) return a.first < b.first;
     return a.second > b.second;
   });

@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
 #include "library/graph/block_cut.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N, M);

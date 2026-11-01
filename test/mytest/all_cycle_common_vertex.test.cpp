@@ -3,7 +3,6 @@
 #include "library/graph/base.hpp"
 #include "library/graph/all_cycle_common_vertices.hpp"
 #include "library/random/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 // #include "other/io.hpp"
 
@@ -20,7 +19,7 @@ vector<int> naive(Graph<int, 1> G) {
   For(i, N) V.emplace_back(i);
   if (dag(V)) return {};
   For(v, N) {
-    V.erase(find(All(V), v));
+    V.erase(find(V.begin(), V.end(), v));
     if (dag(V)) ANS.emplace_back(v);
     V.emplace_back(v);
   }
@@ -39,8 +38,8 @@ void test() {
     G.build();
     auto ANS1 = all_cycle_common_vertices(G, 0);
     auto ANS2 = naive(G);
-    sort(All(ANS1));
-    sort(All(ANS2));
+    sort(ANS1.begin(), ANS1.end());
+    sort(ANS2.begin(), ANS2.end());
     // G.debug_print();
     // debug(ANS1, ANS2);
     assert(ANS1 == ANS2);

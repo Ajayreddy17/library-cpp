@@ -6,7 +6,6 @@
 #include "library/graph/block_cut.hpp"
 #include "library/graph/shortestpath/bfs01.hpp"
 #include "library/graph/restore_path.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/st_numbering.hpp
@@ -78,7 +77,7 @@ vector<int> st_numbering(GT &G, int s, int t) {
   assert(A[0] == s && A.back() == t);
   vector<int> rk(N, -1);
   For(i, N) rk[A[i]] = i;
-  assert(*min_element(All(rk)) != -1);
+  assert(*min_element(rk.begin(), rk.end()) != -1);
   For(i, N) {
     bool l = 0, r = 0;
     int v = A[i];

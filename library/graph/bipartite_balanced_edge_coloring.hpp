@@ -2,7 +2,6 @@
 #define AJAY_BIPARTITE_BALANCED_EDGE_COLORING
 
 #include "library/graph/bipartite_edge_coloring.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bipartite_balanced_edge_coloring.hpp

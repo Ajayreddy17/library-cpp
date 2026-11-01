@@ -2,7 +2,6 @@
 #define AJAY_FIND_C4
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_C4.hpp
@@ -15,7 +14,7 @@ tuple<int, int, int, int> find_C4(GT& G) {
   int N = G.N;
   auto deg = G.deg_array();
   auto I = argsort(deg);
-  reverse(All(I));
+  reverse(I.begin(), I.end());
   vector<int> rk(N);
   For(i, N) rk[I[i]] = i;
 
@@ -27,8 +26,8 @@ tuple<int, int, int, int> find_C4(GT& G) {
     TO[b].emplace_back(a);
   }
   For(v, N) {
-    sort(All(TO[v]));
-    reverse(All(TO[v]));
+    sort(TO[v].begin(), TO[v].end());
+    reverse(TO[v].begin(), TO[v].end());
   }
   vector<int> par(N, -1);
   For(a, N) {

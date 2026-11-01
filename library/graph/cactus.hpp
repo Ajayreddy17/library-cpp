@@ -4,7 +4,7 @@
 #include "library/datastructure/csr.hpp"
 #include "library/graph/base.hpp"
 #include "library/graph/tree.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/cactus.hpp

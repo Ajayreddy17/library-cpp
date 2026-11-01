@@ -2,7 +2,6 @@
 #define AJAY_PARTIAL_FRAC_DECOMPOSITION_1
 
 #include "library/poly/multipoint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/partial_frac_decomposition_1.hpp
@@ -16,8 +15,8 @@ vector<mint> partial_frac_decomposition_1(vector<mint> f, vector<mint> A) {
   SubproductTree<mint> X(A);
   vector<mint> g = X.T[1]; // prod(1-ax)
   g.resize(N + 1);
-  reverse(All(f));
-  reverse(All(g));
+  reverse(f.begin(), f.end());
+  reverse(g.begin(), g.end());
   For(i, len(g) - 1) g[i] = g[i + 1] * mint(i + 1);
   g.pop_back();
   auto num = X.evaluation(f);

@@ -2,7 +2,6 @@
 #define AJAY_PATH_CYCLE_DECOMPOSITION
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/path_cycle_decomposition.hpp
@@ -15,7 +14,7 @@ pair<vector<vector<int>>, vector<vector<int>>> path_cycle_decomposition(GT& G) {
   static_assert(!GT::is_directed);
   int N = G.N;
   auto deg = G.deg_array();
-  assert(*max_element(All(deg)) <= 2);
+  assert(*max_element(deg.begin(), deg.end()) <= 2);
 
   vector<bool> done(N);
   auto calc_frm = [&](int v) -> vector<int> {

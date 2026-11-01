@@ -82,7 +82,7 @@ private:
       For(k, m) C[k] = B[k] - A[j];
       vector<int> I(m);
       For(i, m) I[i] = i;
-      sort(All(I), [&](auto& a, auto& b) -> bool { return C[a].det(C[b]) > 0; });
+      sort(I.begin(), I.end(), [&](auto& a, auto& b) -> bool { return C[a].det(C[b]) > 0; });
       C = rearrange(C, I);
       vector<int> rk(m);
       For(k, m) rk[I[k]] = k;

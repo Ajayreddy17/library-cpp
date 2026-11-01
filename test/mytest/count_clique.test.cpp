@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
 #include "library/graph/count/count_clique.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 15) {

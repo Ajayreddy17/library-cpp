@@ -123,7 +123,6 @@ namespace mitsuha {
 #define DIE_E(...) do { print(__VA_ARGS__); return 0; } while (false)
 // clang-format on
 
-#define All(iterable) std::begin(iterable), std::end(iterable)
 #define len(iterable) TL iterable.size()
 #define elif else if
 #define lnt long long

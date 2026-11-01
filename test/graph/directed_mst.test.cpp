@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/directedmst"
 #include "library/template.hpp"
 #include "library/graph/directed_mst.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   INT(N, M, s);

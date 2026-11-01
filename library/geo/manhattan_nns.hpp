@@ -29,8 +29,8 @@ pair<vector<X>, vector<int>> manhattan_nns(vector<pair<X, X>> FRM, vector<pair<X
   };
 
   vector<int> I(N + M);
-  iota(All(I), 0);
-  sort(All(I), [&](auto& i, auto& j) { return (points[i].first < points[j].first); });
+  iota(I.begin(), I.end(), 0);
+  sort(I.begin(), I.end(), [&](auto& i, auto& j) { return (points[i].first < points[j].first); });
   auto calc = [&]() -> void {
     SegTree<Monoid_Min_Idx<X>> seg1(len(Y)), seg2(len(Y));
     for (auto&& i : I) {
@@ -48,7 +48,7 @@ pair<vector<X>, vector<int>> manhattan_nns(vector<pair<X, X>> FRM, vector<pair<X
   };
 
   calc();
-  reverse(All(I));
+  reverse(I.begin(), I.end());
   For(i, N + M) points[i].first *= -1;
   calc();
 

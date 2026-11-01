@@ -1,7 +1,6 @@
 #ifndef AJAY_TOURNAMENT
 #define AJAY_TOURNAMENT
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tournament.hpp

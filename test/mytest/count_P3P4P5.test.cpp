@@ -2,7 +2,7 @@
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
 #include "library/graph/count/count_P3_P4_P5.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 void test() {
   For(N, 20) {
@@ -15,17 +15,17 @@ void test() {
       vector<long long> A(N), B(N), C(N);
       For(a, N) For(b, N) For(c, N) {
         int s = (1 << a) | (1 << b) | (1 << c);
-        if (popcnt(s) != 3) continue;
+        if (popcount(s) != 3) continue;
         A[a] += adj[a][b] * adj[b][c];
       }
       For(a, N) For(b, N) For(c, N) For(d, N) {
         int s = (1 << a) | (1 << b) | (1 << c) | (1 << d);
-        if (popcnt(s) != 4) continue;
+        if (popcount(s) != 4) continue;
         B[a] += adj[a][b] * adj[b][c] * adj[c][d];
       }
       For(a, N) For(b, N) For(c, N) For(d, N) For(e, N) {
         int s = (1 << a) | (1 << b) | (1 << c) | (1 << d) | (1 << e);
-        if (popcnt(s) != 5) continue;
+        if (popcount(s) != 5) continue;
         C[a] += adj[a][b] * adj[b][c] * adj[c][d] * adj[d][e];
       }
       auto [X, Y, Z] = count_P3_P4_P5_pointwise(G);

@@ -38,7 +38,7 @@ pair<vector<int>, vector<pair<int, int>>> rotating_swaps(vector<Point<T>> point)
     if (point[i] != point[j]) pairs.emplace_back(i, j);
   }
 
-  sort(All(pairs), [&](auto &L, auto &R) -> bool {
+  sort(pairs.begin(), pairs.end(), [&](auto &L, auto &R) -> bool {
     if (L == R) return 0;
     auto [i1, j1] = L;
     auto [i2, j2] = R;

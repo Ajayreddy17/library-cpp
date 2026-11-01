@@ -3,7 +3,6 @@
 
 #include "library/graph/base.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_of_unionfind.hpp
@@ -17,7 +16,7 @@ Graph<int, 1> tree_of_unionfind(int N, vector<pair<int, int>> query,
                                 bool add_root) {
   UnionFind uf(N);
   vector<int> root(N);
-  iota(All(root), 0);
+  iota(root.begin(), root.end(), 0);
   int Q = len(query);
   Graph<int, 1> G(N + Q + add_root);
   For(q, Q) {

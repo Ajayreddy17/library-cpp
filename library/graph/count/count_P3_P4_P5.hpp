@@ -2,7 +2,6 @@
 #define AJAY_COUNT_P3_P4_P5
 
 #include "library/graph/count/count_C3_C4.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_P3_P4_P5.hpp

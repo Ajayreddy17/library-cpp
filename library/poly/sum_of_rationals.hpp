@@ -3,7 +3,7 @@
 
 #include "library/poly/convolution.hpp"
 #include "library/poly/ntt_doubling.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/sum_of_rationals.hpp
@@ -54,7 +54,7 @@ pair<vector<mint>, vector<mint>> sum_of_rationals_1(vector<mint> A, vector<mint>
   }
   int n = 1;
   while (n < len(A)) n *= 2;
-  int k = topbit(n);
+  int k = msb(n);
   vector<mint> F(n), G(n);
   vector<mint> nxt_F(n), nxt_G(n);
   For(i, len(A)) F[i] = -A[i], G[i] = wt[i];
@@ -63,7 +63,7 @@ pair<vector<mint>, vector<mint>> sum_of_rationals_1(vector<mint> A, vector<mint>
   For(d, k) {
     int b = 1 << d;
     if (d < D) {
-      fill(All(nxt_F), mint(0)), fill(All(nxt_G), mint(0));
+      fill(nxt_F.begin(), nxt_F.end(), mint(0)), fill(nxt_G.begin(), nxt_G.end(), mint(0));
       for (int L = 0; L < n; L += 2 * b) {
         For(i, b) For(j, b) nxt_F[L + i + j] += F[L + i] * F[L + b + j];
         For(i, b) For(j, b) nxt_G[L + i + j] += F[L + i] * G[L + b + j];
@@ -103,7 +103,7 @@ pair<vector<mint>, vector<mint>> sum_of_rationals_1(vector<mint> A, vector<mint>
   }
   if (k - 1 >= D) ntt(F, 1), ntt(G, 1);
   F.emplace_back(1);
-  reverse(All(F)), reverse(All(G));
+  reverse(F.begin(), F.end()), reverse(G.begin(), G.end());
   F.resize(len(A) + 1);
   G.resize(len(A));
   return {G, F};

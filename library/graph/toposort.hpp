@@ -3,7 +3,6 @@
 
 #include "library/graph/base.hpp"
 #include "library/datastructure/fastset.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/toposort.hpp
@@ -40,7 +39,7 @@ vector<int> lex_min_toposort(GT& G, bool inv_perm = false) {
     for (auto& e: G.edges) H.add(N - 1 - e.to, N - 1 - e.frm);
     H.build();
     auto V = lex_min_toposort(H, false);
-    reverse(All(V));
+    reverse(V.begin(), V.end());
     for (auto& x: V) x = N - 1 - x;
     return V;
   }

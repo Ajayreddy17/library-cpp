@@ -5,7 +5,6 @@
 #include "library/datastructure/segment_tree/segtree.hpp"
 #include "library/monoid/monoid_maxidx.hpp"
 #include "library/monoid/monoid_minidx.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/fundamental_cut.hpp

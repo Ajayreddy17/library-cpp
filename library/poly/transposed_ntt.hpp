@@ -1,7 +1,7 @@
 #ifndef AJAY_TRANSPOSED_NTT
 #define AJAY_TRANSPOSED_NTT
 
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/transposed_ntt.hpp
@@ -43,7 +43,7 @@ void transposed_ntt(vector<mint>& a, bool inverse) {
   }
 
   int n = int(a.size());
-  int h = topbit(n);
+  int h = msb(n);
   assert(n == 1 << h);
   if (!inverse) {
     int len = h;
@@ -59,7 +59,7 @@ void transposed_ntt(vector<mint>& a, bool inverse) {
             a[i + offset] = l + r;
             a[i + offset + p] = (mod + l - r) * rot.val;
           }
-          rot *= rate2[topbit(~s & -~s)];
+          rot *= rate2[msb(~s & -~s)];
         }
         len--;
       } else {
@@ -80,7 +80,7 @@ void transposed_ntt(vector<mint>& a, bool inverse) {
             a[i + offset + 2 * p] = (a0 + a1 + 2 * mod - a2 - a3) * rot2.val;
             a[i + offset + 3 * p] = (a0 + 2 * mod - a1 - x) * rot3.val;
           }
-          rot *= rate3[topbit(~s & -~s)];
+          rot *= rate3[msb(~s & -~s)];
         }
         len -= 2;
       }
@@ -101,7 +101,7 @@ void transposed_ntt(vector<mint>& a, bool inverse) {
             a[i + offset] = l + r;
             a[i + offset + p] = l - r;
           }
-          irot *= irate2[topbit(~s & -~s)];
+          irot *= irate2[msb(~s & -~s)];
         }
         len++;
       } else {
@@ -124,7 +124,7 @@ void transposed_ntt(vector<mint>& a, bool inverse) {
             a[i + offset + 2 * p] = a0 + na2 + a1na3imag;
             a[i + offset + 3 * p] = a0 + na2 + (mod2 - a1na3imag);
           }
-          irot *= irate3[topbit(~s & -~s)];
+          irot *= irate3[msb(~s & -~s)];
         }
         len += 2;
       }

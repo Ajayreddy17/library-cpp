@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/shortestpath/dijkstra.hpp"
 #include "library/graph/maximum_antichain.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve(long long N, long long M, long long L) {
   vector<vector<long long>> dist(N, vector<long long>(N));

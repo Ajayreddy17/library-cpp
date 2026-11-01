@@ -4,7 +4,6 @@
 #include "library/graph/strongly_connected_component.hpp"
 #include "library/graph/toposort.hpp"
 #include "library/graph/find_cycle.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/all_cycle_common_vertices.hpp

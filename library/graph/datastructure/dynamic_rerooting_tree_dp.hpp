@@ -2,7 +2,6 @@
 #define AJAY_DYNAMIC_REROOTING_TREE_DP
 
 #include "library/graph/datastructure/static_toptree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/dynamic_rerooting_tree_dp.hpp

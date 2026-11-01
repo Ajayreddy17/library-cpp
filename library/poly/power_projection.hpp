@@ -3,7 +3,7 @@
 
 #include "library/mod/modint.hpp"
 #include "library/poly/convolution.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/power_projection.hpp
@@ -18,7 +18,7 @@ vector<mint> power_projection_0_ntt(vector<mint> wt, vector<mint> f, int m) {
 
   for (auto& x : f) x = -x;
   f.resize(n), wt.resize(n);
-  reverse(All(wt));
+  reverse(wt.begin(), wt.end());
   vector<mint>&P = wt, &Q = f;
   P.resize(4 * n), Q.resize(4 * n);
 
@@ -26,7 +26,7 @@ vector<mint> power_projection_0_ntt(vector<mint> wt, vector<mint> f, int m) {
   {
     // bit reverse order
     vector<int> btr(n);
-    int log = topbit(n);
+    int log = msb(n);
     For(i, n) { btr[i] = (btr[i >> 1] >> 1) + ((i & 1) << (log - 1)); }
     int t = mint::ntt_info().first;
     mint r = mint::ntt_info().second;
@@ -65,7 +65,7 @@ vector<mint> power_projection_0_ntt(vector<mint> wt, vector<mint> f, int m) {
       For(j, l, r) {
         move(A.begin() + 2 * n * j, A.begin() + 2 * n * (j + 1), f.begin());
         ntt(f, 0);
-        move(All(f), A.begin() + 2 * n * j);
+        move(f.begin(), f.end(), A.begin() + 2 * n * j);
       }
     };
 
@@ -96,8 +96,8 @@ vector<mint> power_projection_0_ntt(vector<mint> wt, vector<mint> f, int m) {
       ntt(f, 1), ntt(g, 1);
       fill(f.begin() + n / 2, f.end(), mint(0));
       fill(g.begin() + n / 2, g.end(), mint(0));
-      move(All(f), P.begin() + n * j);
-      move(All(g), Q.begin() + n * j);
+      move(f.begin(), f.end(), P.begin() + n * j);
+      move(g.begin(), g.end(), Q.begin() + n * j);
     }
     fill(P.begin() + 2 * n * k, P.end(), mint(0));
     fill(Q.begin() + 2 * n * k, Q.end(), mint(0));
@@ -109,7 +109,7 @@ vector<mint> power_projection_0_ntt(vector<mint> wt, vector<mint> f, int m) {
   mint c = mint(1) / mint(k);
   for (auto& x : P) x *= c;
   ntt(P, 1);
-  reverse(All(P));
+  reverse(P.begin(), P.end());
   P.resize(m + 1);
   return P;
 }
@@ -121,7 +121,7 @@ vector<mint> power_projection_0_garner(vector<mint> wt, vector<mint> f, int m) {
   int n = 1;
   while (n < len(f)) n *= 2;
   f.resize(n), wt.resize(n);
-  reverse(All(wt));
+  reverse(wt.begin(), wt.end());
 
   constexpr uint32_t p[] = {167772161, 469762049, 754974721};
   using mint0 = modint<p[0]>;
@@ -133,7 +133,7 @@ vector<mint> power_projection_0_garner(vector<mint> wt, vector<mint> f, int m) {
   {
     // bit reverse order
     vector<int> btr(2 * n);
-    int log = topbit(2 * n);
+    int log = msb(2 * n);
     For(i, 2 * n) { btr[i] = (btr[i >> 1] >> 1) + ((i & 1) << (log - 1)); }
     {
       int t = mint0::ntt_info().first;
@@ -200,8 +200,8 @@ vector<mint> power_projection_0_garner(vector<mint> wt, vector<mint> f, int m) {
       return (x < y ? mint(x) : -mint(y));
     };
 
-    fill(All(P), mint(0));
-    fill(All(Q), mint(0));
+    fill(P.begin(), P.end(), mint(0));
+    fill(Q.begin(), Q.end(), mint(0));
     For(j, 2 * k) For(i, n / 2) {
       int k = n * j + i;
       P[k] = get(P0[k], P1[k], P2[k]);
@@ -212,7 +212,7 @@ vector<mint> power_projection_0_garner(vector<mint> wt, vector<mint> f, int m) {
   }
   vector<mint> F(k);
   For(i, k) F[i] = P[2 * i];
-  reverse(All(F));
+  reverse(F.begin(), F.end());
   F.resize(m + 1);
   return F;
 }

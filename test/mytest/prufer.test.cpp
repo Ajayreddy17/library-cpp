@@ -4,7 +4,6 @@
 #include "library/datastructure/unionfind/unionfind.hpp"
 #include "library/enumerate/product.hpp"
 #include "library/graph/prufer_code.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test(int n) {
   /*

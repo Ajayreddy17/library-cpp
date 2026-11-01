@@ -2,7 +2,6 @@
 #define AJAY_SUM_OVER_BIT_POSITIONS
 
 #include "library/datastructure/bit_array.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/sum_over_bit_positions.hpp

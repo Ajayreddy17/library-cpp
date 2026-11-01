@@ -3,7 +3,7 @@
 #include "library/random/random_graph.hpp"
 #include "library/graph/bipartite_vertex_coloring.hpp"
 #include "library/graph/find_odd_cycle.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 vector<int> find_odd_cycle_naive(Graph<int, 1> G) {
   int N = G.N;

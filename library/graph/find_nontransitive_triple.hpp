@@ -2,7 +2,6 @@
 #define AJAY_FIND_NONTRANSITIVE_TRIPLE
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_nontransitive_triple.hpp

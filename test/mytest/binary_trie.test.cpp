@@ -2,7 +2,6 @@
 #include <library/template.hpp>
 #include <library/datastructure/binary_trie.hpp>
 #include <library/random/base.hpp>
-#include "library/util/maspy_compat.hpp"
 void test() {
     const int LOG = 5;
     static Binary_Trie<LOG, false, 1 << 20> X;
@@ -19,7 +18,7 @@ void test() {
                 root = X.add(root, x);
             }
             if (t == 1) {  // get all
-                sort(All(A));
+                sort(A.begin(), A.end());
                 vector<int> B;
                 X.enumerate(root, [&](int k, int cnt) -> void { For(cnt) B.emplace_back(k); });
                 assert(A == B);
@@ -36,7 +35,7 @@ void test() {
                 int xor_val = RNG(0, 1 << LOG);
                 vector<int> B;
                 for (auto&& x : A) B.emplace_back(x ^ xor_val);
-                sort(All(B));
+                sort(B.begin(), B.end());
                 assert(B[k] == int(X.kth(root, k, xor_val)));
             }
             if (t == 4) {  // freq

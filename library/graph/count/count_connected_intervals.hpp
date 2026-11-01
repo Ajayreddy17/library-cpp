@@ -4,7 +4,6 @@
 #include "library/acted_monoid/am_minmincnt_add.hpp"
 #include "library/datastructure/segment_tree/lazy_segtree.hpp"
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_connected_intervals.hpp

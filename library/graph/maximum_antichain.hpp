@@ -2,7 +2,6 @@
 #define AJAY_MAXIMUM_ANTICHAIN
 
 #include "library/flow/bipartite_matching.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_antichain.hpp

@@ -2,7 +2,6 @@
 #define AJAY_FIND_CENTROID
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_centroid.hpp
@@ -32,7 +31,7 @@ pair<int, int> find_centroids(GT& G, vector<long long> weight = {}) {
     if (p != -1) sz[p] += sz[v];
   }
 
-  long long FULL = SUM<long long>(weight);
+  long long FULL = accumulate(weight.begin(), weight.end(), 0LL);
   long long M = FULL / 2;
   auto check = [&](int v) -> bool {
     if (FULL - sz[v] > M) return false;

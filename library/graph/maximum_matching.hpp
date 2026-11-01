@@ -2,7 +2,6 @@
 #define AJAY_MAXIMUM_MATCHING
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_matching.hpp
@@ -105,7 +104,7 @@ pair<int, vector<int>> maximum_matching(const GT& G) {
               for (auto&& v: Px) on_path[v] = 1;
               for (auto&& v: Py) on_path[v] = 1;
               For(v, N) if (on_path[rho[v]]) { rho[v] = r; }
-              fill(All(on_path), 0);
+              fill(on_path.begin(), on_path.end(), 0);
             }
           }
         }

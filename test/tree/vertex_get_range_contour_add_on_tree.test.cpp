@@ -3,7 +3,6 @@
 #include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 #include "library/graph/datastructure/contour_query_range.hpp"
 #include "library/monoid/monoid_add.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   INT(N, Q);

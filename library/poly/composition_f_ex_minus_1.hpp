@@ -3,7 +3,6 @@
 
 #include "library/poly/poly_taylor_shift.hpp"
 #include "library/poly/composition_f_ex.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/composition_f_ex_minus_1.hpp

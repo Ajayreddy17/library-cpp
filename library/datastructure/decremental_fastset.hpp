@@ -2,7 +2,7 @@
 #define AJAY_DECREMENTAL_FASTSET
 
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/decremental_fastset.hpp
@@ -59,9 +59,9 @@ struct Decremental_FastSet {
     if (i == -1) return -1;
     int a = i / 64, b = i & 63;
     uint64_t x = dat[a] & (uint64_t(-1) >> (63 - b));
-    if (x != 0) return 64 * a + topbit(x);
+    if (x != 0) return 64 * a + msb(x);
     a = X.prev(a - 1);
-    return (a == -1 ? -1 : 64 * a + topbit(dat[a]));
+    return (a == -1 ? -1 : 64 * a + msb(dat[a]));
   }
   int next(int i) {
     assert(i <= N);
@@ -69,9 +69,9 @@ struct Decremental_FastSet {
     if (i == N) return N;
     int a = i / 64, b = i & 63;
     uint64_t x = dat[a] >> b;
-    if (x != 0) return 64 * a + b + lowbit(x);
+    if (x != 0) return 64 * a + b + lsb(x);
     a = X.next(a + 1);
-    return (a == n ? N : 64 * a + lowbit(dat[a]));
+    return (a == n ? N : 64 * a + lsb(dat[a]));
   }
 
   // [l, r)

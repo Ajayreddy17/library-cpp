@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/inv_of_polynomials"
 #include "library/template.hpp"
 #include "library/poly/poly_gcd.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 void solve() {

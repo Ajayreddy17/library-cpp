@@ -107,7 +107,7 @@ Re convex_polygon_union_area(vector<vector<Point<long long>>> dat) {
 
       Re prv = 0.0;
       int cnt = 0;
-      sort(All(event));
+      sort(event.begin(), event.end());
       Re ans = 0.0;
       for (auto &[x, t] : event) {
         Re dx = x - prv;

@@ -2,7 +2,6 @@
 #define AJAY_INCREMENTAL_BRIDGE_CONNECTIVITY
 
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/incremental_bridge_connectivity.hpp

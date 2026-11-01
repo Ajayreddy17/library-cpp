@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2636"
 #include "library/template.hpp"
 #include "library/graph/datastructure/incremental_centroid.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void solve() {
   LL(N);

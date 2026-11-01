@@ -20,8 +20,8 @@ vector<vector<int>> convex_layers(vector<Point<long long>> points) {
     auto B = DUH.get();
     if (len(A) >= 2) {
       A.pop_back(), B.pop_back();
-      A.insert(A.end(), All(B));
-      reverse(All(A));
+      A.insert(A.end(), B.begin(), B.end());
+      reverse(A.begin(), A.end());
     }
     ANS.emplace_back(A);
     for (auto&& i : A) {

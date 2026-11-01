@@ -4,7 +4,6 @@
 #include "library/poly/fps_log.hpp"
 #include "library/poly/fps_sqrt.hpp"
 #include "library/datastructure/power_query.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_bipartite.hpp

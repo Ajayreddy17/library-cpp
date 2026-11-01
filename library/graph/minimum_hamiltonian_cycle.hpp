@@ -3,7 +3,6 @@
 
 #include "library/graph/base.hpp"
 #include "library/enumerate/bits.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/minimum_hamiltonian_cycle.hpp
@@ -57,7 +56,7 @@ pair<T, vector<int>> minimum_hamiltonian_cycle(GT& G) {
     C.emplace_back(frm);
     t ^= 1 << to;
   }
-  reverse(All(C));
+  reverse(C.begin(), C.end());
   return {res, C};
 }
 } // namespace mitsuha

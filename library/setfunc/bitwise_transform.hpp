@@ -1,7 +1,6 @@
 #ifndef AJAY_BITWISE_TRANSFORM
 #define AJAY_BITWISE_TRANSFORM
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/setfunc/bitwise_transform.hpp

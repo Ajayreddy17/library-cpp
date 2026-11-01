@@ -2,7 +2,6 @@
 #define AJAY_PRUFER_CODE
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/prufer_code.hpp

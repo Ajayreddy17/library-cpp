@@ -3,7 +3,6 @@
 
 #include "library/graph/datastructure/static_toptree.hpp"
 #include "library/poly/convolution.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count_matching_on_tree.hpp

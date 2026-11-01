@@ -3,7 +3,6 @@
 
 #include "library/graph/shortestpath/bfs01.hpp"
 #include "library/graph/restore_path.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/tree_center.hpp
@@ -15,9 +14,9 @@ template <typename T, typename GT>
 tuple<int, int, T> tree_center(GT& G) {
   assert(G.is_prepared());
   auto [distA, parA] = bfs01<T>(G, 0);
-  int a = max_element(All(distA)) - distA.begin();
+  int a = max_element(distA.begin(), distA.end()) - distA.begin();
   auto [dist, par] = bfs01<T>(G, a);
-  int b = max_element(All(dist)) - dist.begin();
+  int b = max_element(dist.begin(), dist.end()) - dist.begin();
   T d = dist[b];
   assert(d % 2 == 0);
   vector<int> path = restore_path(par, b);

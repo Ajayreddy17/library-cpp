@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/random/base.hpp"
 #include "library/graph/tournament.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   auto gen = [&](int N) -> vector<vector<bool>> {
@@ -23,7 +22,7 @@ void test() {
       vector<bool> use(N);
       for (auto&& x: P) use[x] = 1;
       assert(len(P) == N);
-      assert(SUM<int>(use) == N);
+      assert(accumulate(use.begin(), use.end(), int(0)) == N);
       For(i, N - 1) {
         long long a = P[i], b = P[i + 1];
         assert(G[a][b]);

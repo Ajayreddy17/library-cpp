@@ -2,7 +2,6 @@
 #define AJAY_BRACKET_GRAPH
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bracket_graph.hpp

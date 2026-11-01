@@ -3,7 +3,6 @@
 #include "library/graph/maximum_matching.hpp"
 #include "library/graph/maximum_matching_size.hpp"
 #include "library/random/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test() {
   For(N, 0, 100) {

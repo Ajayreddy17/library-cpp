@@ -3,7 +3,6 @@
 
 #include "library/graph/blackbox/scc.hpp"
 #include "library/datastructure/bit_array.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bitset/scc_bitset.hpp

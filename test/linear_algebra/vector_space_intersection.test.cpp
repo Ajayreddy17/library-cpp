@@ -3,7 +3,6 @@
 #include <library/template.hpp>
 
 #include <library/linear_algebra/xor/vector_space.hpp>
-#include "library/util/maspy_compat.hpp"
 
 using SP = Vector_Space<uint32_t>;
 
@@ -12,7 +11,8 @@ void solve() {
         INT(n);
         SP V;
         For(n) {
-            U32(a);
+            unsigned int a;
+        read(a);
             V.add_element(a);
         }
         return V;

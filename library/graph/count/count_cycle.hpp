@@ -3,7 +3,7 @@
 
 #include "library/enumerate/bits.hpp"
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_cycle.hpp
@@ -29,7 +29,7 @@ vector<T> count_cycle(GT& G) {
         enumerate_all_bit(nbd[a] & mask & (~s), [&](int b) -> void {
           dp[v * (s | 1 << b) + b] += dp[v * s + a];
         });
-        if (popcnt(s) >= 2 && nbd[a] >> v & 1) cyc[s | 1 << v] += dp[v * s + a];
+        if (popcount(s) >= 2 && nbd[a] >> v & 1) cyc[s | 1 << v] += dp[v * s + a];
       });
     }
   }

@@ -2,7 +2,6 @@
 #define AJAY_MAXIMUM_INDEPENDENT_SET_WEIGHTED
 
 #include "library/graph/base.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_independent_set_weighted.hpp
@@ -36,7 +35,7 @@ vector<int> maximum_independent_set_weighted(GT& G, vector<T> weight) {
     int t = s | 1 << i;
     if (s < t) chmax(dp[t], dp[s]);
   }
-  reverse(All(dp));
+  reverse(dp.begin(), dp.end());
   T best = 0;
   int best_s = 0;
   For(s, 1 << NL) {

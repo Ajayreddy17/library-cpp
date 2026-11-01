@@ -2,7 +2,7 @@
 #include <library/template.hpp>
 #include <library/graph/centroid_decomposition.hpp>
 #include <library/poly/convolution.hpp>
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 void solve() {
     LL(N);
     Graph<int> G(N);

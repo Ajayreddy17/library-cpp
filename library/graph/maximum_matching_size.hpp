@@ -4,7 +4,6 @@
 #include "library/random/base.hpp"
 #include "library/mod/modint61.hpp"
 #include "library/linear_algebra/matrix_rank.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_matching_size.hpp

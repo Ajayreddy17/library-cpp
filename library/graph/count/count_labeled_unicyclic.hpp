@@ -2,7 +2,6 @@
 #define AJAY_COUNT_LABELED_UNICYCLIC
 
 #include "library/poly/fps_log.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_unicyclic.hpp

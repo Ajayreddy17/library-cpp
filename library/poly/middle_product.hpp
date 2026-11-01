@@ -4,7 +4,6 @@
 #include "library/poly/ntt.hpp"
 #include "library/mod/crt3.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/middle_product.hpp

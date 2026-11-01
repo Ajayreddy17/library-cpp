@@ -4,7 +4,6 @@
 #include "library/graph/datastructure/static_toptree.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
 #include "library/poly/convolution.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/characteristic_poly_of_tree_adjacency_matrix.hpp

@@ -133,7 +133,6 @@ template <class T> using max_priority_queue
 #define RREP4(i, a, b, c) for (long long i = TL(b)-1; i >= TL(a); i -= TL(c))
 #define Frr(...) OVERLOAD5(__VA_ARGS__, RREP4, RREP3, RREP2)(__VA_ARGS__)
 
-#define All(iterable) std::begin(iterable), std::end(iterable)
 #define len(iterable) TL iterable.size()
 #define elif else if
 #define lnt long long

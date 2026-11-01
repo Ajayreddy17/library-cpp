@@ -4,7 +4,6 @@
 #include "library/graph/base.hpp"
 #include "library/flow/maxflow.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/dag_path_cover.hpp

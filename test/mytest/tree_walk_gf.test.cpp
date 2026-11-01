@@ -3,7 +3,6 @@
 #include "library/random/random_graph.hpp"
 #include "library/graph/tree_walk_generating_function.hpp"
 #include "library/poly/fps_div.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

@@ -3,7 +3,7 @@
 
 #include "library/graph/path_cycle_decomposition.hpp"
 #include "library/poly/convolution.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_independent_set.hpp
@@ -27,7 +27,7 @@ uint64_t count_independent_set(GT& G) {
     int deg0 = 0;
     pair<int, int> p = {-1, -1};  // (v, d)
     For(v, N) if (s >> v & 1) {
-      int d = popcnt(nbd[v] & s);
+      int d = popcount(nbd[v] & s);
       if (chmax(p.second, d)) p.first = v;
       if (d == 0) {
         ++deg0;
@@ -48,9 +48,9 @@ uint64_t count_independent_set(GT& G) {
     For(i, n) {
       U x = nbd[V[i]] & s;
       while (x) {
-        int v = topbit(x);
+        int v = msb(x);
         x ^= U(1) << v;
-        int j = LB(V, v);
+        int j = (lower_bound(V.begin(), V.end(), v) - V.begin());
         if (i < j) G.add(i, j);
       }
     }
@@ -90,7 +90,7 @@ vector<uint64_t> count_independent_set_by_size(GT& G) {
     vector<U> res = {1};
     pair<int, int> p = {-1, -1};  // (v, d)
     For(v, N) if (s >> v & 1) {
-      int d = popcnt(nbd[v] & s);
+      int d = popcount(nbd[v] & s);
       if (chmax(p.second, d)) p.first = v;
       if (d == 0) {
         res.emplace_back(0);
@@ -115,9 +115,9 @@ vector<uint64_t> count_independent_set_by_size(GT& G) {
     For(i, n) {
       U x = nbd[V[i]] & s;
       while (x) {
-        int v = topbit(x);
+        int v = msb(x);
         x ^= U(1) << v;
-        int j = LB(V, v);
+        int j = (lower_bound(V.begin(), V.end(), v) - V.begin());
         if (i < j) G.add(i, j);
       }
     }
@@ -183,7 +183,7 @@ vector<T> count_independent_set_by_size_weighted(GT& G, vector<T> wt) {
     vector<T> res = {1};
     pair<int, int> p = {-1, -1};  // (v, d)
     For(v, N) if (s >> v & 1) {
-      int d = popcnt(nbd[v] & s);
+      int d = popcount(nbd[v] & s);
       if (chmax(p.second, d)) p.first = v;
       if (d == 0) {
         res.emplace_back(0);
@@ -208,9 +208,9 @@ vector<T> count_independent_set_by_size_weighted(GT& G, vector<T> wt) {
     For(i, n) {
       U x = nbd[V[i]] & s;
       while (x) {
-        int v = topbit(x);
+        int v = msb(x);
         x ^= U(1) << v;
-        int j = LB(V, v);
+        int j = (lower_bound(V.begin(), V.end(), v) - V.begin());
         if (i < j) G.add(i, j);
       }
     }

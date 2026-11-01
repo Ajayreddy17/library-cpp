@@ -9,9 +9,9 @@ namespace mitsuha{
 template <typename T>
 vector<tuple<int, int, int>> monotone_polygon_triangulation(vector<Point<T>> point) {
   int N = len(point);
-  int rot = min_element(All(point)) - point.begin();
+  int rot = min_element(point.begin(), point.end()) - point.begin();
   rotate(point.begin(), point.begin() + rot, point.end());
-  int n = max_element(All(point)) - point.begin();
+  int n = max_element(point.begin(), point.end()) - point.begin();
   For(i, n) assert(point[i] < point[i + 1]);
   For(i, n, N) assert(point[(i + 1) % N] < point[i]);
   vector<tuple<int, int, int>> res;

@@ -1,7 +1,6 @@
 #ifndef AJAY_CSR
 #define AJAY_CSR
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/csr.hpp

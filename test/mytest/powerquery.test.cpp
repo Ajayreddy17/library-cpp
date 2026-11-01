@@ -3,7 +3,6 @@
 #include "library/random/base.hpp"
 #include "library/datastructure/power_query.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

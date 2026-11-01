@@ -1,7 +1,6 @@
 #ifndef AJAY_MAXIMUM_MATCHING_BETWEEN_VERTEX_EDGE
 #define AJAY_MAXIMUM_MATCHING_BETWEEN_VERTEX_EDGE
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/maximum_matching_between_vertex_edge.hpp

@@ -40,7 +40,7 @@ void solve() {
     auto upd = X.calc(len(query));
     vector<long long> ANS(len(query));
     vector<int> I(len(upd));
-    iota(All(I), 0);
+    iota(I.begin(), I.end(), 0);
     auto dfs = [&](auto& dfs, vector<int>& upd_query_I, int begin, int end) -> void {
         if (begin == end) return;
         // snapshot

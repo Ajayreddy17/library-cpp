@@ -2,7 +2,6 @@
 #define AJAY_DOMINATOR_TREE
 
 #include "library/graph/reverse_graph.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/dominator_tree.hpp

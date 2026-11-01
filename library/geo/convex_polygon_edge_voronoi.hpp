@@ -54,11 +54,11 @@ struct Convex_Polygon_Edge_Voronoi {
       X.emplace_back(edges[k].p2);
     }
 
-    sort(All(X), [&](const RP& a, const RP& b) -> bool {
+    sort(X.begin(), X.end(), [&](const RP& a, const RP& b) -> bool {
       if (a.x != b.x) return a.x < b.x;
       return a.y < b.y;
     });
-    X.erase(unique(All(X),
+    X.erase(unique(X.begin(), X.end(),
                    [&](const RP& a, const RP& b) -> bool {
                      return a.x == b.x && a.y == b.y;
                    }),

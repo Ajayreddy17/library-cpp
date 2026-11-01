@@ -2,7 +2,6 @@
 #define AJAY_COUNT_LABELED_STRONG_TOURNAMENT
 
 #include "library/poly/fps_inv.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_strong_tournament.hpp

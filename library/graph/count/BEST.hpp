@@ -5,7 +5,6 @@
 #include "library/linear_algebra/blackbox/det.hpp"
 #include "library/linear_algebra/det.hpp"
 #include "library/mod/modint_common.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/BEST.hpp

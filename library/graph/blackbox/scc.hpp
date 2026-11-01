@@ -1,7 +1,6 @@
 #ifndef AJAY_GRAPH_BLACKBOX_SCC
 #define AJAY_GRAPH_BLACKBOX_SCC
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/blackbox/scc.hpp

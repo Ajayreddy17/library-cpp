@@ -4,7 +4,6 @@
 #include "library/random/base.hpp"
 #include "library/poly/fps_exp.hpp"
 #include "library/poly/online/online_exp.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

@@ -2,7 +2,7 @@
 #define AJAY_POLY_GCD
 
 #include "library/poly/poly_divmod.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/poly_gcd.hpp

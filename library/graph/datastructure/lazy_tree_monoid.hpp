@@ -4,7 +4,6 @@
 #include "library/monoid/monoid_reverse.hpp"
 #include "library/datastructure/segment_tree/lazy_segtree.hpp"
 #include "library/graph/tree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/lazy_tree_monoid.hpp

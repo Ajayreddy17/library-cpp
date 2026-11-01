@@ -1,7 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/graph/count/count_unlabeled_tree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

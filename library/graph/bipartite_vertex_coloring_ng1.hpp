@@ -1,7 +1,6 @@
 #ifndef AJAY_BIPARTITE_VERTEX_COLORING_NG1
 #define AJAY_BIPARTITE_VERTEX_COLORING_NG1
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bipartite_vertex_coloring_ng1.hpp

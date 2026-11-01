@@ -65,5 +65,14 @@ template <typename T, std::enable_if_t<std::negation_v<is_nbit<T, 64>>, std::nul
 constexpr int lsb(const T x) { return (x == 0 ? -1 : __builtin_ctz(x)); }
 template <typename T, std::enable_if_t<is_nbit_v<T, 64>, std::nullptr_t> = nullptr>
 constexpr int lsb(const T x) { return (x == 0 ? -1 : __builtin_ctzll(x)); }
+
+constexpr uint64_t bit_reverse(uint64_t x) {
+    x = ((x & 0x5555555555555555ULL) << 1) | ((x >> 1) & 0x5555555555555555ULL);
+    x = ((x & 0x3333333333333333ULL) << 2) | ((x >> 2) & 0x3333333333333333ULL);
+    x = ((x & 0x0f0f0f0f0f0f0f0fULL) << 4) | ((x >> 4) & 0x0f0f0f0f0f0f0f0fULL);
+    x = ((x & 0x00ff00ff00ff00ffULL) << 8) | ((x >> 8) & 0x00ff00ff00ff00ffULL);
+    x = ((x & 0x0000ffff0000ffffULL) << 16) | ((x >> 16) & 0x0000ffff0000ffffULL);
+    return (x << 32) | (x >> 32);
+}
 } // namespace mitsuha
 #endif // AJAY_BIT_UTILS

@@ -3,7 +3,6 @@
 
 #include "library/poly/fps_exp.hpp"
 #include "library/graph/count/count_labeled_tree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_forest.hpp

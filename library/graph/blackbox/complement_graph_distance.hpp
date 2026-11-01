@@ -2,7 +2,6 @@
 #define AJAY_COMPLEMENT_GRAPH_DISTANCE
 
 #include "library/graph/blackbox/complement_graph_bfs.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/blackbox/complement_graph_distance.hpp
@@ -12,7 +11,7 @@ template <typename GT>
 vector<tuple<int, int, int>> complement_graph_all_distances(GT& G) {
   const int N = G.N;
   auto deg = G.deg_array();
-  int S = min_element(All(deg)) - deg.begin();
+  int S = min_element(deg.begin(), deg.end()) - deg.begin();
   vector<int> nbd(N);
   for (auto& e : G[S]) {
     nbd[e.to] = 1;

@@ -6,7 +6,6 @@
 #include "library/poly/composition.hpp"
 #include "library/poly/integrate.hpp"
 #include "library/poly/fps_pow.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/count/count_labeled_biconnected.hpp

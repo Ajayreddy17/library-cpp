@@ -2,7 +2,7 @@
 #define AJAY_FIND_ODD_CYCLE
 
 #include "library/graph/strongly_connected_component.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/pop.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/find_odd_cycle.hpp
@@ -48,8 +48,8 @@ pair<vector<int>, vector<int>> find_odd_cycle(GT& G) {
       v = 2 * (e.frm + e.to) + 1 - v;
       vs.emplace_back(v / 2);
     }
-    reverse(All(edges));
-    reverse(All(vs));
+    reverse(edges.begin(), edges.end());
+    reverse(vs.begin(), vs.end());
     // walk -> cycle
     vector<int> used(N, -1);
     int l = -1, r = -1;

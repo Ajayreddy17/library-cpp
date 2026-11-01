@@ -4,7 +4,6 @@
 #include <emmintrin.h>
 #include <smmintrin.h>
 #include <wmmintrin.h>
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/nt/GF2.hpp

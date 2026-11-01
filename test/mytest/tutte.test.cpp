@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/maximum_matching_size.hpp"
 #include "library/flow/bipartite_matching.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test_bipartite() {
   For(N, 1, 50) {

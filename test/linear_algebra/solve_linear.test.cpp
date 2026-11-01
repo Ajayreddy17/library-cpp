@@ -3,7 +3,6 @@
 #include <library/mod/modint.hpp>
 #include <library/linear_algebra/solve_linear.hpp>
 #include <library/linear_algebra/matrix_rank.hpp>
-#include "library/util/maspy_compat.hpp"
 using mint = modint998;
 void solve() {
     LL(N, M);

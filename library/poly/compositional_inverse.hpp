@@ -5,7 +5,6 @@
 #include "library/poly/fps_div.hpp"
 #include "library/poly/fps_pow.hpp"
 #include "library/poly/power_projection.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/poly/compositional_inverse.hpp

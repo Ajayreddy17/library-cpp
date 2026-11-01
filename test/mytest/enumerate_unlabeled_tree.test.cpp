@@ -3,7 +3,6 @@
 #include "library/datastructure/unionfind/unionfind.hpp"
 #include "library/graph/tree_dp/subtree_hash.hpp"
 #include "library/enumerate/unlabeled_tree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test(int n) {
   /*

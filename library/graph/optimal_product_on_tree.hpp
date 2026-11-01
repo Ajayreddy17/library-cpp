@@ -4,7 +4,6 @@
 #include "library/graph/tree.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
 #include "library/datastructure/segment_tree/segtree.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/optimal_product_on_tree.hpp

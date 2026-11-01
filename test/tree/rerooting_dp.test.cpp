@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/graph/tree_dp/rerooting_dp.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

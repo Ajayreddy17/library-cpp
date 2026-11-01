@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/mod/modint.hpp"
 #include "library/graph/count/count_labeled_eulerian.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

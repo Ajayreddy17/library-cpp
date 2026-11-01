@@ -3,7 +3,6 @@
 #include "library/datastructure/bit_array.hpp"
 #include "library/random/base.hpp"
 #include "library/datastructure/sum_over_bit_positions.hpp"
-#include "library/util/maspy_compat.hpp"
 
 void test(int N, int Q, bool check = true) {
   vector<int> A(N);

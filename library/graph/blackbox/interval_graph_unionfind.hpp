@@ -2,7 +2,6 @@
 #define AJAY_INTERVAL_GRAPH_UNIONFIND
 
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/blackbox/interval_graph_unionfind.hpp
@@ -17,7 +16,7 @@ UnionFind interval_graph_unionfind(int N, vector<int> L, vector<int> R) {
   vector<int> I(N);
   For(i, N) I[i] = i;
 
-  sort(All(I), [&](auto& a, auto& b) -> bool {
+  sort(I.begin(), I.end(), [&](auto& a, auto& b) -> bool {
     if (L[a] != L[b]) return L[a] < L[b];
     return R[a] > R[b];
   });

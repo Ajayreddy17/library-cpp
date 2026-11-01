@@ -4,7 +4,6 @@
 #include "library/poly/fps_div.hpp"
 #include "library/poly/fps_pow.hpp"
 #include "library/poly/poly_taylor_shift.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/seq/famous/stirling_number_1.hpp

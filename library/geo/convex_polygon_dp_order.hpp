@@ -20,7 +20,7 @@ vector<pair<int, int>> convex_polygon_dp_order(vector<P> A) {
     E.emplace_back(i, j);
   }
 
-  sort(All(E), [&](auto& X, auto& Y) -> bool {
+  sort(E.begin(), E.end(), [&](auto& X, auto& Y) -> bool {
     auto [a, b] = X;
     auto [c, d] = Y;
     int k = angle_comp_3(A[b] - A[a], A[d] - A[c]);

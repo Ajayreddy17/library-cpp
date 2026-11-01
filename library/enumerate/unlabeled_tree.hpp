@@ -1,7 +1,6 @@
 #ifndef AJAY_UNLABELED_TREE
 #define AJAY_UNLABELED_TREE
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/enumerate/unlabeled_tree.hpp

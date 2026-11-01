@@ -1,7 +1,6 @@
 #ifndef AJAY_LCT_NODE_MONOID
 #define AJAY_LCT_NODE_MONOID
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/lct_node_monoid.hpp

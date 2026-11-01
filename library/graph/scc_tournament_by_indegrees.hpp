@@ -1,7 +1,6 @@
 #ifndef AJAY_SCC_TOURNAMENT_BY_INDEGREES
 #define AJAY_SCC_TOURNAMENT_BY_INDEGREES
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/scc_tournament_by_indegrees.hpp

@@ -3,7 +3,6 @@
 
 #include "library/graph/datastructure/tree_abelgroup.hpp"
 #include "library/datastructure/fastset.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/incremental_centroid.hpp

@@ -2,7 +2,6 @@
 #define AJAY_MST
 
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/blackbox/mst.hpp
@@ -107,7 +106,7 @@ vector<tuple<int, int, COST>> mst_prim(int N, F cost) {
   };
   add(0);
   For(N - 1) {
-    int v = min_element(All(wt)) - wt.begin();
+    int v = min_element(wt.begin(), wt.end()) - wt.begin();
     res.emplace_back(TO[v], v, wt[v]);
     add(v);
   }

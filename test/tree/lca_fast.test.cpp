@@ -2,7 +2,6 @@
 #include <library/template.hpp>
 #include <library/graph/base.hpp>
 #include <library/graph/fast_lca.hpp>
-#include "library/util/maspy_compat.hpp"
 void solve() {
     INT(N, Q);
     Graph<int, 1> G(N);

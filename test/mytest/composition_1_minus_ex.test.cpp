@@ -4,7 +4,6 @@
 #include "library/poly/composition_f_1_minus_ex.hpp"
 #include "library/poly/composition.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

@@ -2,7 +2,6 @@
 #include "library/template.hpp"
 #include "library/mod/dynamic_modint.hpp"
 #include "library/poly/composition.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = dmint;
 

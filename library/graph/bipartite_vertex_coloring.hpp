@@ -3,7 +3,6 @@
 
 #include "library/graph/base.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/bipartite_vertex_coloring.hpp

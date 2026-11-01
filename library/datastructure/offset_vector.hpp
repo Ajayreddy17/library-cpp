@@ -1,7 +1,6 @@
 #ifndef AJAY_OFFSET_VECTOR
 #define AJAY_OFFSET_VECTOR
 
-#include "library/util/maspy_compat.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/ds/offset_vector.hpp

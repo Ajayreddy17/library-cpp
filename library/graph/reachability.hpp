@@ -3,7 +3,7 @@
 
 #include "library/graph/strongly_connected_component.hpp"
 #include "library/graph/reverse_graph.hpp"
-#include "library/util/maspy_compat.hpp"
+#include "library/util/bit_utils.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/reachability.hpp
@@ -95,7 +95,7 @@ vector<int> count_reachable(Graph<int, 1> G) {
     }
     while (idx < len(E) && E[idx].first < s) ++idx;
     For(i, idx, len(E)) { dp[E[i].second] |= dp[E[i].first]; }
-    For(v, s, nc) { ANS[v] += popcnt(uint64_t(dp[v] >> 64)) + popcnt(uint64_t(dp[v])); }
+    For(v, s, nc) { ANS[v] += popcount(uint64_t(dp[v] >> 64)) + popcount(uint64_t(dp[v])); }
   }
   ANS = rearrange(ANS, comp);
   return ANS;

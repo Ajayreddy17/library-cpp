@@ -4,7 +4,6 @@
 #include "library/graph/count/count_labeled_tree.hpp"
 #include "library/graph/count/count_labeled_forest.hpp"
 #include "library/mod/modint.hpp"
-#include "library/util/maspy_compat.hpp"
 
 using mint = modint998;
 

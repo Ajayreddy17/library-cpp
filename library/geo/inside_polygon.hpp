@@ -1,6 +1,8 @@
 #ifndef AJAY_INSIDE_POLYGON
 #define AJAY_INSIDE_POLYGON
 
+#include "library/geo/base.hpp"
+
 // https://qoj.ac/problem/5443
 // Allows vertices or edges to lie on the segment
 namespace mitsuha{

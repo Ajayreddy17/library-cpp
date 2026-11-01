@@ -15,11 +15,11 @@ struct Point {
         static_assert(!is_integral_v<T> || is_integral_v<U>);
     }
 
-    Point operator+=(const Point p) {
+    Point &operator+=(const Point p) {
         x += p.x, y += p.y;
         return *this;
     }
-    Point operator-=(const Point p) {
+    Point &operator-=(const Point p) {
         x -= p.x, y -= p.y;
         return *this;
     }
@@ -39,7 +39,7 @@ struct Point {
     T dot(const Point& other) const { return x * other.x + y * other.y; }
     T det(const Point& other) const { return x * other.y - y * other.x; }
 
-    double norm() { return sqrtl(x * x + y * y); }
+    long double norm() const { return sqrtl((long double)x * x + (long double)y * y); }
     double angle() { return atan2(y, x); }
 
     Point rotate(double theta) {
@@ -94,11 +94,11 @@ struct Line {
     Line(T x1, T y1, T x2, T y2) : Line(Point<T>(x1, y1), Point<T>(x2, y2)) {}
 
     template <typename U>
-    U eval(Point<U> P) {
+    common_type_t<T, U> eval(Point<U> P) {
         return a * P.x + b * P.y + c;
     }
     template <typename U>
-    T eval(U x, U y) {
+    common_type_t<T, U> eval(U x, U y) {
         return a * x + b * y + c;
     }
 
@@ -135,6 +135,7 @@ struct Segment {
 
     bool contain(Point<T> C) {
         static_assert(is_integral<T>::value);
+        if (A == B) return C == A;
         T det = (C - A).det(B - A);
         if (det != 0) return 0;
         return (C - A).dot(B - A) >= 0 && (C - B).dot(A - B) >= 0;

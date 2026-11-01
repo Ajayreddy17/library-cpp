@@ -1,0 +1,63 @@
+#ifndef AJAY_RANGE_EDGE_CONNECTED_COMPONENT_QUERY
+#define AJAY_RANGE_EDGE_CONNECTED_COMPONENT_QUERY
+
+#include "library/graph/datastructure/link_cut_tree.hpp"
+#include "library/graph/datastructure/lct_node_commutative_monoid.hpp"
+#include "library/monoid/monoid_min.hpp"
+#include "library/graph/base.hpp"
+#include "library/datastructure/fenwick_tree/fenwicktree_01.hpp"
+#include "library/util/maspy_compat.hpp"
+
+namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/range_edge_connected_component_query.hpp
+
+
+// https://codeforces.com/problemset/problem/1386/C (TLE)
+// query(L,R) = # of component if edge L,...,R-1 are used.
+struct Range_Edge_Connected_Component_Query {
+  Graph<int, 0>& G;
+  vector<pair<int, int>> query;
+
+  Range_Edge_Connected_Component_Query(Graph<int, 0>& G) : G(G) {}
+
+  void add_query(int l, int r) { query.emplace_back(l, r); }
+
+  using Mono = Monoid_Min<int>;
+  using Node = LCT_Node_Commutative_Monoid<Mono>;
+
+  vector<int> calc() {
+    int N = G.N, M = G.M;
+    Link_Cut_Tree<Node> LCT(N + M);
+    int Q = len(query);
+    vector<int> ANS(Q);
+    vector<vector<int>> QID(M);
+    For(q, Q) {
+      auto [l, r] = query[q];
+      assert(0 <= l && l <= r && r <= M);
+      if (r) QID[r - 1].emplace_back(q);
+    }
+
+    FenwickTree_01 bit(M);
+    For(i, M) {
+      int a = G.edges[i].frm, b = G.edges[i].to;
+      if (a != b && LCT.get_root(a) == LCT.get_root(b)) {
+        int k = LCT.prod_path(a, b);
+        int c = G.edges[k].frm, d = G.edges[k].to;
+        bit.add(k, -1);
+        LCT.cut(c, N + k), LCT.cut(d, N + k);
+      }
+      if (a != b) {
+        LCT.set(N + i, i);
+        LCT.link(a, N + i), LCT.link(b, N + i);
+        bit.add(i, 1);
+      }
+      for (auto& q : QID[i]) {
+        auto [l, r] = query[q];
+        ANS[q] = N - bit.sum(l, r);
+      }
+    }
+    return ANS;
+  }
+};
+} // namespace mitsuha
+#endif // AJAY_RANGE_EDGE_CONNECTED_COMPONENT_QUERY

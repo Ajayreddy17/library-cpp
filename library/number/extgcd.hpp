@@ -4,7 +4,7 @@
 namespace mitsuha{
 /*
 Farey Find the left and right sides of the first occurrence of a/b in a number sequence.
-a/b = 19/12 → (x1/y1, x2/y2) = (11/7, 8/5) → (11,7,8,5)。
+a/b = 19/12 -> (x1/y1, x2/y2) = (11/7, 8/5) -> (11,7,8,5).
 */
 tuple<long long, long long, long long, long long> Farey_lr(long long a, long long b) {
     assert(a > 0 && b > 0);

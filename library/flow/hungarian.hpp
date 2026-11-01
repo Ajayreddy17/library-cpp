@@ -3,8 +3,8 @@
 
 namespace mitsuha{
 // returns: (ans, match, X, Y)
-// N <= M Assuming, infinity is also considered valid in the calculation, O(N^2M) time。
-// The potential is the solution to the following dual problem：
+// Assumes N <= M; infinity is allowed as a cost. O(N^2M) time.
+// The potential is the solution to the following dual problem: 
 // maximize \sum x_i + \sum y_j, subj to x_i + y_j\leq C_{ij}
 // n Even if the loop is terminated, it is not the optimal solution for a matching of size n
 template <typename T, bool MINIMIZE>

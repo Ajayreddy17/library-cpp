@@ -3,8 +3,9 @@
 #include <library/template.hpp>
 
 #include <library/linear_algebra/xor/vector_space.hpp>
+#include "library/util/maspy_compat.hpp"
 
-using SP = Vector_Space<uint32_t, 32>;
+using SP = Vector_Space<uint32_t>;
 
 void solve() {
     auto get = [&]() -> SP {
@@ -17,8 +18,8 @@ void solve() {
         return V;
     };
     auto x = get(), y = get();
-    x = SP::intersection(x, y);
-    auto basis = x.to_vec();
+    x = SP::intersection(x, y, 32);
+    auto basis = x.dat;
     print(len(basis), basis);
 }
 

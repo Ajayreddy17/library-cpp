@@ -1,8 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/suffixarray"
 #include <library/template.hpp>
-
 #include <library/string/suffix_array.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void solve() {
     STR(S);
     auto A = s_to_vi(S, 'a');

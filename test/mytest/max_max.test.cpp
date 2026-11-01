@@ -3,7 +3,7 @@
 #include <library/acted_monoid/am_max_max.hpp>
 #include <library/random/base.hpp>
 #include <library/datastructure/segment_tree/lazy_segtree.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void test() {
     int N = RNG(1, 100);
     vector<int> A(N);

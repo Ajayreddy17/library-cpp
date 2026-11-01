@@ -65,7 +65,7 @@ void centroid_decomposition_0_dfs(vector<int>& par, vector<int>& vs, F f) {
 
 /*
 https://maspypy.com/%e9%87%8d%e5%bf%83%e5%88%86%e8%a7%a3%e3%83%bb1-3%e9%87%8d%e5%bf%83%e5%88%86%e8%a7%a3%e3%81%ae%e3%81%8a%e7%b5%b5%e6%8f%8f%e3%81%8d
-centroid_decomposition_1：Entire path of length 2 or more
+centroid_decomposition_1: Entire path of length 2 or more
 f(par, V, n1, n2)
 [1,1+n1]: color 1
 [1+n1,1+n1+n2]: color 2
@@ -211,7 +211,7 @@ template <int MODE, typename GT, typename F>
 void centroid_decomposition(GT& G, F f) {
     static_assert(!GT::is_directed);
     const int N = G.N;
-    if (N == 1) return;
+    if (MODE != 0 && N == 1) return;
     vector<int> V(N), par(N, -1);
     int l = 0, r = 0;
     V[r++] = 0;

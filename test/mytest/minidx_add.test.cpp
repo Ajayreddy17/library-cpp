@@ -3,7 +3,7 @@
 #include <library/acted_monoid/am_minidx_add.hpp>
 #include <library/random/base.hpp>
 #include <library/datastructure/segment_tree/lazy_segtree.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void test() {
     int N = RNG(1, 100);
     vector<int> A(N);
@@ -30,7 +30,7 @@ void test() {
             int mx = *min_element(B.begin(), B.end());
             int idx = -1;
             Frr(i, L, R) if (A[i] == mx) idx = i;
-            assert(seg.prod(L, R) == mp(mx, idx));
+            assert(seg.prod(L, R) == make_pair(mx, idx));
         }
     }
 }

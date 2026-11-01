@@ -82,8 +82,13 @@ struct Link_Cut_Tree {
 
     int lca(int u, int v) { return lca(&nodes[u], &nodes[v])->idx; }
 
+    // does not change the root (unlike evert-based versions)
     int dist(int u, int v) {
-        evert(u), expose(v);
+        int w = lca(u, v);
+        return depth(u) + depth(v) - 2 * depth(w);
+    }
+    int depth(int v) {
+        expose(v);
         return ((*this)[v]->size) - 1;
     }
 

@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include <library/template.hpp>
-
+#include "library/util/maspy_compat.hpp"
 template <typename T>
 void test() {
     vector<T> X;
@@ -12,9 +12,9 @@ void test() {
     for (auto& x: X) {
         for (auto& y: X) {
             if (y <= 0) continue;
-            T k = floor(x, y);
+            T k = fld(x, y);
             assert(0 <= x - k * y && x - k * y < y);
-            k = ceil(x, y);
+            k = cld(x, y);
             assert(0 <= k * y - x && k * y - x < y);
         }
     }

@@ -3,11 +3,11 @@
 #include <library/mod/modint.hpp>
 #include <library/linear_algebra/solve_linear.hpp>
 #include <library/linear_algebra/matrix_rank.hpp>
-
+#include "library/util/maspy_compat.hpp"
 using mint = modint998;
 void solve() {
     LL(N, M);
-    VV(mint, A, N, M);
+    vector<vector<mint>> A(N, vector<mint>(M)); read(A);
     VT(mint, b, N);
     auto xs = solve_linear(A, b);
     if (len(xs) == 0) return print(-1);

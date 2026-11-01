@@ -1,11 +1,10 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/matrix_det_arbitrary_mod"
 #include <library/template.hpp>
-
 #include <library/linear_algebra/det.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void solve() {
     LL(N, mod);
-    VV(int, A, N, N);
+    vector<vector<int>> A(N, vector<int>(N)); read(A);
     int ANS = det_mod(A, mod);
     print(ANS);
 }

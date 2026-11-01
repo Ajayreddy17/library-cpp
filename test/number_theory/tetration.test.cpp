@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tetration_mod"
 #include <library/template.hpp>
 #include <library/mod/tetration.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void solve() {
     LL(a, b, m);
     if (a == 0) {

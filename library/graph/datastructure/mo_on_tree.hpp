@@ -21,8 +21,8 @@ struct Mo_on_Tree {
     }
 
     // init(): root consisting only of path
-    // add_l(v), add_r(v)：Add v to beginning/end of path
-    // rm_l(v), rm_r(v)：Remove v from beginning/end of path
+    // add_l(v), add_r(v): Add v to beginning/end of path
+    // rm_l(v), rm_r(v): Remove v from beginning/end of path
     // query(qid)
     template <typename F1, typename F2, typename F3, typename F4, typename F5, typename F6>
     void calc_vertex(F1 init, F2 add_l, F3 add_r, F4 rm_l, F5 rm_r, F6 query) {
@@ -76,8 +76,8 @@ struct Mo_on_Tree {
     }
 
     // init(): root consisting only of path
-    // add_l(frm, to), add_r(frm, to)：Add (frm,to) to beginning/end of path
-    // rm_l(frm, to), rm_r(frm, to)：Remove (frm,to) to beginning/end of path
+    // add_l(frm, to), add_r(frm, to): Add (frm,to) to beginning/end of path
+    // rm_l(frm, to), rm_r(frm, to): Remove (frm,to) to beginning/end of path
     // query(qid)
     template <typename F1, typename F2, typename F3, typename F4, typename F5, typename F6>
     void calc_edge(F1 init, F2 add_l, F3 add_r, F4 rm_l, F5 rm_r, F6 query) {

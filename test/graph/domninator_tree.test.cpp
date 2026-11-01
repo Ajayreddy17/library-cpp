@@ -1,0 +1,18 @@
+#define PROBLEM "https://judge.yosupo.jp/problem/dominatortree"
+#include "library/template.hpp"
+#include "library/graph/dominator_tree.hpp"
+#include "library/util/maspy_compat.hpp"
+
+void solve() {
+  LL(N, M, root);
+  Graph<int, 1> G(N);
+  G.read_graph(M, 0, 0);
+  auto idom = dominator_tree(G, root);
+  idom[root] = root;
+  print(idom);
+}
+
+signed main() {
+  solve();
+  return 0;
+}

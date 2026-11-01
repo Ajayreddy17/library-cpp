@@ -4,27 +4,33 @@
 namespace mitsuha{
 // Determining the existence of a simple graph. Erdos-Gallai theorem.
 bool check_degree_sequence(vector<int> deg) {
-    const int N = len(deg);
+    int N = len(deg);
     if (N == 0) return true;
-    if (*max_element(deg.begin(), deg.end()) >= N) return false;
-    if (accumulate(deg.begin(), deg.end(), 0LL) % 2 != 0) return false;
-    vector<int> CNT(N);
-    for (auto&& x: deg) CNT[x]++;
-    int p = 0;
-    For(x, N) For(CNT[x]) deg[p++] = x;
-
-    vector<long long> A(N + 1), B(N + 1);
+    long long sm = 0;
+    vector<int> freq(N, 0);
     For(i, N) {
         int d = deg[i];
-        A[i + 1] += 2 * i - d;
-        if (d < i) { B[0] += 1, B[d] -= 1, A[d] += d, A[i + 1] -= d; }
-        if (d >= i) { B[0] += 1, B[i + 1] -= 1; }
+        if (!(0 <= d && d < N)) return false;
+        freq[d]++, sm += d;
     }
-    partial_sum(A.begin(), A.end(), A.begin());
-    partial_sum(B.begin(), B.end(), B.begin());
-    For(k, N + 1) {
-        long long x = A[k] + B[k] * k;
-        if (x < 0) return false;
+    if (sm & 1) return false;
+    int p = 0;
+    Frr(x, N) For(freq[x]) deg[p++] = x;
+
+    vector<long long> S(N + 1);
+    For(i, N) S[i + 1] = S[i] + deg[i];
+    long long m = 0; // # of d_i with d_i >= k
+    Frr(k, N + 1) {
+        while (m < N && deg[m] >= k) ++m;
+        long long lhs = S[k];
+        long long rhs = k * (k - 1);
+        if (m < k) {
+            rhs += S[N] - S[k];
+        } else {
+            rhs += (m - k) * k;
+            rhs += S[N] - S[m];
+        }
+        if (lhs > rhs) return false;
     }
     return true;
 }

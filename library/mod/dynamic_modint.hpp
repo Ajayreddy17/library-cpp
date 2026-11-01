@@ -31,6 +31,7 @@ struct Dynamic_Modint {
     Dynamic_Modint(unsigned long long x) : val(bt.modulo(x)) {}
     Dynamic_Modint(int x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
     Dynamic_Modint(long long x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
+    Dynamic_Modint(__int128 x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
 
     mint& operator+=(const mint& rhs) {
         val = (val += rhs.val) < umod() ? val : val - umod();

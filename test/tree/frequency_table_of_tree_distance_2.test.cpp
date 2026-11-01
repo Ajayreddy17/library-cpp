@@ -1,11 +1,8 @@
-#define PROBLEM \
-    "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance"
-
+#define PROBLEM  "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance"
 #include <library/template.hpp>
-
 #include <library/graph/centroid_decomposition.hpp>
 #include <library/poly/convolution.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void solve() {
     LL(N);
     Graph<int> G(N);

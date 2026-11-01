@@ -3,7 +3,7 @@
 #include <library/acted_monoid/am_minmax_add.hpp>
 #include <library/random/base.hpp>
 #include <library/datastructure/segment_tree/lazy_segtree.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void test() {
     int N = RNG(1, 100);
     vector<int> A(N);
@@ -25,7 +25,7 @@ void test() {
         }
         if (t == 2) {
             vector<int> B = {A.begin() + L, A.begin() + R};
-            assert(seg.prod(L, R) == mp(*min_element(B.begin(), B.end()), *max_element(B.begin(), B.end())));
+            assert(seg.prod(L, R) == make_pair(*min_element(B.begin(), B.end()), *max_element(B.begin(), B.end())));
         }
     }
 }

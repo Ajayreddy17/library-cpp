@@ -4,7 +4,7 @@
 namespace mitsuha {
 // Increment p while managing:
 // right_change: ANS[i] := max of [i, p)
-// left_change:  ANS[i] := max of [p, i)
+// left_change: ANS[i] := max of [p, i)
 // i is in [0, N+1), empty intervals get -numeric_limits<T>::max()/2
 template <typename T>
 struct Range_Max_Change {

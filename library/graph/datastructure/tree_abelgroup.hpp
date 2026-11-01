@@ -40,7 +40,8 @@ struct Tree_AbelGroup {
         if constexpr (subtree_query) bit_subtree.build(bit_raw_2);
     }
 
-    void multiply(int i, X x) {
+    void multiply(int i, X x) { add(i, x); }
+    void add(int i, X x) {
         int v = (edge ? tree.e_to_v(i) : i);
         if constexpr (path_query) {
             bit.multiply(tree.ELID(v), x);
@@ -57,10 +58,17 @@ struct Tree_AbelGroup {
         return MX::op(x1, x2);
     }
 
-    X prod_subtree(int u) {
+    // subtree of u when the tree is rooted at root
+    X prod_subtree(int u, int root = -1) {
         static_assert(subtree_query);
         int l = tree.LID[u], r = tree.RID[u];
-        return bit_subtree.prod(l + edge, r);
+        if (root == -1) return bit_subtree.prod(l + edge, r);
+        if (root == u) return bit_subtree.prod_all();
+        if (tree.in_subtree(u, root)) return bit_subtree.prod(l + edge, r);
+        assert(!edge);
+        u = tree.jump(u, root, 1);
+        int L = tree.LID[u], R = tree.RID[u];
+        return MX::op(bit_subtree.prod(0, L), bit_subtree.prod(R, N));
     }
 };
 } // namespace mitsuha

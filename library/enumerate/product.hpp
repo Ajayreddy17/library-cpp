@@ -1,5 +1,5 @@
-#ifndef AJAY_PARTITION
-#define AJAY_PARTITION
+#ifndef AJAY_ENUMERATE_PRODUCT
+#define AJAY_ENUMERATE_PRODUCT
 
 namespace mitsuha{
 template <typename F>
@@ -19,4 +19,4 @@ void enumerate_product(vector<int> A, F query) {
     dfs(dfs, p);
 }
 } // namespace mitsuha
-#endif // AJAY_PARTITION
+#endif // AJAY_ENUMERATE_PRODUCT

@@ -152,7 +152,7 @@ mint Count_Eulerian_Trail(std::vector<std::vector<S>> G, bool fact_in = true){
 template<typename GT>
 vector<vector<typename GT::cost_type>> graph_to_adj_matrix(GT &G){
     int N = G.N;
-    using S = GT::cost_type;
+    using S = typename GT::cost_type;
     vector<vector<S>> M(N, vector<S>(N, 0));
     for (auto &&ed: G.edges){
         M[ed.frm][ed.to] = ed.cost;

@@ -3,7 +3,7 @@
 #include <library/acted_monoid/am_summax_assign.hpp>
 #include <library/datastructure/segment_tree/dynamic_lazy_segtree.hpp>
 #include <library/random/base.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void test() {
     using AM = ActedMonoid_SumMax_Assign<int, -1>;
     using P = typename AM::X;

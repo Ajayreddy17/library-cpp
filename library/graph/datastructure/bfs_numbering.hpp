@@ -87,6 +87,23 @@ private:
         }
         return R;
     }
+
+    // calc_range pieces covering every u with dist(v, u) <= r
+    vector<pair<int, int>> disk_range(int v, int r) {
+      if (r < 0) return {};
+      vector<pair<int, int>> res;
+      int d = depth[v];
+      For(k, r + 1) {
+        if (v == -1) break;
+        int hi = d + r - k;
+        int lo = hi - 1;
+        chmax(lo, d);
+        if (parent[v] == -1) lo = 0;
+        For(i, lo, hi + 1) { res.emplace_back(calc_range(v, i)); }
+        v = parent[v], d = d - 1;
+      }
+      return res;
+    }
 };
 } // namespace mitsuha
 #endif // AJAY_BFS_NUMBERING

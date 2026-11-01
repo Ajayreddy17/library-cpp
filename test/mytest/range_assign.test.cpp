@@ -1,12 +1,11 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include <library/template.hpp>
-
 #include <library/datastructure/segment_tree/range_assignment_segtree.hpp>
 #include <library/datastructure/segment_tree/lazy_segtree.hpp>
 #include <library/monoid/monoid_add.hpp>
 #include <library/acted_monoid/am_sum_assign.hpp>
 #include <library/random/base.hpp>
-
+#include "library/util/maspy_compat.hpp"
 struct PROB {
     int N, Q;
     vector<long long> INIT;
@@ -29,8 +28,8 @@ PROB gen(int N, int Q) {
     return p;
 }
 
-vi sol_1(PROB p) {
-    vi ANS;
+vector<long long> sol_1(PROB p) {
+    vector<long long> ANS;
     Lazy_SegTree<ActedMonoid_Sum_Assign<long long, -1>> seg(p.INIT);
     for (auto& [l, r, x]: p.QUERY) {
         if (x == -1) {
@@ -42,8 +41,8 @@ vi sol_1(PROB p) {
     return ANS;
 }
 
-vi sol_2(PROB p) {
-    vi ANS;
+vector<long long> sol_2(PROB p) {
+    vector<long long> ANS;
     Range_Assignment_SegTree<Monoid_Add<long long>> seg(p.INIT);
     for (auto& [l, r, x]: p.QUERY) {
         if (x == -1) {
@@ -59,9 +58,9 @@ void test() {
     int N = 1 << 22, Q = 1 << 22;
     PROB p = gen(N, Q);
     double a = clock();
-    vi A = sol_1(p);
+    vector<long long> A = sol_1(p);
     double b = clock();
-    vi B = sol_2(p);
+    vector<long long> B = sol_2(p);
     double c = clock();
     a = (b - a) / CLOCKS_PER_SEC;
     b = (c - b) / CLOCKS_PER_SEC;

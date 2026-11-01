@@ -19,6 +19,7 @@ struct Index_Compression_DISTINCT_SMALL {
         return X;
     }
     int operator()(long long x) { return dat[clamp<long long>(x - mi, 0, ma - mi + 1)]; }
+    int val_to_idx(long long x) { return (*this)(x); }
 };
 
 template <typename T>
@@ -36,6 +37,7 @@ struct Index_Compression_SAME_SMALL {
         return X;
     }
     int operator()(long long x) { return dat[clamp<long long>(x - mi, 0, ma - mi + 1)]; }
+    int val_to_idx(long long x) { return (*this)(x); }
 };
 
 template <typename T>
@@ -56,6 +58,7 @@ struct Index_Compression_SAME_LARGE {
         return res;
     }
     int operator()(T x) { return lower_bound(dat.begin(), dat.end(), x) - dat.begin(); }
+    int val_to_idx(T x) { return (*this)(x); }
 };
 
 template <typename T>
@@ -69,6 +72,7 @@ struct Index_Compression_DISTINCT_LARGE {
         return res;
     }
     int operator()(T x) { return lower_bound(dat.begin(), dat.end(), x) - dat.begin(); }
+    int val_to_idx(T x) { return (*this)(x); }
 };
 
 template <typename T, bool SMALL>

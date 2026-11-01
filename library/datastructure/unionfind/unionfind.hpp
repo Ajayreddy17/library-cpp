@@ -3,20 +3,25 @@
 
 namespace mitsuha{
 struct UnionFind{
-    int n, _group_count;
+    int n, n_comp;
     vector<int> p;
     vector<list<int>> group;
-    UnionFind(){ }
-    UnionFind(int n): n(n), _group_count(n), p(n, -1), group(n){
-        Assert(n >= 0);
+    UnionFind(int n = 0) { build(n); }
+    void build(int m) {
+        Assert(m >= 0);
+        n = m, n_comp = m;
+        p.assign(n, -1);
+        group.assign(n, {});
         for(auto i = 0; i < n; ++ i) group[i] = {i};
     }
+    void reset() { build(n); }
     int make_set(){
 		p.push_back(-1);
 		group.push_back(list<int>{n});
-		++ _group_count;
+		++ n_comp;
 		return n ++;
 	}
+    int add_vertex() { return make_set(); }
     int root(int u){
         Assert(0 <= u && u < n);
         return p[u] < 0 ? u : p[u] = root(p[u]);
@@ -34,14 +39,14 @@ struct UnionFind{
         Assert(0 <= min(u, v) && max(u, v) < n);
         u = root(u), v = root(v);
         if(u == v) return false;
-        -- _group_count;
+        -- n_comp;
         if(p[u] > p[v]) swap(u, v);
         p[u] += p[v], p[v] = u;
         group[u].splice(group[u].end(), group[v]);
         return true;
     }
     int group_count() const{
-        return _group_count;
+        return n_comp;
     }
     const list<int> &group_of(int u){
         Assert(0 <= u && u < n);
@@ -53,8 +58,13 @@ struct UnionFind{
         g.erase(remove_if(g.begin(), g.end(), [&](auto &s){ return s.empty(); }), g.end());
         return g;
     }
+    vector<int> get_all() {
+        vector<int> A(n);
+        for(auto i = 0; i < n; ++ i) A[i] = root(i);
+        return A;
+    }
     void clear(){
-        _group_count = n;
+        n_comp = n;
         fill(p.begin(), p.end(), -1);
         for(auto i = 0; i < n; ++ i) group[i] = {i};
     }

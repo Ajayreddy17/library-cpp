@@ -127,7 +127,7 @@ template <typename GT>
 pair<int, vector<int>> bipartite_edge_coloring(GT& G) {
     if (G.M == 0) return {0, {}};
     
-    auto vcolor = bipartite_vertex_coloring<GT>(G);
+    auto vcolor = bipartite_vertex_coloring<GT>(G, true);
     auto deg = G.deg_array();
     int D = *max_element(deg.begin(), deg.end());
 
@@ -159,6 +159,7 @@ pair<int, vector<int>> bipartite_edge_coloring(GT& G) {
     for (auto&& e : G.edges) {
         int a = e.frm, b = e.to;
         a = uf[a], b = uf[b];
+        if (vcolor[a] == 1) swap(a, b);
         a = lower_bound(LV.begin(), LV.end(), a) - LV.begin();
         b = lower_bound(RV.begin(), RV.end(), b) - RV.begin();
         degL[a]++, degR[b]++;

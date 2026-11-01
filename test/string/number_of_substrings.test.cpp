@@ -1,8 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/number_of_substrings"
 #include <library/template.hpp>
-
 #include <library/string/suffix_array.hpp>
-
+#include "library/util/maspy_compat.hpp"
 void solve() {
     STR(S);
     long long N = len(S);

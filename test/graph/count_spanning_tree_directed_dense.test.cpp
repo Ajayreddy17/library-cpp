@@ -1,0 +1,20 @@
+#define PROBLEM  "https://judge.yosupo.jp/problem/counting_spanning_tree_directed"
+#include "library/template.hpp"
+#include "library/graph/count/count_spanning_tree.hpp"
+#include "library/mod/modint.hpp"
+#include "library/util/maspy_compat.hpp"
+
+using mint = modint998;
+
+void solve() {
+  LL(N, M, r);
+  Graph<int, 1> G(N);
+  G.read_graph(M, 0, 0);
+  mint ANS = count_spanning_tree_directed<mint, false>(G, r);
+  print(ANS);
+}
+
+signed main() {
+  solve();
+  return 0;
+}

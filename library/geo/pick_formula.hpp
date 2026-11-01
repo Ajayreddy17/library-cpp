@@ -1,6 +1,8 @@
 #ifndef AJAY_PICK_FORMULA
 #define AJAY_PICK_FORMULA
 
+#include "library/geo/base.hpp"
+
 
 // input: simple polygon
 // return: area2, inner, boundary

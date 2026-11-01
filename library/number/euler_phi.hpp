@@ -1,5 +1,5 @@
 #ifndef AJAY_EULER_PHI
-#define AJAY_EULAR_PHI
+#define AJAY_EULER_PHI
 
 #include "library/number/zeta.hpp"
 #include "library/number/factor.hpp"

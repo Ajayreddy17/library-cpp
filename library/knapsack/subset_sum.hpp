@@ -94,7 +94,7 @@ vector<int> subset_sum_solution_2(vector<T>& vals, int target) {
 }
 
 // O(sum^{1.5} / w)
-// sum=10^6 in 150ms：https://codeforces.com/contest/755/problem/F
+// sum=10^6 in 150ms: https://codeforces.com/contest/755/problem/F
 template <typename T>
 vector<int> subset_sum_solution_3(vector<T>& vals, int target) {
     int SM = accumulate(vals.begin(), vals.end(), T(0));

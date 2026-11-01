@@ -14,7 +14,7 @@ vector<tuple<T, vector<int>, vector<int>>> K_shortest_path(GT& G, int s, int t, 
     vector<tuple<T, vector<int>, vector<int>>> res;
     // Starting point of exploration(es, ng_edges)
     vector<pair<vector<int>, vector<int>>> nodes;
-    // possible answers (cost, es, ng_es, n), (ng_es, n)：Conditions for finding that path
+    // possible answers (cost, es, ng_es, n), (ng_es, n): Conditions for finding that path
     vector<tuple<T, vector<int>, vector<int>, int>> paths;
 
     nodes.emplace_back(vector<int>(), vector<int>());

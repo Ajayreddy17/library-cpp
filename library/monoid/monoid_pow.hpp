@@ -16,8 +16,8 @@ public:
 };
 
 template <typename Monoid>
-typename Monoid::X monoid_pow(typename Monoid::X x, long long exp) {
-    using X = typename Monoid::X;
+typename Monoid::value_type monoid_pow(typename Monoid::value_type x, long long exp) {
+    using X = typename Monoid::value_type;
     if constexpr (has_power_method<Monoid, X, long long>::value) {
         return Monoid::power(x, exp);
     } else {

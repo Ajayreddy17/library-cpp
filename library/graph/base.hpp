@@ -18,7 +18,7 @@ struct Graph {
     vector<edge_type> edges;
     vector<int> indptr;
     vector<edge_type> csr_edges;
-    vector<int> vc_deg, vc_indeg, vc_outdeg;
+    mutable vector<int> vc_deg, vc_indeg, vc_outdeg;
     bool prepared;
 
     class OutgoingEdges {
@@ -40,7 +40,7 @@ struct Graph {
         int l, r;
     };
 
-    bool is_prepared() { return prepared; }
+    bool is_prepared() const { return prepared; }
 
     Graph() : N(0), M(0), prepared(0) {}
     Graph(int N) : N(N), M(0), prepared(0) {}
@@ -58,7 +58,7 @@ struct Graph {
 
     void add(int frm, int to, T cost = 1, int i = -1) {
         assert(!prepared);
-        assert(0 <= frm && 0 <= to && to < N);
+        assert(0 <= frm && frm < N && 0 <= to && to < N);
         if (i == -1) i = M;
         auto e = edge_type({frm, to, cost, i});
         edges.emplace_back(e);
@@ -109,39 +109,39 @@ struct Graph {
         return {this, indptr[v], indptr[v + 1]};
     }
 
-    vector<int> deg_array() {
+    vector<int> deg_array() const {
         if (vc_deg.empty()) calc_deg();
         return vc_deg;
     }
 
-    pair<vector<int>, vector<int>> deg_array_inout() {
+    pair<vector<int>, vector<int>> deg_array_inout() const {
         if (vc_indeg.empty()) calc_deg_inout();
         return {vc_indeg, vc_outdeg};
     }
 
-    int deg(int v) {
+    int deg(int v) const {
         if (vc_deg.empty()) calc_deg();
         return vc_deg[v];
     }
 
-    int in_deg(int v) {
+    int in_deg(int v) const {
         if (vc_indeg.empty()) calc_deg_inout();
         return vc_indeg[v];
     }
 
-    int out_deg(int v) {
+    int out_deg(int v) const {
         if (vc_outdeg.empty()) calc_deg_inout();
         return vc_outdeg[v];
     }
 
-    vector<int> new_idx;
-    vector<bool> used_e;
+    mutable vector<int> new_idx;
+    mutable vector<bool> used_e;
 
     // vertex V[i] in G become i in the new graph
     // {G, es}
     // The amount of calculation is sum(deg(v)),
     // Be careful as it may be larger than n+m in the new graph
-    Graph<T, directed> rearrange(vector<int> V, bool keep_eid = 0) {
+    Graph<T, directed> rearrange(const vector<int> &V, bool keep_eid = 0) const {
         if (len(new_idx) != N) new_idx.assign(N, -1);
         int n = len(V);
         For(i, n) new_idx[V[i]] = i;
@@ -166,7 +166,7 @@ struct Graph {
         return G;
     }
 
-    Graph<T, true> to_directed_tree(int root = -1, bool directed_away_from_root = true) {
+    Graph<T, true> to_directed_tree(int root = -1, bool directed_away_from_root = true) const {
         if (root == -1) root = 0;
         assert(!is_directed && prepared && M == N - 1);
         Graph<T, true> G1(N);
@@ -192,13 +192,13 @@ struct Graph {
     }
 
 private:
-    void calc_deg() {
+    void calc_deg() const {
         assert(vc_deg.empty());
         vc_deg.resize(N);
         for (auto&& e: edges) vc_deg[e.frm]++, vc_deg[e.to]++;
     }
 
-    void calc_deg_inout() {
+    void calc_deg_inout() const {
         assert(vc_indeg.empty());
         vc_indeg.resize(N);
         vc_outdeg.resize(N);

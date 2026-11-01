@@ -182,7 +182,7 @@ struct Lazy_Tree_Monoid {
   int max_path_edge(F check, int u, int v) {
     static_assert(edge);
     if (!check(MX::unit())) return -1;
-    int lca = tree.LCA(u, v);
+    int lca = tree.lca(u, v);
     auto pd = tree.get_path_decomposition(u, lca, edge);
     X val = MX::unit();
 

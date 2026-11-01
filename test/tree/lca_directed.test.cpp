@@ -15,7 +15,7 @@ void solve() {
 
     For(_, Q) {
         LL(a, b);
-        print(tree.LCA(a, b));
+        print(tree.lca(a, b));
     }
 }
 

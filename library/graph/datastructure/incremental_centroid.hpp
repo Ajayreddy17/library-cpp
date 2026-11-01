@@ -47,7 +47,7 @@ struct Incremental_Centroid {
       int L = tree.LID[a], R = tree.RID[a];
       L = ss.next(L), R = ss.prev(R - 1);
       int x = tree.V[L], y = tree.V[R];
-      return tree.LCA(x, y);
+      return tree.lca(x, y);
     }
     int L = tree.LID[cent], R = tree.RID[cent];
     int x = v;

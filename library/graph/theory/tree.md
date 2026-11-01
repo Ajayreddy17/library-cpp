@@ -90,7 +90,7 @@ queries still work, in `O(depth)`).
 
 ## 4. Queries
 
-### 4.1 `lca(u, v)` / `LCA` — `O(log N)`
+### 4.1 `lca(u, v)` — `O(log N)`
 
 ```cpp
 for (;; v = parent[head[v]]) {
@@ -107,7 +107,7 @@ preorder numbers light subtrees after the heavy one, giving `LID[u] > LID[v]`.
 
 `lca(10, 14) = 0`, `lca(14, 15) = 3`.
 
-### 4.2 `la(v, k)` / `LA` — `k`-th ancestor, `O(log N)`
+### 4.2 `la(v, k)` — `k`-th ancestor, `O(log N)`
 
 ```
 u = head[v]

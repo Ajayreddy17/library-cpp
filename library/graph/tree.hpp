@@ -138,7 +138,6 @@ struct Tree {
             v = parent[u];
         }
     }
-    int LA(int v, int k) const { return la(v, k); }
 
     int lca(int u, int v) const {
         for (;; v = parent[head[v]]) {
@@ -146,7 +145,6 @@ struct Tree {
             if (head[u] == head[v]) return u;
         }
     }
-    int LCA(int u, int v) const { return lca(u, v); }
 
     int meet(int a, int b, int c) const { return lca(a, b) ^ lca(a, c) ^ lca(b, c); }
 

@@ -13,11 +13,11 @@ void solve() {
     G.build();
 
     Tree<decltype(G)> tree(G);
-    Fast_Lca<decltype(tree)> LCA(tree);
+    Fast_Lca<decltype(tree)> fast(tree);
 
     For(Q) {
         INT(a, b);
-        print(LCA.lca(a, b));
+        print(fast.lca(a, b));
     }
 }
 

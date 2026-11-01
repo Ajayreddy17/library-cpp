@@ -56,7 +56,7 @@ struct Rolling_Hash_on_Tree {
   }
 
   mint get(int a, int b) {
-    int c = tree.LCA(a, b);
+    int c = tree.lca(a, b);
     mint x1 = get_du(a, c), x2 = get_ud(c, b);
     int n2 = tree.depth[b] - tree.depth[c];
     if constexpr (!EDGE) {

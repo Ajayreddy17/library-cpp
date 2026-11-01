@@ -138,22 +138,7 @@ total reset cost is at most the total add cost.
 
 ---
 
-## 5. When to use what
-
-| Technique | Needs | Time | Notes |
-|---|---|---|---|
-| DSU on tree (this) | `add`, `reset` | `O(N log N)` adds | offline, one answer per vertex, no deletions |
-| Small-to-large merge of child sets | mergeable container (`map`, `set`) | `O(N log² N)` with `std::map` | gives an actual set per vertex; more memory |
-| Euler tour + Mo's algorithm | `add` and `remove` | `O(N √Q)` | arbitrary subtree queries, many per vertex |
-| Euler tour + segment tree / BIT | invertible or monoid aggregate | `O(N log N)` | when the answer is a range aggregate (sum, min) |
-
-Typical DSU-on-tree problems: number of distinct colours per subtree, dominant
-colour (CF 600E), number of colours with frequency `≥ k` (CF 375D), counts per
-depth inside a subtree, palindromic rearrangement checks with a parity mask.
-
----
-
-## 6. Cheat sheet
+## 5. Cheat sheet
 
 ```
 for v in V reversed (children before parents):

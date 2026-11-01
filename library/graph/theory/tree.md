@@ -1,7 +1,8 @@
 # Rooted Tree and Heavy-Light Decomposition (`library/graph/tree.hpp`)
 
-Example tree used throughout: 16 vertices, root `0`, edges
-`0-1 0-2 0-3 1-4 1-5 2-6 3-7 3-8 3-9 4-10 4-11 7-12 7-13 12-14 9-15`.
+Example tree used throughout:
+
+![example tree](images/fig0_example_tree.png)
 
 ```cpp
 Graph<int, 0> G(N);  /* add edges */  G.build();

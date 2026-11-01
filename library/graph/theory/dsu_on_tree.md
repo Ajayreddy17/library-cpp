@@ -37,7 +37,7 @@ Example, distinct colours in every subtree:
 
 ```cpp
 Graph<int, 0> G(N);  /* read edges */  G.build();
-Tree<decltype(G)> T(G);                // hld = true is required for the bound
+Tree<decltype(G)> T(G);
 
 vector<int> cnt(C), hist, ans(N);
 int distinct = 0;
@@ -49,9 +49,6 @@ DSU_on_Tree(T, add, query, reset);
 
 - The callbacks are taken by non-const reference, so they must be **named
   variables**; lambdas written inline in the call do not compile.
-- Build the `Tree` with `hld = true`. With `hld = false` the result is still
-  correct but the bound is gone (a 4000-vertex caterpillar needs 4 000 001
-  `add` calls instead of 5 999).
 - Answers are for the root the `Tree` was built with.
 
 ---
@@ -170,5 +167,5 @@ invariant: before v, structure == subtree(heavy child of v)
 adds(u) = 1 + #light edges above u ≤ 1 + log2 N      total O(N log N)
 reset() runs once per heavy path → must cost O(#items added since last reset)
 exclude v from its own query: call add(v) after query(v)
-Tree must be built with hld = true; callbacks must be named variables
+callbacks must be named variables
 ```

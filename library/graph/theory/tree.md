@@ -6,7 +6,7 @@ Example tree used throughout:
 
 ```cpp
 Graph<int, 0> G(N);  /* add edges */  G.build();
-Tree<decltype(G)> T(G, root = 0, hld = true);
+Tree<decltype(G)> T(G);  // root 0; T(G, r) for another root
 ```
 
 ---

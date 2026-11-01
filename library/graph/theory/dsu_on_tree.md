@@ -47,8 +47,6 @@ auto reset = [&]() { for (int c : hist) --cnt[c]; hist.clear(); distinct = 0; };
 DSU_on_Tree(T, add, query, reset);
 ```
 
-- The callbacks are taken by non-const reference, so they must be **named
-  variables**; lambdas written inline in the call do not compile.
 - Answers are for the root the `Tree` was built with.
 
 ---
@@ -167,5 +165,4 @@ invariant: before v, structure == subtree(heavy child of v)
 adds(u) = 1 + #light edges above u ≤ 1 + log2 N      total O(N log N)
 reset() runs once per heavy path → must cost O(#items added since last reset)
 exclude v from its own query: call add(v) after query(v)
-callbacks must be named variables
 ```

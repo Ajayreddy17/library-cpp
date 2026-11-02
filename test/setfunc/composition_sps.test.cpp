@@ -5,14 +5,14 @@
 
 using mint = modint998;
 void solve() {
-  LL(M, N);
-  vector<mint> f(M); read(f);
-  vector<mint> s(1 << N); read(s);
-  s = sps_composition_poly<mint, 20>(f, s);
-  print(s);
+    LL(M, N);
+    vector<mint> f(M); read(f);
+    vector<mint> s(1 << N); read(s);
+    s = sps_composition_poly<mint, 20>(f, s);
+    print(s);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

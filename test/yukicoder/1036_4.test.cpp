@@ -4,20 +4,20 @@
 #include "library/monoid/monoid_gcd.hpp"
 
 void solve() {
-  LL(N);
-  vector<long long> A(N); read(A);
-  Sparse_Table<Monoid_Gcd<long long>> seg(A);
-  long long R = 0;
-  long long ANS = 0;
-  For(L, N) {
-    while (R < N && seg.prod(L, R + 1) != 1) ++R;
-    ANS += N - R;
-  }
-  print(ANS);
+    LL(N);
+    vector<long long> A(N); read(A);
+    Sparse_Table<Monoid_Gcd<long long>> seg(A);
+    long long R = 0;
+    long long ANS = 0;
+    For(L, N) {
+        while (R < N && seg.prod(L, R + 1) != 1) ++R;
+        ANS += N - R;
+    }
+    print(ANS);
 }
 
 signed main() {
-  solve();
+    solve();
 
-  return 0;
+    return 0;
 }

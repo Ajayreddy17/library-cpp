@@ -10,64 +10,64 @@
 namespace mitsuha{
 template <typename T>
 vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {
-  using P = Point<T>;
-  rotate(A.begin(), min_element(A.begin(), A.end()), A.end());
-  rotate(B.begin(), min_element(B.begin(), B.end()), B.end());
-  if (len(A) > len(B)) swap(A, B);
-  if (len(A) == 1) {
-    for (auto &p : B) {
-      p += A[0];
+    using P = Point<T>;
+    rotate(A.begin(), min_element(A.begin(), A.end()), A.end());
+    rotate(B.begin(), min_element(B.begin(), B.end()), B.end());
+    if (len(A) > len(B)) swap(A, B);
+    if (len(A) == 1) {
+        for (auto &p : B) {
+            p += A[0];
+        }
+        return B;
     }
-    return B;
-  }
 
-  P p0 = A[0] + B[0];
-  int NA = len(A), NB = len(B);
-  A.emplace_back(A[0]), B.emplace_back(B[0]);
-  vector<P> DA(NA), DB(NB);
-  For(i, NA) DA[i] = A[i + 1] - A[i];
-  For(i, NB) DB[i] = B[i + 1] - B[i];
-  A.pop_back(), B.pop_back();
+    P p0 = A[0] + B[0];
+    int NA = len(A), NB = len(B);
+    A.emplace_back(A[0]), B.emplace_back(B[0]);
+    vector<P> DA(NA), DB(NB);
+    For(i, NA) DA[i] = A[i + 1] - A[i];
+    For(i, NB) DB[i] = B[i + 1] - B[i];
+    A.pop_back(), B.pop_back();
 
-  auto comp = [&](P L, P R) -> bool {
-    int a = lower_or_upper(L), b = lower_or_upper(R);
-    if (a != b) return a < b;
-    return L.det(R) > 0;
-  };
-  rotate(DA.begin(), min_element(DA.begin(), DA.end(), comp), DA.end());
-  rotate(DB.begin(), min_element(DB.begin(), DB.end(), comp), DB.end());
+    auto comp = [&](P L, P R) -> bool {
+        int a = lower_or_upper(L), b = lower_or_upper(R);
+        if (a != b) return a < b;
+        return L.det(R) > 0;
+    };
+    rotate(DA.begin(), min_element(DA.begin(), DA.end(), comp), DA.end());
+    rotate(DB.begin(), min_element(DB.begin(), DB.end(), comp), DB.end());
 
-  int a = 0, b = 0;
-  vector<P> C(NA + NB + 1);
-  For(i, NA + NB) {
-    if (a == NA || (b < NB && comp(DB[b], DA[a]))) {
-      C[i + 1] = C[i] + DB[b++];
-    } else {
-      C[i + 1] = C[i] + DA[a++];
+    int a = 0, b = 0;
+    vector<P> C(NA + NB + 1);
+    For(i, NA + NB) {
+        if (a == NA || (b < NB && comp(DB[b], DA[a]))) {
+            C[i + 1] = C[i] + DB[b++];
+        } else {
+            C[i + 1] = C[i] + DA[a++];
+        }
     }
-  }
-  assert(C[NA + NB] == P(0, 0));
-  C.pop_back();
-  rotate(C.begin(), min_element(C.begin(), C.end()), C.end());
+    assert(C[NA + NB] == P(0, 0));
+    C.pop_back();
+    rotate(C.begin(), min_element(C.begin(), C.end()), C.end());
 
-  P add = p0 - C[0];
-  for (auto &x : C) x += add;
+    P add = p0 - C[0];
+    for (auto &x : C) x += add;
 
-  C.emplace_back(C[0]);
-  vector<P> ANS;
-  for (P p : C) {
-    while (len(ANS) >= 2) {
-      P a = ANS[len(ANS) - 2];
-      P b = ANS[len(ANS) - 1];
-      if ((b - a).det(p - a) != 0) break;
-      if ((b - a).dot(p - b) < 0) break;
-      ANS.pop_back();
+    C.emplace_back(C[0]);
+    vector<P> ANS;
+    for (P p : C) {
+        while (len(ANS) >= 2) {
+            P a = ANS[len(ANS) - 2];
+            P b = ANS[len(ANS) - 1];
+            if ((b - a).det(p - a) != 0) break;
+            if ((b - a).dot(p - b) < 0) break;
+            ANS.pop_back();
+        }
+        ANS.emplace_back(p);
     }
-    ANS.emplace_back(p);
-  }
-  assert(ANS[0] == ANS.back());
-  ANS.pop_back();
-  return ANS;
+    assert(ANS[0] == ANS.back());
+    ANS.pop_back();
+    return ANS;
 }
 
 } // namespace mitsuha

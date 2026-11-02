@@ -6,14 +6,14 @@
 using P = Point<long long>;
 
 void solve() {
-  INT(N);
-  VT(P, point, N);
-  auto [a, b] = furthest_pair(point);
-  print(a, b);
+    INT(N);
+    VT(P, point, N);
+    auto [a, b] = furthest_pair(point);
+    print(a, b);
 }
 
 signed main() {
-  INT(T);
-  For(T) solve();
-  return 0;
+    INT(T);
+    For(T) solve();
+    return 0;
 }

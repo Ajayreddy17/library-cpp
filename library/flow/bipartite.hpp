@@ -114,7 +114,6 @@ struct BipartiteMatching {
     https://hitonanode.github.io/cplib-cpp/graph/dulmage_mendelsohn_decomposition.hpp.html
     - Maximum matching possible iff with same W
     - Edge uv is always used: Edges with the same W are unique
-    - Edge from color=0 to 1: W[l] <= W[r]
     - Points with color=0 are always used: W=1,2,...,K
     - Points with color=1 are always used: W=0,1,...,K-1
     */

@@ -7,14 +7,14 @@
 using P = Point<long long>;
 
 void solve() {
-  LL(N);
-  VT(P, point, N);
-  vector<int> I = ConvexHull(point);
-  print(len(I));
-  for (auto& i : I) print(point[i]);
+    LL(N);
+    VT(P, point, N);
+    vector<int> I = ConvexHull(point);
+    print(len(I));
+    for (auto& i : I) print(point[i]);
 }
 
 signed main() {
-  INT(T);
-  For(T) solve();
+    INT(T);
+    For(T) solve();
 }

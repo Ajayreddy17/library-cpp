@@ -6,14 +6,14 @@
 using mint = modint998;
 
 void solve() {
-  LL(N, M);
-  Graph<int, 1> G(N);
-  G.read_graph(M, 0, 0);
-  mint ANS = BEST_theorem<mint, false>(G);
-  print(ANS);
+    LL(N, M);
+    Graph<int, 1> G(N);
+    G.read_graph(M, 0, 0);
+    mint ANS = BEST_theorem<mint, false>(G);
+    print(ANS);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

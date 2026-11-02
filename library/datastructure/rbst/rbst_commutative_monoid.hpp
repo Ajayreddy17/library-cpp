@@ -107,7 +107,7 @@ struct RBST_CommutativeMonoid {
         auto dfs = [&](auto &dfs, np root, bool rev) -> void {
             if (!root) return;
             dfs(dfs, (rev ? root->r : root->l), rev ^ root->rev);
-            res.eb(root->x);
+            res.emplace_back(root->x);
             dfs(dfs, (rev ? root->l : root->r), rev ^ root->rev);
         };
         dfs(dfs, root, 0);

@@ -4,23 +4,23 @@
 #include "library/graph/outerplanar.hpp"
 
 void test() {
-  int N = RNG(3, 100);
-  auto edges = random_outerplanar(N);
-  Graph<int, 0> G(N);
-  for (auto& [a, b] : edges) G.add(a, b);
-  G.build();
-  auto C = hamiltonian_cycle_outerplanar(G);
-  assert(!C.empty());
-  assert(check_outerplanar(C, G));
+    int N = RNG(3, 100);
+    auto edges = random_outerplanar(N);
+    Graph<int, 0> G(N);
+    for (auto& [a, b] : edges) G.add(a, b);
+    G.build();
+    auto C = hamiltonian_cycle_outerplanar(G);
+    assert(!C.empty());
+    assert(check_outerplanar(C, G));
 }
 
 void solve() {
-  int a, b;
-  cin >> a >> b;
-  cout << a + b << "\n";
+    int a, b;
+    cin >> a >> b;
+    cout << a + b << "\n";
 }
 
 signed main() {
-  For(10000) test();
-  solve();
+    For(10000) test();
+    solve();
 }

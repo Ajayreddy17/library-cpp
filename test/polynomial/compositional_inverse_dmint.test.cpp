@@ -7,11 +7,11 @@
 using mint = dmint;
 
 void solve() {
-  mint::set_mod(998244353);
-  LL(N);
-  vector<mint> f(N); read(f);
-  f = compositional_inverse(f);
-  print(f);
+    mint::set_mod(998244353);
+    LL(N);
+    vector<mint> f(N); read(f);
+    f = compositional_inverse(f);
+    print(f);
 }
 
 signed main() { solve(); }

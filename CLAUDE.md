@@ -45,6 +45,12 @@ Personal competitive-programming library (C++20). Only user: me.
 | `bfs_01` | `bfs01` |
 | `fastio::` | `io::` |
 | `#include "other/io.hpp"` | `#include "library/io/io2.hpp"` |
+| `Yes(c)` / `No(c)` / `YES(c)` / `NO(c)` | `print(Yes[c])` / `print(Yes[!(c)])` / `print(YES[c])` / `print(YES[!(c)])` |
+| `seg.max_right(check, l)` / `seg.min_left(check, r)` | `seg.max_right(l, check)` / `seg.min_left(r, check)` |
+| slope trick `add_a_minus_x(a)` / `add_x_minus_a(a)` | `add_left(a)` / `add_right(a)` |
+| `flow/min_cost_flow.hpp` | `flow/mincostflow.hpp` (`Min_Cost_Flow`) |
+| `flow/min_cost_b_flow.hpp` (`Min_Cost_B_Flow`) | `flow/bflow.hpp` (`MinCostFlow`) |
+| `flow/maxflow_with_lower_bound.hpp` (`MaxFlow_with_Lower_Bound`) | `flow/maxflow_with_lowerbound.hpp` (`MaxFlow_With_LowerBound`) |
 
 Directory map: `alg/monoid/`→`monoid/`, `alg/acted_monoid/`→`acted_monoid/`,
 `alg/acted_set/`→`monoid/acted_set/`, `ds/`→`datastructure/` (`segtree`→`segment_tree`,

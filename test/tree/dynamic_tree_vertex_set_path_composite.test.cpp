@@ -11,42 +11,42 @@ using Mono = Monoid_Affine<mint>;
 using Node = LCT_Node_Monoid<Mono>;
 
 void solve() {
-  LL(N, Q);
-  Link_Cut_Tree<Node> LCT(N);
-  For(i, N) {
-    mint a, b;
-    read(a, b);
-    LCT.set(i, {a, b});
-  }
-  For(N - 1) {
-    INT(a, b);
-    LCT.link(a, b);
-  }
+    LL(N, Q);
+    Link_Cut_Tree<Node> LCT(N);
+    For(i, N) {
+        mint a, b;
+        read(a, b);
+        LCT.set(i, {a, b});
+    }
+    For(N - 1) {
+        INT(a, b);
+        LCT.link(a, b);
+    }
 
-  For(Q) {
-    LL(t);
-    if (t == 0) {
-      LL(a, b, c, d);
-      LCT.cut(a, b), LCT.link(c, d);
+    For(Q) {
+        LL(t);
+        if (t == 0) {
+            LL(a, b, c, d);
+            LCT.cut(a, b), LCT.link(c, d);
+        }
+        if (t == 1) {
+            LL(i);
+            mint a, b;
+            read(a, b);
+            LCT.set(i, {a, b});
+        }
+        if (t == 2) {
+            LL(a, b);
+            auto f = LCT.prod_path(a, b);
+            uint32_t x;
+            read(x);
+            mint ans = Mono::eval(f, mint::raw(x));
+            print(ans);
+        }
     }
-    if (t == 1) {
-      LL(i);
-      mint a, b;
-      read(a, b);
-      LCT.set(i, {a, b});
-    }
-    if (t == 2) {
-      LL(a, b);
-      auto f = LCT.prod_path(a, b);
-      uint32_t x;
-      read(x);
-      mint ans = Mono::eval(f, mint::raw(x));
-      print(ans);
-    }
-  }
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

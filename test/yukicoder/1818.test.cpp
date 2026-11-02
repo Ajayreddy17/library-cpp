@@ -3,28 +3,28 @@
 #include "library/string/edit_distance.hpp"
 
 void solve() {
-  LL(N, M);
-  vector<long long> A(N); read(A);
-  vector<long long> B(M); read(B);
-  string S, T;
-  For(i, N) {
-    For(A[i]) S += 'a';
-    S += 'b';
-  }
-  For(i, M) {
-    For(B[i]) T += 'a';
-    T += 'b';
-  }
+    LL(N, M);
+    vector<long long> A(N); read(A);
+    vector<long long> B(M); read(B);
+    string S, T;
+    For(i, N) {
+        For(A[i]) S += 'a';
+        S += 'b';
+    }
+    For(i, M) {
+        For(B[i]) T += 'a';
+        T += 'b';
+    }
 
-  print(edit_distance(S, T));
+    print(edit_distance(S, T));
 }
 
 signed main() {
-  cout << fixed << setprecision(15);
+    cout << fixed << setprecision(15);
 
-  long long T = 1;
-  // LL(T);
-  For(T) solve();
+    long long T = 1;
+    // LL(T);
+    For(T) solve();
 
-  return 0;
+    return 0;
 }

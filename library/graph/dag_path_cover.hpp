@@ -11,33 +11,33 @@ namespace mitsuha{
 // returns a colour per vertex; each colour lies on one path
 template <typename DAG>
 vector<int> dag_path_cover(DAG& G) {
-  static_assert(DAG::is_directed);
-  for (auto&& e: G.edges) assert(e.frm < e.to);
+    static_assert(DAG::is_directed);
+    for (auto&& e: G.edges) assert(e.frm < e.to);
 
-  int N = G.N;
-  int source = 2 * N, sink = 2 * N + 1;
-  MaxFlow<int> F(2 * N + 2, source, sink);
-  For(v, N) {
-    F.add(source, 2 * v + 1, 1);
-    F.add(2 * v + 0, sink, 1);
-    F.add(2 * v + 0, 2 * v + 1, infty<int>);
-  }
-  for (auto&& e: G.edges) F.add(2 * e.frm + 1, 2 * e.to + 0, infty<int>);
+    int N = G.N;
+    int source = 2 * N, sink = 2 * N + 1;
+    MaxFlow<int> F(2 * N + 2, source, sink);
+    For(v, N) {
+        F.add(source, 2 * v + 1, 1);
+        F.add(2 * v + 0, sink, 1);
+        F.add(2 * v + 0, 2 * v + 1, infty<int>);
+    }
+    for (auto&& e: G.edges) F.add(2 * e.frm + 1, 2 * e.to + 0, infty<int>);
 
-  F.flow();
-  auto paths = F.path_decomposition();
+    F.flow();
+    auto paths = F.path_decomposition();
 
-  UnionFind uf(N);
-  for (auto& P: paths) {
-    int a = P[1], b = P[len(P) - 2];
-    uf.merge(a / 2, b / 2);
-  }
+    UnionFind uf(N);
+    for (auto& P: paths) {
+        int a = P[1], b = P[len(P) - 2];
+        uf.merge(a / 2, b / 2);
+    }
 
-  vector<int> ANS(N, -1);
-  int p = 0;
-  For(v, N) if (uf[v] == v) ANS[v] = p++;
-  For(v, N) if (uf[v] != v) ANS[v] = ANS[uf[v]];
-  return ANS;
+    vector<int> ANS(N, -1);
+    int p = 0;
+    For(v, N) if (uf[v] == v) ANS[v] = p++;
+    For(v, N) if (uf[v] != v) ANS[v] = ANS[uf[v]];
+    return ANS;
 };
 } // namespace mitsuha
 #endif // AJAY_DAG_PATH_COVER

@@ -10,11 +10,11 @@ namespace mitsuha{
 // https://oeis.org/A001187
 template <typename mint>
 vector<mint> count_labeled_connected(int N) {
-  vector<mint> F = count_labeled_undirected<mint>(N);
-  For(i, N + 1) F[i] *= fact_inv<mint>(i);
-  F = fps_log(F);
-  For(i, N + 1) F[i] *= fact<mint>(i);
-  return F;
+    vector<mint> F = count_labeled_undirected<mint>(N);
+    For(i, N + 1) F[i] *= fact_inv<mint>(i);
+    F = fps_log(F);
+    For(i, N + 1) F[i] *= fact<mint>(i);
+    return F;
 }
 } // namespace mitsuha
 #endif // AJAY_COUNT_LABELED_CONNECTED

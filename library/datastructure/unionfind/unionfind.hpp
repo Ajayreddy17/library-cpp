@@ -16,11 +16,11 @@ struct UnionFind{
     }
     void reset() { build(n); }
     int make_set(){
-		p.push_back(-1);
-		group.push_back(list<int>{n});
-		++ n_comp;
-		return n ++;
-	}
+        p.push_back(-1);
+        group.push_back(list<int>{n});
+        ++ n_comp;
+        return n ++;
+    }
     int add_vertex() { return make_set(); }
     int root(int u){
         Assert(0 <= u && u < n);

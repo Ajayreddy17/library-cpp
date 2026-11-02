@@ -68,7 +68,6 @@ struct MaxFlow_With_LowerBound {
             if (0 < lo) {
                 add(6 * i + 2, 6 * i + 3, S, to, lo);
                 add(6 * i + 4, 6 * i + 5, frm, T, lo);
-                cnt[S]++, cnt[to]++, cnt[frm]++, cnt[T]++;
             }
         }
     }
@@ -80,6 +79,7 @@ struct MaxFlow_With_LowerBound {
         int M = dat.size();
         For(i, M) {
             auto [frm, to, lo, hi] = dat[i];
+            if (frm == to) continue;  // self-loop: not in G, any value in [lo, hi] works
             if (lo > 0 && G[idx[6 * i + 2]].cap > 0) valid = 0;
             if (lo > 0 && G[idx[6 * i + 4]].cap > 0) valid = 0;
         }
@@ -143,7 +143,7 @@ struct MaxFlow_With_LowerBound {
         vector<Cap> res(M);
         For(i, M) {
             auto [frm, to, lo, hi] = dat[i];
-            Cap flow = (lo < hi ? G[idx[6 * i + 1]].cap + lo : lo);
+            Cap flow = (frm != to && lo < hi ? G[idx[6 * i + 1]].cap + lo : lo);
             res[i] = flow;
         }
         return res;

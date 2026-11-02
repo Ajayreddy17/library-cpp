@@ -8,29 +8,29 @@
 using mint = modint998;
 
 void test() {
-  int N = 10;
-  auto uni = count_labeled_unicyclic<mint>(N);
-  assert(uni
-         == vector<mint>(
-             {0, 0, 0, 1, 15, 222, 3660, 68295, 1436568, 33779340, 880107840}));
-  auto tree = count_labeled_tree<mint>(N);
-  assert(tree
-         == vector<mint>(
-             {0, 1, 1, 3, 16, 125, 1296, 16807, 262144, 4782969, 100000000}));
-  auto forest = count_labeled_forest<mint>(N);
-  assert(forest
-         == vector<mint>(
-             {1, 1, 2, 7, 38, 291, 2932, 36961, 561948, 10026505, 205608536}));
+    int N = 10;
+    auto uni = count_labeled_unicyclic<mint>(N);
+    assert(uni
+                  == vector<mint>(
+                          {0, 0, 0, 1, 15, 222, 3660, 68295, 1436568, 33779340, 880107840}));
+    auto tree = count_labeled_tree<mint>(N);
+    assert(tree
+                  == vector<mint>(
+                          {0, 1, 1, 3, 16, 125, 1296, 16807, 262144, 4782969, 100000000}));
+    auto forest = count_labeled_forest<mint>(N);
+    assert(forest
+                  == vector<mint>(
+                          {1, 1, 2, 7, 38, 291, 2932, 36961, 561948, 10026505, 205608536}));
 }
 
 void solve() {
-  int a, b;
-  cin >> a >> b;
-  cout << a + b << "\n";
+    int a, b;
+    cin >> a >> b;
+    cout << a + b << "\n";
 }
 
 signed main() {
-  test();
-  solve();
-  return 0;
+    test();
+    solve();
+    return 0;
 }

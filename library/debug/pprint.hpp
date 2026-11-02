@@ -117,24 +117,24 @@ std::ostream& operator<<(std::ostream& out, const std::tuple<Args...>& a) {
 
 template<class T> 
 ostream &operator<<(typename enable_if<!is_same<T, string>::value, ostream>::type &out, const T &arr){
-	if(arr.empty()) return out << "{}";
-	out << "{";
-	for(auto it = arr.begin(); it != arr.end(); ++ it){
-		out << *it;
-		next(it) != arr.end() ? out << ", " : out << "}";
-	}
-	return out;
+    if(arr.empty()) return out << "{}";
+    out << "{";
+    for(auto it = arr.begin(); it != arr.end(); ++ it){
+        out << *it;
+        next(it) != arr.end() ? out << ", " : out << "}";
+    }
+    return out;
 }
 
 template<class Width, class Head>
 void debugbin_out(Width w, Head H){
-	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
-	cerr << endl;
+    for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
+    cerr << endl;
 }
 template<class Width, class Head, class... Tail>
 void debugbin_out(Width w, Head H, Tail... T){
-	for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
-	cerr << ", "; debugbin_out(w, T...);
+    for(auto rep = w; rep; -- rep, H >>= 1) cerr << (H & 1);
+    cerr << ", "; debugbin_out(w, T...);
 }
 
 #define debugbin(...) cerr << "[" << __LINE__ << "] " << "[" << #__VA_ARGS__ << "] ", debugbin_out(__VA_ARGS__)

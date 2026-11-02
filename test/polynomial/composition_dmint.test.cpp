@@ -6,12 +6,12 @@
 using mint = dmint;
 
 void solve() {
-  mint::set_mod(998244353);
-  LL(N);
-  vector<mint> f(N); read(f);
-  vector<mint> g(N); read(g);
-  f = composition(f, g);
-  print(f);
+    mint::set_mod(998244353);
+    LL(N);
+    vector<mint> f(N); read(f);
+    vector<mint> g(N); read(g);
+    f = composition(f, g);
+    print(f);
 }
 
 signed main() { solve(); }

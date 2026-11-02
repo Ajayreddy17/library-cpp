@@ -114,7 +114,7 @@ public:
     // O(F(N+M)) Route restoration using about
     vector<vector<int>> path_decomposition() {
         vector<vector<int>> TO(n);
-        for (auto&& e: edges()) { for(int _ = 0; _ < e.flow; ++_) TO[e.frm].eb(e.to); }
+        for (auto&& e: edges()) { for(int _ = 0; _ < e.flow; ++_) TO[e.frm].emplace_back(e.to); }
         vector<vector<int>> res;
         vector<int> vis(n);
 
@@ -136,6 +136,8 @@ public:
         return res;
     }
 
+    // dual potentials p after flow(): reduced cost cost + p[frm] - p[to] >= 0 on residual edges
+    vector<Cost> get_potentials() { return potential; }
 
     int n, source, sink;
     vector<edge> _edges;
@@ -147,6 +149,8 @@ private:
         Cap cap;
         Cost cost;
     };
+
+    vector<Cost> potential;
 
     vector<pair<Cap, Cost>> slope(internal::csr<_edge>& g, Cap flow_limit) {
         if (DAG) assert(source == 0 && sink == n - 1);
@@ -270,6 +274,9 @@ private:
             result.push_back({flow, cost});
             prev_cost_per_flow = d;
         }
+        dual_ref();
+        potential.resize(n);
+        For(v, n) potential[v] = dual_dist[v].first;
         return result;
     }
 };

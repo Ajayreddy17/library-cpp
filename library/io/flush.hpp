@@ -20,7 +20,7 @@ void read(std::pair<T, S> &p) {
 }
 template <class T>
 void read(std::vector<T> &a) {
-  for (auto &i: a) read(i);
+    for (auto &i: a) read(i);
 }
 template <class T>
 void read(T &a) {

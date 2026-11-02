@@ -3,51 +3,51 @@
 #include "library/graph/optimal_product_on_tree.hpp"
 
 struct Data {
-  long long ans, x0, x1;
+    long long ans, x0, x1;
 };
 
 struct Mono {
-  using value_type = Data;
-  using X = value_type;
-  static X op(X x, X y) {
-    X z;
-    z.ans = x.ans + y.ans + x.x1 * y.x0;
-    z.x0 = x.x0 + y.x0, z.x1 = x.x1 + y.x1;
-    return z;
-  }
-  static constexpr X id() { return Data{0, 0, 0}; }
-  static constexpr bool commute = 0;
+    using value_type = Data;
+    using X = value_type;
+    static X op(X x, X y) {
+        X z;
+        z.ans = x.ans + y.ans + x.x1 * y.x0;
+        z.x0 = x.x0 + y.x0, z.x1 = x.x1 + y.x1;
+        return z;
+    }
+    static constexpr X id() { return Data{0, 0, 0}; }
+    static constexpr bool commute = 0;
 };
 
 void solve() {
-  INT(N);
-  Graph<int, 1> G(N);
-  For(v, 1, N) {
-    INT(p);
-    G.add(p, v);
-  }
-  G.build();
-  Tree<decltype(G)> tree(G);
+    INT(N);
+    Graph<int, 1> G(N);
+    For(v, 1, N) {
+        INT(p);
+        G.add(p, v);
+    }
+    G.build();
+    Tree<decltype(G)> tree(G);
 
-  vector<Data> A(N);
-  For(i, N) A[i].ans = 0;
-  For(i, N) {
-    INT(x);
-    A[i].x0 = x;
-  }
-  For(i, N) {
-    INT(x);
-    A[i].x1 = x;
-  }
+    vector<Data> A(N);
+    For(i, N) A[i].ans = 0;
+    For(i, N) {
+        INT(x);
+        A[i].x0 = x;
+    }
+    For(i, N) {
+        INT(x);
+        A[i].x1 = x;
+    }
 
-  auto comp = [&](Data x, Data y) -> bool {
-    if (x.x0 == 0 && x.x1 == 0) return false;
-    if (y.x0 == 0 && y.x1 == 0) return true;
-    return x.x0 * y.x1 > x.x1 * y.x0;
-  };
-  auto [ord, x] = optimal_product_on_tree<decltype(tree), Mono, true>(tree, A, comp);
-  print(x.ans);
-  print(ord);
+    auto comp = [&](Data x, Data y) -> bool {
+        if (x.x0 == 0 && x.x1 == 0) return false;
+        if (y.x0 == 0 && y.x1 == 0) return true;
+        return x.x0 * y.x1 > x.x1 * y.x0;
+    };
+    auto [ord, x] = optimal_product_on_tree<decltype(tree), Mono, true>(tree, A, comp);
+    print(x.ans);
+    print(ord);
 }
 
 signed main() { solve(); }

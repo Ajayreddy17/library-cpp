@@ -6,14 +6,14 @@
 using mint = modint998;
 
 void solve() {
-  LL(N, M, r);
-  Graph<int, 1> G(N);
-  G.read_graph(M, 0, 0);
-  mint ANS = count_spanning_tree_directed<mint, true>(G, r);
-  print(ANS);
+    LL(N, M, r);
+    Graph<int, 1> G(N);
+    G.read_graph(M, 0, 0);
+    mint ANS = count_spanning_tree_directed<mint, true>(G, r);
+    print(ANS);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

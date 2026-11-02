@@ -5,15 +5,15 @@
 using mint = modint998;
 
 void solve() {
-  LL(N);
-  vector<mint> Q(N); read(Q);
-  vector<mint> P(N); read(P);
-  auto F = composition(Q, P);
-  print(F);
+    LL(N);
+    vector<mint> Q(N); read(Q);
+    vector<mint> P(N); read(P);
+    auto F = composition(Q, P);
+    print(F);
 }
 
 signed main() {
-  solve();
+    solve();
 
-  return 0;
+    return 0;
 }

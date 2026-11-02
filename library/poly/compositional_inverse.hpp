@@ -45,26 +45,26 @@ namespace mitsuha{
 
 template <typename mint>
 vector<mint> compositional_inverse(vector<mint> f) {
-  const int n = len(f) - 1;
-  if (n == -1) return {};
-  assert(f[0] == mint(0));
-  if (n == 0) return f;
-  assert(f[1] != mint(0));
-  mint c = f[1];
-  mint ic = c.inverse();
-  for (auto& x : f) x *= ic;
-  vector<mint> wt(n + 1);
-  wt[n] = 1;
+    const int n = len(f) - 1;
+    if (n == -1) return {};
+    assert(f[0] == mint(0));
+    if (n == 0) return f;
+    assert(f[1] != mint(0));
+    mint c = f[1];
+    mint ic = c.inverse();
+    for (auto& x : f) x *= ic;
+    vector<mint> wt(n + 1);
+    wt[n] = 1;
 
-  vector<mint> A = power_projection<mint>(wt, f, n);
-  vector<mint> g(n);
-  For(i, 1, n + 1) g[n - i] = mint(n) * A[i] * inv<mint>(i);
-  g = fps_pow_1<mint>(g, -inv<mint>(n));
-  g.insert(g.begin(), 0);
+    vector<mint> A = power_projection<mint>(wt, f, n);
+    vector<mint> g(n);
+    For(i, 1, n + 1) g[n - i] = mint(n) * A[i] * inv<mint>(i);
+    g = fps_pow_1<mint>(g, -inv<mint>(n));
+    g.insert(g.begin(), 0);
 
-  mint pow = 1;
-  For(i, len(g)) g[i] *= pow, pow *= ic;
-  return g;
+    mint pow = 1;
+    For(i, len(g)) g[i] *= pow, pow *= ic;
+    return g;
 }
 
 // pass G->F(G) and G->DF(G)
@@ -72,24 +72,24 @@ vector<mint> compositional_inverse(vector<mint> f) {
 // complexity is about the same as composition
 template <typename mint, typename F1, typename F2>
 vector<mint> compositional_inverse(const vector<mint>& F, F1 comp_F, F2 comp_DF) {
-  const int N = len(F);
-  assert(N <= 0 || F[0] == mint(0));
-  assert(N <= 1 || F[1] != mint(0));
+    const int N = len(F);
+    assert(N <= 0 || F[0] == mint(0));
+    assert(N <= 1 || F[1] != mint(0));
 
-  vector<mint> G(2);
-  G[1] = mint(1) / F[1];
-  while (len(G) < N) {
-    int n = len(G);
-    // G:= G(x)-(F(G(x))-x)/DF(G(x))
-    vector<mint> G2 = comp_DF(G);
-    G.resize(2 * n);
-    vector<mint> G1 = comp_F(G);
-    G1 = {G1.begin() + n, G1.end()};
-    G1 = fps_div(G1, G2);
-    For(i, n) G[n + i] -= G1[i];
-  }
-  G.resize(N);
-  return G;
+    vector<mint> G(2);
+    G[1] = mint(1) / F[1];
+    while (len(G) < N) {
+        int n = len(G);
+        // G:= G(x)-(F(G(x))-x)/DF(G(x))
+        vector<mint> G2 = comp_DF(G);
+        G.resize(2 * n);
+        vector<mint> G1 = comp_F(G);
+        G1 = {G1.begin() + n, G1.end()};
+        G1 = fps_div(G1, G2);
+        For(i, n) G[n + i] -= G1[i];
+    }
+    G.resize(N);
+    return G;
 }
 } // namespace mitsuha
 #endif // AJAY_COMPOSITIONAL_INVERSE

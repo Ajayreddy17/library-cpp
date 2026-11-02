@@ -3,22 +3,22 @@
 #include "library/convex/slope_trick/slope_trick_1.hpp"
 
 void solve() {
-  LL(N);
-  Slope_Trick_1 X;
-  using F = decltype(X)::FUNC;
-  F f = X.segment_func(-infty<int>, infty<int>, 0, 0);
+    LL(N);
+    Slope_Trick_1 X;
+    using F = decltype(X)::FUNC;
+    F f = X.segment_func(-infty<int>, infty<int>, 0, 0);
 
-  For(N) {
-    LL(x);
-    f = X.add_abs(f, x);
-    f = X.clear_inc(f);
-  }
+    For(N) {
+        LL(x);
+        f = X.add_abs(f, x);
+        f = X.clear_inc(f);
+    }
 
-  auto [fx, lx, rx] = X.get_min(f);
-  print(fx);
+    auto [fx, lx, rx] = X.get_min(f);
+    print(fx);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

@@ -3,14 +3,14 @@
 #include "library/graph/block_cut.hpp"
 
 void solve() {
-  LL(N, M);
-  Graph<int, 0> G(N);
-  G.read_graph(M, 0, 0);
-  Block_Cut X(G);
-  For(v, N) if (X.is_art(v)) print(v);
+    LL(N, M);
+    Graph<int, 0> G(N);
+    G.read_graph(M, 0, 0);
+    Block_Cut X(G);
+    For(v, N) if (X.is_art(v)) print(v);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

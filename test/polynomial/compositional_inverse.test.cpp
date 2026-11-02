@@ -6,13 +6,13 @@
 using mint = modint998;
 
 void solve() {
-  LL(N);
-  vector<mint> F(N); read(F);
-  vector<mint> G = compositional_inverse(F);
-  print(G);
+    LL(N);
+    vector<mint> F(N); read(F);
+    vector<mint> G = compositional_inverse(F);
+    print(G);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

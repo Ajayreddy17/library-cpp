@@ -6,15 +6,15 @@
 using mint = modint998;
 
 void solve() {
-  LL(N);
-  vector<mint> A(1 << N); read(A);
-  vector<mint> B(1 << N); read(B);
-  auto C = subset_convolution(A, B);
-  print(C);
+    LL(N);
+    vector<mint> A(1 << N); read(A);
+    vector<mint> B(1 << N); read(B);
+    auto C = subset_convolution(A, B);
+    print(C);
 }
 
 signed main() {
-  solve();
+    solve();
 
-  return 0;
+    return 0;
 }

@@ -11,10 +11,10 @@ namespace mitsuha{
 // changes the answer, so be careful
 template <typename mint>
 vector<mint> composition_f_ex(vector<mint> f) {
-  int N = len(f) - 1;
-  vector<mint> A, B;
-  For(k, len(f)) A.emplace_back(f[k]), B.emplace_back(mint(k));
-  return sum_of_exp_bx(N, A, B);
+    int N = len(f) - 1;
+    vector<mint> A, B;
+    For(k, len(f)) A.emplace_back(f[k]), B.emplace_back(mint(k));
+    return sum_of_exp_bx(N, A, B);
 }
 } // namespace mitsuha
 #endif // AJAY_COMPOSITION_F_EX

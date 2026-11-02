@@ -83,12 +83,12 @@ struct Dynamic_Modint_64 {
 
 template <int id>
 void rd(Dynamic_Modint_64<id>& x) {
-  io::rd(x.val);
-  assert(0 <= x.val && x.val < Dynamic_Modint_64<id>::get_mod());
+    io::rd(x.val);
+    assert(0 <= x.val && x.val < Dynamic_Modint_64<id>::get_mod());
 }
 template <int id>
 void wt(Dynamic_Modint_64<id> x) {
-  io::wt(x.val);
+    io::wt(x.val);
 }
 
 using dmint64 = Dynamic_Modint_64<-1>;

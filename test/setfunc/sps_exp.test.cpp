@@ -5,13 +5,13 @@
 
 using mint = modint998;
 void solve() {
-  LL(N);
-  vector<mint> s(1 << N); read(s);
-  s = sps_exp<mint, 20>(s);
-  print(s);
+    LL(N);
+    vector<mint> s(1 << N); read(s);
+    s = sps_exp<mint, 20>(s);
+    print(s);
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

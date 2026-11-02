@@ -3,22 +3,22 @@
 #include "library/flow/bipartite_matching.hpp"
 
 void solve() {
-  LL(L, R, M);
-  Graph G(L + R);
-  For(M) {
-    LL(a, b);
-    G.add(a, b + L);
-  }
-  G.build();
-  Bipartite_Matching BM(G);
+    LL(L, R, M);
+    Graph G(L + R);
+    For(M) {
+        LL(a, b);
+        G.add(a, b + L);
+    }
+    G.build();
+    Bipartite_Matching BM(G);
 
-  auto match = BM.matching();
-  print(len(match));
-  for (auto&& [a, b] : match) print(a, b - L);
+    auto match = BM.matching();
+    print(len(match));
+    for (auto&& [a, b] : match) print(a, b - L);
 }
 
 signed main() {
-  solve();
+    solve();
 
-  return 0;
+    return 0;
 }

@@ -3,31 +3,31 @@
 #include "library/graph/blackbox/unionfind.hpp"
 
 void solve() {
-  LL(N, A, B);
-  vector<long long> X(N); read(X);
-  set<pair<long long, long long>> ss;
-  For(i, N) ss.insert({X[i], i});
+    LL(N, A, B);
+    vector<long long> X(N); read(X);
+    set<pair<long long, long long>> ss;
+    For(i, N) ss.insert({X[i], i});
 
-  auto set_used = [&](int v) -> void { ss.erase({X[v], v}); };
-  auto find_unused = [&](int v) -> int {
-    auto it = ss.lower_bound({X[v] + A, -1});
-    if (it != ss.end()) {
-      auto [x, idx] = *it;
-      if (x <= X[v] + B) return idx;
-    }
-    it = ss.lower_bound({X[v] - A + 1, -1});
-    if (it != ss.begin()) {
-      --it;
-      auto [x, idx] = *it;
-      if (x >= X[v] - B) return idx;
-    }
-    return -1;
-  };
-  auto uf = blackbox_unionfind(N, set_used, find_unused);
-  For(v, N) print(uf.size(uf[v]));
+    auto set_used = [&](int v) -> void { ss.erase({X[v], v}); };
+    auto find_unused = [&](int v) -> int {
+        auto it = ss.lower_bound({X[v] + A, -1});
+        if (it != ss.end()) {
+            auto [x, idx] = *it;
+            if (x <= X[v] + B) return idx;
+        }
+        it = ss.lower_bound({X[v] - A + 1, -1});
+        if (it != ss.begin()) {
+            --it;
+            auto [x, idx] = *it;
+            if (x >= X[v] - B) return idx;
+        }
+        return -1;
+    };
+    auto uf = blackbox_unionfind(N, set_used, find_unused);
+    For(v, N) print(uf.size(uf[v]));
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

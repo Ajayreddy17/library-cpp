@@ -11,8 +11,8 @@ namespace mitsuha{
 // f(1-e^x)
 template <typename mint>
 vector<mint> composition_f_ex_minus_1(vector<mint> f) {
-  f = poly_taylor_shift<mint>(f, -1);
-  return composition_f_ex<mint>(f);
+    f = poly_taylor_shift<mint>(f, -1);
+    return composition_f_ex<mint>(f);
 }
 } // namespace mitsuha
 #endif // AJAY_COMPOSITION_F_EX_MINUS_1

@@ -28,7 +28,7 @@ struct Binary_Optimization {
     }
 
     // Add the cost of setting (xi,xj) = (00,01,10,11).
-    // The cost must be x00 + x11 <= x10 + x10 for the MINIMUM model.
+    // The cost must satisfy x00 + x11 <= x01 + x10 for the MINIMUM model.
     // In particular, we can give a gain to the diagonal elements.
     void add_2(int i, int j, T x00, T x01, T x10, T x11) {
         assert(i != j);
@@ -129,8 +129,8 @@ private:
             p = -p;
             add_base(x111);
             _add_1(i, x011 - x111, 0);
-            _add_1(i, x101 - x111, 0);
-            _add_1(i, x110 - x111, 0);
+            _add_1(j, x101 - x111, 0);
+            _add_1(k, x110 - x111, 0);
             _add_2(i, j, x111 + x001 - x011 - x101, 0, 0, 0);
             _add_2(i, k, x111 + x010 - x011 - x110, 0, 0, 0);
             _add_2(j, k, x111 + x100 - x101 - x110, 0, 0, 0);

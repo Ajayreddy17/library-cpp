@@ -12,30 +12,30 @@ namespace mitsuha{
 // ()() → [0,4), [0,2), [2,4)
 // for other inputs, wrap the sequence in () first
 pair<Graph<int, 1>, vector<pair<int, int>>> bracket_graph(string& S) {
-  int N = len(S) / 2;
-  Graph<int, 1> G(N + 1);
-  vector<pair<int, int>> LR(N + 1);
-  int now = 0;
-  int nxt = 1;
-  LR[0] = {0, len(S)};
-  vector<int> par(N + 1, -1);
-  For(i, len(S)) {
-    assert(S[i] == '(' || S[i] == ')');
-    if (S[i] == '(') {
-      G.add(now, nxt);
-      par[nxt] = now;
-      LR[nxt].first = i;
-      now = nxt;
-      nxt++;
+    int N = len(S) / 2;
+    Graph<int, 1> G(N + 1);
+    vector<pair<int, int>> LR(N + 1);
+    int now = 0;
+    int nxt = 1;
+    LR[0] = {0, len(S)};
+    vector<int> par(N + 1, -1);
+    For(i, len(S)) {
+        assert(S[i] == '(' || S[i] == ')');
+        if (S[i] == '(') {
+            G.add(now, nxt);
+            par[nxt] = now;
+            LR[nxt].first = i;
+            now = nxt;
+            nxt++;
+        }
+        if (S[i] == ')') {
+            LR[now].second = i + 1;
+            now = par[now];
+        }
     }
-    if (S[i] == ')') {
-      LR[now].second = i + 1;
-      now = par[now];
-    }
-  }
-  assert(now == 0);
-  G.build();
-  return {G, LR};
+    assert(now == 0);
+    G.build();
+    return {G, LR};
 }
 } // namespace mitsuha
 #endif // AJAY_BRACKET_GRAPH

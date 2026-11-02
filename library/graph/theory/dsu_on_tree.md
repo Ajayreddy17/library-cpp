@@ -24,7 +24,7 @@ appear at least `k` times, number of vertices at depth `d`, and so on.
 
 ```cpp
 template <typename TREE, typename F1, typename F2, typename F3>
-void DSU_on_Tree(TREE& tree, F1& add, F2& query, F3& reset);
+void DSU_on_Tree(TREE& tree, F1&& add, F2&& query, F3&& reset);  // lambdas may be inline
 ```
 
 | Callback | Called | Must do |

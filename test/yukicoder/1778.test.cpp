@@ -4,32 +4,32 @@
 #include "library/graph/tree.hpp"
 
 void solve() {
-  LL(N, Q);
-  STR(S);
-  auto [G, LR] = bracket_graph(S);
-  vector<long long> idx(N);
-  For(i, 1, len(LR)) {
-    auto [L, R] = LR[i];
-    idx[L] = idx[R - 1] = i;
-  }
-
-  Tree tree(G);
-
-  For(Q) {
-    LL(a, b);
-    --a, --b;
-    int i = idx[a], j = idx[b];
-    int k = tree.lca(i, j);
-    if (k == 0)
-      print(-1);
-    else {
-      auto [l, r] = LR[k];
-      print(l + 1, r);
+    LL(N, Q);
+    STR(S);
+    auto [G, LR] = bracket_graph(S);
+    vector<long long> idx(N);
+    For(i, 1, len(LR)) {
+        auto [L, R] = LR[i];
+        idx[L] = idx[R - 1] = i;
     }
-  }
+
+    Tree tree(G);
+
+    For(Q) {
+        LL(a, b);
+        --a, --b;
+        int i = idx[a], j = idx[b];
+        int k = tree.lca(i, j);
+        if (k == 0)
+            print(-1);
+        else {
+            auto [l, r] = LR[k];
+            print(l + 1, r);
+        }
+    }
 }
 
 signed main() {
-  solve();
-  return 0;
+    solve();
+    return 0;
 }

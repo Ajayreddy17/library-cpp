@@ -8,33 +8,33 @@
 using mint = modint998;
 
 void test() {
-  For(N, 100) {
-    vector<mint> f(N);
-    For(i, 1, N) f[i] = RNG(1, 10);
-    vector<mint> A = compositional_inverse<mint>(f);
-    vector<mint> B = compositional_inverse_old<mint>(f);
-    assert(A == B);
-    vector<mint> F = composition<mint>(f, A);
-    vector<mint> G = composition<mint>(A, f);
-    For(i, N) {
-      if (i == 1) {
-        assert(F[i] == mint(1));
-        assert(G[i] == mint(1));
-      } else {
-        assert(F[i] == mint(0));
-        assert(G[i] == mint(0));
-      }
+    For(N, 100) {
+        vector<mint> f(N);
+        For(i, 1, N) f[i] = RNG(1, 10);
+        vector<mint> A = compositional_inverse<mint>(f);
+        vector<mint> B = compositional_inverse_old<mint>(f);
+        assert(A == B);
+        vector<mint> F = composition<mint>(f, A);
+        vector<mint> G = composition<mint>(A, f);
+        For(i, N) {
+            if (i == 1) {
+                assert(F[i] == mint(1));
+                assert(G[i] == mint(1));
+            } else {
+                assert(F[i] == mint(0));
+                assert(G[i] == mint(0));
+            }
+        }
     }
-  }
 }
 
 void solve() {
-  int a, b;
-  cin >> a >> b;
-  cout << a + b << "\n";
+    int a, b;
+    cin >> a >> b;
+    cout << a + b << "\n";
 }
 
 signed main() {
-  test();
-  solve();
+    test();
+    solve();
 }

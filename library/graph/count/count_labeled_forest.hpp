@@ -10,11 +10,11 @@ namespace mitsuha{
 // https://oeis.org/A001858
 template <typename mint>
 vector<mint> count_labeled_forest(int N) {
-  vector<mint> f = count_labeled_tree<mint>(N);
-  For(i, len(f)) f[i] *= fact_inv<mint>(i);
-  f = fps_exp(f);
-  For(i, len(f)) f[i] *= fact<mint>(i);
-  return f;
+    vector<mint> f = count_labeled_tree<mint>(N);
+    For(i, len(f)) f[i] *= fact_inv<mint>(i);
+    f = fps_exp(f);
+    For(i, len(f)) f[i] *= fact<mint>(i);
+    return f;
 }
 } // namespace mitsuha
 #endif // AJAY_COUNT_LABELED_FOREST

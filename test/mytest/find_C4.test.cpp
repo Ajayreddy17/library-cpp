@@ -2,7 +2,7 @@
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
 #include "library/graph/count/count_C3_C4.hpp"
-#include "library/graph/find_C4.hpp"
+#include "library/graph/cycle/find_C4.hpp"
 
 void test() {
     For(N, 20) {

@@ -79,7 +79,7 @@ U.add(1, 0, 4); U.add(1, 1, 2); U.add(1, 2, 6);
 U.calc();      // {0, 1, 3, 6}
 ```
 
-Missing pairs keep cost `infty<T>` (not allowed). Requires `Σ supply ≥ N`. `res` is
+Missing pairs keep cost `INF` (not allowed). Requires `Σ supply ≥ N`. `res` is
 convex in `f`.
 
 ---

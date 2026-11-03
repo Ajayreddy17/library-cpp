@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/directedmst"
 #include "library/template.hpp"
-#include "library/graph/directed_mst.hpp"
+#include "library/graph/spanning/directed_mst.hpp"
 
 void solve() {
     INT(N, M, s);

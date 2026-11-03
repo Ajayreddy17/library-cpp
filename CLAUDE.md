@@ -17,6 +17,8 @@ Personal competitive-programming library (C++20). Only user: me.
 - Write `v.begin(), v.end()` (no `All` macro); `len(v)` = `(long long)v.size()`.
 - Input `INT(...)`, `LL(...)`, `STR(...)`, `VT(type, name, n)`; output `print(...)`.
 - Monoids expose `X::unit()` (identity), `X::op`, `X::commute`.
+- Infinity: `iinf` (int) / `linf` (long long); for a template parameter `T` write
+  `numeric_limits<T>::max() / 2` (there is no `infty<T>`; maspy's `infty<T>` converts to these).
 - `Tree<GT> T(G)` — root 0, HLD on by default; use `T.lca` / `T.la` (no `LCA` / `LA`).
 
 ## Porting from maspypy (github.com/maspypy/library)
@@ -60,6 +62,13 @@ Directory map: `alg/monoid/`→`monoid/`, `alg/acted_monoid/`→`acted_monoid/`,
 Some file names differ (`functional_graph`→`functional`, `twosat`→`two_sat`,
 `unicyclic_graph`→`unicyclicgraph`, `convex_hull`→`convexhull`, `bellman_ford`→`bellmanford`) —
 check that the target exists before adding a duplicate.
+
+maspy's flat `graph/*.hpp` is split by topic here: `graph/connectivity/` (SCC, toposort, 2-SAT,
+block-cut, dominator, tournament), `graph/tree/` (LCA, centroid, rerooting, tree DP — maspy's
+`graph/tree_dp/` goes here too), `graph/cycle/` (cycles, Euler, Hamiltonian, functional, cactus),
+`graph/matching/` (general / stable matching, antichains, DAG path cover), `graph/coloring/`,
+`graph/spanning/` (MST, directed MST, Steiner). `base.hpp`, `tree.hpp` and the rest stay in
+`graph/`. Find a file with `find library/graph -name '<name>.hpp'`.
 
 maspy template helpers → ours (no compat header; include the util you use):
 

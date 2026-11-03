@@ -2,7 +2,7 @@
 #include <library/template.hpp>
 
 #include <library/graph/base.hpp>
-#include <library/graph/find_cycle.hpp>
+#include <library/graph/cycle/find_cycle.hpp>
 
 void solve() {
     LL(N, M);

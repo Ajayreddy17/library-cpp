@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/bipartite_edge_coloring"
 #include <library/template.hpp>
-#include <library/graph/bipartite_edge_coloring.hpp>
+#include <library/graph/coloring/bipartite_edge_coloring.hpp>
 
 void solve() {
     LL(L, R, M);

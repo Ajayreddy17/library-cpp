@@ -3,7 +3,7 @@
 #include "library/graph/base.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
 #include "library/enumerate/product.hpp"
-#include "library/graph/prufer_code.hpp"
+#include "library/graph/tree/prufer_code.hpp"
 
 void test(int n) {
     /*

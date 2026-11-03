@@ -1,8 +1,8 @@
 # 5. Modelling with Max Flow
 
-Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`graph/dag_path_cover.hpp`](../../graph/dag_path_cover.hpp),
-[`graph/maximum_antichain.hpp`](../../graph/maximum_antichain.hpp),
-[`graph/maximum_weighted_antichain.hpp`](../../graph/maximum_weighted_antichain.hpp).
+Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`graph/matching/dag_path_cover.hpp`](../../graph/matching/dag_path_cover.hpp),
+[`graph/matching/maximum_antichain.hpp`](../../graph/matching/maximum_antichain.hpp),
+[`graph/matching/maximum_weighted_antichain.hpp`](../../graph/matching/maximum_weighted_antichain.hpp).
 
 Recognize a flow problem: integral quantities move along edges or are assigned to
 resources with **capacities**, and the objective is a count or a cut. Build the network,
@@ -89,7 +89,7 @@ Graph size is `(T + 1) · N`, so keep `T` small or exploit structure.
 | max edge-disjoint `s–t` paths | capacity 1 per edge, `path_decomposition()` |
 | max vertex-disjoint `s–t` paths | split vertices with capacity 1 |
 | `k` disjoint paths of min total length | min cost flow with `k` units (chapter 7) |
-| a cycle / path through specified vertices | see `graph/find_path_through_specified.hpp` |
+| a cycle / path through specified vertices | see `graph/cycle/find_path_through_specified.hpp` |
 
 ---
 
@@ -151,7 +151,7 @@ the weighted form: min cut with `s → v⁺` and `v⁻ → t` of capacity `wt[v]
 2. Every integral max flow gives a valid answer (watch for flow that splits where the
    answer cannot, e.g. a vertex used twice → split it).
 3. Size: Dinic on `10⁵` edges is fast; time-expanded graphs grow by the number of layers.
-4. Use ∞ (`infty<Cap>`) for edges that must never be cut, and `long long` capacities.
+4. Use ∞ (`INF`) for edges that must never be cut, and `long long` capacities.
 
 ---
 

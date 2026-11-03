@@ -35,11 +35,11 @@ struct Fundamental_Cut {
         IA = argsort(A), IB = argsort(B);
         rk_A = argsort(IA), rk_B = argsort(IB);
         seg_AB.build(M, [&](int i) -> pair<int, int> {
-            if (!on[i]) return {-infty<int>, -1};
+            if (!on[i]) return {-iinf, -1};
             return {B[IA[i]], IA[i]};
         });
         seg_BA.build(M, [&](int i) -> pair<int, int> {
-            if (!on[i]) return {infty<int>, -1};
+            if (!on[i]) return {iinf, -1};
             return {A[IB[i]], IB[i]};
         });
         FA.resize(N + 1), FB.resize(N + 1);
@@ -57,8 +57,8 @@ struct Fundamental_Cut {
     void set_off(int i) {
         if (!on[i]) return;
         on[i] = 0;
-        seg_AB.set(rk_A[i], {-infty<int>, -1}),
-                seg_BA.set(rk_B[i], {infty<int>, -1});
+        seg_AB.set(rk_A[i], {-iinf, -1}),
+                seg_BA.set(rk_B[i], {iinf, -1});
     }
 
     int query(int v) {

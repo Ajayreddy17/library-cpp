@@ -1,8 +1,8 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
-#include "library/graph/maximum_matching_size.hpp"
-#include "library/graph/maximum_matching_of_line_graph.hpp"
+#include "library/graph/matching/maximum_matching_size.hpp"
+#include "library/graph/matching/maximum_matching_of_line_graph.hpp"
 
 void test() {
     For(100) {

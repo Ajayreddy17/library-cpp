@@ -56,7 +56,7 @@ vector<tuple<int, int, COST>> blackbox_mst_incremental(int N, F0 init, F1 add, F
         bool upd = 0;
         vector<vector<int>> comp(N);
         For(v, N) comp[uf[v]].emplace_back(v);
-        vector<COST> wt(N, infty<COST>);
+        vector<COST> wt(N, numeric_limits<COST>::max() / 2);
         vector<pair<int, int>> who(N, {-1, -1});
         init();
         For(i, N) {
@@ -95,13 +95,13 @@ vector<tuple<int, int, COST>> mst_prim(int N, F cost) {
     using edge = tuple<int, int, COST>;
     UnionFind uf(N);
     vector<edge> res;
-    vector<long long> wt(N, infty<long long>);
+    vector<long long> wt(N, linf);
     vector<int> TO(N);
     auto add = [&](int v) -> void {
         For(w, N) {
             if (TO[w] != -1 && chmin(wt[w], cost(v, w))) TO[w] = v;
         }
-        wt[v] = infty<long long>;
+        wt[v] = linf;
         TO[v] = -1;
     };
     add(0);

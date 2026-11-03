@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
-#include "library/graph/find_even_cycle.hpp"
+#include "library/graph/cycle/find_even_cycle.hpp"
 #include "library/util/pop.hpp"
 
 vector<int> find_even_cycle_naive(Graph<int, 0> G) {

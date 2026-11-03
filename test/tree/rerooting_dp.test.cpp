@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tree_path_composite_sum"
 #include "library/template.hpp"
-#include "library/graph/tree_dp/rerooting_dp.hpp"
+#include "library/graph/tree/rerooting_dp.hpp"
 #include "library/mod/modint.hpp"
 
 using mint = modint998;

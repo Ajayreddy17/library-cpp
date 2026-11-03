@@ -22,7 +22,7 @@ void solve() {
             LL(x);
             ok[--x] = 0;
         }
-        For(i, N) if (ok[i]) { G.add(left(i), right(j), infty<long long>); }
+        For(i, N) if (ok[i]) { G.add(left(i), right(j), linf); }
     }
     long long f = G.flow();
     if (f < W)

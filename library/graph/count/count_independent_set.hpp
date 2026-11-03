@@ -1,7 +1,7 @@
 #ifndef AJAY_COUNT_INDEPENDENT_SET
 #define AJAY_COUNT_INDEPENDENT_SET
 
-#include "library/graph/path_cycle_decomposition.hpp"
+#include "library/graph/cycle/path_cycle_decomposition.hpp"
 #include "library/poly/convolution.hpp"
 #include "library/util/bit_utils.hpp"
 

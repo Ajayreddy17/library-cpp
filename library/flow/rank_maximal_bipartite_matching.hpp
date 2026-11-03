@@ -1,7 +1,7 @@
 #ifndef AJAY_RANK_MAXIMAL_BIPARTITE_MATCHING
 #define AJAY_RANK_MAXIMAL_BIPARTITE_MATCHING
 
-#include "library/graph/bipartite_vertex_coloring.hpp"
+#include "library/graph/coloring/bipartite_vertex_coloring.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/flow/rank_maximal_bipartite_matching.hpp

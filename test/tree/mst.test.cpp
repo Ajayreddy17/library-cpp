@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/minimum_spanning_tree"
 #include <library/template.hpp>
 
-#include <library/graph/minimum_spanning_tree.hpp>
+#include <library/graph/spanning/minimum_spanning_tree.hpp>
 
 void solve() {
     LL(N, M);

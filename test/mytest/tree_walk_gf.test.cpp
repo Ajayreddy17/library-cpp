@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/random_graph.hpp"
-#include "library/graph/tree_walk_generating_function.hpp"
+#include "library/graph/tree/tree_walk_generating_function.hpp"
 #include "library/poly/fps_div.hpp"
 
 using mint = modint998;

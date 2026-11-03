@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
-#include "library/graph/all_cycle_common_vertices.hpp"
+#include "library/graph/cycle/all_cycle_common_vertices.hpp"
 #include "library/random/base.hpp"
 
 // #include "other/io.hpp"

@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/two_edge_connected_components"
 #include <library/template.hpp>
-#include <library/graph/two_edge_component.hpp>
+#include <library/graph/connectivity/two_edge_component.hpp>
 
 void solve() {
     LL(N, M);

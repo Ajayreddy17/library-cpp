@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
-#include "library/graph/maximum_matching_size.hpp"
+#include "library/graph/matching/maximum_matching_size.hpp"
 #include "library/flow/bipartite_matching.hpp"
 
 void test_bipartite() {

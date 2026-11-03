@@ -11,7 +11,7 @@ void solve() {
     CV.insert(CV.begin(), {0, 0});
 
     // count, weight
-    vector<vector<long long>> dp(N + 1, vector<long long>(N + 1, -infty<long long>));
+    vector<vector<long long>> dp(N + 1, vector<long long>(N + 1, -linf));
     dp[0][0] = 0;
 
     Frr(wt, 1, N + 1) {

@@ -1,7 +1,7 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1295"
 #include "library/template.hpp"
 #include "library/graph/tree.hpp"
-#include "library/graph/tree_dp/rerooting_dp.hpp"
+#include "library/graph/tree/rerooting_dp.hpp"
 
 /*
 部分木の状態：0,1,2
@@ -15,10 +15,10 @@ void solve() {
         int x_mi, x_ma;
         int mi, ma;
     };
-    Data id = {0, 0, 0, 2, 2, infty<int>, -infty<int>};
+    Data id = {0, 0, 0, 2, 2, iinf, -iinf};
     auto fee = [&](Data x, Data y) -> Data {
-        if (x.mi == infty<int>) return y;
-        if (y.mi == infty<int>) return x;
+        if (x.mi == iinf) return y;
+        if (y.mi == iinf) return x;
         Data z;
         z.x0 = x.x0 + y.x0;
         z.x1 = x.x1 + y.x1;

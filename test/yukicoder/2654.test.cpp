@@ -21,7 +21,7 @@ void solve() {
         long long mi = que1.top();
         long long ma = que2.top();
 
-        long long ANS = infty<long long>;
+        long long ANS = linf;
 
         if (n % 2 == 0) {
             long long k = (n - 2) / 2;

@@ -139,7 +139,7 @@ Dual_MCF D(N);
 D.add_b(v, b);                       // + b · p[v]
 D.add_c(u, v, w, c);                 // + c · max(0, p[v] − p[u] − w)
 D.add_constraint(u, v, w);           // p[v] − p[u] ≤ w   (c = "infinity")
-auto [val, p] = D.solve();           // {min value, optimal p}; infeasible: {infty<__int128>, {}}
+auto [val, p] = D.solve();           // {min value, optimal p}; infeasible: {numeric_limits<__int128>::max() / 2, {}}
 ```
 
 Each `add_c` is one b-flow edge `u → v` with capacity `c` and cost `w`; `add_b` is a
@@ -192,7 +192,7 @@ X.init_dist();                       // current dist(s, t)
 X.solve_by_target_length(L);         // min cost so that dist ≥ L   (L ≥ init_dist)
 X.get_edges();                       // new lengths, in add order
 // or, on a fresh object:
-X.solve_by_cost(K);                  // max reachable dist with total cost ≤ K (infty if unbounded)
+X.solve_by_cost(K);                  // max reachable dist with total cost ≤ K (max / 2 if unbounded)
 ```
 
 | Method | Description |

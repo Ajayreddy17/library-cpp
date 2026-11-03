@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/incremental_scc"
 #include "library/template.hpp"
 #include "library/mod/modint.hpp"
-#include "library/graph/incremental_scc.hpp"
+#include "library/graph/connectivity/incremental_scc.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
 
 using mint = modint998;
@@ -16,7 +16,7 @@ void solve() {
     auto time = incremental_scc(G);
     vector<vector<int>> IDS(M + 1);
     For(i, M) {
-        if (time[i] != infty<int>) IDS[time[i]].emplace_back(i);
+        if (time[i] != iinf) IDS[time[i]].emplace_back(i);
     }
 
     UnionFind uf(N);

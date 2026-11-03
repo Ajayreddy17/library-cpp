@@ -1,7 +1,7 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1911"
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
-#include "library/graph/bipartite_vertex_coloring.hpp"
+#include "library/graph/coloring/bipartite_vertex_coloring.hpp"
 #include "library/util/pop.hpp"
 
 void solve() {
@@ -35,7 +35,7 @@ void solve() {
     // ロス最小の交互サイクルを探す
     For(S, N) {
         For(Sc, 2) {
-            vector<vector<long long>> dist(2, vector<long long>(N, infty<long long>));
+            vector<vector<long long>> dist(2, vector<long long>(N, linf));
             min_priority_queue<tuple<long long, int, int>> que;
             auto add = [&](long long c, long long v, long long d) -> void {
                 if (chmin(dist[c][v], d)) que.emplace(d, c, v);

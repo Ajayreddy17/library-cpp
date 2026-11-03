@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/general_matching"
 #include "library/template.hpp"
-#include "library/graph/maximum_matching.hpp"
-#include "library/graph/maximum_matching_size.hpp"
+#include "library/graph/matching/maximum_matching.hpp"
+#include "library/graph/matching/maximum_matching_size.hpp"
 
 void solve() {
     LL(N, M);

@@ -19,8 +19,8 @@ void solve() {
 
     Binary_Optimization<int128, false> X(N);
     For(i, N) {
-        if (state[i] == 0) X.add_1(i, 0, -infty<long long>);
-        if (state[i] == 1) X.add_1(i, -infty<long long>, 0);
+        if (state[i] == 0) X.add_1(i, 0, -linf);
+        if (state[i] == 1) X.add_1(i, -linf, 0);
     }
     For(i, N) For(j, N) {
         INT(x);

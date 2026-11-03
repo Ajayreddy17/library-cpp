@@ -102,10 +102,10 @@ not on short `s–t` paths. A vertex that delivers less than requested is marked
 
 ### 3.3 Infinite capacities
 
-Use `infty<Cap>` (`= max / 2`) for "infinite" edges. If the flow reaches `infty<Cap>`
-the loop stops and `flow()` returns `infty<Cap>`, meaning **unbounded** (an
-`s → t` path of infinite edges). Sums of a few `infty` values do not overflow
-because `infty = max / 2`; still prefer `Cap = long long`.
+Use `INF = numeric_limits<Cap>::max() / 2` (`iinf` / `linf`) for "infinite" edges. If the
+flow reaches `INF` the loop stops and `flow()` returns `INF`, meaning **unbounded** (an
+`s → t` path of infinite edges). Sums of a few `INF` values do not overflow because
+`INF = max / 2`; still prefer `Cap = long long`.
 
 ---
 
@@ -207,6 +207,6 @@ phases ≤ N − 1 (dist(s,t) strictly grows); each phase O(NM)    → O(N²M)
 unit caps: O(M√M); unit network (matching): O(M√N)
 MaxFlow: add all edges → flow() → cut() / get_flow_edges() / path_decomposition()
 edge id = add order; change_capacity(id, c) keeps the flow optimal
-infinite capacity: infty<Cap>; flow() == infty<Cap> ⇒ unbounded
+infinite capacity: INF; flow() == INF ⇒ unbounded
 need add() after flow(): Incremental_MaxFlow
 ```

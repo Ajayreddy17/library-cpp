@@ -1,8 +1,8 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
-#include "library/graph/strongly_connected_component.hpp"
-#include "library/graph/scc_tournament_by_indegrees.hpp"
+#include "library/graph/connectivity/strongly_connected_component.hpp"
+#include "library/graph/connectivity/scc_tournament_by_indegrees.hpp"
 #include "library/random/base.hpp"
 
 void test() {

@@ -18,7 +18,7 @@ struct Unbalanced_Transportation_Problem {
     Unbalanced_Transportation_Problem(int K, int N, vector<int>& supply)
             : K(K), N(N), supply(supply) {
         assert(accumulate(supply.begin(), supply.end(), 0LL) >= N);
-        cost.assign(K, vector<T>(N, infty<T>));
+        cost.assign(K, vector<T>(N, numeric_limits<T>::max() / 2));
         FRM.assign(N, -1);
     }
 
@@ -37,7 +37,7 @@ struct Unbalanced_Transportation_Problem {
         vector<Q> unused(K);
         For(a, K) For(b, N) {
             T c = cost[a][b];
-            if (c == infty<T>) continue;
+            if (c == numeric_limits<T>::max() / 2) continue;
             unused[a].emplace(c, b);
         }
         while (1) {
@@ -63,14 +63,14 @@ struct Unbalanced_Transportation_Problem {
             }
 
             // build the graph
-            vector<vector<T>> dist_0(K, vector<T>(K, infty<T>));
+            vector<vector<T>> dist_0(K, vector<T>(K, numeric_limits<T>::max() / 2));
             For(a, K) For(b, K) {
                 if (len(edge[a][b]) == 0) continue;
                 auto [c, idx] = edge[a][b].top();
                 dist_0[a][b] = c;
             }
             // shortest paths from source
-            vector<T> dist(K, infty<T>);
+            vector<T> dist(K, numeric_limits<T>::max() / 2);
             vector<bool> in_que(K);
             queue<int> que;
             vector<int> par(K, -1);
@@ -83,7 +83,7 @@ struct Unbalanced_Transportation_Problem {
                 int v = que.front();
                 que.pop(), in_que[v] = 0;
                 For(to, K) {
-                    if (dist_0[v][to] == infty<T>) continue;
+                    if (dist_0[v][to] == numeric_limits<T>::max() / 2) continue;
                     if (chmin(dist[to], dist[v] + dist_0[v][to])) {
                         par[to] = v;
                         if (!in_que[to]) {
@@ -94,9 +94,9 @@ struct Unbalanced_Transportation_Problem {
                 }
             }
             int best = -1;
-            T best_c = infty<T>;
+            T best_c = numeric_limits<T>::max() / 2;
             For(k, K) {
-                if (dist[k] == infty<T>) continue;
+                if (dist[k] == numeric_limits<T>::max() / 2) continue;
                 T x = dist[k] + unused[k].top().first;
                 if (chmin(best_c, x)) best = k;
             }
@@ -107,7 +107,7 @@ struct Unbalanced_Transportation_Problem {
                 FRM[b] = a;
                 MCF += cost[a][b];
                 For(v, K) {
-                    if (v == a || cost[v][b] == infty<T>) continue;
+                    if (v == a || cost[v][b] == numeric_limits<T>::max() / 2) continue;
                     edge[v][a].emplace(cost[v][b] - cost[a][b], b);
                 }
             };

@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/base.hpp"
-#include "library/graph/tournament.hpp"
+#include "library/graph/connectivity/tournament.hpp"
 
 void test() {
     auto gen = [&](int N) -> vector<vector<bool>> {

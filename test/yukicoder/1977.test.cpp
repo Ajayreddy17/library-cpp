@@ -15,7 +15,7 @@ void solve() {
     }
     X.build();
 
-    long long ANS = -infty<long long>;
+    long long ANS = -linf;
 
     For(i, N) {
         long long s0 = i;

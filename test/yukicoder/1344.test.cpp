@@ -9,7 +9,7 @@ void solve() {
     auto dist = warshall_floyd<long long>(G);
     For(v, N) {
         long long ANS = 0;
-        For(w, N) if (dist[v][w] != infty<long long>) ANS += dist[v][w];
+        For(w, N) if (dist[v][w] != linf) ANS += dist[v][w];
         print(ANS);
     }
 }

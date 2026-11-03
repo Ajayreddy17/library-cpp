@@ -1,7 +1,7 @@
 # 3. Min Cut
 
 Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`flow/gomory_hu_tree.hpp`](../gomory_hu_tree.hpp),
-[`graph/strongly_connected_component.hpp`](../../graph/strongly_connected_component.hpp).
+[`graph/connectivity/strongly_connected_component.hpp`](../../graph/connectivity/strongly_connected_component.hpp).
 
 ---
 
@@ -133,7 +133,7 @@ Graph<long long, 0> T = gomory_hu_tree(G);        // N − 1 edges, cost = cut v
 Example (figure): `mincut(0, 2)` = min on path `0 − 3 − 1 − 2` = `min(4, 4, 4)` = 4;
 `mincut(1, 4)` = 8 = weighted degree of 1.
 
-Assumes every cut is below `infty<T>`.
+Assumes every cut is below `INF`.
 
 ---
 

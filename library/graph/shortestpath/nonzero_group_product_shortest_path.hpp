@@ -28,7 +28,7 @@ vector<WT> nonzero_group_product_shortest_path(
     };
 
     // shortest path tree
-    vector<WT> dist(N, infty<WT>);
+    vector<WT> dist(N, numeric_limits<WT>::max() / 2);
     vector<X> phi(N, Monoid::unit());
     vector<int> par(N, -1);
     vector<int> depth(N);
@@ -54,10 +54,10 @@ vector<WT> nonzero_group_product_shortest_path(
         cons[i] = (x == phi[b]);
     }
 
-    vector<WT> h(M, infty<WT>);
-    vector<WT> q(N, infty<WT>);
+    vector<WT> h(M, numeric_limits<WT>::max() / 2);
+    vector<WT> q(N, numeric_limits<WT>::max() / 2);
     for (auto& e : G.edges) {
-        if (dist[e.frm] == infty<WT>) continue;
+        if (dist[e.frm] == numeric_limits<WT>::max() / 2) continue;
         if (!cons[e.id] && chmin(h[e.id], dist[e.frm] + dist[e.to] + e.cost)) {
             que.emplace(h[e.id], e.id);
         }
@@ -93,7 +93,7 @@ vector<WT> nonzero_group_product_shortest_path(
         }
     }
 
-    vector<WT> ANS(N, infty<WT>);
+    vector<WT> ANS(N, numeric_limits<WT>::max() / 2);
     For(v, N) ANS[v] = (phi[v] == Monoid::unit() ? q[v] : dist[v]);
     return ANS;
 }

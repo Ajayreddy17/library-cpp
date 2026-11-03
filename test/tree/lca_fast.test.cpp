@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/lca"
 #include <library/template.hpp>
 #include <library/graph/base.hpp>
-#include <library/graph/fast_lca.hpp>
+#include <library/graph/tree/fast_lca.hpp>
 void solve() {
     INT(N, Q);
     Graph<int, 1> G(N);

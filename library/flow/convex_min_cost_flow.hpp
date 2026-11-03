@@ -76,9 +76,9 @@ struct Convex_Min_Cost_Flow {
         return res;
     }
 
-    pair<Cap, Cost> flow() { return flow(infty<Cap>); }
+    pair<Cap, Cost> flow() { return flow(numeric_limits<Cap>::max() / 2); }
     pair<Cap, Cost> flow(Cap flow_limit) { return slope(flow_limit).back(); }
-    vector<pair<Cap, Cost>> slope() { return slope(infty<Cap>); }
+    vector<pair<Cap, Cost>> slope() { return slope(numeric_limits<Cap>::max() / 2); }
     vector<pair<Cap, Cost>> slope(Cap flow_limit) {
         assert(!solved);
         assert(0 <= flow_limit);
@@ -181,7 +181,7 @@ struct Convex_Min_Cost_Flow {
         vector<int> que_min;
         vector<Q> que;
         auto dual_ref = [&]() {
-            For(v, n) dual_dist[v].second = infty<Cost>;
+            For(v, n) dual_dist[v].second = numeric_limits<Cost>::max() / 2;
             fill(vis.begin(), vis.end(), false);
             que_min.clear(), que.clear();
             size_t heap_r = 0;
@@ -227,7 +227,7 @@ struct Convex_Min_Cost_Flow {
             return true;
         };
         auto dual_ref_dag = [&]() {
-            For(v, n) dual_dist[v].second = infty<Cost>;
+            For(v, n) dual_dist[v].second = numeric_limits<Cost>::max() / 2;
             dual_dist[source].second = 0;
             fill(vis.begin(), vis.end(), false);
             vis[0] = true;

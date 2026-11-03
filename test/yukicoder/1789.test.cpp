@@ -26,7 +26,7 @@ void solve() {
         auto V1 = T1.V;
         auto V2 = T2.V;
 
-        vector<vector<long long>> dp(N1, vector<long long>(N2, -infty<int>));
+        vector<vector<long long>> dp(N1, vector<long long>(N2, -iinf));
         Frr(idx2, N2) {
             int v2 = V2[idx2];
             auto ch2 = T2.collect_child(v2);
@@ -47,7 +47,7 @@ void solve() {
                     continue;
                 }
                 if (n1 > n2) continue;
-                vector<vector<long long>> mat(n1, vector<long long>(n2, -infty<int>));
+                vector<vector<long long>> mat(n1, vector<long long>(n2, -iinf));
                 For(i, n1) {
                     int w1 = ch1[i];
                     For(j, n2) {

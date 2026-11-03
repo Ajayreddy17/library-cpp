@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1326"
 #include "library/template.hpp"
-#include "library/graph/block_cut.hpp"
+#include "library/graph/connectivity/block_cut.hpp"
 #include "library/graph/datastructure/tree_abelgroup.hpp"
 #include "library/monoid/monoid_add.hpp"
 

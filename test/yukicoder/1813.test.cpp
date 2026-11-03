@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1813"
 #include "library/template.hpp"
-#include "library/graph/strongly_connected_component.hpp"
+#include "library/graph/connectivity/strongly_connected_component.hpp"
 
 void solve() {
     LL(N, M);

@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/2288"
 #include "library/template.hpp"
-#include "library/graph/stable_matching.hpp"
+#include "library/graph/matching/stable_matching.hpp"
 
 void solve() {
     LL(N, X, Y);

@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0275"
 #include "library/template.hpp"
-#include "library/graph/reachability.hpp"
+#include "library/graph/connectivity/reachability.hpp"
 #include "library/graph/shortestpath/dijkstra.hpp"
 
 void solve() {

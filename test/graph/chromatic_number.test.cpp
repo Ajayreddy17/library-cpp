@@ -2,7 +2,7 @@
 #include <library/template.hpp>
 
 #include <library/graph/base.hpp>
-#include <library/graph/chromatic.hpp>
+#include <library/graph/coloring/chromatic.hpp>
 
 void solve() {
     LL(N, M);

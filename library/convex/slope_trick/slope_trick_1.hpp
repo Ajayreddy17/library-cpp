@@ -154,7 +154,7 @@ struct Slope_Trick_1 {
 
     // h[z]=min(x+y==z)f(x)+g(y)
     // FUNC convolve(FUNC &f, FUNC &g) {
-    //   if (f.x0 > f.x1 || g.x0 > g.x1) { return {nullptr, infty<T>, -infty<T>, 0, 0}; }
+    //   if (f.x0 > f.x1 || g.x0 > g.x1) { return {nullptr, numeric_limits<T>::max() / 2, -numeric_limits<T>::max() / 2, 0, 0}; }
     //   if (len(f) < len(g)) swap(f, g);
     //   shift(f, g.x0, g.y0), shift(g, -g.x0, -g.y0);
     //   if (len(g) == 0) { return convolve_segment(f, 0, g.x1, g.a0, 0); }
@@ -177,7 +177,7 @@ struct Slope_Trick_1 {
     // [x0,x1], y=ax+b
     // FUNC convolve_segment(FUNC &f, T x0, T x1, T a, T b) {
     //   assert(x0 <= x1);
-    //   if (f.x0 > f.x1) { return {nullptr, infty<T>, -infty<T>, 0, 0}; }
+    //   if (f.x0 > f.x1) { return {nullptr, numeric_limits<T>::max() / 2, -numeric_limits<T>::max() / 2, 0, 0}; }
     //   f = shift(f, x0, a * x0 + b);
     //   T d = x1 - x0;
     //   if (d == 0) return f;

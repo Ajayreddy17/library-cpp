@@ -2,7 +2,7 @@
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
-#include "library/graph/steiner_tree.hpp"
+#include "library/graph/spanning/steiner_tree.hpp"
 #include "library/util/bit_utils.hpp"
 
 void solve() {
@@ -37,10 +37,10 @@ void solve() {
             }
         }
         if (merge == popcount(s) - 1) return mst;
-        return infty<int>;
+        return iinf;
     };
 
-    int ANS = infty<int>;
+    int ANS = iinf;
     long long t = 0;
     for (auto&& x: terminal) t |= 1LL << x;
 

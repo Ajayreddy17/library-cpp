@@ -7,7 +7,7 @@
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/flow/gomory_hu_tree.hpp
 // Undirected G -> tree whose path minima are the s-t min cuts of G.
-// assumes every cut is < infty<T>
+// assumes every cut is < numeric_limits<T>::max() / 2
 template <typename T>
 Graph<T, 0> gomory_hu_tree(const Graph<T, 0> &G) {
     int N = G.N;

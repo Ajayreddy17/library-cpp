@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/base.hpp"
-#include "library/graph/bipartite_edge_coloring.hpp"
+#include "library/graph/coloring/bipartite_edge_coloring.hpp"
 
 // edges are given in random orientation (left->right or right->left) and with arbitrary costs
 void test() {

@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1775"
 #include "library/template.hpp"
-#include "library/graph/find_path_through_specified.hpp"
+#include "library/graph/cycle/find_path_through_specified.hpp"
 
 void solve() {
     LL(N, M);

@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/eulerian_trail_undirected"
 
 #include <library/template.hpp>
-#include <library/graph/euler_walk.hpp>
+#include <library/graph/cycle/euler_walk.hpp>
 
 void solve() {
     LL(N, M);

@@ -91,7 +91,7 @@ struct Lower_Convex_Hull_SegTree {
     int128 min_dot(T a, T b) { return min_dot_at(1, a, b); }
     int128 min_dot(int L, int R, T a, T b) {
         L += size, R += size;
-        int128 ANS = infty<int128>;
+        int128 ANS = numeric_limits<int128>::max() / 2;
         while (L < R) {
             if (L & 1) chmin(ANS, min_dot_at(L++, a, b));
             if (R & 1) chmin(ANS, min_dot_at(--R, a, b));
@@ -184,7 +184,7 @@ struct Lower_Convex_Hull_SegTree {
 
     int128 min_dot_at(int p, T a, T b) {
         assert(b >= 0);
-        if (!dat[p].exist) return infty<int128>;
+        if (!dat[p].exist) return numeric_limits<int128>::max() / 2;
         while (1) {
             down_while_trivial(p);
             if (size <= p) break;

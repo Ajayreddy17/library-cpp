@@ -2,7 +2,7 @@
     "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance"
 #include <library/template.hpp>
 
-#include <library/graph/tree_all_distances.hpp>
+#include <library/graph/tree/tree_all_distances.hpp>
 
 void solve() {
     LL(N);

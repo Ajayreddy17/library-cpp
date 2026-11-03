@@ -20,15 +20,15 @@ struct Dual_MCF {
     void add_c(int u, int v, long long w, long long c) { G.add(u, v, 0, c, w); }
 
     // -p[u]+p[v]<=w
-    void add_constraint(int u, int v, int w, long long inf = infty<int>) {
+    void add_constraint(int u, int v, int w, long long inf = iinf) {
         add_c(u, v, w, inf);
     }
 
     // min_val, p
-    // if ng: {infty<__int128>, {}}
+    // if ng: {numeric_limits<__int128>::max() / 2, {}}
     pair<__int128, vector<long long>> solve() {
         auto [ok, val] = G.solve();
-        if (!ok) return {infty<__int128>, {}};
+        if (!ok) return {numeric_limits<__int128>::max() / 2, {}};
         auto P = G.get_potential();
         return {-val, P};
     }

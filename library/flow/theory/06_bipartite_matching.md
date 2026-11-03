@@ -4,7 +4,7 @@ Headers: [`flow/bipartite.hpp`](../bipartite.hpp) (`BipartiteMatching`),
 [`flow/bipartite_matching.hpp`](../bipartite_matching.hpp) (`Bipartite_Matching`, same algorithm, maspy names),
 [`flow/bipartite_matching_dense.hpp`](../bipartite_matching_dense.hpp),
 [`flow/rank_maximal_bipartite_matching.hpp`](../rank_maximal_bipartite_matching.hpp),
-[`graph/bipartite_edge_coloring.hpp`](../../graph/bipartite_edge_coloring.hpp).
+[`graph/coloring/bipartite_edge_coloring.hpp`](../../graph/coloring/bipartite_edge_coloring.hpp).
 
 Example used throughout: color 0 = `{0, 1, 2, 3}`, color 1 = `{4, 5, 6, 7}`,
 edges `0-4 0-5 1-4 2-5 2-6 2-7 3-5`.
@@ -229,7 +229,7 @@ decomposing a regular bipartite multigraph into perfect matchings.
 | Need | Where |
 |---|---|
 | weighted matching / assignment | chapter 9 (`hungarian`), min cost flow (chapter 7) |
-| matching in a general graph | `graph/maximum_matching.hpp` |
+| matching in a general graph | `graph/matching/maximum_matching.hpp` |
 | `b`-matching (vertex capacities) | max flow (chapter 5 §2) |
 
 ---

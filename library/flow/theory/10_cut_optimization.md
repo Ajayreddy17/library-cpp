@@ -110,7 +110,7 @@ auto [val, x] = B.calc();                          // optimum and an optimal ass
 | `calc()` | `{value, x}`; builds a `MaxFlow` on `n + 2 + #aux` vertices |
 
 Edges between the same pair are merged (`map<pair<int, int>, T>`). Use a large finite
-value (e.g. `10⁹`, not `infty<T>`) for "forbidden" so sums stay in range; the result is
+value (e.g. `10⁹`, not `INF`) for "forbidden" so sums stay in range; the result is
 `≥` that value iff every assignment is forbidden.
 
 ---

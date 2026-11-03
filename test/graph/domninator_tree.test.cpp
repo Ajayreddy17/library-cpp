@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/dominatortree"
 #include "library/template.hpp"
-#include "library/graph/dominator_tree.hpp"
+#include "library/graph/connectivity/dominator_tree.hpp"
 
 void solve() {
     LL(N, M, root);

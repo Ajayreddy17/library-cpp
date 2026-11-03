@@ -11,7 +11,7 @@ void solve() {
     For(Q) {
         LL(l, r, x);
         --l;
-        long long ANS = infty<long long>;
+        long long ANS = linf;
         long long n = WM.count(l, r, 0, x);
         if (n > 0) chmin(ANS, abs(x - WM.kth(l, r, n - 1)));
         if (n < r - l) chmin(ANS, abs(x - WM.kth(l, r, n)));

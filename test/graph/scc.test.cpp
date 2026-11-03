@@ -2,7 +2,7 @@
 #include <library/template.hpp>
 
 #include <library/graph/base.hpp>
-#include <library/graph/strongly_connected_component.hpp>
+#include <library/graph/connectivity/strongly_connected_component.hpp>
 
 void solve() {
     LL(N, M);

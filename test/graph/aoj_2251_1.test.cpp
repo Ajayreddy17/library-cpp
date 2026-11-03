@@ -1,8 +1,8 @@
 #define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2251"
 #include "library/template.hpp"
 #include "library/graph/shortestpath/dijkstra.hpp"
-#include "library/graph/dag_path_cover.hpp"
-#include "library/graph/toposort.hpp"
+#include "library/graph/matching/dag_path_cover.hpp"
+#include "library/graph/connectivity/toposort.hpp"
 
 void solve(long long N, long long M, long long L) {
     vector<vector<long long>> dist(N, vector<long long>(N));

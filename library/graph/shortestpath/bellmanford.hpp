@@ -6,8 +6,8 @@
 namespace mitsuha{
 // Single start point shortest path. 
 // There may be a negative cycle. O(NM) time.
-// unreachable: infty<T>
-// Can be made as small as desired via negative cycle: -infty<T>
+// unreachable: numeric_limits<T>::max() / 2
+// Can be made as small as desired via negative cycle: -numeric_limits<T>::max() / 2
 template <typename T, typename GT>
 pair<vector<T>, vector<int>> BellmanFord(GT& G, int s) {
     int N = G.N;

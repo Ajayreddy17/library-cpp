@@ -13,7 +13,7 @@ Re minimum_three_distance_sum(Point<Re> A, Point<Re> B, Point<Re> C) {
     if (ccw(A, B, C) == -1) {
         swap(B, C);
     }
-    Re ANS = infty<Re>;
+    Re ANS = numeric_limits<Re>::max() / 2;
     Re AB = distance<Re>(A, B);
     Re AC = distance<Re>(A, C);
     Re BC = distance<Re>(B, C);

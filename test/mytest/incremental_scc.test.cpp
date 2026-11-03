@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
-#include "library/graph/incremental_scc.hpp"
+#include "library/graph/connectivity/incremental_scc.hpp"
 #include "library/random/random_graph.hpp"
 
 void test() {
@@ -28,7 +28,7 @@ void test() {
                 auto [a, b] = edges[i];
                 int t = time[i];
                 assert(i < t);
-                if (t == infty<int>) {
+                if (t == iinf) {
                     assert(comp[M][a] != comp[M][b]);
                 } else {
                     assert(comp[t][a] == comp[t][b]);

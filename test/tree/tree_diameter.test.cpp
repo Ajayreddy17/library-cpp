@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/tree_diameter"
 #include <library/template.hpp>
-#include <library/graph/tree_diameter.hpp>
+#include <library/graph/tree/tree_diameter.hpp>
 
 void solve() {
     LL(N);

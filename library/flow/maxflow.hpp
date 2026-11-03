@@ -99,9 +99,9 @@ struct MaxFlow {
             bfs();
             if (level[sink] == -1) break;
             copy(indptr.begin(), indptr.end(), prog.begin());
-            Cap x = dfs(dfs, sink, infty<Cap>);
+            Cap x = dfs(dfs, sink, numeric_limits<Cap>::max() / 2);
             flow_ans += x;
-            if (flow_ans >= infty<Cap>) return infty<Cap>;
+            if (flow_ans >= numeric_limits<Cap>::max() / 2) return numeric_limits<Cap>::max() / 2;
         }
         return flow_ans;
     }

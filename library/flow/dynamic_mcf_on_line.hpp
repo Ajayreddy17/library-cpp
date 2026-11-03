@@ -23,7 +23,7 @@ struct Dynamic_MCF_on_Line {
         static X op(const X& a, const X& b) {
             return {min(a.from, b.from), min(a.to, b.to)};
         }
-        static constexpr X unit() { return {{infty<T>, -1}, {infty<T>, -1}}; }
+        static constexpr X unit() { return {{numeric_limits<T>::max() / 2, -1}, {numeric_limits<T>::max() / 2, -1}}; }
         static constexpr bool commute = true;
     };
 
@@ -40,7 +40,7 @@ struct Dynamic_MCF_on_Line {
         static X op(const X& a, const X& b) {
             return {min(a.left, b.left), min(a.right, b.right)};
         }
-        static constexpr X unit() { return {infty<int>, infty<int>}; }
+        static constexpr X unit() { return {iinf, iinf}; }
         static constexpr bool commute = true;
     };
 

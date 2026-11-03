@@ -1,6 +1,6 @@
 #define PROBLEM  "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A"
 #include "library/template.hpp"
-#include "library/graph/block_cut.hpp"
+#include "library/graph/connectivity/block_cut.hpp"
 
 void solve() {
     LL(N, M);

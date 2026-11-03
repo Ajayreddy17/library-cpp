@@ -14,7 +14,7 @@ template <typename BITSET>
 vector<int> bfs_bitset(vector<BITSET>& G, int s) {
     const int N = len(G);
     assert(0 <= s && s < N);
-    vector<int> dist(N, infty<int>);
+    vector<int> dist(N, iinf);
     BITSET unused, que;
     if constexpr (is_same_v<BITSET, Bit_Array>) {
         unused = BITSET(N, 1);

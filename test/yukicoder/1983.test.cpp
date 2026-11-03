@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1983"
 #include "library/template.hpp"
-#include "library/graph/two_edge_component.hpp"
+#include "library/graph/connectivity/two_edge_component.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"
 
 void solve() {

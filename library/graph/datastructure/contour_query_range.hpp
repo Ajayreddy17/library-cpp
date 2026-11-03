@@ -1,7 +1,7 @@
 #ifndef AJAY_CONTOUR_QUERY_RANGE
 #define AJAY_CONTOUR_QUERY_RANGE
 
-#include "library/graph/centroid_decomposition.hpp"
+#include "library/graph/tree/centroid_decomposition.hpp"
 
 namespace mitsuha{
 // Source: https://github.com/maspypy/library/blob/main/graph/ds/contour_query_range.hpp

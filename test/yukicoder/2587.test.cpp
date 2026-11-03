@@ -4,7 +4,7 @@
 #include "library/graph/base.hpp"
 #include "library/poly/poly_taylor_shift.hpp"
 #include "library/poly/coef_of_rational_fps.hpp"
-#include "library/graph/tree_walk_generating_function.hpp"
+#include "library/graph/tree/tree_walk_generating_function.hpp"
 
 using mint = modint998;
 using poly = vector<mint>;

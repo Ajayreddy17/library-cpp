@@ -1,7 +1,7 @@
 #define PROBLEM  "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DPL_2_A"
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
-#include "library/graph/minimum_hamiltonian_cycle.hpp"
+#include "library/graph/cycle/minimum_hamiltonian_cycle.hpp"
 
 void solve() {
     LL(N, M);

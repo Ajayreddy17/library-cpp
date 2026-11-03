@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1451"
 #include "library/template.hpp"
-#include "library/graph/tree_of_unionfind.hpp"
+#include "library/graph/tree/tree_of_unionfind.hpp"
 #include "library/graph/tree.hpp"
 #include "library/mod/modint.hpp"
 

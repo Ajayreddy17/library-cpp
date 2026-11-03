@@ -1,8 +1,8 @@
 #ifndef AJAY_BIPARTITE
 #define AJAY_BIPARTITE
 
-#include "library/graph/bipartite_vertex_coloring.hpp"
-#include "library/graph/strongly_connected_component.hpp"
+#include "library/graph/coloring/bipartite_vertex_coloring.hpp"
+#include "library/graph/connectivity/strongly_connected_component.hpp"
 
 namespace mitsuha{
 template <typename GT>

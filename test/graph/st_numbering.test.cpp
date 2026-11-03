@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/st_numbering"
 #include "library/template.hpp"
-#include "library/graph/st_numbering.hpp"
+#include "library/graph/connectivity/st_numbering.hpp"
 
 void solve() {
     LL(N, M, s, t);

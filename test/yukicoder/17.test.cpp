@@ -11,7 +11,7 @@ void solve() {
 
     auto dist = warshall_floyd<long long>(G);
 
-    long long ANS = infty<long long>;
+    long long ANS = linf;
     For(i, 1, N - 1) For(j, 1, N - 1) if (i != j) {
         chmin(ANS, dist[0][i] + dist[i][j] + dist[j][N - 1] + COST[i] + COST[j]);
     }

@@ -6,7 +6,7 @@ void solve() {
     LL(N);
     Slope_Trick_1 X;
     using F = decltype(X)::FUNC;
-    F f = X.segment_func(-infty<int>, infty<int>, 0, 0);
+    F f = X.segment_func(-iinf, iinf, 0, 0);
 
     For(N) {
         LL(x);

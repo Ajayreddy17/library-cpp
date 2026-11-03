@@ -22,7 +22,7 @@ void solve() {
     auto ANS = nonzero_group_product_shortest_path<long long, Mono>(G, label, N - 1);
     For(v, N - 1) {
         long long ans = ANS[v];
-        if (ans == infty<long long>) ans = -1;
+        if (ans == linf) ans = -1;
         print(ans);
     }
 }

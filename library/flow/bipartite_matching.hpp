@@ -2,8 +2,8 @@
 #define AJAY_BIPARTITE_MATCHING
 
 #include "library/graph/base.hpp"
-#include "library/graph/bipartite_vertex_coloring.hpp"
-#include "library/graph/strongly_connected_component.hpp"
+#include "library/graph/coloring/bipartite_vertex_coloring.hpp"
+#include "library/graph/connectivity/strongly_connected_component.hpp"
 #include "library/util/pop.hpp"
 
 namespace mitsuha{
@@ -130,7 +130,7 @@ struct Bipartite_Matching {
             }
         };
         For(v, N) if (match[v] == -1 && color[v] == 0) add(v, 0);
-        For(v, N) if (match[v] == -1 && color[v] == 1) add(v, infty<int>);
+        For(v, N) if (match[v] == -1 && color[v] == 1) add(v, iinf);
         while (len(que)) {
             auto v = POP(que);
             if (match[v] != -1) add(match[v], W[v]);
@@ -139,7 +139,7 @@ struct Bipartite_Matching {
                     add(e.to, W[v]);
                 }
             }
-            if (color[v] == 1 && W[v] == infty<int>) {
+            if (color[v] == 1 && W[v] == iinf) {
                 for (auto&& e : G[v]) {
                     add(e.to, W[v]);
                 }
@@ -169,7 +169,7 @@ struct Bipartite_Matching {
         K += 1;
         // answer
         For(i, n) { W[V[i]] = 1 + comp[i]; }
-        For(v, N) if (W[v] == infty<int>) W[v] = K;
+        For(v, N) if (W[v] == iinf) W[v] = K;
         return {K, W};
     }
 

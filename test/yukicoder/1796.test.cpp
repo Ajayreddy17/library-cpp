@@ -2,7 +2,7 @@
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
 #include "library/mod/modint.hpp"
-#include "library/graph/centroid_decomposition_old.hpp"
+#include "library/graph/tree/centroid_decomposition_old.hpp"
 #include "library/poly/convolution.hpp"
 
 using mint = modint998;

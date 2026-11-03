@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1976#"
 #include "library/template.hpp"
-#include "library/graph/tree_dp/rerooting_dp.hpp"
+#include "library/graph/tree/rerooting_dp.hpp"
 
 void solve() {
     LL(N);

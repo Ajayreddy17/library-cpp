@@ -1,6 +1,6 @@
 #define PROBLEM  "https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification"
 #include "library/template.hpp"
-#include "library/graph/tree_dp/subtree_hash.hpp"
+#include "library/graph/tree/subtree_hash.hpp"
 
 void solve() {
     LL(N);

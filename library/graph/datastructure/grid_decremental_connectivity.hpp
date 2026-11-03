@@ -88,11 +88,11 @@ struct Grid_Decremental_Connectivity {
         int p1 = 0, p2 = 0;
         while (1) {
             if (p1 == len(Q1)) {
-                p2 = infty<int>;
+                p2 = iinf;
                 break;
             }
             if (p2 == len(Q2)) {
-                p1 = infty<int>;
+                p1 = iinf;
                 break;
             }
             For(2) {
@@ -108,10 +108,10 @@ struct Grid_Decremental_Connectivity {
                 }
             }
         }
-        if (p1 == infty<int>) {
+        if (p1 == iinf) {
             swap(p1, p2), swap(Q1, Q2), swap(x1, x2), swap(y1, y2);
         }
-        assert(p2 == infty<int>);
+        assert(p2 == iinf);
         // Q1 to new component
         int now = A[x1][y1];
         sz[now] -= len(Q1);

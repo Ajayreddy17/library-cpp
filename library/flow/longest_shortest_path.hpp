@@ -51,14 +51,14 @@ struct Longest_Shortest_Path {
         for (auto& [a, b, length, cost] : dat) {
             G.add(a, b, cost, length);
         }
-        T ans = -infty<T>;
+        T ans = -numeric_limits<T>::max() / 2;
         for (auto& [x, y] : G.slope()) {
             if (chmax(ans, x * L - y)) F = x;
         }
         return K = ans;
     }
 
-    // maximize dist(s, t) with total cost <= K. return: max dist (infty<T> if unbounded).
+    // maximize dist(s, t) with total cost <= K. return: max dist (numeric_limits<T>::max() / 2 if unbounded).
     // cost(L) = max_i (x_i L - y_i) over the slope points (x_i, y_i), so
     // max L = min_{x_i > 0} floor((K + y_i) / x_i).
     T solve_by_cost(T budget) {
@@ -68,12 +68,12 @@ struct Longest_Shortest_Path {
             G.add(a, b, cost, length);
         }
         auto S = G.slope();
-        T best = infty<T>;
+        T best = numeric_limits<T>::max() / 2;
         for (auto& [x, y] : S) {
             if (x > 0) chmin(best, fld<T>(budget + y, x));
         }
-        if (best == infty<T>) return best;
-        solved = 1, L = best, K = -infty<T>;
+        if (best == numeric_limits<T>::max() / 2) return best;
+        solved = 1, L = best, K = -numeric_limits<T>::max() / 2;
         for (auto& [x, y] : S) {
             if (chmax(K, x * L - y)) F = x;
         }

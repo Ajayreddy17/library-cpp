@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/biconnected_components"
 #include "library/template.hpp"
 #include "library/graph/base.hpp"
-#include "library/graph/block_cut.hpp"
+#include "library/graph/connectivity/block_cut.hpp"
 
 void solve() {
     LL(N, M);

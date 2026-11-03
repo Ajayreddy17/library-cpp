@@ -19,7 +19,7 @@ pair<vector<X>, vector<int>> manhattan_nns(vector<pair<X, X>> FRM, vector<pair<X
     settify(Y);
 
     vector<int> nbd_idx(N, -1);
-    vector<X> dist(N, infty<X>);
+    vector<X> dist(N, numeric_limits<X>::max() / 2);
 
     auto add_ans = [&](int i, int j) -> void {
         if (j == -1) return;

@@ -1,7 +1,7 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/aplusb"
 #include "library/template.hpp"
 #include "library/random/base.hpp"
-#include "library/graph/dsu_on_tree.hpp"
+#include "library/graph/tree/dsu_on_tree.hpp"
 
 // distinct colours in every subtree; callbacks passed both inline and as named variables
 void test() {

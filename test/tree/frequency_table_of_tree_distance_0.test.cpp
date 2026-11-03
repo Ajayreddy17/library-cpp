@@ -3,7 +3,7 @@
 
 #include <library/template.hpp>
 
-#include <library/graph/centroid_decomposition.hpp>
+#include <library/graph/tree/centroid_decomposition.hpp>
 #include <library/poly/convolution.hpp>
 
 void solve() {

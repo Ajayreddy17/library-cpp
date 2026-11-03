@@ -1,6 +1,6 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/rooted_tree_topological_order_with_minimum_inversions"
 #include "library/template.hpp"
-#include "library/graph/optimal_product_on_tree.hpp"
+#include "library/graph/tree/optimal_product_on_tree.hpp"
 
 struct Data {
     long long ans, x0, x1;

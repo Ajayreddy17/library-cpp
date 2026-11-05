@@ -9,6 +9,8 @@ namespace mitsuha{
 // graph must be undirected
 // use TO[root] to find cut edge, out_cost is the cost of cut edge
 // out_eid also available
+// G is the spanning tree without the out edge, directed parent -> child, rooted at root;
+// tree refers to G, so the struct is not copyable. Edge i of G is edge orig_eid[i] of the input.
 template <typename GT>
 struct UnicyclicGraph {
     static_assert(!GT::is_directed);
@@ -21,13 +23,16 @@ struct UnicyclicGraph {
     vector<int> TO;
     vector<int> cycle;     // Vertex sequence towards the root
     vector<bool> in_cycle; // vertex id -> bool
+    Graph<T, 1> G;
+    Tree<Graph<T, 1>> tree;
+    vector<int> orig_eid;
 
-    UnicyclicGraph(GT &G) : G0(G), N(G.N) {
-        assert(N == G.M);
+    UnicyclicGraph(GT &G0) : G0(G0), N(G0.N), tree(G, -1) {
+        assert(N == G0.M);
         UnionFind uf(N);
         TO.assign(N, -1);
         For(eid, N) {
-            auto &e = G.edges[eid];
+            auto &e = G0.edges[eid];
             if (uf.merge(e.frm, e.to)) continue;
             out_eid = eid, out_cost = e.cost;
             root = e.frm;
@@ -40,7 +45,7 @@ struct UnicyclicGraph {
             int v = que.back();
             que.pop_back();
             done[v] = 1;
-            for (auto &&e: G[v]) {
+            for (auto &&e: G0[v]) {
                 if (done[e.to] || e.id == out_eid) continue;
                 TO[e.to] = v;
                 que.emplace_back(e.to);
@@ -50,38 +55,36 @@ struct UnicyclicGraph {
         while (cycle.back() != root) cycle.emplace_back(TO[cycle.back()]);
         in_cycle.assign(N, 0);
         for (auto &&v: cycle) in_cycle[v] = 1;
-    }
 
-    // {directed G, tree}
-    pair<Graph<T, 1>, Tree<Graph<T, 1>>> build(bool keep_eid = false) {
-        Graph<T, 1> G(N);
+        G.build(N);
         For(eid, N) {
             if (eid == out_eid) continue;
             auto &e = G0.edges[eid];
             int a = e.frm, b = e.to;
-            if (TO[a] == b) swap(a, b);
-            assert(TO[b] == a);
-            int k = (keep_eid ? eid : -1);
-            G.add(a, b, e.cost, k);
+            if (a != root && TO[a] == b) swap(a, b); // TO[root] is the removed edge
+            assert(b != root && TO[b] == a);
+            G.add(a, b, e.cost);
+            orig_eid.emplace_back(eid);
         }
         G.build();
-        Tree<decltype(G)> tree(G, root);
-        return {G, tree};
-    };
+        tree.build(root);
+    }
+    UnicyclicGraph(const UnicyclicGraph &) = delete;
+    UnicyclicGraph &operator=(const UnicyclicGraph &) = delete;
 
-    template<typename TREE>
-    int dist(TREE &tree, int a, int b) {
+    int dist(int a, int b) {
         int btm = TO[root];
         int ra = tree.lca(a, btm), rb = tree.lca(b, btm);
+        if (ra == rb) return tree.dist(a, b); // same hanging tree
         int d = abs(tree.depth[ra] - tree.depth[rb]);
         d = min<int>(d, len(cycle) - d);
         return d + tree.depth[a] + tree.depth[b] - tree.depth[ra] - tree.depth[rb];
     }
 
-    template<typename TREE>
-    T dist_weighted(TREE &tree, int a, int b) {
+    T dist_weighted(int a, int b) {
         int btm = TO[root];
         int ra = tree.lca(a, btm), rb = tree.lca(b, btm);
+        if (ra == rb) return tree.dist_weighted(a, b);
         vector<T> &D = tree.depth_weighted;
         T d = abs(D[ra] - D[rb]);
         d = min(d, D[btm] + out_cost - d);

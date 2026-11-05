@@ -62,6 +62,8 @@ Directory map: `alg/monoid/`→`monoid/`, `alg/acted_monoid/`→`acted_monoid/`,
 Some file names differ (`functional_graph`→`functional`, `twosat`→`two_sat`,
 `unicyclic_graph`→`unicyclicgraph`, `convex_hull`→`convexhull`, `bellman_ford`→`bellmanford`) —
 check that the target exists before adding a duplicate.
+Class names: `Functional_Graph<Monoid>`→`FunctionalGraph<Monoid = Monoid_Add<int>>`,
+`Unicyclic_Graph`→`UnicyclicGraph`. Both own `G` and `tree` (members): `build()` returns nothing and queries take no `tree` argument.
 
 maspy's flat `graph/*.hpp` is split by topic here: `graph/connectivity/` (SCC, toposort, 2-SAT,
 block-cut, dominator, tournament), `graph/tree/` (LCA, centroid, rerooting, tree DP — maspy's

@@ -30,9 +30,9 @@ struct Tree_Wavelet_Matrix {
         } else {
             assert(len(A) == N - 1 && (len(S) == 0 || len(S) == N - 1));
             if (!S.empty()) {
-                For(e, N - 1) { S1[tree.LID[tree.e_to_v(e)]] = S[e]; }
+                For(e, N - 1) { S1[tree.LID[tree.EtoV[e]]] = S[e]; }
             }
-            For(e, N - 1) { A1[tree.LID[tree.e_to_v(e)]] = A[e]; }
+            For(e, N - 1) { A1[tree.LID[tree.EtoV[e]]] = A[e]; }
             wm.build(A1, S1, log);
         }
     }
@@ -48,14 +48,13 @@ struct Tree_Wavelet_Matrix {
         return wm.count(l + edge, r, a, b, xor_val);
     }
 
+    // count_subtree with the tree rerooted at root (vertex values only)
     int count_subtree_root(int u, T a, T b, int root = -1, T xor_val = 0) {
-        if (root == -1 || tree.in_subtree(u, root)) {
-          int l = tree.LID[u], r = tree.RID[u];
-          return wm.count(l + edge, r, a, b, xor_val);
-        }
-        assert(!edge); // Lazy
-        u = tree.jump(u, root, 1);
-        int L = tree.LID[u], R = tree.RID[u];
+        if (root == -1 || !tree.in_subtree(root, u)) return count_subtree(u, a, b, xor_val);
+        assert(!edge);
+        if (root == u) return wm.count(0, N, a, b, xor_val);
+        int c = tree.jump(u, root, 1); // child of u towards root: everything except its subtree
+        int L = tree.LID[c], R = tree.RID[c];
         return wm.count(0, L, a, b, xor_val) + wm.count(R, N, a, b, xor_val);
     }
 

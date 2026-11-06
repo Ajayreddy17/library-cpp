@@ -49,6 +49,7 @@ Personal competitive-programming library (C++20). Only user: me.
 | `#include "other/io.hpp"` | `#include "library/io/io2.hpp"` |
 | `Yes(c)` / `No(c)` / `YES(c)` / `NO(c)` | `print(Yes[c])` / `print(Yes[!(c)])` / `print(YES[c])` / `print(YES[!(c)])` |
 | `seg.max_right(check, l)` / `seg.min_left(check, r)` | `seg.max_right(l, check)` / `seg.min_left(r, check)` |
+| wavelet `max_right(check, L, R)` / `max_right_many(check, LR)` / `min_left_many(check, LR)` | `max_right(L, R, check)` / `max_right_many(LR, check)` / `min_left_many(LR, check)` |
 | slope trick `add_a_minus_x(a)` / `add_x_minus_a(a)` | `add_left(a)` / `add_right(a)` |
 | `flow/min_cost_flow.hpp` | `flow/mincostflow.hpp` (`Min_Cost_Flow`) |
 | `flow/min_cost_b_flow.hpp` (`Min_Cost_B_Flow`) | `flow/bflow.hpp` (`MinCostFlow`) |

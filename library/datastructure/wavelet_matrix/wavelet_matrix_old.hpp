@@ -1,12 +1,12 @@
-#define AJAY_WAVELET_MATRIX_OLD
+#ifndef AJAY_WAVELET_MATRIX_OLD
 #define AJAY_WAVELET_MATRIX_OLD
 
 #include "library/monoid/monoid_add.hpp"
 #include "library/datastructure/wavelet_matrix/bit_vector.hpp"
 
 namespace mitsuha{
-// Specify whether to apply seating pressure with COMPRESS
-// When using xor-like usage, pass log in the constructor
+// COMPRESS: coordinate-compress the values. For xor_val queries pass log (and COMPRESS = false).
+// Supports a list of [L, R) segments (paths on a tree); see Tree_Wavelet_Matrix.
 template <typename T, bool COMPRESS, typename Monoid = Monoid_Add<T>>
 struct Wavelet_Matrix_Old {
     using MX = Monoid;
@@ -27,7 +27,7 @@ struct Wavelet_Matrix_Old {
 
     void build(vector<T> A, vector<X> SUM_data = {}, int log = -1) {
         N = (int) A.size(), lg = log, set_log = (log != -1);
-        bool MAKE_SUM = !(SUM_data.empty());
+        bool MAKE_SUM = !SUM_data.empty() || N == 0; // N == 0: empty sums still work
         vector<X>& S = SUM_data;
         if (COMPRESS) {
             assert(!set_log);
@@ -39,7 +39,7 @@ struct Wavelet_Matrix_Old {
             }
             key.shrink_to_fit();
         }
-        if (lg == -1) lg = __lg(max<long long>(*max_element(A.begin(), A.end()), 1)) + 1;
+        if (lg == -1) lg = __lg(max<long long>(N == 0 ? 1 : *max_element(A.begin(), A.end()), 1)) + 1;
         mid.resize(lg);
         bv.assign(lg, Bit_Vector(N));
         if (MAKE_SUM) cumsum.assign(1 + lg, vector<X>(N + 1, MX::unit()));
@@ -93,7 +93,7 @@ struct Wavelet_Matrix_Old {
         T ret = 0;
         for (int d = lg - 1; d >= 0; --d) {
             bool f = (xor_val >> d) & 1;
-            int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+            int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
             int c = (f ? (R - L) - (r0 - l0) : (r0 - l0));
             if (cnt + c > k) {
                 if (!f) L = l0, R = r0;
@@ -125,19 +125,19 @@ struct Wavelet_Matrix_Old {
             bool f = (xor_val >> d) & 1;
             int c = 0;
             for (auto&& [L, R]: segments) {
-                int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                 c += (f ? (R - L) - (r0 - l0) : (r0 - l0));
             }
             if (cnt + c > k) {
                 for (auto&& [L, R]: segments) {
-                    int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                    int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                     if (!f) L = l0, R = r0;
                     if (f) L += mid[d] - l0, R += mid[d] - r0;
                 }
             } else {
                 cnt += c, ret |= T(1) << d;
                 for (auto&& [L, R]: segments) {
-                    int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                    int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                     X s = (f ? get(d, L + mid[d] - l0, R + mid[d] - r0) : get(d, l0, r0));
                     sm = MX::op(sm, s);
                     if (!f) L += mid[d] - l0, R += mid[d] - r0;
@@ -162,7 +162,7 @@ struct Wavelet_Matrix_Old {
         T ret = 0;
         for (int d = lg - 1; d >= 0; --d) {
             bool f = (xor_val >> d) & 1;
-            int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+            int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
             int c = (f ? (R - L) - (r0 - l0) : (r0 - l0));
             if (cnt + c > k) {
                 if (!f) L = l0, R = r0;
@@ -187,19 +187,19 @@ struct Wavelet_Matrix_Old {
             bool f = (xor_val >> d) & 1;
             int c = 0;
             for (auto&& [L, R]: segments) {
-                int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                 c += (f ? (R - L) - (r0 - l0) : (r0 - l0));
             }
             if (cnt + c > k) {
                 for (auto&& [L, R]: segments) {
-                    int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                    int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                     if (!f) L = l0, R = r0;
                     if (f) L += mid[d] - l0, R += mid[d] - r0;
                 }
             } else {
                 cnt += c, ret |= T(1) << d;
                 for (auto&& [L, R]: segments) {
-                    int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+                    int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
                     if (!f) L += mid[d] - l0, R += mid[d] - r0;
                     if (f) L = l0, R = r0;
                 }
@@ -249,7 +249,7 @@ struct Wavelet_Matrix_Old {
         X sm = MX::unit();
         for (int d = lg - 1; d >= 0; --d) {
             bool f = (xor_val >> d) & 1;
-            int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+            int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
             int c = (f ? (R - L) - (r0 - l0) : (r0 - l0));
             X s = (f ? get(d, L + mid[d] - l0, R + mid[d] - r0) : get(d, l0, r0));
             if (check(cnt + c, MX::op(sm, s))) {
@@ -286,13 +286,13 @@ private:
     int prefix_count(int L, int R, T x, T xor_val = 0) {
         if (xor_val != 0) assert(set_log);
         x = (COMPRESS ? (lower_bound(key.begin(), key.end(), x) - key.begin()) : x);
-        if (x == 0) return 0;
-        if (x >= (1 << lg)) return R - L;
+        if (x <= 0) return 0;
+        if (x >= (T(1) << lg)) return R - L;
         int cnt = 0;
         for(int d = lg - 1; d >= 0; d--) {
             bool add = (x >> d) & 1;
             bool f = ((xor_val) >> d) & 1;
-            int l0 = bv[d].count(L, 0), r0 = bv[d].count(R, 0);
+            int l0 = bv[d].count_prefix(L, 0), r0 = bv[d].count_prefix(R, 0);
             int kf = (f ? (R - L) - (r0 - l0) : (r0 - l0));
             if (add) {
                 cnt += kf;
@@ -315,3 +315,4 @@ private:
     }
 };
 } // namespace mitsuha
+#endif // AJAY_WAVELET_MATRIX_OLD

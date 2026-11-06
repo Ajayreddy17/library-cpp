@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_mul.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/poly/sum_of_c_negative.hpp
 // calculate [x^N] f(x)(1-x)^{-K} in O(deg(f)+K).
 template <typename mint>
 mint sum_of_C_negative(long long N, long long K, vector<mint>& f) {

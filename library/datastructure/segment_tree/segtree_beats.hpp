@@ -2,6 +2,7 @@
 #define AJAY_SEGTREE_BEATS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/segtree_beats.hpp
 template <typename ActedMonoid>
 struct SegTree_Beats {
     using AM = ActedMonoid;

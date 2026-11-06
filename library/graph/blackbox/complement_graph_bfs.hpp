@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/blackbox/complement_graph_bfs.hpp
 template <typename GT>
 pair<vector<int>, vector<int>> complement_graph_bfs(GT& G, int s) {
     static vector<int> que, NG, dist, par, yet;

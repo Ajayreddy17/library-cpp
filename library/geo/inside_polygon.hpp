@@ -6,6 +6,7 @@
 // https://qoj.ac/problem/5443
 // Allows vertices or edges to lie on the segment
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/inside_polygon.hpp
 template <typename T>
 bool inside_polygon(Segment<T> S, vector<Point<T>>& dat) {
     using P = Point<T>;

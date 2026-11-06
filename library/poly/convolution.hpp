@@ -9,6 +9,7 @@
 #include "library/poly/ntt.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/poly/convolution.hpp
 template <class mint>
 vector<mint> convolution_ntt(vector<mint> a, vector<mint> b) {
     if (a.empty() || b.empty()) return {};

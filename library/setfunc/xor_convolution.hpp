@@ -4,6 +4,7 @@
 #include "library/setfunc/hadamard.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/setfunc/xor_convolution.hpp
 template <typename T>
 vector<T> xor_convolution(vector<T> A, vector<T> B) {
     hadamard(A);

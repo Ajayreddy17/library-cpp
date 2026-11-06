@@ -2,6 +2,7 @@
 #define AJAY_DOUBLE_END_QUEUE_CONST_ADD
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/double_ended_queue_const_add.hpp
 // Let’s enable full summation as well
 // Pass something like Monoid_Add. T needs to have operator< defined.
 template <typename Monoid>

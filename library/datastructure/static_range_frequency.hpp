@@ -4,6 +4,7 @@
 #include "library/datastructure/hashmap.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/static_range_frequency.hpp
 struct Static_Range_Frequency {
     vector<int> pos, indptr;
 

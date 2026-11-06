@@ -4,6 +4,7 @@
 #include "library/datastructure/splay_tree/splay_tree.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/splaytree/splaytree_basic.hpp
 namespace SplayTreeNodes {
 template <typename S>
 struct Node_Basic {

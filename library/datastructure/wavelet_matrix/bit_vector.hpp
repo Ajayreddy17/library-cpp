@@ -2,6 +2,7 @@
 #define AJAY_BITVECTOR
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/bit_vector.hpp
 struct Bit_Vector {
     int n;
     bool prepared = 0;

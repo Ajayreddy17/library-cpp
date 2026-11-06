@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_assign.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/summin_assign.hpp
 template <typename E, long long none_val>
 struct ActedMonoid_SumMin_Assign {
     using Monoid_X = Monoid_SumMin<E>;

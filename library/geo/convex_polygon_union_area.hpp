@@ -8,6 +8,7 @@
 // 784 hexagons: 840ms
 // https://ac.nowcoder.com/acm/contest/133876/K
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/convex_polygon_union_area.hpp
 template <typename Re>
 Re convex_polygon_union_area(vector<vector<Point<long long>>> dat) {
     using P = Point<long long>;

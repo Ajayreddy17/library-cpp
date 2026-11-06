@@ -2,6 +2,7 @@
 #define AJAY_INTEGRATE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/integrate.hpp
 template <typename mint>
 vector<mint> integrate(const vector<mint>& f) {
     vector<mint> g((int) f.size() + 1);

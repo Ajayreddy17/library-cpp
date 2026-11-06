@@ -2,6 +2,7 @@
 #define AJAY_SLOPE_TRICK_0
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/slope_trick/slope_trick_0.hpp
 struct Slope_Trick_0 {
     static constexpr long long LMIN = -linf;
     static constexpr long long RMAX =  linf;

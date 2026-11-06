@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/bfs_01.hpp
 // [dist, par]
 template <typename T, typename GT>
 pair<vector<T>, vector<int>> bfs01(GT& G, int v) {

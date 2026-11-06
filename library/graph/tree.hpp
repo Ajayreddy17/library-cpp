@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/tree.hpp
 // HLD order (heavy child first) when hld = true; otherwise preorder in edge order.
 // Building reorders G's adjacency lists so that G[v][0] is the heavy child.
 template<typename GT>

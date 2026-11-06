@@ -6,6 +6,7 @@
 // A, B form lower convex hulls and A[i]+B[j] is guaranteed to have positive x-coordinate
 // Find the min slope of A[i]+B[j]. O(log N+log M)
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/min_slope_sum.hpp
 template <typename P>
 P min_slope_sum(vector<P>& A, vector<P>& B) {
     int N = len(A), M = len(B);

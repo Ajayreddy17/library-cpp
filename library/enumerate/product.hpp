@@ -2,6 +2,7 @@
 #define AJAY_ENUMERATE_PRODUCT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/enumerate/product.hpp
 template <typename F>
 void enumerate_product(vector<int> A, F query) {
     int N = len(A);

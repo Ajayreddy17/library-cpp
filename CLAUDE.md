@@ -23,6 +23,9 @@ Personal competitive-programming library (C++20). Only user: me.
 
 ## Porting from maspypy (github.com/maspypy/library)
 
+Every header taken from maspy has `// Source: https://github.com/maspypy/library/blob/main/<maspy path>`
+as the first line inside `namespace mitsuha{`.
+
 | maspy | ours |
 |---|---|
 | `FOR(n)`, `FOR(i, n)`, `FOR(i, a, b)`, `FOR1/2/3(...)` | `For(...)` (same args) |

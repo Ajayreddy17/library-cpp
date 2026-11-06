@@ -4,6 +4,7 @@
 #include "library/flow/maxflow.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/binary_optimization.hpp
 template <typename T, bool MINIMIZE>
 struct Binary_Optimization {
     int n;

@@ -2,6 +2,7 @@
 #define AJAY_MAXFLOW_WITH_LOWERBOUND
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/maxflow_with_lower_bound.hpp
 template <typename Cap>
 struct MaxFlow_With_LowerBound {
     int N, s, t, S, T;

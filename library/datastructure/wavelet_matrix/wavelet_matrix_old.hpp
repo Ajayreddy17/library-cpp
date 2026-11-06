@@ -5,6 +5,7 @@
 #include "library/datastructure/wavelet_matrix/bit_vector.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/wavelet_matrix/wavelet_matrix_old.hpp
 // COMPRESS: coordinate-compress the values. For xor_val queries pass log (and COMPRESS = false).
 // Supports a list of [L, R) segments (paths on a tree); see Tree_Wavelet_Matrix.
 template <typename T, bool COMPRESS, typename Monoid = Monoid_Add<T>>

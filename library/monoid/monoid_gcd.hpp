@@ -2,6 +2,7 @@
 #define AJAY_MONOID_GCD
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/gcd.hpp
 template <typename X>
 struct Monoid_Gcd {
     using value_type = X;

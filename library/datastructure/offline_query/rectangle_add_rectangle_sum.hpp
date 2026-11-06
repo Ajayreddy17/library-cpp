@@ -3,6 +3,7 @@
 
 // https://judge.yosupo.jp/submission/229013
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/rectangle_add_rectangle_sum.hpp
 template<typename T, typename XY>
 struct Rectangle_Add_Rectangle_Sum {
     

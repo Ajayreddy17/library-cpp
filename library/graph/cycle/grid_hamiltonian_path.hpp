@@ -2,6 +2,7 @@
 #define AJAY_GRID_HAMILTONIAN_PATH
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/grid_hamiltonian_path.hpp
 // Create a Hamilton path by fixing the starting point. If it's an even number, make it a cycle.
 // High-dimensional version: https://codeforces.com/contest/863/submission/194294053
 vector<pair<int, int>> grid_hamiltonian_path(int H, int W, int sx = 0, int sy = 0) {

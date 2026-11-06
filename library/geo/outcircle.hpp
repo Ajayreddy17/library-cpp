@@ -4,6 +4,7 @@
 #include "library/geo/triangle_area.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/outcircle.hpp
 template <typename REAL, typename T>
 Circle<REAL> outcircle(Point<T> A, Point<T> B, Point<T> C) {
     Assert(ccw(A, B, C) != 0);

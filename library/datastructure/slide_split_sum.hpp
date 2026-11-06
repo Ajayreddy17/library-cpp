@@ -4,6 +4,7 @@
 #include "library/datastructure/removable_queue.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/slide_split_sum.hpp
 /*
 Handling multiple sets
 You can get the sum of [0,k)th and [k,N)th]

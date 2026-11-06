@@ -4,6 +4,7 @@
 #include "library/geo/angle_sort.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/convex_polygon_dp_order.hpp
 /*
 Point set is distinct.
 edge(i,j): ordering such that transitions i->j form edges in strictly increasing argument order.

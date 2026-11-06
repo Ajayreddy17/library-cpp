@@ -4,6 +4,7 @@
 #include "library/poly/fps_inv.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/poly_divmod.hpp
 template <typename mint>
 pair<vector<mint>, vector<mint>> poly_divmod(vector<mint> f, vector<mint> g) {
     assert(g.back() != 0);

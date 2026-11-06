@@ -4,6 +4,7 @@
 #include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/range_add_range_sum.hpp
 template <typename Monoid>
 struct Range_Add_Range_Sum {
     using MX = Monoid;

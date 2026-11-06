@@ -4,6 +4,7 @@
 #include "library/datastructure/sparse_table/sparse_table.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/rmq/static_rmq.hpp
 // Sparse_Table - 67 ms  41 Mb
 // Static_RMQ   - 52 ms  15 Mb
 // SegTree      - 84 ms  10 Mb

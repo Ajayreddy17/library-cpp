@@ -2,6 +2,7 @@
 #define AJAY_STATIC_MONOID_PRODUCTS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/static_monoid_products.hpp
 template <typename Mono, typename T>
 vector<T> static_monoid_products(vector<T>& A, vector<pair<int, int>>& query) {
     int N = len(A), Q = len(query);

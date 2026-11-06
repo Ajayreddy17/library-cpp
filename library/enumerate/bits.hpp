@@ -2,6 +2,7 @@
 #define AJAY_ENUMERATE_BITS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/enumerate/bits.hpp
 template <typename F>
 void enumerate_bits_32(unsigned int s, F f) {
     while (s) {

@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/dijkstra.hpp
 template <typename T, typename GT>
 pair<vector<T>, vector<int>> dijkstra_dense(GT& G, int s) {
     const int N = G.N;

@@ -1,9 +1,10 @@
 #ifndef AJAY_PRIMETEST
 #define AJAY_PRIMETEST
 
-#include "library/mod/mongomery_modint.hpp"
+#include "library/mod/montgomery_modint.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/is_prime.hpp
 bool primetest(const unsigned long long x) {
     assert(x < 1ULL << 62);
     if (x == 2 or x == 3 or x == 5 or x == 7) return true;
@@ -11,7 +12,7 @@ bool primetest(const unsigned long long x) {
     if (x < 121) return x > 1;
     const unsigned long long d = (x - 1) >> ((x - 1) == 0 ? -1 : __builtin_ctzll(x - 1));
 
-    using mint = Mongomery_modint_64<202311020>;
+    using mint = Montgomery_modint_64<202311020>;
 
     mint::set_mod(x);
     const mint one(1ULL), minus_one(x - 1);

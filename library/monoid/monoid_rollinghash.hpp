@@ -5,6 +5,7 @@
 #include "library/mod/modint61.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/rolling_hash.hpp
 struct Monoid_Rolling_Hash {
     using value_type = pair<modint61, modint61>;
     using X = value_type;

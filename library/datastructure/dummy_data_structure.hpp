@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_dummy.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/dummy_data_structure.hpp
 // placeholder SEGTREE for structures that only count (e.g. Wavelet_Matrix without weights)
 struct Dummy_Data_Structure {
     using MX = Monoid_Dummy;

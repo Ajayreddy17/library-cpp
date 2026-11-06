@@ -7,6 +7,7 @@
 // input: simple polygon
 // return: area2, inner, boundary
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/pick_formula.hpp
 template <typename T>
 tuple<int128, int128, int128> pick_formula(vector<Point<T>>& A) {
     using P = Point<T>;

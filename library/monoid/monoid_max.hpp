@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MAX
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/max.hpp
 template <typename E>
 struct Monoid_Max {
     using X = E;

@@ -2,6 +2,7 @@
 #define AJAY_CHT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/cht.hpp
 // Stores Lines in y = ax + b form
 // querys val of (max / min) y for lines in container at x
 namespace CHT {

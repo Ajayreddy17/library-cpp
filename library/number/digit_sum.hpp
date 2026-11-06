@@ -2,6 +2,7 @@
 #define AJAY_DIGIT_SUM
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/digit_sum.hpp
 int digit_sum(unsigned long long x) {
     const int K = 100'000;
     static vector<int> dp(K);

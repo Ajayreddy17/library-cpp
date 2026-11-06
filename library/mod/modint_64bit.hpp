@@ -2,12 +2,13 @@
 #define AJAY_MODINT_64BIT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/modint_64bit.hpp
 // https://qoj.ac/problem/969
 template <long long mod>
 struct modint_64bit {
     using T = modint_64bit;
     static constexpr unsigned long long umod = (unsigned long long)(mod);
-    static_assert(umod < 1ULL << 63);
+    static_assert(0 < umod && umod < 1ULL << 63);
     unsigned long long val;
     constexpr modint_64bit() : val(0) {}
     constexpr modint_64bit(unsigned int x) : val(x % umod) {}
@@ -33,7 +34,7 @@ struct modint_64bit {
         return *this;
     }
     T& operator*=(const T& p) {
-        val = (unsigned long long)(val) * p.val % umod;
+        val = (unsigned __int128)(val) * p.val % umod;
         return *this;
     }
     T& operator/=(const T& p) {
@@ -48,7 +49,7 @@ struct modint_64bit {
     bool operator==(const T& p) const { return val == p.val; }
     bool operator!=(const T& p) const { return val != p.val; }
     T inverse() const {
-        int a = val, b = mod, u = 1, v = 0, t;
+        long long a = val, b = mod, u = 1, v = 0, t;
         while (b > 0) {
             t = a / b;
             swap(a -= t * b, b), swap(u -= t * v, v);
@@ -56,7 +57,7 @@ struct modint_64bit {
         return modint_64bit(u);
     }
     T pow(long long n) const {
-        assert(n >= 0);
+        if (n < 0) return inverse().pow(-n);
         T ret(1), mul(val);
         while (n > 0) {
             if (n & 1) ret *= mul;

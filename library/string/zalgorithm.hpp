@@ -2,6 +2,7 @@
 #define AJAY_ZALGORITHM
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/z_algorithm.hpp
 template <typename STRING>  // string, vector Either
 vector<int> zalgorithm(const STRING& s) {
     int n = int(s.size());

@@ -2,6 +2,7 @@
 #define AJAY_SPLAY_TREE
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/splaytree/splaytree.hpp
 /*
 If prod is calculated correctly in update, 
 then prod does not necessarily have to be op(lprod, x, rprod).

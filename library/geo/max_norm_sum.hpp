@@ -5,6 +5,7 @@
 #include "library/geo/angle_sort.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/max_norm_sum.hpp
 // A sequence of vectors is given. Select a subsequence to minimize the norm of the sum.
 // Be careful to ensure that the squared sum of the coordinates, SM, does not overflow
 // https://atcoder.jp/contests/abc139/tasks/abc139_f

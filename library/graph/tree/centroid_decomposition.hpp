@@ -4,6 +4,7 @@
 #include "library/graph/shortestpath/bfs01.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/centroid_decomposition.hpp
 // Centroid decomposition of vertex-based centroid decomposition
 // f(par, V, indptr)
 template <typename F>

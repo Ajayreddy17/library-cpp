@@ -2,6 +2,7 @@
 #define AJAY_XOR_RANGE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/enumerate/xor_range.hpp
 template <typename F>
 void xor_range(unsigned long long a, unsigned long long lo, unsigned long long hi, F query){
     For(k, 64){

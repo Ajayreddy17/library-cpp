@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MINMAX
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/minmax.hpp
 template <class X>
 struct Monoid_MinMax {
     using P = pair<X, X>;

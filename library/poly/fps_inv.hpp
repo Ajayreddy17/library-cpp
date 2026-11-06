@@ -5,6 +5,7 @@
 #include "library/poly/count_terms.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_inv.hpp
 template <typename mint>
 vector<mint> fps_inv_sparse(const vector<mint>& f) {
     int N = (int) f.size();

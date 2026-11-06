@@ -4,6 +4,7 @@
 #include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/coefficient_query_2d.hpp
 // A, B: constant
 // Give Sparse Laurent Polynomial f(x,y)
 // [x^py^q] Find many f(x,y)/(1-x)^A(1-y)^B

@@ -4,6 +4,7 @@
 #include "library/util/bit_utils.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/setfunc/hadamard.hpp
 // B[j] = sum_i (-1)^{popcnt(i&j)A[i]}
 // 2 ^ n Division is not being done
 template <typename T>

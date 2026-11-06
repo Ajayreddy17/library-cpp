@@ -2,6 +2,7 @@
 #define AJAY_RANDOM
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/random/base.hpp
 unsigned long long RNG_64() {
     static uint64_t x_
             = uint64_t(chrono::duration_cast<chrono::nanoseconds>(

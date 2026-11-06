@@ -4,6 +4,7 @@
 #include "library/poly/fps_exp.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/product_of_one_minus_xn.hpp
 // Find prod (1 - x^a) up to x^{LIM}
 template <typename mint, typename INT>
 vector<mint> product_of_one_minus_xn(vector<INT> &A, int LIM) {

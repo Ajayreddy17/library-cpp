@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MINMINCNT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/minmincnt.hpp
 template <typename E>
 struct Monoid_MinMincnt {
     using value_type = pair<E, E>;

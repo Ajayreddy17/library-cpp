@@ -4,6 +4,7 @@
 #include "library/datastructure/unionfind/unionfind.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/blackbox/unionfind.hpp
 // Find the next edge using a suitable data structure while deleting vertices.
 // Since the contents are just bfs, it can also be used for 01 Shortest Path
 template <typename F1, typename F2>

@@ -2,6 +2,7 @@
 #define AJAY_MONOID_SUMMIN
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/summin.hpp
 template <typename E>
 struct Monoid_SumMin {
     using value_type = pair<E, E>;

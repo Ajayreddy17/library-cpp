@@ -2,6 +2,7 @@
 #define AJAY_MONOID_AND
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/and.hpp
 template <typename X>
 struct Monoid_And {
     using value_type = X;

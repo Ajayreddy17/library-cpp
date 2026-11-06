@@ -4,6 +4,7 @@
 #include "library/string/suffix_array.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/string/many_string_compare.hpp
 // https://qoj.ac/contest/1803/problem/9406
 template <bool USE_SPARSE_TABLE>
 struct Many_String_Compare {

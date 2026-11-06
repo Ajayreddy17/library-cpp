@@ -4,6 +4,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/2d/convolution2d.hpp
 template <typename T>
 vector<vector<T>> convolution2d(vector<vector<T>>& f, vector<vector<T>>& g) {
     auto shape = [&](vector<vector<T>>& f) -> pair<long long, long long> {

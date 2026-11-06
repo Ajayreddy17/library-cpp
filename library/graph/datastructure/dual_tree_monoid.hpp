@@ -5,6 +5,7 @@
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/dual_tree_monoid.hpp
 template <typename TREE, typename Monoid, bool edge>
 struct Dual_Tree_Monoid {
     using MX = Monoid;

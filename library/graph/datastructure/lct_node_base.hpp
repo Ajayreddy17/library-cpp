@@ -4,6 +4,7 @@
 #include "library/graph/datastructure/link_cut_tree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/lct_node_base.hpp
 // SUBTREE : If cluster has subtree information
 struct LCT_Node_Base {
     using np = LCT_Node_Base*;

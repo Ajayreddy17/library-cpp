@@ -2,6 +2,7 @@
 #define AJAY_MODINT61
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/modint61.hpp
 struct modint61 {
     static constexpr unsigned long long mod = (1ULL << 61) - 1;
     unsigned long long val;

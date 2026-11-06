@@ -4,6 +4,7 @@
 #include "library/datastructure/hashmap.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/graph/vs_to_es.hpp
 template <typename GT>
 vector<int> vs_to_es(GT& G, vector<int>& vs, bool allow_use_twice = false) {
     assert(!vs.empty());

@@ -2,6 +2,7 @@
 #define AJAY_MONOID_DUMMY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/dummy.hpp
 struct Monoid_Dummy {
     using value_type = char;
     static constexpr bool commute = true;

@@ -4,10 +4,11 @@
 #include "library/mod/modint_common.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/modint.hpp
 template <int mod>
 struct modint {
     static constexpr unsigned int umod = (unsigned int)(mod);
-    static_assert(umod < 1U << 31);
+    static_assert(0 < umod && umod < 1U << 31);
     unsigned int val;
 
     static modint raw(unsigned int v) {
@@ -55,7 +56,7 @@ struct modint {
         return modint(u);
     }
     modint pow(long long n) const {
-        assert(n >= 0);
+        if (n < 0) return inverse().pow(-n);
         modint ret(1), mul(val);
         while (n > 0) {
             if (n & 1) ret *= mul;
@@ -76,6 +77,8 @@ struct modint {
         if (mod == 998244353) return {23, 31};
         if (mod == 1004535809) return {21, 582313106};
         if (mod == 1012924417) return {21, 368093570};
+        if (mod == 1224736769) return {24, 1191450770};
+        if (mod == 2013265921) return {27, 244035102};
         return {-1, -1};
     }
     static constexpr bool can_ntt() { return ntt_info().first != -1; }

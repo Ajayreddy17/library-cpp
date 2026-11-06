@@ -5,6 +5,7 @@
 #include "library/mod/mod_pow.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/mod_sqrt.hpp
 // p is a prime number. No solution is -1.
 int mod_sqrt(int a, int p) {
     if (p == 2) return a;
@@ -47,6 +48,7 @@ long long mod_sqrt_64(long long a, long long p) {
         while (1) {
             __int128 b = RNG(2, p);
             __int128 D = b * b - a;
+            D %= p;
             if (D == 0) return {b, D};
             if (mod_pow_64(D, k, p) != 1) return {b, D};
         }

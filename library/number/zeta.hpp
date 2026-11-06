@@ -4,6 +4,7 @@
 #include "library/number/primetable.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/nt/zeta.hpp
 template <typename T>
 void divisor_zeta(vector<T>& A) {
     assert(A[0] == 0);

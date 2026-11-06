@@ -6,6 +6,7 @@
 #include "library/poly/fps_log.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_pow.hpp
 // Find fps to the kth power. The assumption is that k >= 0.
 // If the constant term is 1 and k is mint, use fps_pow_1.
 // - Dense case: use log, exp O(NlogN)

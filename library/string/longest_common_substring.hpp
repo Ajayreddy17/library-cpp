@@ -4,6 +4,7 @@
 #include "library/string/suffix_array.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/longest_common_substring.hpp
 template <typename STRING>
 tuple<int, int, int, int> longest_common_substring(STRING& S, STRING& T) {
     int dummy = max<int>(*max_element(S.begin(), S.end()), *max_element(T.begin(), T.end())) + 1;

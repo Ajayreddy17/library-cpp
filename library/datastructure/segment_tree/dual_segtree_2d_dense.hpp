@@ -2,6 +2,7 @@
 #define AJAY_DUAL_SEGTREE_2D_DENSE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/dual_segtree_2d_dense.hpp
 template <class Monoid>
 struct Dual_SegTree_2D_Dense {
     using MX = Monoid;

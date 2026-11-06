@@ -5,6 +5,7 @@
 #include "library/datastructure/offline_query/mo.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/mo_on_tree.hpp
 // https://codeforces.com/contest/852/problem/I
 template <typename TREE, bool ORIENTED = false>
 struct Mo_on_Tree {

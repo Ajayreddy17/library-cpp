@@ -2,6 +2,7 @@
 #define AJAY_RBST
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/randomized_bst/rbst.hpp
 template <typename S, bool PERSISTENT, int NODES>
 struct RBST {
     struct Node {

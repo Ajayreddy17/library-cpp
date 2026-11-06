@@ -4,6 +4,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/angle_sort.hpp
 // lower: -1, origin: 0, upper: 1
 template <typename T>
 int lower_or_upper(const Point<T>& p) {

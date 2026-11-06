@@ -2,6 +2,7 @@
 #define AJAY_MONOID_REVERSE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/monoid_reverse.hpp
 template <class Monoid>
 struct Monoid_Reverse {
     using value_type = typename Monoid::value_type;

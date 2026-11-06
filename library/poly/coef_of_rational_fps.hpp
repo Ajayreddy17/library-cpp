@@ -6,6 +6,7 @@
 #include "library/poly/poly_divmod.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/coef_of_rational_fps.hpp
 template <typename mint>
 mint coef_of_rational_fps_small(vector<mint> P, vector<mint> Q, long long N) {
     assert(0 <= len(P) && len(P) + 1 == len(Q) && len(Q) <= 16

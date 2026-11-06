@@ -2,6 +2,7 @@
 #define AJAY_LICHAO
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/lichao.hpp
 /*
 struct F {
     using value_type = long long;  // operator()

@@ -6,6 +6,7 @@
 #include "library/mod/barrett.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/mod/dynamic_modint.hpp
 template <int id>
 struct Dynamic_Modint {
     static constexpr bool is_modint = true;
@@ -32,6 +33,8 @@ struct Dynamic_Modint {
     Dynamic_Modint(int x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
     Dynamic_Modint(long long x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
     Dynamic_Modint(__int128 x) : val((x %= get_mod()) < 0 ? x + get_mod() : x) {}
+    Dynamic_Modint(unsigned __int128 x) : val(x % umod()) {}
+    bool operator<(const mint& other) const { return val < other.val; }
 
     mint& operator+=(const mint& rhs) {
         val = (val += rhs.val) < umod() ? val : val - umod();

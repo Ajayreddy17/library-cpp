@@ -4,6 +4,7 @@
 #include "library/number/zeta.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/gcd_convolution.hpp
 template <typename T>
 vector<T> gcd_convolution(vector<T> A, vector<T> B) {
     assert(len(A) == len(B));

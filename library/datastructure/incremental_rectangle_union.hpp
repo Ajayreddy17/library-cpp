@@ -4,6 +4,7 @@
 #include "library/datastructure/fastset.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/incremental_rectangle_union.hpp
 // [0, x] x [0, y] Add -> get union area
 template <typename XY, typename AREA, bool SMALL_XY>
 struct Incremental_Rectangle_Union {

@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/bfs_numbering.hpp
 // ID[v]: new number of vertex
 // calc_range(v, dep): range of subtrees of v with depth dep
 // Note that depth is absolute

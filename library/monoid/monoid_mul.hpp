@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MUL
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/mul.hpp
 template <class T>
 struct Monoid_Mul {
     using value_type = T;

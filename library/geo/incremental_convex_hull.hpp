@@ -5,6 +5,7 @@
 
 // Lower convex hull
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/incremental_convex_hull.hpp
 template <typename T, bool strict = true>
 struct Incremental_Convex_Hull_Lower {
     using P = Point<T>;

@@ -4,6 +4,7 @@
 #include "library/datastructure/rollback_array.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/unionfind/rollback_unionfind.hpp
 struct Rollback_UnionFind {
     Rollback_Array<int> dat; // parent or size
     Rollback_UnionFind(int n) : dat(vector<int>(n, -1)) {}

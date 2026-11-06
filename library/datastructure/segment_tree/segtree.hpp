@@ -4,6 +4,7 @@
 #include "library/util/update_proxy_object.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/segtree.hpp
 template <class Monoid>
 struct SegTree {
     using MX = Monoid;

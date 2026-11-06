@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_max.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/max_max.hpp
 template <typename E>
 struct ActedMonoid_Max_Max {
     using Monoid_X = Monoid_Max<E>;

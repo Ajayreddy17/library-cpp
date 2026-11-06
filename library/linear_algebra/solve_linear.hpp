@@ -2,6 +2,7 @@
 #define AJAY_SOLVE_LINEAR
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/solve_linear.hpp
 /*
 One of the solutions is on line 0.
 The basis of the solution space is entered as a row vector in rows 1 to 1.

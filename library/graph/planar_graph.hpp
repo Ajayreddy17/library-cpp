@@ -6,6 +6,7 @@
 #include "library/geo/angle_sort.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/planar_graph.hpp
 template <typename XY>
 struct Planar_Graph {
     using P = Point<XY>;

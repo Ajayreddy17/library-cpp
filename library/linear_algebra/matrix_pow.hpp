@@ -4,6 +4,7 @@
 #include "library/linear_algebra/matrix_mul.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/matrix_pow.hpp
 template <typename T>
 vector<vector<T>> matrix_pow(vector<vector<T>> A, long long n) {
     int N = len(A);

@@ -6,6 +6,7 @@
 #include "library/datastructure/segment_tree/segtree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/suffix_array.hpp
 // lex i-th suffix starts at j-th pos
 // SA[i] = j, ISA[j] = i
 // LCP[i] = lcp(SA[i], SA[i + 1])

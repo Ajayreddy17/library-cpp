@@ -5,6 +5,7 @@
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/tree_abeliangroup.hpp
 template <typename TREE, typename AbelGroup, bool edge, bool path_query, bool subtree_query>
 struct Tree_AbelGroup {
     using MX = AbelGroup;

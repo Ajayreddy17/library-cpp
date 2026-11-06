@@ -4,6 +4,7 @@
 #include "library/mod/barrett.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/det.hpp
 int det_mod(vector<vector<int>> A, int mod) {
     Barrett bt(mod);
     const int n = len(A);

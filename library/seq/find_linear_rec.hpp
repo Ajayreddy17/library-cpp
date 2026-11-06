@@ -2,6 +2,7 @@
 #define AJAY_FIND_LINEAR_REC
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/seq/find_linear_rec.hpp
 template <typename mint>
 vector<mint> find_linear_rec(vector<mint>& A) {
     int N = len(A);

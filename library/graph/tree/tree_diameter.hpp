@@ -5,6 +5,7 @@
 #include "library/graph/restore_path.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/tree_diameter.hpp
 // length, path
 template <typename T, typename GT>
 pair<T, vector<int>> tree_diameter(GT& G) {

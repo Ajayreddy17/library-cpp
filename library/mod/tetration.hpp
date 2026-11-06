@@ -5,6 +5,7 @@
 #include "library/number/euler_phi.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/tetration.hpp
 // a[0]^(a[1]^(a[2]^...))
 int tetration(vector<long long> a, int mod) {
     for (auto&& x: a) assert(x > 0);

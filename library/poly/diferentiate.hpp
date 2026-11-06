@@ -2,6 +2,7 @@
 #define AJAY_DIFFERENTIATE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/differentiate.hpp
 template <typename mint>
 vector<mint> differentiate(const vector<mint>& f) {
     if ((int) f.size() <= 1) return {};

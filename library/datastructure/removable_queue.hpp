@@ -3,6 +3,8 @@
 
 #include "library/util/pop.hpp"
 
+namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/removable_queue.hpp
 template <typename QUE_TYPE>
 struct Removable_Queue {
     using QUE = QUE_TYPE;
@@ -35,4 +37,5 @@ private:
         }
     }
 };
+} // namespace mitsuha
 #endif // AJAY_REMOVABLE_QUEUE

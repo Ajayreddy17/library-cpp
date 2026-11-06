@@ -2,6 +2,7 @@
 #define AJAY_MONOID_ADD_ARRAY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/add_array.hpp
 template <typename E, int K>
 struct Monoid_Add_Array {
     using value_type = array<E, K>;

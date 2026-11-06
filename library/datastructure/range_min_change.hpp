@@ -2,6 +2,7 @@
 #define AJAY_RANGE_MIN_CHANGE
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/range_min_change.hpp
 // Increment p while managing:
 // right_change: ANS[i] := min of [i, p)
 // left_change: ANS[i] := min of [p, i)

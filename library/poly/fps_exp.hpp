@@ -7,6 +7,7 @@
 #include "library/poly/count_terms.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_exp.hpp
 template <typename mint>
 vector<mint> fps_exp_sparse(vector<mint>& f) {
     if (len(f) == 0) return {mint(1)};

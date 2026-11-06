@@ -2,6 +2,7 @@
 #define AJAY_HUNGARIAN
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/hungarian.hpp
 // returns: (ans, match, X, Y)
 // Assumes N <= M; infinity is allowed as a cost. O(N^2M) time.
 // The potential is the solution to the following dual problem: 

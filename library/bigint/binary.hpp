@@ -4,6 +4,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/bigint/binary.hpp
 struct BigInteger_Binary {
     static constexpr int LOG = 30;
     static constexpr int MOD = 1 << LOG;

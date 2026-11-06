@@ -2,6 +2,7 @@
 #define AJAY_BITWISE_FUNCTION
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/bitwise_function.hpp
 // composition of bitwise operation
 // 0 -> a, -1 -> b
 template <typename UINT>

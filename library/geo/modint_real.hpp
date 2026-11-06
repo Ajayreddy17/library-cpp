@@ -4,6 +4,7 @@
 // Expects Point<T>, Line<T> etc. to work reasonably
 // https://codeforces.com/contest/44/submission/319952578
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/modint_real.hpp
 template <typename mint, typename Re>
 struct modint_real {
     mint a;

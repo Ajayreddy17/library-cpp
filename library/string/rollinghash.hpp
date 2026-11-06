@@ -5,6 +5,7 @@
 #include "library/mod/modint61.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/rolling_hash.hpp
 struct RollingHash {
     using mint = modint61;
     static constexpr unsigned long long mod = mint::get_mod();

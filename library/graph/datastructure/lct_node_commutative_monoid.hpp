@@ -2,6 +2,7 @@
 #define AJAY_LCT_NODE_COM_MONOID
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/lct_node_commutative_monoid.hpp
 // SUBTREE : If cluster has subtree information
 template <typename Monoid, bool SUBTREE = false>
 struct LCT_Node_Commutative_Monoid {

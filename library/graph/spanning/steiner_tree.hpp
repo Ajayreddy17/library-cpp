@@ -5,6 +5,7 @@
 #include "library/util/subset_iter.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/steiner_tree.hpp
 // // Edge weights are given by e.cost, and vertex weights are passed as a vector.
 // returns {cost, vs, es}
 // O(3^k n + 2^k (n + m) log n), k: subset_size

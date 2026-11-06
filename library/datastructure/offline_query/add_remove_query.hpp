@@ -2,6 +2,7 @@
 #define AJAY_ADD_REMOVE_QUERY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/add_remove_query.hpp
 /*
 Add / Remove `x` at time `t`     
 Convert them into "add `x` in the time interval [l, r)"  

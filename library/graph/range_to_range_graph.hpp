@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/range_to_range_graph.hpp
 // https://x.com/noshi91/status/1193177214453338113
 // returns directed graph, use build()
 template <typename T>

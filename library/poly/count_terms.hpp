@@ -2,6 +2,7 @@
 #define AJAY_COUNT_TERMS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/count_terms.hpp
 template<typename mint>
 int count_terms(const vector<mint>& f){
     int t = 0;

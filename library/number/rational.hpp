@@ -2,6 +2,7 @@
 #define AJAY_RATIONAL
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/rational.hpp
 // Carefull About Overflow, T must fit square of value
 template <typename T = long long, bool REDUCE = true>
 struct Rational {

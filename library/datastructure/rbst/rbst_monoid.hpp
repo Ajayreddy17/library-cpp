@@ -2,6 +2,7 @@
 #define AJAY_RBST_MONOID
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/randomized_bst/rbst_monoid.hpp
 template <typename Monoid, bool PERSISTENT, int NODES>
 struct RBST_Monoid {
     using X = typename Monoid::value_type;

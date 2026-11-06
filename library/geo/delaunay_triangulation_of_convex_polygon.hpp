@@ -11,6 +11,7 @@
 // https://codeforces.com/contest/549/problem/E
 // https://codeforces.com/contest/1984/problem/H
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/delaunay_triangulation_of_convex_polygon.hpp
 template <typename T>
 vector<array<int, 3>> delaunay_triangulation_of_convex_polygon(vector<Point<T>> A, bool farthest) {
     int N = len(A);

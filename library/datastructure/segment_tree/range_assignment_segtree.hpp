@@ -6,6 +6,7 @@
 #include "library/monoid/monoid_pow.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/range_assignment_segtree.hpp
 template <typename Monoid>
 struct Range_Assignment_SegTree {
     using MX = Monoid;

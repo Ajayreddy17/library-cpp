@@ -4,6 +4,7 @@
 #include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/rectangle_add_point_sum.hpp
 template<typename AbelGroup, typename XY, bool SMALL_X = false>
 struct Rectangle_Add_Point_Sum {
     using G = typename AbelGroup::value_type;

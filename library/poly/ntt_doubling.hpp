@@ -4,6 +4,7 @@
 #include "library/poly/ntt.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/ntt_doubling.hpp
 // Given the length 2^k of the 2^k degree polynomial, set it to 2^k+1
 template <typename mint, bool transposed = false>
 void ntt_doubling(vector<mint>& a) {

@@ -4,6 +4,7 @@
 #include "library/util/update_proxy_object.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/lazy_segtree.hpp
 template <typename ActedMonoid>
 struct Lazy_SegTree {
     using AM = ActedMonoid;

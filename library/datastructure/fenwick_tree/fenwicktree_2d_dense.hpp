@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/fenwicktree/fenwicktree_2d_dense.hpp
 template <typename Monoid>
 struct FenwickTree_2D_Dense {
     using G = Monoid;

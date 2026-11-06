@@ -2,6 +2,7 @@
 #define AJAY_TIMER
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/other/timer.hpp
 struct Timer {
     bool started;
     chrono::high_resolution_clock::time_point s;

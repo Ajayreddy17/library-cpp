@@ -5,6 +5,7 @@
 #include "library/graph/tree/find_centroid.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/centroid_decomposition_old.hpp
 template <typename GT>
 struct Centroid_Decomposition {
     using edge_type = typename GT::edge_type;

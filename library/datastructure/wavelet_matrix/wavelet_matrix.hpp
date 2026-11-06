@@ -5,6 +5,7 @@
 #include "library/datastructure/dummy_data_structure.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/wavelet_matrix/wavelet_matrix.hpp
 // Values A[i] in [0, 2^log), each with a weight dat[i] stored in SEGTREE (one per level).
 // SEGTREE needs MX (commutative monoid), build(vector), prod(l, r) const;
 // set / multiply / add only if those updates are used.
@@ -412,7 +413,6 @@ struct Compressed_Wavelet_Matrix {
 
 // compress = false: values in [0, 2^log) used as they are (Y = int / long long)
 template <typename Y, bool compress, typename SEGTREE = Dummy_Data_Structure>
-using Wavelet_Matrix = conditional_t<compress, Compressed_Wavelet_Matrix<Y, SEGTREE>,
-                                     Uncompressed_Wavelet_Matrix<Y, SEGTREE>>;
+using Wavelet_Matrix = conditional_t<compress, Compressed_Wavelet_Matrix<Y, SEGTREE>,Uncompressed_Wavelet_Matrix<Y, SEGTREE>>;
 } // namespace mitsuha
 #endif // AJAY_WAVELET_MATRIX

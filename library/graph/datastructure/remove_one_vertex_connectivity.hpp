@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/remove_one_vertex_connectivity.hpp
 // When one vertex is erased
 // Are u,v connected? / Number of connected components / Connected component size of v
 struct Remove_One_Vertex_Connectivity {

@@ -2,6 +2,7 @@
 #define AJAY_RANGE_MAX_CHANGE
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/range_max_change.hpp
 // Increment p while managing:
 // right_change: ANS[i] := max of [i, p)
 // left_change: ANS[i] := max of [p, i)

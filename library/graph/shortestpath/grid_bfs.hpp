@@ -2,6 +2,7 @@
 #define AJAY_GRID_BFS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/grid_bfs.hpp
 // For example, walls = "#" or walls = {-1}.
 template <typename STRING>
 vector<vector<int>> grid_bfs(vector<STRING>& G, vector<pair<int, int>> &src, STRING walls, int dmax = 4) {

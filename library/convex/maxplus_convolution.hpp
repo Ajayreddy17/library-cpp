@@ -4,6 +4,7 @@
 #include "library/convex/monotone_minima.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/maxplus_convolution.hpp
 template <typename T>
 vector<T> maxplus_convolution_concave_concave(vector<T>& A, vector<T>& B) {
     int n = len(A), m = len(B);

@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/doubling.hpp
 // After one operation from state a, 
 // transition to state b and add monoid element x.
 // If there is no destination: -1 (add not required)

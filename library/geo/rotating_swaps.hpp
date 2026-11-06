@@ -4,6 +4,7 @@
 #include "library/geo/angle_sort.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/rotating_swaps.hpp
 /*
 return : {init, events}
 init: order when sorted by direction vector (-1,-eps)

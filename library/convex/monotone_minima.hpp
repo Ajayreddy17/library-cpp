@@ -2,6 +2,7 @@
 #define AJAY_MONOTONE_MINIMA
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/monotone_minima.hpp
 // select(i,j,k) : (i,j) -> (i,k) whether to do
 template <typename F>
 vector<int> monotone_minima(int H, int W, F select) {

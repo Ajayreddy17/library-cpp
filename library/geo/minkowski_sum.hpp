@@ -8,6 +8,7 @@
 // Input assumed to be ccw convex polygons.
 // Return is strict (no 180-degree angles)
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/minkowski_sum.hpp
 template <typename T>
 vector<Point<T>> minkowski_sum(vector<Point<T>> A, vector<Point<T>> B) {
     using P = Point<T>;

@@ -4,6 +4,7 @@
 #include "library/datastructure/rollback_array.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/rollback_lazy_segtree.hpp
 // https://qoj.ac/submission/114657
 template <typename ActedMonoid>
 struct Rollback_Lazy_SegTree {

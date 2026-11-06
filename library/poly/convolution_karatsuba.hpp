@@ -2,6 +2,7 @@
 #define AJAY_CONV_KARATSUBA
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/convolution_karatsuba.hpp
 // Can be done with any ring
 template <typename T>
 vector<T> convolution_karatsuba(const vector<T>& f, const vector<T>& g) {

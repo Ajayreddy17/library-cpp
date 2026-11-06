@@ -2,6 +2,7 @@
 #define AJAY_MONOID_ADD_CHMIN_CHMAX
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/add_chmin_chmax.hpp
 // For composition of functions {y = x + a, y = max(x, a), y = min(x, a)}
 template <typename E>
 struct Monoid_Add_Chmin_Chmax {

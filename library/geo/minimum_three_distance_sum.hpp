@@ -6,6 +6,7 @@
 // Fermat point OR vertex
 // https://codeforces.com/problemset/problem/1662/K
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/minimum_three_distance_sum.hpp
 template <typename Re>
 Re minimum_three_distance_sum(Point<Re> A, Point<Re> B, Point<Re> C) {
     using P = Point<Re>;

@@ -2,6 +2,7 @@
 #define AJAY_DYNAMIC_LICHAO
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/dynamic_lichao.hpp
 // Space Q is sufficient if it is straight line addition and non-persistent.
 // Function is ll -> T. [L, R) Above Be careful not to overflow f.
 // If you rewrite evaluate, it can also be used for a group of totally monotone functions

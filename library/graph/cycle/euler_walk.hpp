@@ -6,6 +6,7 @@
 #include "library/graph/vs_to_es.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/euler_walk.hpp
 // (vs, es) or empty
 template <typename GT>
 pair<vector<int>, vector<int>> euler_walk(GT& G, int s = -1) {

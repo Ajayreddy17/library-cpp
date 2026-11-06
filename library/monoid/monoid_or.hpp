@@ -2,6 +2,7 @@
 #define AJAY_MONOID_OR
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/or.hpp
 template <typename X>
 struct Monoid_Or {
     using value_type = X;

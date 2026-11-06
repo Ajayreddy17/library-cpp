@@ -4,6 +4,7 @@
 #include "library/datastructure/segment_tree/segtree_beats.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/beats_summax_chmin.hpp
 template <typename T>
 struct Beats_SumMax_Chmin {
     struct SumMax {

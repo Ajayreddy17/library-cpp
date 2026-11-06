@@ -2,6 +2,7 @@
 #define AJAY_UNIONFIND
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/unionfind/unionfind.hpp
 struct UnionFind{
     int n, n_comp;
     vector<int> p;

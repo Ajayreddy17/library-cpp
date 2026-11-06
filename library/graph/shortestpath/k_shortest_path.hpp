@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/k_shortest_path.hpp
 // (cost, vs, es)
 template <typename T, typename GT>
 vector<tuple<T, vector<int>, vector<int>>> K_shortest_path(GT& G, int s, int t, int K) {

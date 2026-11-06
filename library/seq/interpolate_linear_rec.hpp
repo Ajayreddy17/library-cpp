@@ -5,6 +5,7 @@
 #include "library/seq/find_linear_rec.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/seq/interpolate_linear_rec.hpp
 template <typename mint>
 mint interpolate_linear_rec(vector<mint> A, long long N, int off) {
     if (N < len(A)) return A[N];

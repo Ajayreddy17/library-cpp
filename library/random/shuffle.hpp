@@ -4,6 +4,7 @@
 #include "library/random/base.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/random/shuffle.hpp
 template <typename T>
 void shuffle(vector<T>& A) {
     For(i, len(A)) {

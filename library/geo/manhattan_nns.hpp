@@ -7,6 +7,7 @@
 // Nearest neighbor search from point set FRM to point set TO
 // Returns pair of vectors: dist, nbd_idx
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/manhattan_nns.hpp
 template <typename X = long long>
 pair<vector<X>, vector<int>> manhattan_nns(vector<pair<X, X>> FRM, vector<pair<X, X>>& TO) {
     assert(len(TO) >= 1);

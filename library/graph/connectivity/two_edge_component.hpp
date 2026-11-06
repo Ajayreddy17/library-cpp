@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/two_edge_component.hpp
 // (number of components, vector of component numbers)
 template <typename GT>
 pair<int, vector<int>> two_edge_component(GT& G) {

@@ -2,6 +2,7 @@
 #define AJAY_FLOOR_SUM_OF_LINEAR
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/floor_sum_of_linear.hpp
 // sum_{x in [L,R)} floor(ax + b, mod)
 // I Within the range where ax + b does not overflow
 template <typename O = __int128, typename I = long long>

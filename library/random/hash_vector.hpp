@@ -5,6 +5,7 @@
 #include "library/mod/modint61.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/random/hash_vector.hpp
 template <typename T>
 unsigned long long hash_vector(vector<T> X) {
     using mint = modint61;

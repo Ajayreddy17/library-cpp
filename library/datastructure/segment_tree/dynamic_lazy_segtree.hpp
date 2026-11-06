@@ -2,6 +2,7 @@
 #define AJAY_DYNAMIC_LAZY_SEGTREE
 // Max Nodes: 2Q * log(N)
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/dynamic_lazy_segtree.hpp
 template <typename ActedMonoid, bool PERSISTENT>
 struct Dynamic_Lazy_SegTree {
     using AM = ActedMonoid;

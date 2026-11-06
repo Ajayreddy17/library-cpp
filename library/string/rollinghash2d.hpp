@@ -5,6 +5,7 @@
 #include "library/mod/modint61.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/rolling_hash_2d.hpp
 struct RollingHash_2D {
     const modint61 b1, b2;
     vector<modint61> pow1;

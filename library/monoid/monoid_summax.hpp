@@ -2,6 +2,7 @@
 #define AJAY_MONOID_SUMMAX
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/summax.hpp
 template <typename E>
 struct Monoid_SumMax {
     using value_type = pair<E, E>;

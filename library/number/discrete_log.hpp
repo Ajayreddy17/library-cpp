@@ -6,6 +6,7 @@
 #include "library/datastructure/hashmap.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/discrete_log.hpp
 // Set S acted upon by monoid X, hash function H: S -> Z
 // Solve for x^n * s = t where x is in X, and s, t are in S
 // Return the first solution in the range [lb, ub). If none, return -1.

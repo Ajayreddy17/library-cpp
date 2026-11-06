@@ -2,6 +2,7 @@
 #define AJAY_MONOID_AFFINE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/affine.hpp
 // op(F, G) = G(F(x))
 template <typename K>
 struct Monoid_Affine {

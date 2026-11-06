@@ -2,6 +2,7 @@
 #define AJAY_DYNAMIC_SEGTREE_SPARSE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/dynamic_segtree_sparse.hpp
 // A dynamic segtree where most elements are always guaranteed to be unit elements.
 // Therefore, functions like `default_prod` cannot be supported, 
 // and general acted monoids cannot be handled.

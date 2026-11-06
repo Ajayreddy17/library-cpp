@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/sum_add.hpp
 template <typename E>
 struct ActedMonoid_Sum_Add {
     using Monoid_X = Monoid_Add<E>;

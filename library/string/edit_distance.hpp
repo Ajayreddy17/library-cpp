@@ -2,6 +2,7 @@
 #define AJAY_EDIT_DISTANCE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/edit_distance.hpp
 // Insertion Deletion Substitution 
 template <typename STRING>
 int edit_distance(STRING& S, STRING& T) {

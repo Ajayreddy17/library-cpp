@@ -4,6 +4,7 @@
 #include "library/string/zalgorithm.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/is_substring.hpp
 // Whether to include it in continuous subsequences. Linear time with z-algo
 template <typename STRING>
 bool is_substring(STRING& S, STRING& T) {

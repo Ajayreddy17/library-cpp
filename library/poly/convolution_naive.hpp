@@ -2,6 +2,7 @@
 #define AJAY_CONV_NAIVE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/convolution_naive.hpp
 template <class T, typename enable_if<!has_mod<T>::value>::type* = nullptr>
 vector<T> convolution_naive(const vector<T>& a, const vector<T>& b) {
     int n = int(a.size()), m = int(b.size());

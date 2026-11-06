@@ -4,6 +4,7 @@
 #include "library/datastructure/fenwick_tree/fenwicktree_01.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/seq/inversion.hpp
 template <typename T>
 long long inversion(vector<T> A) {
     int N = len(A);

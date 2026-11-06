@@ -2,6 +2,7 @@
 #define AJAY_ROLLBACK_ARRAY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/rollback_array.hpp
 template <typename T>
 struct Rollback_Array {
     int N;

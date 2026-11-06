@@ -2,6 +2,7 @@
 #define AJAY_SEGTREE_2D
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/segtree_2d.hpp
 // Basis should be provided first,
 // raw_idx should be maintained to use
 // set and multiply functions

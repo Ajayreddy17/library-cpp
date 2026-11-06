@@ -2,6 +2,7 @@
 #define AJAY_ACTEDSET_FROM_MONOID
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_set/from_monoid.hpp
 template <typename Monoid>
 struct ActedSet_From_Monoid {
     using Monoid_A = Monoid;

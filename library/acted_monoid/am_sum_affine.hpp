@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_affine.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/sum_affine.hpp
 template <typename E>
 struct ActedMonoid_Sum_Affine {
     using Monoid_X = Monoid_Add<E>;

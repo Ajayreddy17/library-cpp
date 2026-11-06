@@ -1,15 +1,17 @@
 #ifndef AJAY_MOD_POW
 #define AJAY_MOD_POW
 
-#include "library/mod/mongomery_modint.hpp"
+#include "library/mod/montgomery_modint.hpp"
 #include "library/mod/barrett.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/mod_pow.hpp
 unsigned int mod_pow(int a, long long n, int mod) {
     assert(n >= 0);
+    if (mod == 1) return 0;
     a = ((a %= mod) < 0 ? a + mod : a);
     if ((mod & 1) && (mod < (1 << 30))) {
-        using mint = Mongomery_modint_32<202311021>;
+        using mint = Montgomery_modint_32<202311021>;
         mint::set_mod(mod);
         return mint(a).pow(n).val();
     }
@@ -24,9 +26,11 @@ unsigned int mod_pow(int a, long long n, int mod) {
 
 unsigned long long mod_pow_64(long long a, long long n, unsigned long long mod) {
     assert(n >= 0);
-    a = ((a %= mod) < 0 ? a + mod : a);
+    if (mod == 1) return 0;
+    // a %= mod with unsigned mod would convert a negative a to unsigned first
+    a = ((a %= (long long)mod) < 0 ? a + mod : a);
     if ((mod & 1) && (mod < (1ULL << 62))) {
-        using mint = Mongomery_modint_64<202311021>;
+        using mint = Montgomery_modint_64<202311021>;
         mint::set_mod(mod);
         return mint(a).pow(n).val();
     }

@@ -2,6 +2,7 @@
 #define AJAY_COUNT_SUBSEQ
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/count_subsequence.hpp
 // https://noshi91.hatenablog.com/entry/2023/02/26/135340
 template <typename mint, typename STRING>
 mint count_subseq(STRING& S) {

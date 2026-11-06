@@ -2,6 +2,7 @@
 #define AJAY_MATRIX_RANK
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/matrix_rank.hpp
 template <typename T>
 int matrix_rank(vector<vector<T>> a, int n = -1, int m = -1) {
     if (n == 0) return 0;

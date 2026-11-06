@@ -2,6 +2,7 @@
 #define AJAY_BLACKBOX_BFS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/blackbox/bfs.hpp
 // All edge weights are 1
 // [dist, par]
 template <typename F1, typename F2>

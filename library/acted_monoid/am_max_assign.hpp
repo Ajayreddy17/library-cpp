@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_assign.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/max_assign.hpp
 template <typename E, E none_val>
 struct ActedMonoid_Max_Assign {
     using Monoid_X = Monoid_Max<E>;

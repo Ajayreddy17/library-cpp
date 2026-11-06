@@ -2,6 +2,7 @@
 #define AJAY_SPARSE_TABLE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/sparse_table/sparse_table.hpp
 // Monoid must be idempotent, faster than disjoint sparse table
 template <class Monoid>
 struct Sparse_Table {

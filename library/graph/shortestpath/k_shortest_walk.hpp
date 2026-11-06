@@ -5,6 +5,7 @@
 #include "library/graph/reverse_graph.hpp"
 #include "library/datastructure/meldable_heap.hpp"
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/k_shortest_walk.hpp
 // infty Returns a padded version that is always of length K.
 template <typename T, typename GT, int NODES>
 vector<T> K_shortest_walk(GT &G, int s, int t, int K) {

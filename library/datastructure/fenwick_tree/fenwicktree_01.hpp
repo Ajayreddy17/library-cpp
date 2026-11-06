@@ -4,6 +4,7 @@
 #include "library/datastructure/fenwick_tree/fenwicktree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/fenwicktree/fenwicktree_01.hpp
 struct FenwickTree_01 {
     int N, n;
     vector<unsigned long long> dat;

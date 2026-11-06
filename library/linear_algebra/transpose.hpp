@@ -2,6 +2,7 @@
 #define AJAY_TRANSPOSE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/transpose.hpp
 template <typename VC>
 vector<VC> transpose(const vector<VC>& A, int H = -1, int W = -1) {
     if (H == -1) { H = len(A), W = len(A[0]); }

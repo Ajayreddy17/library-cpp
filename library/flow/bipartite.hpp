@@ -5,6 +5,7 @@
 #include "library/graph/connectivity/strongly_connected_component.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/bipartite_matching.hpp
 template <typename GT>
 struct BipartiteMatching {
     int N;

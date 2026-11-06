@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/slope_trick/slope_trick_1.hpp
 struct Slope_Trick_1 {
     struct FUNC {
         // Keep both ends of the domain in the queue to ensure the queue is never empty.

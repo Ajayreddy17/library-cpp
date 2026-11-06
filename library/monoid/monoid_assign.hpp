@@ -2,6 +2,7 @@
 #define AJAY_MONOID_ASSIGN
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/assign.hpp
 template <typename X, int none_val>
 struct Monoid_Assign {
     using value_type = X;

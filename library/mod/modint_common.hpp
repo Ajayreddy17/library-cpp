@@ -2,6 +2,7 @@
 #define AJAY_MODINT_COMMON
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/modint_common.hpp
 struct has_mod_impl {
     template <class T>
     static auto check(T &&x) -> decltype(x.get_mod(), std::true_type{});
@@ -12,34 +13,66 @@ struct has_mod_impl {
 template <class T>
 class has_mod : public decltype(has_mod_impl::check<T>(std::declval<T>())) {};
 
+// the tables below are rebuilt when mint::get_mod() changes (Dynamic_Modint)
 template <typename mint>
 mint inv(int n) {
-    static const int mod = mint::get_mod();
     static vector<mint> dat = {0, 1};
+    static long long mod = 0;
+    if (mod != mint::get_mod()) {
+        mod = mint::get_mod();
+        dat = {0, 1};
+    }
     assert(0 <= n);
     if (n >= mod) n %= mod;
     while (len(dat) <= n) {
-        int k = len(dat);
-        int q = (mod + k - 1) / k;
+        long long k = len(dat);
+        long long q = (mod + k - 1) / k;
         dat.emplace_back(dat[k * q - mod] * mint::raw(q));
     }
     return dat[n];
 }
 
+template <>
+inline double inv<double>(int n) {
+    assert(n != 0);
+    return 1.0 / n;
+}
+
 template <typename mint>
 mint fact(int n) {
-    static const int mod = mint::get_mod();
-    assert(0 <= n && n < mod);
     static vector<mint> dat = {1, 1};
-    while (len(dat) <= n) dat.emplace_back(dat[len(dat) - 1] * mint::raw(len(dat)));
+    static long long mod = 0;
+    if (mod != mint::get_mod()) {
+        mod = mint::get_mod();
+        dat = {1, 1};
+    }
+    assert(0 <= n && n < mod);
+    if (len(dat) <= n) {
+        int now = len(dat);
+        int m = min<long long>(mod, 1LL << (__lg(n) + 1));
+        dat.resize(m);
+        For(i, now, m) dat[i] = dat[i - 1] * mint::raw(i);
+    }
     return dat[n];
 }
 
 template <typename mint>
 mint fact_inv(int n) {
     static vector<mint> dat = {1, 1};
+    static long long mod = 0;
     if (n < 0) return mint(0);
-    while (len(dat) <= n) dat.emplace_back(dat[len(dat) - 1] * inv<mint>(len(dat)));
+    if (mod != mint::get_mod()) {
+        mod = mint::get_mod();
+        dat = {1, 1};
+    }
+    assert(n < mod);
+    if (len(dat) <= n) {
+        int now = len(dat);
+        int m = min<long long>(mod, 1LL << (__lg(n) + 1));
+        dat.resize(m);
+        dat[m - 1] = fact<mint>(m - 1).inverse();
+        Frr(i, now, m - 1) dat[i] = dat[i + 1] * mint::raw(i + 1);
+    }
     return dat[n];
 }
 
@@ -59,6 +92,12 @@ mint C_dense(int n, int k) {
     if (k < 0 || n < k) return 0;
     static vector<vector<mint>> C;
     static int H = 0, W = 0;
+    static long long mod = 0;
+    if (mod != mint::get_mod()) {
+        mod = mint::get_mod();
+        C.clear();
+        H = W = 0;
+    }
     auto calc = [&](int i, int j) -> mint {
         if (i == 0) return (j == 0 ? mint(1) : mint(0));
         return C[i - 1][j] + (j ? C[i - 1][j - 1] : 0);

@@ -4,6 +4,7 @@
 #include "library/mod/modint.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/matrix_mul.hpp
 template <class T, typename enable_if<has_mod<T>::value>::type* = nullptr>
 vector<vector<T>> matrix_mul(const vector<vector<T>>& A, const vector<vector<T>>& B, int N1 = -1, int N2 = -1, int N3 = -1) {
     if (N1 == -1) { N1 = len(A), N2 = len(B), N3 = len(B[0]); }

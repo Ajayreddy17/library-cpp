@@ -2,6 +2,7 @@
 #define AJAY_GRAPH
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/base.hpp
 template <typename T>
 struct Edge {
     int frm, to;

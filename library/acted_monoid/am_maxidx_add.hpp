@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/maxidx_add.hpp
 template <typename E, bool tie_is_left = true>
 struct ActedMonoid_MaxIdx_Add {
     using Monoid_X = Monoid_Max_Idx<E, tie_is_left>;

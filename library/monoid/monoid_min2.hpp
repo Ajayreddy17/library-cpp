@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MIN2
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/min2.hpp
 template <typename T, typename KEY>
 struct Monoid_Min2 {
     struct Data {

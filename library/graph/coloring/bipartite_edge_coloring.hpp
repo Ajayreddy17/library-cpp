@@ -6,6 +6,7 @@
 #include "library/flow/bipartite.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/bipartite_edge_coloring.hpp
 struct RegularBipartiteColoring {
     using P = pair<int, int>;
     int N, M;

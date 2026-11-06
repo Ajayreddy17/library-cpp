@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/fenwicktree/dual_fenwicktree_2d.hpp
 template <typename Monoid, typename XY = long long, bool SMALL_X = false>
 struct Dual_FenwickTree_2D {
     using G = Monoid;

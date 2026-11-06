@@ -6,6 +6,7 @@
 #include "library/monoid/monoid_mul.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/mod_log.hpp
 int mod_log(int mod, long long a, long long b) {
     dmint::set_mod(mod);
     return discrete_log_monoid<Monoid_Mul<dmint>>(

@@ -2,6 +2,7 @@
 #define AJAY_KNAPSACK_BRANCH_BOUND
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/knapsack/knapsack_branch_bound.hpp
 // Branch limitation method. yukicoder 626
 template <typename WT, typename VAL>
 VAL knapsack_branch_bound(vector<WT> wt, vector<VAL> val, WT LIM) {

@@ -5,6 +5,7 @@
 #include "library/number/digit_sum.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/bigint/base.hpp
 // “Split into segments of 10^9”.
 struct BigInteger {
     static constexpr int TEN[] = {1,      10,      100,      1000,      10000,

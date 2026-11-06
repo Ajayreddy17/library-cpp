@@ -7,6 +7,7 @@
 #include "library/mod/mod_sqrt.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_sqrt.hpp
 template <typename mint>
 vector<mint> fps_sqrt_dense(vector<mint>& f) {
     assert(f[0] == mint(1));

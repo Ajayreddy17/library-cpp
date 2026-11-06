@@ -2,6 +2,7 @@
 #define AJAY_DYNAMIC_SEGTREE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/dynamic_segtree.hpp
 // Depending on the situation, there is also sparse 
 template <typename Monoid, bool PERSISTENT>
 struct Dynamic_SegTree {

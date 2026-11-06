@@ -1,5 +1,10 @@
+#ifndef AJAY_BEATS_SUMMIN_CHMAX
+#define AJAY_BEATS_SUMMIN_CHMAX
 
+#include "library/datastructure/segment_tree/segtree_beats.hpp"
 
+namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/segtree/beats_summin_chmax.hpp
 template <typename T>
 struct Beats_SumMin_Chmax {
     struct SumMin {
@@ -84,3 +89,5 @@ struct Beats_SumMin_Chmax {
     void chmax(int l, int r, T x) { seg.apply(l, r, {0, x}); }
     void add(int l, int r, T x) { seg.apply(l, r, {x, -(numeric_limits<T>::max() / 2)}); }
 };
+} // namespace mitsuha
+#endif // AJAY_BEATS_SUMMIN_CHMAX

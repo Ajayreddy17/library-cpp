@@ -2,6 +2,7 @@
 #define AJAY_CARTESIAN_TREE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/seq/cartesian_tree.hpp
 /*
     ##Examples
     data - 1 2 3 4 5 4 3 2 1 6

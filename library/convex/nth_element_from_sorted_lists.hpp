@@ -2,6 +2,7 @@
 #define AJAY_NTH_ELEM_FROM_LISTS
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/nth_element_from_sorted_lists.hpp
 // We have n sorted lists in non dec order
 // S[x] = len(xth list), f(i, j) = lists[i][j]
 // Assume all elem in all lists were sorted in one list and resized as K

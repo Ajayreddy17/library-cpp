@@ -5,6 +5,7 @@
 #include "library/random/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/blackbox/min_poly.hpp
 // Pass the linear transformation f representing the multiplication of matrix A
 // auto f = [&](vc<mint> v) -> vc<mint> {};
 template <typename mint, typename F>

@@ -11,6 +11,7 @@
 // https://codeforces.com/problemset/problem/119/E
 // https://qoj.ac/contest/1452/problem/7934
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/minimum_enclosing_circle.hpp
 template <typename REAL, typename T>
 tuple<Circle<REAL>, int, int, int> minimum_enclosing_circle(vector<Point<T>> points) {
     const int n = len(points);

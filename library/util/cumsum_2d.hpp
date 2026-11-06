@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/cumsum_2d.hpp
 template <typename Monoid, bool default_allow_out_of_range = false>
 struct Cumsum_2D {
     using MX = Monoid;

@@ -4,6 +4,7 @@
 #include "library/random/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/random/hash_pair.hpp
 template <typename T>
 uint64_t hash_pair(pair<T, T> X) {
     static long long hash_base = 0;

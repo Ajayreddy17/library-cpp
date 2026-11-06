@@ -5,6 +5,7 @@
 #include "library/poly/fps_inv.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_log.hpp
 template <typename mint>
 vector<mint> fps_log_dense(const vector<mint>& f) {
     assert(f[0] == mint(1));

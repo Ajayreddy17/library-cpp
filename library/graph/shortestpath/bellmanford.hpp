@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/bellman_ford.hpp
 // Single start point shortest path. 
 // There may be a negative cycle. O(NM) time.
 // unreachable: numeric_limits<T>::max() / 2

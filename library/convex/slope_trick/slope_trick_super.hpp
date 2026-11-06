@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_add_pair.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/convex/slope_trick/slope_trick_super.hpp
 namespace SLOPE_TRICK_SUPER {
 /*
 The slope and coordinates are all T.

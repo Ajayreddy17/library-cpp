@@ -2,6 +2,7 @@
 #define AJAY_PARTITION
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/enumerate/partition.hpp
 /*
 partition enumerates in lexicographical descending 
 order as a "decreasing sequence".

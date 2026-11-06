@@ -2,6 +2,7 @@
 #define AJAY_LINK_CUT_TREE
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/link_cut_tree.hpp
 /*
 Have each heavy path in a splay tree with the head on the left and the tail on the right.
 Only those that can be directly called by the user are also implemented as int.

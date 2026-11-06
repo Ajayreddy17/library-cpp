@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/maximum_independent_set.hpp
 // The worst is N*1.381^N, but it may also be usable with N=100.
 // MAX_V is max possible G.N
 template <int MAX_V, typename GT>

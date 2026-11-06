@@ -2,6 +2,7 @@
 #define AJAY_INDEX_COMPRESSION
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/index_compression.hpp
 template <typename T>
 struct Index_Compression_DISTINCT_SMALL {
     static_assert(is_same_v<T, int>);

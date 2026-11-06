@@ -5,6 +5,7 @@
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/tree_wavelet_matrix.hpp
 // https://atcoder.jp/contests/pakencamp-2022-day1/tasks/pakencamp_2022_day1_j
 // https://atcoder.jp/contests/utpc2011/tasks/utpc2011_12
 template <typename TREE, bool edge, typename T, bool COMPRESS, typename Monoid = Monoid_Add<T>>

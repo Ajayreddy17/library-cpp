@@ -6,6 +6,7 @@
 #include "library/datastructure/sparse_table/sparse_table.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/fast_lca.hpp
 template <typename TREE>
 struct Fast_Lca {
     TREE& tree;

@@ -5,6 +5,7 @@
 #include "library/datastructure/unionfind/unionfind.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/manhattan_mst.hpp
 // Since it creates a minimum spanning tree, it can also be used especially to find the nearest point from each point.
 template <typename T>
 Graph<T, 0> manhattan_mst(vector<pair<T, T>>& XY) {

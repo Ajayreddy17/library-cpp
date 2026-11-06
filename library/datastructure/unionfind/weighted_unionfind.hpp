@@ -2,6 +2,7 @@
 #define AJAY_WEIGHTED_UNIONFIND
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/unionfind/potentialized_unionfind.hpp
 template <typename Group>
 struct Weighted_UnionFind {
     using E = typename Group::value_type;

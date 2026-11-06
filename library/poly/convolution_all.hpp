@@ -4,6 +4,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/convolution_all.hpp
 template <typename T>
 vector<T> convolution_all(vector<vector<T>>& polys) {
     if (len(polys) == 0) return {T(1)};

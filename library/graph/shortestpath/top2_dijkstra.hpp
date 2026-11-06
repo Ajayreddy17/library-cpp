@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_min2.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/top2_dijkstra.hpp
 // It only has the distance and type, without path reconstruction
 template <typename T, typename GT>
 vector<typename Monoid_Min2<T, int>::Data> top2_dijkstra(GT& G, vector<int> vs) {

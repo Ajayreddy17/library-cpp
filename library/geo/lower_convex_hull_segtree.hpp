@@ -3,6 +3,7 @@
 
 // May break when ALLOW_180=true and there are points with identical coordinates
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/lower_convex_hull_segtree.hpp
 template <typename T, bool ALLOW_180 = false>
 struct Lower_Convex_Hull_SegTree {
     struct P {

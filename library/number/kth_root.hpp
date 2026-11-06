@@ -2,6 +2,7 @@
 #define AJAY_KTH_ROOT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/integer_kth_root.hpp
 unsigned long long kth_root(unsigned long long a, unsigned long long k) {
     assert(k >= 1);
     if (a == 0 || a == 1 || k == 1) return a;

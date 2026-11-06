@@ -2,6 +2,7 @@
 #define AJAY_RANGE_XOR_BASIS_QUERY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/range_xor_basis_query.hpp
 template <typename INT_TYPE, int LOG>
 struct Range_Xor_Basis_Query {
     int n;

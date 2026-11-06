@@ -5,6 +5,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/acted_monoid/summax_add.hpp
 template <typename E>
 struct ActedMonoid_SumMax_Add {
     using Monoid_X = Monoid_SumMax<E>;

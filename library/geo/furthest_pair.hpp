@@ -5,6 +5,7 @@
 #include "library/geo/convexhull.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/furthest_pair.hpp
 template <typename T>
 pair<int, int> furthest_pair(vector<Point<T>> point) {
     T best = -1;

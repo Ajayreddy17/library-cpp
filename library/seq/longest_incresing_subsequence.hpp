@@ -2,6 +2,7 @@
 #define AJAY_LONGEST_INCRESING_SUQSEQUENCE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/seq/longest_increasing_subsequence.hpp
 // dp[i] := maximum length of LIS ending with the i-th term ([1, LIS])
 template <typename T, bool strict = true>
 pair<int, vector<int>> longest_increasing_subsequence_dp(vector<T> A) {

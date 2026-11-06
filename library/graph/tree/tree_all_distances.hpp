@@ -5,6 +5,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/tree_all_distances.hpp
 // frequency table of distance of all directed pairs.
 // sum of result array = N^2
 template <typename GT>

@@ -15,6 +15,7 @@
 // If a circle is tangent to 4 or more edges simultaneously,
 // the combinatorial structure may be tie-broken arbitrarily by floating errors.
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/convex_polygon_edge_voronoi.hpp
 template <typename P, typename Re>
 struct Convex_Polygon_Edge_Voronoi {
     using RP = Point<Re>;

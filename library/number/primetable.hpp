@@ -2,6 +2,7 @@
 #define AJAY_PRIMETABLE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/prime_table.hpp
 // returns vector of primes <= LIM
 template <typename T = int>
 vector<T> primetable(int LIM) {

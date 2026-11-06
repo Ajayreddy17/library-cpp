@@ -4,6 +4,7 @@
 #include "library/datastructure/fastset.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/sortable_array.hpp
 // Duplicate keys are allowed, keys are int type
 struct Sortable_Array {
     const int N, KEY_MAX;

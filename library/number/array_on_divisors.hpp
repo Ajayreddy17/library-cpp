@@ -5,6 +5,7 @@
 #include "library/datastructure/hashmap.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/array_on_divisors.hpp
 template <typename T>
 struct Array_On_Divisors {
     vector<pair<long long, int>> pf;

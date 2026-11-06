@@ -2,6 +2,7 @@
 #define AJAY_CRT3
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/crt3.hpp
 constexpr unsigned int mod_pow_constexpr(unsigned long long a, unsigned long long n, unsigned int mod) {
     a %= mod;
     unsigned long long res = 1;

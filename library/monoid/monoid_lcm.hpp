@@ -2,6 +2,7 @@
 #define AJAY_MONOID_LCM
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/lcm.hpp
 // numeric_limits<T>::max() / 2 when large
 template <typename T>
 struct Monoid_Lcm {

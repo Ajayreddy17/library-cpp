@@ -4,6 +4,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/dynamic_upper_hull.hpp
 /*
 https://codeforces.com/blog/entry/75929
 Dynamic convex hull.

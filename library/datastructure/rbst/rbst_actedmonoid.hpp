@@ -2,6 +2,7 @@
 #define AJAY_RBST_ACTEDMONOID
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/randomized_bst/rbst_acted_monoid.hpp
 template <typename ActedMonoid, bool PERSISTENT, int NODES>
 struct RBST_ActedMonoid {
     using Monoid_X = typename ActedMonoid::Monoid_X;

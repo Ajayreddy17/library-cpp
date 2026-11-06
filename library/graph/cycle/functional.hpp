@@ -8,6 +8,7 @@
 #include "library/util/binary_serch.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/functional_graph.hpp
 // https://x.com/maspy_stars/status/1559842309688008707
 // v -> TO[v] for every v. Internally a tree rooted at the extra vertex N:
 // each component's root r (a cycle vertex) hangs from N, every other v from TO[v].

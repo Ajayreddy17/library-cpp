@@ -5,6 +5,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/poly_taylor_shift.hpp
 // f(x) -> f(x+c)
 template <typename mint>
 vector<mint> poly_taylor_shift(vector<mint> f, mint c) {

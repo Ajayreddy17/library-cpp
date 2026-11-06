@@ -2,6 +2,7 @@
 #define AJAY_DOUBLE_END_QUEUE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/double_ended_queue.hpp
 // T should have operator<
 template <typename T>
 struct Double_End_Queue {

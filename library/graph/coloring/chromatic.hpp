@@ -6,6 +6,7 @@
 #include "library/number/primetest.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/chromatic.hpp
 // O(N2^N)
 template <typename Graph, int TRIAL = 0>
 int chromatic_number(Graph& G) {

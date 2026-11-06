@@ -4,6 +4,7 @@
 #include "library/datastructure/splay_tree/splay_tree.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/splaytree/splaytree_acted_monoid.hpp
 namespace SplayTreeNodes {
 template <typename ActedMonoid>
 struct Node_AM {

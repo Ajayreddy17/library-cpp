@@ -2,6 +2,7 @@
 #define AJAY_MONOID_MAX2
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/max2.hpp
 template <typename T, typename KEY>
 struct Monoid_Max2 {
     struct Data {

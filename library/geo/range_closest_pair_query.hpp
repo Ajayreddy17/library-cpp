@@ -11,6 +11,7 @@
 // https://codeforces.com/gym/104172/attachments/download/18933/Hong_Kong_Tutorial.pdf
 // 1D point set: https://codeforces.com/problemset/problem/765/F
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/range_closest_pair_query.hpp
 struct Range_Closest_Pair_Query {
     /*
     - Manage the answer per L while increasing R

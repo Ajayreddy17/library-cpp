@@ -6,6 +6,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/blackbox/complement_graph_unionfind.hpp
 template <typename GT>
 UnionFind complement_graph_unionfind(GT& G) {
     const int N = G.N;

@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/reverse_graph.hpp
 template <typename GT>
 GT reverse_graph(GT& G) {
     static_assert(GT::is_directed);

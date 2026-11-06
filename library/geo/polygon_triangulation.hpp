@@ -6,6 +6,7 @@
 #include "library/graph/planar_graph.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/polygon_triangulation.hpp
 template <typename T>
 vector<tuple<int, int, int>> monotone_polygon_triangulation(vector<Point<T>> point) {
     int N = len(point);

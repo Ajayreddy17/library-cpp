@@ -4,6 +4,7 @@
 #include "library/datastructure/fastset.hpp"
 
 namespace mitsuha {
+// Source: https://github.com/maspypy/library/blob/main/ds/intervals.hpp
 template <typename T>
 struct Intervals_Fast {
     const int LLIM, RLIM;

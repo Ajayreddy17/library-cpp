@@ -4,6 +4,7 @@
 #include "library/number/factor.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/divisors.hpp
 // doesn't sort
 vector<long long> divisors_by_pf(const vector<pair<long long, int>>& pf) {
     vector<long long> div = {1};

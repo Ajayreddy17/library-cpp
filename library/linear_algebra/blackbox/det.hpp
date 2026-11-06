@@ -4,6 +4,7 @@
 #include "library/linear_algebra/blackbox/min_poly.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/blackbox/det.hpp
 template <typename mint, typename F>
 mint blackbox_det(int N, F apply) {
     vector<mint> c(N);

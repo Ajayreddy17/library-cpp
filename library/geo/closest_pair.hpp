@@ -8,6 +8,7 @@
 #include "library/random/hash_pair.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/closest_pair.hpp
 template <typename T>
 pair<int, int> closest_pair(vector<Point<T>> points) {
     int N = len(points);

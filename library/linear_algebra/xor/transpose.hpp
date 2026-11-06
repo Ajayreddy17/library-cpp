@@ -2,6 +2,7 @@
 #define AJAY_XOR_TRANSPOSE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/xor/transpose.hpp
 // Transpose of an n x m matrix. O((n+m)log(n+m)) time.
 // https://github.com/dsnet/matrix-transpose
 template <typename UINT>

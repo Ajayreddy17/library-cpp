@@ -4,6 +4,7 @@
 #include "library/monoid/monoid_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/static_range_product_group.hpp
 template <typename Monoid>
 struct Static_Range_Product_Group {
     using MX = Monoid;

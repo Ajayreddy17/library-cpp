@@ -7,6 +7,7 @@
 // strict: n>=3 counter-clockwise strictly convex polygon.
 // non-strict: n=1 point, n=2 segment, or n>=3 counter-clockwise convex polygon.
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/convex_polygon.hpp
 template <typename T, bool is_strict = true>
 struct Convex_Polygon {
     using P = Point<T>;

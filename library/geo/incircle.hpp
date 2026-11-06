@@ -5,6 +5,7 @@
 #include "library/geo/triangle_area.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/incircle.hpp
 template <typename REAL, typename T>
 Circle<REAL> incircle(Point<T> A, Point<T> B, Point<T> C) {
     REAL a = distance<REAL, T, T>(B, C);

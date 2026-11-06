@@ -2,6 +2,7 @@
 #define AJAY_RBST_COM_MONOID
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/randomized_bst/rbst_commutative_monoid.hpp
 template <typename CommutativeMonoid, bool PERSISTENT, int NODES>
 struct RBST_CommutativeMonoid {
     using Monoid = CommutativeMonoid;

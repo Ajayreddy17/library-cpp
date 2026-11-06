@@ -4,6 +4,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/perpendicular_bisector.hpp
 template <typename T>
 Line<T> perpendicular_bisector(Point<T> A, Point<T> B) {
     assert(A != B);

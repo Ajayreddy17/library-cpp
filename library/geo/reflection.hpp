@@ -5,6 +5,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/reflection.hpp
 template <typename REAL, typename T, typename U>
 Point<REAL> reflection(Point<T> P, Line<U> L) {
     REAL t = REAL(L.eval(P)) / (L.a * L.a + L.b * L.b);

@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/find_cycle.hpp
 // {vs, es} or empty. minimal.
 template <typename GT>
 pair<vector<int>, vector<int>> find_cycle_directed(GT& G) {

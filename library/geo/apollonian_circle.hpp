@@ -5,6 +5,7 @@
 
 // https://codeforces.com/contest/2/problem/C
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/apollonian_circle.hpp
 template <typename REAL, typename T>
 Circle<REAL> apollonian_circle(Point<T> A, Point<T> B, T a, T b) {
     assert(a != b);

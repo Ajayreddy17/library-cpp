@@ -2,6 +2,7 @@
 #define AJAY_LONGEST_COMMON_SUBSEQ
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/longest_common_subsequence.hpp
 template <typename STRING>
 int longest_common_subsequence(STRING& A, STRING& B) {
     int N = len(B);

@@ -2,6 +2,7 @@
 #define AJAY_MEX
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/other/mex.hpp
 int mex(const vector<int> &a){
     int n = (int)a.size();
     static vector<int> found;

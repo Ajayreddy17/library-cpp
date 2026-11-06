@@ -1,27 +1,28 @@
-#ifndef AJAY_MONGOMERY_MODINT
-#define AJAY_MONGOMERY_MODINT
+#ifndef AJAY_MONTGOMERY_MODINT
+#define AJAY_MONTGOMERY_MODINT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/montgomery_modint.hpp
 // odd mod.
 // have rx instead of x
 template <int id, typename U1, typename U2>
-struct Mongomery_modint {
-    using mint = Mongomery_modint;
+struct Montgomery_modint {
+    using mint = Montgomery_modint;
     inline static U1 m, r, n2;
     static constexpr int W = numeric_limits<U1>::digits;
 
     static void set_mod(U1 mod) {
         assert(mod & 1 && mod <= U1(1) << (W - 2));
         m = mod, n2 = -U2(m) % m, r = m;
-        For(5) r *= 2 - m * r;
+        For(6) r *= 2 - m * r;
         r = -r;
         assert(r * m == U1(-1));
     }
     static U1 reduce(U2 b) { return (b + U2(U1(b) * r) * m) >> W; }
 
     U1 x;
-    Mongomery_modint() : x(0) {}
-    Mongomery_modint(U1 x) : x(reduce(U2(x) * n2)){};
+    Montgomery_modint() : x(0) {}
+    Montgomery_modint(U1 x) : x(reduce(U2(x) * n2)){};
     U1 val() const {
         U1 y = reduce(x);
         return y >= m ? y - m : y;
@@ -55,8 +56,8 @@ struct Mongomery_modint {
 };
 
 template <int id>
-using Mongomery_modint_32 = Mongomery_modint<id, unsigned int, unsigned long long>;
+using Montgomery_modint_32 = Montgomery_modint<id, unsigned int, unsigned long long>;
 template <int id>
-using Mongomery_modint_64 = Mongomery_modint<id, unsigned long long, __uint128_t>;
+using Montgomery_modint_64 = Montgomery_modint<id, unsigned long long, __uint128_t>;
 } // namespace mitsuha
-#endif // AJAY_MONGOMERY_MODINT
+#endif // AJAY_MONTGOMERY_MODINT

@@ -2,6 +2,7 @@
 #define AJAY_BFLOW
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/min_cost_b_flow.hpp
 template <class Flow = long long, class Cost = long long>
 struct MinCostFlow {
 private:

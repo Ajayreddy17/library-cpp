@@ -2,6 +2,7 @@
 #define AJAY_DISJOINT_SPARSE_TABLE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/sparse_table/disjoint_sparse_table.hpp
 template <class Monoid>
 struct Disjoint_Sparse_Table {
     using MX = Monoid;

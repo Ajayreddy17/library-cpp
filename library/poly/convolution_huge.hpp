@@ -4,6 +4,7 @@
 #include "library/poly/convolution.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/convolution_huge.hpp
 template <typename mint>
 vector<mint> convolution_huge(const vector<mint>& A, const vector<mint>& B) {
     int N = len(A), M = len(B);

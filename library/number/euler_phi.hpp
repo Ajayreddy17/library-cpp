@@ -5,6 +5,7 @@
 #include "library/number/factor.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/nt/euler_phi.hpp
 long long euler_phi(long long n) {
     auto pf = factor(n);
     for (auto&& [p, e]: pf) n -= n / p;

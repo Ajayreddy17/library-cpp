@@ -4,6 +4,7 @@
 #include "library/geo/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/cross_point.hpp
 // Assuming not parallel
 template <typename REAL, typename T>
 Point<REAL> cross_point(const Line<T> L1, const Line<T> L2) {

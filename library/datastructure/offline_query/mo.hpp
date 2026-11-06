@@ -2,6 +2,7 @@
 #define AJAY_MO
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/offline_query/mo.hpp
 // Nsqrt(Q)
 struct Mo {
     vector<pair<int, int>> LR;

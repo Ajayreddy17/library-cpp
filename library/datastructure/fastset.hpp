@@ -2,6 +2,7 @@
 #define AJAY_FASTSET
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/fastset.hpp
 // 64-ary tree
 // space: (N/63) * u64
 struct FastSet {

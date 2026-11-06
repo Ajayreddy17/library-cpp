@@ -2,6 +2,7 @@
 #define AJAY_MOD_INV
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/mod_inv.hpp
 // Long is okay
 // Make sure (val * x - 1) is a multiple of mod
 // Especially if mod=0, x=0 satisfies

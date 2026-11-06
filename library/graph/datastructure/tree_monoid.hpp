@@ -6,6 +6,7 @@
 #include "library/graph/tree.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/ds/tree_monoid.hpp
 template <typename TREE, typename Monoid, bool edge>
 struct Tree_Monoid {
     using MX = Monoid;

@@ -4,6 +4,7 @@
 #include "library/graph/base.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/shortest_path/warshall_floyd.hpp
 // Even if there is a negative side, it will work correctly if there is no negative cycle.
 // Whether there is a negative cycle is determined by whether there is a v such that dist[v][v] < 0.
 template <typename T, typename GT>

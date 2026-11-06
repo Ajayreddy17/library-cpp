@@ -2,6 +2,7 @@
 #define AJAY_KANPSACK01
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/knapsack/knapsack01.hpp
 /*
 Full enumeration of knapsack01
 - In O(2^n), enumerate all (wt, val) + sort by wt

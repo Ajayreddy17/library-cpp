@@ -13,6 +13,7 @@
 // https://codeforces.com/contest/13/problem/D
 // https://codeforces.com/contest/852/problem/H
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/geo/count_points_in_triangles.hpp
 struct Count_Points_in_Triangles {
     using P = Point<long long>;
     const int LIM = 1'000'000'000 + 10;

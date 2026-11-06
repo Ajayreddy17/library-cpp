@@ -9,6 +9,7 @@
 #include "library/monoid/monoid_max.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/minimum_spanning_tree.hpp
 // return : {T mst_cost, vc<bool> in_mst, Graph MST}
 template <typename T, typename GT>
 tuple<T, vector<bool>, GT> minimum_spanning_tree(GT& G) {

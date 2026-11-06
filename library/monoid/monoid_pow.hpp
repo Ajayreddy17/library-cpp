@@ -2,6 +2,7 @@
 #define AJAY_MONOID_POW
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid_pow.hpp
 // chat gpt
 template <typename U, typename Arg1, typename Arg2>
 struct has_power_method {

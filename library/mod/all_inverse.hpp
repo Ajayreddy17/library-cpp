@@ -4,6 +4,7 @@
 #include "library/mod/modint.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/all_inverse.hpp
 template <typename mint>
 vector<mint> all_inverse(vector<mint>& X) {
     for (auto&& x : X) assert(x != mint(0));

@@ -5,6 +5,7 @@
 #include "library/datastructure/my_bitset.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/knapsack/subset_sum.hpp
 // O(N MAX(vals))
 template <typename T>
 vector<int> subset_sum_solution_1(vector<T>& vals, int target) {

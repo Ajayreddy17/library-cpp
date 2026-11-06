@@ -2,6 +2,7 @@
 #define AJAY_HASHMAP
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/hashmap.hpp
 // unsigned long long -> Val
 template <typename Val, Val default_value = Val{}>
 struct HashMap {

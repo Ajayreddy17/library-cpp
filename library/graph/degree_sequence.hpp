@@ -2,6 +2,7 @@
 #define AJAY_DEGREE_SEQUENCE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/graph/degree_sequence.hpp
 // Determining the existence of a simple graph. Erdos-Gallai theorem.
 bool check_degree_sequence(vector<int> deg) {
     int N = len(deg);

@@ -5,6 +5,7 @@
 #include "library/poly/fps_inv.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/poly/fps_div.hpp
 // f/g. Output with length f.
 template <typename mint, bool SPARSE = false>
 vector<mint> fps_div(vector<mint> f, vector<mint> g) {

@@ -5,6 +5,7 @@
 #include "library/datastructure/index_compression.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/wavelet_matrix/wavelet_matrix_2d_range.hpp
 // Points (x, y) with weights; queries over [x1, x2) x [y1, y2).
 // Points are sorted by x, so a wavelet matrix over y answers the rectangle.
 // compress_X = false: x are small integers (dense compression); compress_Y as in Wavelet_Matrix.

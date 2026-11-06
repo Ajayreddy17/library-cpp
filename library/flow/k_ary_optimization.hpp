@@ -4,6 +4,7 @@
 #include "library/flow/maxflow.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/flow/k_ary_optimization.hpp
 // ABC347G
 template <typename T, bool MINIMIZE>
 struct K_ary_Optimization {

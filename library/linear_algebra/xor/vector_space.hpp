@@ -5,6 +5,7 @@
 #include "library/linear_algebra/xor/transpose.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/linalg/xor/vector_space.hpp
 template <typename UINT>
 struct Vector_Space {
 #define SP Vector_Space

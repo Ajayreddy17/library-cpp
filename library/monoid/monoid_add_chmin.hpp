@@ -2,6 +2,7 @@
 #define AJAY_MONOID_ADD_CHMIN
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/alg/monoid/add_chmin.hpp
 // For composition of functions {y = x + a, y = min(x, a)}
 template <typename E>
 struct Monoid_Add_Chmin {

@@ -2,6 +2,7 @@
 #define AJAY_DYNAMIC_ARRAY
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/dynamic_array.hpp
 template <typename T, bool PERSISTENT>
 struct Dynamic_Array {
     static constexpr int LOG = 4;

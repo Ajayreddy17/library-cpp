@@ -5,6 +5,7 @@
 #include "library/acted_monoid/am_minmincnt_add.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/rectangle_union.hpp
 template <typename XY = int>
 struct Rectangle_Union {
     using RECT = tuple<XY, XY, XY, XY>;

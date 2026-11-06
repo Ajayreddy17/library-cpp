@@ -5,6 +5,7 @@
 #include "library/mod/barrett.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/mod/dynamic_modint_64.hpp
 // https://codeforces.com/contest/453/problem/D
 template <int id>
 struct Dynamic_Modint_64 {

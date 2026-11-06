@@ -4,6 +4,7 @@
 #include "library/datastructure/dynamic_array.hpp"
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/unionfind/dynamic_unionfind.hpp
 template <bool PERSISTENT>
 struct Dynamic_UnionFind {
     // Without path compression

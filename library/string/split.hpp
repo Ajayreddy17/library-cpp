@@ -2,6 +2,7 @@
 #define AJAY_SPLIT
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/string/split.hpp
 vector<string> split(string S, char sep = ',') {
     vector<string> res = {""};
     for (auto &&s: S) {

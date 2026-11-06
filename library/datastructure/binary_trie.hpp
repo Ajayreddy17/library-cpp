@@ -2,6 +2,7 @@
 #define AJAY_BINARY_TRIE
 
 namespace mitsuha{
+// Source: https://github.com/maspypy/library/blob/main/ds/binary_trie.hpp
 // If non-persistent, 2 * number of elements nodes
 template <int LOG, bool PERSISTENT, int NODES, 
 typename UINT = unsigned long long, typename SIZE_TYPE = int>

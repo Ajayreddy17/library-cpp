@@ -10,8 +10,7 @@ namespace mitsuha{
 // stay==0: O(N)time
 // stay!=0: O(NlogN)time
 template <typename mint>
-pair<vector<mint>, vector<mint>> annulus_walk_generating_function(
-        int N, int s, int t, mint stay) {
+pair<vector<mint>, vector<mint>> annulus_walk_generating_function(int N, int s, int t, mint stay) {
     int k = rem(t - s, N);
     auto get_D = [&](int m) -> vector<mint> {
         if (m < 0) return vector<mint>{mint(0)};

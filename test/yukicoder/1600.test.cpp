@@ -1,6 +1,6 @@
 #define PROBLEM "https://yukicoder.me/problems/no/1600"
 #include "library/template.hpp"
-#include "library/datastructure/segment_tree/segtree_2D.hpp"
+#include "library/datastructure/segment_tree/segtree_2d.hpp"
 #include "library/monoid/monoid_min.hpp"
 #include "library/graph/tree.hpp"
 #include "library/datastructure/unionfind/unionfind.hpp"

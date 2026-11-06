@@ -21,6 +21,7 @@ struct FunctionalGraph {
     vector<int> TO;
     vector<X> wt, dp; // dp[v] = wt product of the path v -> root[v]
     vector<int> root;
+    vector<int> nearest_in_cycle; // first cycle vertex on the walk from v
     Graph<int, 1> G;
     Tree<Graph<int, 1>> tree;
 
@@ -58,6 +59,11 @@ struct FunctionalGraph {
             int p = tree.parent[v];
             if (p == N) continue;
             dp[v] = MX::op(wt[v], dp[p]);
+        }
+        nearest_in_cycle.assign(N, -1);
+        For(i, 1, N + 1) {
+            int v = tree.V[i];
+            nearest_in_cycle[v] = (in_cycle(v) ? v : nearest_in_cycle[tree.parent[v]]);
         }
     }
 

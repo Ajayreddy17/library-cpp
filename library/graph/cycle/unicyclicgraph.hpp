@@ -23,6 +23,7 @@ struct UnicyclicGraph {
     vector<int> TO;
     vector<int> cycle;     // Vertex sequence towards the root
     vector<bool> in_cycle; // vertex id -> bool
+    vector<int> nearest_in_cycle; // cycle vertex that v's hanging tree attaches to
     Graph<T, 1> G;
     Tree<Graph<T, 1>> tree;
     vector<int> orig_eid;
@@ -68,13 +69,14 @@ struct UnicyclicGraph {
         }
         G.build();
         tree.build(root);
+        nearest_in_cycle.assign(N, -1);
+        for (int v: tree.V) nearest_in_cycle[v] = (in_cycle[v] ? v : nearest_in_cycle[tree.parent[v]]);
     }
     UnicyclicGraph(const UnicyclicGraph &) = delete;
     UnicyclicGraph &operator=(const UnicyclicGraph &) = delete;
 
     int dist(int a, int b) {
-        int btm = TO[root];
-        int ra = tree.lca(a, btm), rb = tree.lca(b, btm);
+        int ra = nearest_in_cycle[a], rb = nearest_in_cycle[b];
         if (ra == rb) return tree.dist(a, b); // same hanging tree
         int d = abs(tree.depth[ra] - tree.depth[rb]);
         d = min<int>(d, len(cycle) - d);
@@ -83,7 +85,7 @@ struct UnicyclicGraph {
 
     T dist_weighted(int a, int b) {
         int btm = TO[root];
-        int ra = tree.lca(a, btm), rb = tree.lca(b, btm);
+        int ra = nearest_in_cycle[a], rb = nearest_in_cycle[b];
         if (ra == rb) return tree.dist_weighted(a, b);
         vector<T> &D = tree.depth_weighted;
         T d = abs(D[ra] - D[rb]);

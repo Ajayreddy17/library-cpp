@@ -1,4 +1,7 @@
-# Functional Graph (`library/graph/cycle/functional.hpp`)
+# Functional Graph and Unicyclic Graph
+
+`library/graph/cycle/functional.hpp` (sections 1–9),
+`library/graph/cycle/unicyclicgraph.hpp` (section 10).
 
 A **functional graph** is the graph of a map `f : {0..N−1} → {0..N−1}`: one
 edge `v → f(v)` per vertex, so every vertex has out-degree exactly 1. Walking
@@ -90,6 +93,22 @@ until the root, plus whole laps of the cycle. Going up is `tree.jump` /
 `collect_cycle(3) = {1, 2, 3}`, `collect_cycle(8) = {8}`,
 `collect_cycle(11) = {10, 11}`.
 
+**Nearest cycle vertex.** `nearest_in_cycle[v]` is the first cycle vertex the
+walk from `v` reaches, its *entry point* (`v` itself on a cycle). Going up the
+tree, the first ancestor that is on the cycle is the entry point, so
+`build()` fills it top-down in `O(N)`:
+
+```
+nearest_in_cycle[v] = in_cycle(v) ? v : nearest_in_cycle[parent[v]]
+```
+
+The tail length is `t(v) = depth[v] − depth[nearest_in_cycle[v]]`.
+
+| v | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `nearest_in_cycle` | 1 | 1 | 2 | 3 | 1 | 1 | 2 | 2 | 8 | 8 | 10 | 11 |
+| `t(v)` | 1 | 0 | 0 | 0 | 2 | 2 | 1 | 2 | 0 | 1 | 0 | 0 |
+
 ---
 
 ## 3. Weights must form a group
@@ -159,7 +178,7 @@ Each `v` turns into one query "the `j`-th ancestor of `u`": either `u = v`
 (still in the tail) or `u = bottom` after the laps are removed. One DFS from
 `N` keeps the current root path in a stack; a query at `u` reads
 `path[len(path) − 1 − j]`. No `log` factor, so it beats `N` calls of `jump`
-inside a binary search (yukicoder 1211 below).
+inside a binary search.
 
 `jump_all(5)` on the example: `{2, 3, 1, 2, 1, 1, 3, 2, 8, 8, 11, 10}`.
 
@@ -235,6 +254,7 @@ sum `20` after 8 steps).
 | `jump_all(k)` | `f^k(v)` for all `v`, `O(N)` |
 | `dist(a, b)` | steps `a → b` or `iinf`, `O(1)` |
 | `in_cycle(v)` | `v` lies on a cycle |
+| `nearest_in_cycle[v]` | first cycle vertex on the walk from `v` |
 | `collect_cycle(r)` | cycle of root `r`: `TO[r], …, r` |
 | `meet_time(i, j)` | first `k` with `f^k(i) = f^k(j)`, or `−1` |
 | `max_jump(check, v)` | longest walk with monotone `check`, capped at `linf` |
@@ -244,45 +264,142 @@ sum `20` after 8 steps).
 
 ---
 
-## 10. Usage
+## 10. Unicyclic graph: the connected, undirected version
 
-**Huge iteration of a map** (yukicoder 2122): the map on 4-digit numbers is
-fixed, so build it once and jump `L` steps.
+### 10.0 Relation to functional graphs
 
-```cpp
-FunctionalGraph<> X(10000);
-For(n, 10000) X.add(n, next(n));
-X.build();
-print(X.jump(a, L).first);
+Forget the directions in one component of a functional graph: `n` vertices,
+`n` edges, connected, so it is a tree plus one edge, a **unicyclic graph**
+(a self-loop and a 2-cycle become a self-loop and a pair of parallel edges).
+Conversely, in a connected unicyclic graph orient every non-cycle edge towards
+the cycle and the cycle edges around it: every vertex gets out-degree 1, so it
+is a functional graph with one component. Same rho shape, but
+
+| | functional graph | unicyclic graph |
+|---|---|---|
+| edges | directed, `v → f(v)` | undirected, walk either way |
+| components | any number, one cycle each | one (connected), one cycle |
+| questions | iterate `f`, weights along the walk | distances, cycle edges, DP on hanging trees |
+
+Example used in this section (edges `a − b` with cost, edge ids in order):
+
+```
+id    0    1    2    3    4    5    6    7    8    9   10
+edge 0-1  1-2  2-3  3-4  4-0  1-5  5-6  3-7  7-8  7-9  2-10
+cost  2    3    1    4    2    1    2    3    1    2    5
 ```
 
-**Automaton on bit states** (yukicoder 1242): the state is the last 6 bits;
-between "special" positions the state evolves deterministically, so each gap
-is one `jump`, and the special position modifies the state by hand.
+![unicyclic graph](images/uc1_unicyclic_graph.png)
 
 ```cpp
-FunctionalGraph<> FG(64);
-For(s, 64) FG.add(s, step(s));
-FG.build();
-Frr(k, K) {
-    s = FG.jump(s, x - A[k]).first;
-    s &= 62, x = A[k];
-}
+Graph<int, 0> G(N);  /* N edges */  G.build();
+UnicyclicGraph X(G);                // G must be connected, undirected, N edges
+int d = X.dist(6, 9);               // 6
 ```
 
-**Greedy cuts on a circle** (yukicoder 1211, split a cyclic array into `K`
-pieces each of sum `≥ S`): double the array, let `f(i)` be the end of the
-shortest piece starting at `i`. `S` works iff some start `i < N` has
-`f^K(i) ≤ i + N`. Binary search on `S`, with one `jump_all` per check.
+### 10.1 Structure
+
+**Exactly one cycle.** A connected graph with `N` vertices has a spanning
+tree with `N − 1` edges; the one remaining edge closes exactly one cycle (the
+tree path between its ends, plus itself). Any other cycle would need a second
+non-tree edge.
+
+Consequences used everywhere:
+
+* Deleting **any one cycle edge** leaves a spanning tree.
+* Every vertex `v` has a unique nearest cycle vertex, the point where `v`'s
+  *hanging tree* attaches. Two vertices in the same hanging tree are joined
+  by a tree path that avoids the cycle; vertices in different hanging trees
+  go *attach point → around the cycle (either way) → attach point*.
+* An edge lies on the cycle iff both endpoints are cycle vertices (a chord
+  would create a second cycle).
+
+### 10.2 Construction
+
+The constructor runs union-find over the edges in id order; the first edge
+that joins two already-connected vertices (or is a self-loop) is the
+**removed edge**:
+
+| Member | Meaning |
+|---|---|
+| `out_eid`, `out_cost` | id and cost of the removed edge |
+| `root` | its `frm` endpoint, the root of the spanning tree |
+| `TO[v]` | parent of `v` in the spanning tree rooted at `root`; `TO[root]` = the other end of the removed edge (`btm`) |
+| `cycle` | `TO[root], TO[TO[root]], …, root`: the cycle, walking from `btm` up to `root` |
+| `in_cycle[v]` | `v` is on the cycle |
+
+In the example the first closing edge is `4 − 0` (id 4), so `root = 4`,
+`btm = TO[4] = 0`, `cycle = {0, 1, 2, 3, 4}`.
+
+`TO` is exactly the functional graph of 10.0: following it from any vertex
+reaches the cycle `root → btm → … → root`.
+
+### 10.3 The rooted tree: `X.G`, `X.tree`
+
+The constructor also builds the spanning tree without the removed edge:
+
+| Member | Meaning |
+|---|---|
+| `G` | `Graph<T, 1>` **directed parent → child**, original costs; `G[v]` lists the children of `v` |
+| `tree` | `Tree` of `G` rooted at `root` (HLD, `depth`, `depth_weighted`, `lca`) |
+| `orig_eid[i]` | edge `i` of `G` is edge `orig_eid[i]` of the input graph |
+
+`tree` refers to the member `G`, so a `UnicyclicGraph` cannot be copied.
+
+![rooted tree](images/uc2_rooted_tree.png)
+
+In this tree the cycle is the root path of `btm`: `btm = 0 → 1 → 2 → 3 →
+root = 4`. A vertex `a` hangs from the cycle at
+
+```
+ra = lca(a, btm)
+```
+
+since `a`'s root path joins `btm`'s root path exactly at that cycle vertex.
+The constructor stores it for every vertex in `O(N)` as `nearest_in_cycle[a]`
+(top-down: `in_cycle[a] ? a : nearest_in_cycle[parent[a]]`), and the distance to
+it is `depth[a] − depth[nearest_in_cycle[a]]`.
+
+```
+v              0  1  2  3  4  5  6  7  8  9 10
+nearest_in_cycle  0  1  2  3  4  1  1  3  3  3  2
+```
+
+### 10.4 `dist` and `dist_weighted`
 
 ```cpp
-FunctionalGraph<> FG(2 * N + 1);
-For(i, 2 * N + 1) FG.add(i, first_end(i));
-FG.build();
-auto TO = FG.jump_all(K);
-For(i, N) if (TO[i] <= i + N) return true;
+int dist(a, b);           // number of edges, O(log N)
+T dist_weighted(a, b);    // sum of costs (needs non-negative costs), O(log N)
 ```
 
-**Weighted walks**: "start at `v`, take `K` steps, sum the values" is
-`jump` with `Monoid_Add<long long>`; "how many steps until the total exceeds
-`B`" is `max_jump` with `check = s <= B`.
+With `ra = nearest_in_cycle[a]`, `rb = nearest_in_cycle[b]`:
+
+* `ra == rb`: same hanging tree, the answer is the tree distance
+  (`tree.dist(a, b)` / `tree.dist_weighted(a, b)`).
+* Otherwise: `a → ra` and `rb → b` along the tree, plus the shorter way around
+  the cycle between `ra` and `rb`. Both are on the root path of `btm`, so one
+  way is `d = |depth[ra] − depth[rb]|` and the other is `len(cycle) − d`.
+  Weighted: `d = |D[ra] − D[rb]|` (`D = depth_weighted`), other way
+  `D[btm] + out_cost − d`, since the whole cycle weighs `D[btm] + out_cost`.
+
+```
+dist(6, 9):  ra = 1, rb = 3
+  6 → 1: 2 edges,  9 → 3: 2 edges,  cycle: min(|3 − 1|, 5 − 2) = 2      → 6
+dist_weighted(6, 9):
+  6 → 1: 11 − 8 = 3,  9 → 3: 9 − 4 = 5,
+  cycle: min(|8 − 4|, (10 + 2) − 4) = 4                                  → 12
+dist(8, 9) = 2      (same hanging tree under 3: 8 − 7 − 9)
+```
+
+### 10.5 Reference
+
+| Member | Meaning |
+|---|---|
+| `UnicyclicGraph<GT> X(G)` | `G` undirected, connected, `G.M == G.N` |
+| `root`, `out_eid`, `out_cost` | removed edge: `root − TO[root]` |
+| `TO[v]` | parent towards `root`; `TO[root] = btm` |
+| `cycle`, `in_cycle[v]` | cycle from `btm` to `root`; membership |
+| `nearest_in_cycle[v]` | cycle vertex that `v`'s hanging tree attaches to |
+| `G`, `tree`, `orig_eid` | spanning tree rooted at `root`, its `Tree`, edge-id map |
+| `dist(a, b)` | edge count |
+| `dist_weighted(a, b)` | cost sum |

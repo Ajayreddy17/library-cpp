@@ -56,6 +56,11 @@ void test_functional() {
         vector<int> cyc(N);
         For(v, N) cyc[walk[v][N]] = 1;
         For(v, N) assert(FG.in_cycle(v) == bool(cyc[v]));
+        For(v, N) {
+            int x = v;
+            while (!cyc[x]) x = to[x];
+            assert(FG.nearest_in_cycle[v] == x);
+        }
         For(v, N) if (FG.root[v] == v) {
             auto C = FG.collect_cycle(v);
             assert(C.back() == v);
@@ -179,10 +184,17 @@ void test_unicyclic() {
             assert(X.dist(a, b) == U[a][b]);
             assert(X.dist_weighted(a, b) == D[a][b]);
         }
+        // nearest cycle vertex: the unique closest one
+        For(v, N) {
+            int best = -1;
+            For(c, N) if (on_cycle_vertex[c] && (best == -1 || U[v][c] < U[v][best])) best = c;
+            For(c, N) if (on_cycle_vertex[c] && c != best) assert(U[v][c] > U[v][best]);
+            assert(X.nearest_in_cycle[v] == best);
+        }
     }
 }
 
-// every number quoted in graph/theory/{functional,unicyclic}_graph.md
+// every number quoted in graph/theory/functional_graph.md
 void test_doc_examples() {
     {
         vector<int> to = {1, 2, 3, 1, 0, 0, 2, 6, 8, 8, 11, 10};
@@ -204,6 +216,10 @@ void test_doc_examples() {
         assert(FG.dist(5, 3) == 4 && FG.dist(7, 1) == 4 && FG.dist(3, 5) == iinf);
         assert(FG.meet_time(5, 4) == 1 && FG.meet_time(9, 8) == 1 && FG.meet_time(4, 7) == -1);
         assert(FG.max_jump([](int, int s) { return s <= 20; }, 7) == 8);
+        assert(FG.nearest_in_cycle == vector<int>({1, 1, 2, 3, 1, 1, 2, 2, 8, 8, 10, 11}));
+        vector<int> tail(N);
+        For(v, N) tail[v] = FG.tree.depth[v] - FG.tree.depth[FG.nearest_in_cycle[v]];
+        assert(tail == vector<int>({1, 0, 0, 0, 2, 2, 1, 2, 0, 1, 0, 0}));
     }
     {
         vector<tuple<int, int, int>> es = {{0, 1, 2}, {1, 2, 3}, {2, 3, 1}, {3, 4, 4}, {4, 0, 2}, {1, 5, 1},
@@ -215,10 +231,11 @@ void test_doc_examples() {
         assert(X.root == 4 && X.out_eid == 4 && X.out_cost == 2 && X.TO[4] == 0);
         assert(X.cycle == vector<int>({0, 1, 2, 3, 4}));
         assert(X.dist(6, 9) == 6 && X.dist_weighted(6, 9) == 12 && X.dist(8, 9) == 2);
+        assert(X.nearest_in_cycle == vector<int>({0, 1, 2, 3, 4, 1, 1, 3, 3, 3, 2}));
     }
 }
 
-// maximum-weight independent set snippet from unicyclic_graph.md vs brute force
+// maximum-weight independent set on a unicyclic graph (tree DP, fix the removed edge) vs brute force
 void test_unicyclic_mis() {
     For(iter, 2000) {
         int N = RNG(1, 11);

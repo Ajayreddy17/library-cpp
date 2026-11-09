@@ -66,16 +66,20 @@ void centroid_decomposition_0_dfs(vector<int>& par, vector<int>& vs, F f) {
 
 /*
 https://maspypy.com/%e9%87%8d%e5%bf%83%e5%88%86%e8%a7%a3%e3%83%bb1-3%e9%87%8d%e5%bf%83%e5%88%86%e8%a7%a3%e3%81%ae%e3%81%8a%e7%b5%b5%e6%8f%8f%e3%81%8d
-centroid_decomposition_1: Entire path of length 2 or more
-f(par, V, n1, n2)
-[1,1+n1]: color 1
-[1+n1,1+n1+n2]: color 2
+centroid_decomposition_1: every path of length >= 1, each exactly once
+f(par, V, L1, R1, L2, R2)
+[L1, R1): color 1 / [L2, R2): color 2; the paths are color 1 -- V[0] -- color 2
 */
 template <typename F>
 void centroid_decomposition_1_dfs(vector<int>& par, vector<int> vs, F f) {
     const int N = len(par);
     assert(N > 1);
-    if (N == 2) { return; }
+    if (N == 2) {
+        // the single edge: color 1 = {V[0]}, color 2 = {V[1]}
+        vector<int> p = {-1, 0};
+        f(p, vs, 0, 1, 1, 2);
+        return;
+    }
     int c = -1;
     vector<int> sz(N, 1);
     Frr(i, N) {
@@ -121,7 +125,7 @@ void centroid_decomposition_1_dfs(vector<int>& par, vector<int> vs, F f) {
         if (color[v] != 0 && color[par[v]] != 0)
             par1[max(b - n0, 0)] = max(a - n0, 0);
     }
-    f(par2, V2, n0, n1);
+    f(par2, V2, 1, 1 + n0, 1 + n0, 1 + n0 + n1);
     centroid_decomposition_1_dfs(par0, V0, f);
     centroid_decomposition_1_dfs(par1, V1, f);
 }
@@ -190,13 +194,6 @@ void centroid_decomposition_2_dfs(vector<int>& par, vector<int>& vs, vector<int>
         if (color[v] != 0 && color[par[v]] != 0)
             par1[max(b - n0, 0)] = max(a - n0, 0);
     }
-    // if (real[c]) {
-    //   color.assign(N, -1);
-    //   color[0] = 0;
-    //   FOR(i, 1, N) color[i] = rea2[i] ? 1 : -1;
-    //   f(par2, V2, color);
-    //   rea0[0] = rea1[0] = rea2[0] = 0;
-    // }
     color.assign(N, -1);
     For(i, 1, N) if (rea2[i]) color[i] = (i <= n0 ? 0 : 1);
     if (real[c]) color[0] = 2, rea0[0] = rea1[0] = rea2[0] = 0;
@@ -206,7 +203,7 @@ void centroid_decomposition_2_dfs(vector<int>& par, vector<int>& vs, vector<int>
 }
 
 // 0: f(par, V, indptr)
-// 1: f(par, V, n1, n2)
+// 1: f(par, V, L1, R1, L2, R2)
 // 2: f(par, V, color)
 template <int MODE, typename GT, typename F>
 void centroid_decomposition(GT& G, F f) {

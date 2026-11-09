@@ -130,55 +130,147 @@ The analogue for prime powers drives `Binomial`'s sign bookkeeping
 
 ---
 
+
 ## 6. Order and primitive roots
 
-The **order** of a unit `a` is the smallest `k > 0` with `a^k ≡ 1`. Powers of
-`a` cycle with period `ord(a)`, and `ord(a) | φ(m)` (Lagrange's theorem).
+### 6.1 Order
+
+The **order** `ord(a)` of a unit `a` is the smallest `k > 0` with `a^k ≡ 1`.
+The powers `1, a, a², …` cycle with period `ord(a)`, and:
+
+* `a^n ≡ 1  ⟺  ord(a) | n`. In particular `ord(a) | φ(m)` (Lagrange), and
+  `ord(a) | p − 1` mod a prime.
+* `a^x ≡ a^y  ⟺  x ≡ y (mod ord(a))`.
 
 ![power cycles](images/ch00_power_cycles.png)
 
-A **primitive root** is a unit whose order is `φ(m)`: its powers visit
-**every** unit. They exist exactly for `m = 1, 2, 4, p^k, 2p^k` (`p` an odd
-prime). Mod a prime there are `φ(p − 1)` of them; mod 7 they are `3` and `5`.
+**Computing `ord(a)`.** Start with `t = p − 1` (or `φ(m)`). For each prime
+`q | t`: while `q | t` and `a^{t/q} ≡ 1`, set `t ← t/q`. The final `t` is the
+order: `O(log² p)` multiplications once `p − 1` is factored.
 
-With a primitive root `g`, the unit group is a cycle, `(Z/p)^× ≅ Z/(p − 1)`,
-via the **discrete logarithm** `g^i ↦ i`. Multiplication becomes addition of
-exponents, so:
+### 6.2 Primitive roots: the powers cover everything
 
-| problem mod `p` | becomes, in exponents mod `p − 1` |
+A **primitive root** `g` has order `φ(m)`. Then its powers
+`g^0, g^1, …, g^{φ(m)−1}` are **all distinct**, so they list every unit
+exactly once. Mod a prime, `i ↦ g^i` is a bijection
+`{0, …, p−2} → {1, …, p−1}`:
+
+![power table](images/ch00_power_table.png)
+
+Primitive roots exist exactly for `m = 1, 2, 4, p^k, 2p^k` (`p` odd prime).
+Mod `2^e`, `e ≥ 3`, there is none. Instead every odd residue is `±5^j`, and
+`5` has order `2^{e−2}`.
+
+Every unit is `a = g^i` for a unique `i = log_g a` (the **discrete log**).
+Working with exponents turns the multiplicative group into the additive group
+`Z/(p−1)`, and most facts below follow from that.
+
+```
+mod 13, g = 2:   r      1  2  4  8  3  6  12 11  9  5  10  7
+                 log r  0  1  2  3  4  5  6  7   8  9  10  11
+```
+
+### 6.3 Orders of powers; how many elements of each order
+
+```
+ord(g^k) = (p − 1) / gcd(k, p − 1)
+```
+
+So `g^k` is again a primitive root iff `gcd(k, p − 1) = 1`, and there are
+`φ(p − 1)` primitive roots. Mod 11 with `g = 2`, the exponents coprime to 10
+are `1, 3, 7, 9`, giving `2, 8, 7, 6`.
+
+More generally, exactly `φ(d)` elements have order `d`, for each `d | p − 1`.
+Summing over `d` gives the identity `Σ_{d | n} φ(d) = n`.
+
+![order count](images/ch00_order_count.png)
+
+Finding one primitive root: test `g = 2, 3, …` with the criterion
+`g^{(p−1)/q} ≠ 1` for all primes `q | p − 1`. The smallest one is small in
+practice. A random `g` succeeds with probability `φ(p−1)/(p−1)`.
+
+### 6.4 Roots of unity
+
+The solutions of `x^n ≡ 1 (mod p)` are the `g^{i}` with `n·i ≡ 0 (mod p − 1)`.
+There are `gcd(n, p − 1)` of them. **`n` distinct `n`-th roots of unity exist
+iff `n | p − 1`**, namely `ω^j` for `ω = g^{(p−1)/n}`.
+
+This is why NTT primes look like `c · 2^k + 1`: `998244353 = 119 · 2^23 + 1`
+has `2^k`-th roots of unity for every `k ≤ 23`, so convolutions up to length
+`2^23` work. `ntt_info()` stores `(23, ω)` ([chapter 1](01_modint.md) §3).
+
+### 6.5 `k`-th powers and `k`-th roots (discrete root)
+
+With `x = g^y` and `a = g^{log a}`:
+
+```
+x^k ≡ a   ⟺   k·y ≡ log a   (mod p − 1)          (a linear congruence, §5)
+```
+
+Let `d = gcd(k, p − 1)`.
+
+* The `k`-th powers are exactly the `g^i` with `d | i`. That is
+  `(p − 1)/d` residues, each hit `d` times.
+* `x^k ≡ a` has a solution iff `d | log a`, i.e. iff `a^{(p−1)/d} ≡ 1`
+  (generalised Euler criterion). Then it has exactly `d` solutions:
+  `x_0 · ζ` for the `d` roots of unity `ζ^d = 1` (§6.4).
+
+![k-th powers](images/ch00_kth_powers.png)
+
+```
+x³ ≡ 5 (mod 13):  log 5 = 9,  3y ≡ 9 (mod 12)  →  y ∈ {3, 7, 11}  →  x ∈ {8, 11, 7}
+                  = 8 · {1, 3, 9}   (cube roots of unity)
+```
+
+`k = 2` is §7. `mod_kth_root` returns one `x_0` without computing a full
+discrete log ([chapter 4](04_roots_logs.md) §3).
+
+### 6.6 Power sums
+
+```
+Σ_{x=1}^{p−1} x^k ≡  −1   if (p − 1) | k
+                      0   otherwise                   (mod p)
+```
+
+Substitute `x = g^i`: the sum becomes the geometric series `Σ (g^k)^i`, which
+is `0` unless `g^k = 1`. Example mod 7: `Σ x³ ≡ 0`, `Σ x⁶ ≡ 6 ≡ −1`. The same
+trick (multiplying by `g` permutes the units) proves Fermat and Wilson.
+
+### 6.7 What exponents buy you
+
+| problem mod `p` | in exponents mod `p − 1` |
 |---|---|
-| `x^k = a` | `k · i ≡ log a` (linear congruence, §5) |
-| `a^n = b` | `n · log a ≡ log b` |
-| multiplicative convolution | additive (cyclic) convolution |
+| `x^k = a` | `k·y ≡ log a` (§6.5) |
+| `a^n = b` | `n · log a ≡ log b` (discrete log) |
+| `#{x : x^k = a}` | `gcd(k, p−1)` or `0` |
+| multiplicative convolution `Σ_{ij=k}` | cyclic convolution of length `p − 1` |
 | `a^{-1}`, `a^e` | `−log a`, `e · log a` (table lookups) |
-
-**Testing a primitive root.** `ord(g)` divides `p − 1`. If it were a proper
-divisor, it would divide `(p − 1)/q` for some prime `q | p − 1`. So `g` is
-primitive iff `g^{(p−1)/q} ≠ 1` for every prime `q | p − 1`.
-
-**Mod `2^e`** (`e ≥ 3`) there is no primitive root. Instead every odd number
-is `±5^j`, where `5` has order `2^{e−2}`.
 
 → `primitive_root`, `mod_kth_root`, `mod_log`, `mod_log_u64`
 ([chapter 4](04_roots_logs.md)); `ModFast` ([chapter 2](02_inverses_tables.md) §5);
-multiplicative convolutions ([chapter 6](06_multiplicative_convolution.md));
-NTT roots of unity ([chapter 1](01_modint.md) §3).
+multiplicative convolutions ([chapter 6](06_multiplicative_convolution.md)).
 
 ---
 
 ## 7. Quadratic residues
 
 Mod an odd prime `p`, the map `x ↦ x²` is 2-to-1 on units, because `x` and
-`−x` have the same square. So exactly `(p − 1)/2` units are squares.
+`−x` have the same square. So exactly `(p − 1)/2` units are squares: the
+even powers of `g` (§6.5 with `k = 2`).
 
 ![squares](images/ch00_squares.png)
 
 **Euler's criterion.** For a unit `a`, `a^{(p−1)/2} ≡ +1` if `a` is a square
-and `≡ −1` if not. With `a = g^i`, `a` is a square iff `i` is even. Example
-mod 11: `3^5 ≡ 1` (`3 = 5²`), while `2^5 = 32 ≡ −1`, so 2 is not a square.
+and `≡ −1` if not. Example mod 11: `3^5 ≡ 1` (`3 = 5²`), while
+`2^5 = 32 ≡ −1`, so 2 is not a square.
 
-Half of all residues are non-squares, so a random one is found in about two
-tries. Cipolla's method needs one.
+Facts used in CP:
+
+* `−1` is a square mod `p` iff `p ≡ 1 (mod 4)`.
+* square × square = square, square × non-square = non-square,
+  non-square × non-square = square.
+* Half of all units are non-squares, so a random one is found in about two
+  tries. Cipolla's method needs one.
 
 → `mod_sqrt` ([chapter 4](04_roots_logs.md) §2).
 
@@ -202,12 +294,38 @@ x ≡ 2 (mod 3), x ≡ 3 (mod 5)  →  x = 2 + 3·c,  2 + 3c ≡ 3 (mod 5)  → 
 Non-coprime moduli: `x ≡ a (mod m)`, `x ≡ b (mod n)` is solvable iff
 `a ≡ b (mod gcd(m, n))`. The solution is unique mod `lcm(m, n)`.
 
+**Units of a composite modulus.** By CRT, `(Z/m)^×` is the product of the
+`(Z/p^e)^×`. Hence `φ` is multiplicative, with `φ(p^e) = p^e − p^{e−1}`.
+The **Carmichael function** `λ(m)` is the lcm of the parts' exponents:
+`λ(p^e) = φ(p^e)` for odd `p`, `λ(2^e) = 2^{e−2}` for `e ≥ 3`. Then
+`a^{λ(m)} ≡ 1` for every unit, a sharper exponent than `φ(m)`. Examples:
+`λ(8) = 2` (every odd square is `1 mod 8`), and `λ(15) = 4` while `φ(15) = 8`.
+
 → `CRT2..CRT5` ([chapter 2](02_inverses_tables.md) §7), convolution with an
 arbitrary modulus (three NTT primes), `Binomial(mod)`.
 
 ---
 
-## 9. Binomials mod `p`: Lucas and Kummer
+## 9. Factorials and binomials mod `p`
+
+**Legendre's formula.** The exponent of `p` in `n!` is
+
+```
+v_p(n!) = ⌊n/p⌋ + ⌊n/p²⌋ + ⌊n/p³⌋ + ⋯ = (n − s_p(n)) / (p − 1)
+```
+
+where `s_p(n)` is the digit sum of `n` in base `p`. Example:
+`v_3(100!) = 33 + 11 + 3 + 1 = 48`.
+
+**`n!` with the `p`'s removed.** Split `1..n` into the multiples of `p`
+(`p · 1, …, p · ⌊n/p⌋`) and the rest. The rest is `⌊n/p⌋` full blocks of
+`1..p−1`, each `≡ −1` by Wilson, plus a partial block `1..(n mod p)`:
+
+```
+n! / p^{v_p(n!)}  ≡  (−1)^{⌊n/p⌋} · (n mod p)! · (⌊n/p⌋! / p^{v_p(⌊n/p⌋!)})     (mod p)
+```
+
+This recursion has depth `log_p n`, with a table of factorials below `p`.
 
 **Lucas.** Write `n = Σ n_i p^i` and `k = Σ k_i p^i` in base `p`. Then
 
@@ -215,17 +333,39 @@ arbitrary modulus (three NTT primes), `Binomial(mod)`.
 binom(n, k) ≡ ∏ binom(n_i, k_i)   (mod p).
 ```
 
-This is why a factorial table up to `p` suffices for any `n`.
-
 **Kummer.** `v_p(binom(n, k))` equals the number of carries when adding `k`
-and `n − k` in base `p`.
+and `n − k` in base `p`. In particular `binom(n, k)` is odd iff `k & (n − k) = 0`.
 
 Both generalise to prime powers (Granville) → `Binomial`; to `q`-binomials →
 `q_Analogue` ([chapter 3](03_binomial.md)).
 
 ---
 
-## 10. Computing `a mod m` fast
+## 10. Fractions mod `p`
+
+Many CP answers are rationals `P/Q` "printed modulo `p`", i.e. as
+`P · Q^{-1} mod p`. This is consistent: `x ↦ x mod p` respects `+`, `−`, `×`
+and division by anything not divisible by `p`. So probabilities and expected
+values can be computed directly in `mint`, divisions included, as long as no
+denominator is a multiple of `p`.
+
+```
+expected value of a die = 7/2  →  7 · 2^{-1} mod 998244353 = 499122180
+```
+
+**Geometric series.**
+
+```
+Σ_{i<n} r^i  =  (r^n − 1) / (r − 1)   if r ≢ 1  (mod p)
+             =  n mod p               if r ≡ 1
+```
+
+The case `r ≡ 1` needs its own branch: `r − 1` has no inverse. Example mod 7:
+`1 + 2 + ⋯ + 2^9 = 2^{10} − 1 = 1023 ≡ 1`.
+
+---
+
+## 11. Computing `a mod m` fast
 
 Hardware division is slow (tens of cycles, more for 128-bit). The modint types
 avoid it in three ways.
@@ -258,3 +398,20 @@ high bits to the low bits" → `modint61` ([chapter 1](01_modint.md) §4).
 
 **Powers.** Binary exponentiation computes `a^n` in `O(log n)`
 multiplications: `a^n = (a^{⌊n/2⌋})² · a^{n mod 2}`.
+
+---
+
+## 12. Common pitfalls
+
+| pitfall | fix |
+|---|---|
+| `a * b % m` overflows (`int`, or 64-bit with `m > 2^32`) | widen first: `1LL * a * b % m`, `u128` for 64-bit `m` (`modint_64bit`) |
+| `(a − b) % m` is negative in C++ | `(a − b + m) % m`, `rem(x, m)`, or a modint |
+| reducing an exponent mod `p` | exponents live mod `p − 1` (Fermat), and only for `a ≢ 0`. Composite `m`: mod `φ(m)` only if `gcd(a, m) = 1`, else §4's generalised form |
+| `0^0` | `1` (`pow(0, 0) = 1`); `0^n = 0` for `n > 0`, so "`n mod (p−1) = 0`" must not turn `0^{p−1}` into `0^0` |
+| dividing by a multiple of `p` (`n!` for `n ≥ p`, `inv(0)`) | Lucas / Legendre (§9), or count the `p`'s separately |
+| comparing or maximising residues | a residue says nothing about size: do comparisons in exact arithmetic (or doubles / logs), reduce only at the end |
+| "the answer is 0 mod p" taken to mean "impossible" | a count can be a nonzero multiple of `p`: track feasibility separately |
+| geometric series with `r ≡ 1` | separate branch (§10) |
+| `mod = 1` | every residue is `0`; `mod_pow(·, ·, 1) = 0` |
+| hashing with a fixed, known modulus | can be attacked: use `modint61` with a random base |

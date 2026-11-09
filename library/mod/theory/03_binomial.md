@@ -1,10 +1,14 @@
 # 3. Factorials and binomial coefficients
 
-Headers: [`modint_common`](../modint_common.hpp),
-[`factorial998`](../factorial998.hpp), [`factorial107`](../factorial107.hpp),
-[`binomial`](../binomial.hpp), [`binomial_u64`](../binomial_u64.hpp),
-[`prefix_sum_of_binom`](../prefix_sum_of_binom.hpp),
-[`q_analogue`](../q_analogue.hpp).
+Headers:
+
+- [`mod/modint_common.hpp`](../modint_common.hpp)
+- [`mod/factorial998.hpp`](../factorial998.hpp)
+- [`mod/factorial107.hpp`](../factorial107.hpp)
+- [`mod/binomial.hpp`](../binomial.hpp)
+- [`mod/binomial_u64.hpp`](../binomial_u64.hpp)
+- [`mod/prefix_sum_of_binom.hpp`](../prefix_sum_of_binom.hpp)
+- [`mod/q_analogue.hpp`](../q_analogue.hpp)
 
 ---
 

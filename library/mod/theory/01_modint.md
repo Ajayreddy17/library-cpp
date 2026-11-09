@@ -1,10 +1,17 @@
 # 1. Modular integers
 
-Headers: [`modint`](../modint.hpp), [`modint_64bit`](../modint_64bit.hpp),
-[`modint61`](../modint61.hpp), [`dynamic_modint`](../dynamic_modint.hpp),
-[`dynamic_modint_64`](../dynamic_modint_64.hpp), [`barrett`](../barrett.hpp),
-[`montgomery_modint`](../montgomery_modint.hpp), [`mod_pow`](../mod_pow.hpp),
-[`mod_pow_u64`](../mod_pow_u64.hpp), [`mod_inv_u64`](../mod_inv_u64.hpp).
+Headers:
+
+- [`mod/modint.hpp`](../modint.hpp)
+- [`mod/modint_64bit.hpp`](../modint_64bit.hpp)
+- [`mod/modint61.hpp`](../modint61.hpp)
+- [`mod/dynamic_modint.hpp`](../dynamic_modint.hpp)
+- [`mod/dynamic_modint_64.hpp`](../dynamic_modint_64.hpp)
+- [`mod/barrett.hpp`](../barrett.hpp)
+- [`mod/montgomery_modint.hpp`](../montgomery_modint.hpp)
+- [`mod/mod_pow.hpp`](../mod_pow.hpp)
+- [`mod/mod_pow_u64.hpp`](../mod_pow_u64.hpp)
+- [`mod/mod_inv_u64.hpp`](../mod_inv_u64.hpp)
 
 ---
 

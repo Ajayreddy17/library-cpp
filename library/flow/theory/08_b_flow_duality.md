@@ -1,7 +1,10 @@
 # 8. b-Flow and Duality
 
-Headers: [`flow/bflow.hpp`](../bflow.hpp) (`MinCostFlow<Flow, Cost>`), [`flow/dual_mcf.hpp`](../dual_mcf.hpp) (`Dual_MCF`),
-[`flow/longest_shortest_path.hpp`](../longest_shortest_path.hpp) (`Longest_Shortest_Path`).
+Headers:
+
+- [`flow/bflow.hpp`](../bflow.hpp) — `MinCostFlow<Flow, Cost>`
+- [`flow/dual_mcf.hpp`](../dual_mcf.hpp) — `Dual_MCF`
+- [`flow/longest_shortest_path.hpp`](../longest_shortest_path.hpp) — `Longest_Shortest_Path`
 
 ---
 

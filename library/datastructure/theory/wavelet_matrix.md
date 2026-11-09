@@ -1,8 +1,11 @@
 # Wavelet Matrix
 
-`library/datastructure/wavelet_matrix/wavelet_matrix.hpp` (sections 1–9),
-`wavelet_matrix_2d_range.hpp` (10), `wavelet_matrix_old.hpp` (11),
-`library/graph/datastructure/tree_wavelet_matrix.hpp` (12).
+Headers:
+
+- [`datastructure/wavelet_matrix/wavelet_matrix.hpp`](../wavelet_matrix/wavelet_matrix.hpp) — §1–9
+- [`datastructure/wavelet_matrix/wavelet_matrix_2d_range.hpp`](../wavelet_matrix/wavelet_matrix_2d_range.hpp) — §10
+- [`datastructure/wavelet_matrix/wavelet_matrix_old.hpp`](../wavelet_matrix/wavelet_matrix_old.hpp) — §11
+- [`graph/datastructure/tree_wavelet_matrix.hpp`](../../graph/datastructure/tree_wavelet_matrix.hpp) — §12
 
 A wavelet matrix stores a static array `A[0..n)` and answers questions about
 the points `(i, A[i])` inside a rectangle `[L, R) × [y1, y2)`: how many there

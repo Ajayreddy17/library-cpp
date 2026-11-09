@@ -1,6 +1,9 @@
 # 2. Dinic and `MaxFlow`
 
-Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`flow/incremental_maxflow.hpp`](../incremental_maxflow.hpp).
+Headers:
+
+- [`flow/maxflow.hpp`](../maxflow.hpp)
+- [`flow/incremental_maxflow.hpp`](../incremental_maxflow.hpp)
 
 ---
 

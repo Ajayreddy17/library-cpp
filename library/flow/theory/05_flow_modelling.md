@@ -1,8 +1,11 @@
 # 5. Modelling with Max Flow
 
-Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`graph/matching/dag_path_cover.hpp`](../../graph/matching/dag_path_cover.hpp),
-[`graph/matching/maximum_antichain.hpp`](../../graph/matching/maximum_antichain.hpp),
-[`graph/matching/maximum_weighted_antichain.hpp`](../../graph/matching/maximum_weighted_antichain.hpp).
+Headers:
+
+- [`flow/maxflow.hpp`](../maxflow.hpp)
+- [`graph/matching/dag_path_cover.hpp`](../../graph/matching/dag_path_cover.hpp)
+- [`graph/matching/maximum_antichain.hpp`](../../graph/matching/maximum_antichain.hpp)
+- [`graph/matching/maximum_weighted_antichain.hpp`](../../graph/matching/maximum_weighted_antichain.hpp)
 
 Recognize a flow problem: integral quantities move along edges or are assigned to
 resources with **capacities**, and the objective is a count or a cut. Build the network,

@@ -1,4 +1,8 @@
-# Geometry Basics: Point, Line, Segment, Circle (`library/geo/base.hpp`)
+# Geometry Basics: Point, Line, Segment, Circle
+
+Header:
+
+- [`geo/base.hpp`](../base.hpp)
 
 Notation: `u = (ux, uy)`, `v = (vx, vy)` are vectors, `P - Q` is the vector
 from `Q` to `P`, `|u|` is the length of `u`, `θ` is the angle from `u` to `v`

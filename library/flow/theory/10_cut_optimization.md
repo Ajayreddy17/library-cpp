@@ -1,7 +1,9 @@
 # 10. Cut Optimization
 
-Headers: [`flow/binary_optimization.hpp`](../binary_optimization.hpp) (`Binary_Optimization<T, MINIMIZE>`),
-[`flow/k_ary_optimization.hpp`](../k_ary_optimization.hpp) (`K_ary_Optimization<T, MINIMIZE>`).
+Headers:
+
+- [`flow/binary_optimization.hpp`](../binary_optimization.hpp) — `Binary_Optimization<T, MINIMIZE>`
+- [`flow/k_ary_optimization.hpp`](../k_ary_optimization.hpp) — `K_ary_Optimization<T, MINIMIZE>`
 
 Choose `x_i ∈ {0, 1}` (or `{0..k−1}`) to minimize
 

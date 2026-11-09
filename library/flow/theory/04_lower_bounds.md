@@ -1,6 +1,8 @@
 # 4. Lower Bounds and Circulations
 
-Header: [`flow/maxflow_with_lowerbound.hpp`](../maxflow_with_lowerbound.hpp).
+Header:
+
+- [`flow/maxflow_with_lowerbound.hpp`](../maxflow_with_lowerbound.hpp)
 
 ---
 

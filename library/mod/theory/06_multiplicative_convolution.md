@@ -1,8 +1,10 @@
 # 6. Multiplicative convolution and modular subset sum
 
-Headers: [`multiplicative_convolution_mod_p`](../multiplicative_convolution_mod_p.hpp),
-[`multiplicative_convolution_mod_2n`](../multiplicative_convolution_mod_2n.hpp),
-[`modular_subset_sum`](../modular_subset_sum.hpp).
+Headers:
+
+- [`mod/multiplicative_convolution_mod_p.hpp`](../multiplicative_convolution_mod_p.hpp)
+- [`mod/multiplicative_convolution_mod_2n.hpp`](../multiplicative_convolution_mod_2n.hpp)
+- [`mod/modular_subset_sum.hpp`](../modular_subset_sum.hpp)
 
 ---
 

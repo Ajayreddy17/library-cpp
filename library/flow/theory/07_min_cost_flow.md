@@ -1,6 +1,8 @@
 # 7. Min Cost Flow
 
-Header: [`flow/mincostflow.hpp`](../mincostflow.hpp) (`Min_Cost_Flow<Cap, Cost, DAG>`).
+Header:
+
+- [`flow/mincostflow.hpp`](../mincostflow.hpp) — `Min_Cost_Flow<Cap, Cost, DAG>`
 
 Example used throughout (`s = 0`, `t = 3`, label = capacity, cost):
 

@@ -1,7 +1,10 @@
 # 3. Min Cut
 
-Headers: [`flow/maxflow.hpp`](../maxflow.hpp), [`flow/gomory_hu_tree.hpp`](../gomory_hu_tree.hpp),
-[`graph/connectivity/strongly_connected_component.hpp`](../../graph/connectivity/strongly_connected_component.hpp).
+Headers:
+
+- [`flow/maxflow.hpp`](../maxflow.hpp)
+- [`flow/gomory_hu_tree.hpp`](../gomory_hu_tree.hpp)
+- [`graph/connectivity/strongly_connected_component.hpp`](../../graph/connectivity/strongly_connected_component.hpp)
 
 ---
 

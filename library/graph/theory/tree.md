@@ -1,4 +1,8 @@
-# Rooted Tree and Heavy-Light Decomposition (`library/graph/tree.hpp`)
+# Rooted Tree and Heavy-Light Decomposition
+
+Header:
+
+- [`graph/tree.hpp`](../tree.hpp)
 
 Example tree used throughout:
 

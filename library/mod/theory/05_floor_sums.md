@@ -1,18 +1,20 @@
 # 5. Floor sums and linear functions mod `m`
 
-Headers: [`floor_sum_of_linear`](../floor_sum_of_linear.hpp),
-[`mod_sum_of_linear`](../mod_sum_of_linear.hpp),
-[`range_freq_of_linear`](../range_freq_of_linear.hpp),
-[`range_freq_mod`](../range_freq_mod.hpp),
-[`floor_monoid_product`](../floor_monoid_product.hpp),
-[`floor_sum_of_linear_polynomial`](../floor_sum_of_linear_polynomial.hpp),
-[`floor_sum_of_linear_polynomial_pq`](../floor_sum_of_linear_polynomial_pq.hpp),
-[`min_of_linear_segments`](../min_of_linear_segments.hpp),
-[`min_of_linear`](../min_of_linear.hpp),
-[`max_of_linear_segments`](../max_of_linear_segments.hpp),
-[`first_mod_range_of_linear`](../first_mod_range_of_linear.hpp),
-monoids [`monoid_for_floor_sum`](../../monoid/monoid_for_floor_sum.hpp),
-[`monoid_for_floor_sum_pq`](../../monoid/monoid_for_floor_sum_pq.hpp).
+Headers:
+
+- [`mod/floor_sum_of_linear.hpp`](../floor_sum_of_linear.hpp)
+- [`mod/mod_sum_of_linear.hpp`](../mod_sum_of_linear.hpp)
+- [`mod/range_freq_of_linear.hpp`](../range_freq_of_linear.hpp)
+- [`mod/range_freq_mod.hpp`](../range_freq_mod.hpp)
+- [`mod/floor_monoid_product.hpp`](../floor_monoid_product.hpp)
+- [`mod/floor_sum_of_linear_polynomial.hpp`](../floor_sum_of_linear_polynomial.hpp)
+- [`mod/floor_sum_of_linear_polynomial_pq.hpp`](../floor_sum_of_linear_polynomial_pq.hpp)
+- [`mod/min_of_linear_segments.hpp`](../min_of_linear_segments.hpp)
+- [`mod/min_of_linear.hpp`](../min_of_linear.hpp)
+- [`mod/max_of_linear_segments.hpp`](../max_of_linear_segments.hpp)
+- [`mod/first_mod_range_of_linear.hpp`](../first_mod_range_of_linear.hpp)
+- [`monoid/monoid_for_floor_sum.hpp`](../../monoid/monoid_for_floor_sum.hpp)
+- [`monoid/monoid_for_floor_sum_pq.hpp`](../../monoid/monoid_for_floor_sum_pq.hpp)
 
 Everything here is about `f(x) = ax + b` along `x ∈ [L, R)`, through
 `⌊f(x) / m⌋` or `f(x) mod m`, in `O(log m)` steps of a Euclid-like recursion.

@@ -1,8 +1,13 @@
 # 9. Assignment, Transportation and Special Structures
 
-Headers: [`flow/hungarian.hpp`](../hungarian.hpp), [`flow/unbalanced_transportation.hpp`](../unbalanced_transportation.hpp),
-[`flow/convex_min_cost_flow.hpp`](../convex_min_cost_flow.hpp), [`flow/cyclic_b_flow.hpp`](../cyclic_b_flow.hpp),
-[`flow/min_cost_matching_on_line.hpp`](../min_cost_matching_on_line.hpp), [`flow/dynamic_mcf_on_line.hpp`](../dynamic_mcf_on_line.hpp).
+Headers:
+
+- [`flow/hungarian.hpp`](../hungarian.hpp)
+- [`flow/unbalanced_transportation.hpp`](../unbalanced_transportation.hpp)
+- [`flow/convex_min_cost_flow.hpp`](../convex_min_cost_flow.hpp)
+- [`flow/cyclic_b_flow.hpp`](../cyclic_b_flow.hpp)
+- [`flow/min_cost_matching_on_line.hpp`](../min_cost_matching_on_line.hpp)
+- [`flow/dynamic_mcf_on_line.hpp`](../dynamic_mcf_on_line.hpp)
 
 General min cost flow (chapters 7–8) solves all of these; the structures below are
 faster or simpler when the input has a special shape.

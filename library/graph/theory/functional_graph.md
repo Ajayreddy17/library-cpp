@@ -1,7 +1,9 @@
 # Functional Graph and Unicyclic Graph
 
-`library/graph/cycle/functional.hpp` (sections 1–9),
-`library/graph/cycle/unicyclicgraph.hpp` (section 10).
+Headers:
+
+- [`graph/cycle/functional.hpp`](../cycle/functional.hpp) — §1–9
+- [`graph/cycle/unicyclicgraph.hpp`](../cycle/unicyclicgraph.hpp) — §10
 
 A **functional graph** is the graph of a map `f : {0..N−1} → {0..N−1}`: one
 edge `v → f(v)` per vertex, so every vertex has out-degree exactly 1. Walking

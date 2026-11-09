@@ -1,8 +1,13 @@
 # 2. Inverses, power tables and CRT
 
-Headers: [`mod_inv`](../mod_inv.hpp), [`all_inverse`](../all_inverse.hpp),
-[`O1_inverse`](../O1_inverse.hpp), [`modfast`](../modfast.hpp),
-[`powertable`](../powertable.hpp), [`crt3`](../crt3.hpp).
+Headers:
+
+- [`mod/mod_inv.hpp`](../mod_inv.hpp)
+- [`mod/all_inverse.hpp`](../all_inverse.hpp)
+- [`mod/O1_inverse.hpp`](../O1_inverse.hpp)
+- [`mod/modfast.hpp`](../modfast.hpp)
+- [`mod/powertable.hpp`](../powertable.hpp)
+- [`mod/crt3.hpp`](../crt3.hpp)
 
 ---
 

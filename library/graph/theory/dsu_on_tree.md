@@ -1,4 +1,8 @@
-# DSU on Tree / Sack (`library/graph/tree/dsu_on_tree.hpp`)
+# DSU on Tree / Sack
+
+Header:
+
+- [`graph/tree/dsu_on_tree.hpp`](../tree/dsu_on_tree.hpp)
 
 Answer a query for **every subtree** with a structure that only supports
 *insert* and *clear*, using `O(N log N)` inserts. Built on the HLD order of

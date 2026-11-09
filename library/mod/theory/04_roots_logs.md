@@ -1,8 +1,13 @@
 # 4. Primitive roots, roots and logarithms
 
-Headers: [`primitive_root`](../primitive_root.hpp), [`mod_sqrt`](../mod_sqrt.hpp),
-[`mod_kth_root`](../mod_kth_root.hpp), [`mod_log`](../mod_log.hpp),
-[`mod_log_u64`](../mod_log_u64.hpp), [`tetration`](../tetration.hpp).
+Headers:
+
+- [`mod/primitive_root.hpp`](../primitive_root.hpp)
+- [`mod/mod_sqrt.hpp`](../mod_sqrt.hpp)
+- [`mod/mod_kth_root.hpp`](../mod_kth_root.hpp)
+- [`mod/mod_log.hpp`](../mod_log.hpp)
+- [`mod/mod_log_u64.hpp`](../mod_log_u64.hpp)
+- [`mod/tetration.hpp`](../tetration.hpp)
 
 `p` is prime throughout unless stated.
 
